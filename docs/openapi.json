@@ -1,0 +1,739 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Kulturbytes Research Planner",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/plan": {
+      "post": {
+        "summary": "Plan",
+        "operationId": "plan_plan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/PlannedResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ClarificationResponse"
+                    }
+                  ],
+                  "title": "Response Plan Plan Post",
+                  "discriminator": {
+                    "propertyName": "kind",
+                    "mapping": {
+                      "plan": "#/components/schemas/PlannedResponse",
+                      "needs_clarification": "#/components/schemas/ClarificationResponse"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Content Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ClarificationResponse": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "research-query-plan-v1",
+            "title": "Schema Version",
+            "default": "research-query-plan-v1"
+          },
+          "prompt_version": {
+            "type": "string",
+            "const": "research-planner-v1",
+            "title": "Prompt Version"
+          },
+          "model": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Model"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/ResearchQueryPlan"
+          },
+          "reference_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Reference Date"
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Timezone"
+          },
+          "diagnostics": {
+            "$ref": "#/components/schemas/PlanDiagnostics"
+          },
+          "kind": {
+            "type": "string",
+            "const": "needs_clarification",
+            "title": "Kind",
+            "default": "needs_clarification"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "prompt_version",
+          "model",
+          "plan",
+          "reference_date",
+          "timezone",
+          "diagnostics"
+        ],
+        "title": "ClarificationResponse"
+      },
+      "ComparisonTarget": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "venue",
+              "area",
+              "organization"
+            ],
+            "title": "Kind"
+          },
+          "query": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "pattern": "\\S",
+            "title": "Query"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "query"
+        ],
+        "title": "ComparisonTarget"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "planner_unavailable",
+              "planner_invalid_response",
+              "planner_unsupported_plan",
+              "invalid_request",
+              "unauthorized",
+              "request_too_large"
+            ],
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorDetail"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "ready"
+            ],
+            "title": "Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "HealthResponse"
+      },
+      "PlanDiagnostics": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Request Id"
+          },
+          "planner_intent": {
+            "type": "string",
+            "enum": [
+              "search",
+              "list",
+              "count",
+              "aggregate",
+              "recommend",
+              "compare"
+            ],
+            "title": "Planner Intent"
+          },
+          "planner_model": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Planner Model"
+          },
+          "planner_prompt_version": {
+            "type": "string",
+            "const": "research-planner-v1",
+            "title": "Planner Prompt Version"
+          },
+          "planner_ms": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Planner Ms"
+          },
+          "total_ms": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Total Ms"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id",
+          "planner_intent",
+          "planner_model",
+          "planner_prompt_version",
+          "planner_ms",
+          "total_ms"
+        ],
+        "title": "PlanDiagnostics"
+      },
+      "PlanRequest": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "pattern": "\\S",
+            "title": "Query"
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Timezone",
+            "default": "Europe/Berlin"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "de",
+              "da",
+              "en",
+              "auto"
+            ],
+            "title": "Language",
+            "default": "auto"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "title": "PlanRequest"
+      },
+      "PlannedResponse": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "research-query-plan-v1",
+            "title": "Schema Version",
+            "default": "research-query-plan-v1"
+          },
+          "prompt_version": {
+            "type": "string",
+            "const": "research-planner-v1",
+            "title": "Prompt Version"
+          },
+          "model": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Model"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/ResearchQueryPlan"
+          },
+          "reference_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Reference Date"
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Timezone"
+          },
+          "diagnostics": {
+            "$ref": "#/components/schemas/PlanDiagnostics"
+          },
+          "kind": {
+            "type": "string",
+            "const": "plan",
+            "title": "Kind",
+            "default": "plan"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "prompt_version",
+          "model",
+          "plan",
+          "reference_date",
+          "timezone",
+          "diagnostics"
+        ],
+        "title": "PlannedResponse"
+      },
+      "ResearchQueryPlan": {
+        "properties": {
+          "original_query": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "pattern": "\\S",
+            "title": "Original Query"
+          },
+          "intent": {
+            "type": "string",
+            "enum": [
+              "search",
+              "list",
+              "count",
+              "aggregate",
+              "recommend",
+              "compare"
+            ],
+            "title": "Intent"
+          },
+          "entity_type": {
+            "type": "string",
+            "enum": [
+              "event",
+              "venue",
+              "organization"
+            ],
+            "title": "Entity Type"
+          },
+          "semantic_query": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Semantic Query"
+          },
+          "area_query": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160,
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Query"
+          },
+          "venue_query": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160,
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Venue Query"
+          },
+          "organization_query": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160,
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization Query"
+          },
+          "category_queries": {
+            "items": {
+              "type": "string",
+              "maxLength": 160,
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Category Queries"
+          },
+          "genre_queries": {
+            "items": {
+              "type": "string",
+              "maxLength": 160,
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Genre Queries"
+          },
+          "temporal": {
+            "type": "string",
+            "enum": [
+              "none",
+              "today",
+              "tomorrow",
+              "this_weekend",
+              "next_week",
+              "this_month",
+              "this_year",
+              "past",
+              "future",
+              "explicit_range"
+            ],
+            "title": "Temporal"
+          },
+          "explicit_from_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Explicit From Date"
+          },
+          "explicit_to_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Explicit To Date"
+          },
+          "time_of_day": {
+            "type": "string",
+            "enum": [
+              "none",
+              "evening"
+            ],
+            "title": "Time Of Day"
+          },
+          "metric": {
+            "type": "string",
+            "enum": [
+              "event_count",
+              "venue_count",
+              "organization_count",
+              "occurrence_count",
+              "none"
+            ],
+            "title": "Metric"
+          },
+          "group_by": {
+            "type": "string",
+            "enum": [
+              "venue",
+              "area",
+              "organization",
+              "category",
+              "none"
+            ],
+            "title": "Group By"
+          },
+          "comparison_targets": {
+            "items": {
+              "$ref": "#/components/schemas/ComparisonTarget"
+            },
+            "type": "array",
+            "maxItems": 4,
+            "title": "Comparison Targets"
+          },
+          "semantic_focus": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Semantic Focus"
+          },
+          "requires_semantic_relevance": {
+            "type": "boolean",
+            "title": "Requires Semantic Relevance"
+          },
+          "answer_mode": {
+            "type": "string",
+            "enum": [
+              "records",
+              "count",
+              "aggregate",
+              "recommendation",
+              "comparison"
+            ],
+            "title": "Answer Mode"
+          },
+          "clarification": {
+            "type": "string",
+            "enum": [
+              "none",
+              "needs_criteria",
+              "needs_location",
+              "needs_date"
+            ],
+            "title": "Clarification"
+          },
+          "unsupported_reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "outside_research",
+                  "multi_area",
+                  "unsupported_constraint"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unsupported Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "original_query",
+          "intent",
+          "entity_type",
+          "semantic_query",
+          "area_query",
+          "venue_query",
+          "organization_query",
+          "category_queries",
+          "genre_queries",
+          "temporal",
+          "explicit_from_date",
+          "explicit_to_date",
+          "time_of_day",
+          "metric",
+          "group_by",
+          "comparison_targets",
+          "semantic_focus",
+          "requires_semantic_relevance",
+          "answer_mode",
+          "clarification",
+          "unsupported_reason"
+        ],
+        "title": "ResearchQueryPlan"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "description": "Internal service key, not a user token",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
