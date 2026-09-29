@@ -1,0 +1,58 @@
+# Example only. Supply a reviewed llama.cpp server image with its digest and local weights.
+services:
+  model:
+    image: ${RESEARCH_MODEL_IMAGE:?Set a reviewed llama.cpp server image including digest}
+    command:
+      - --model
+      - /models/model.gguf
+      - --alias
+      - Qwen/Qwen3-4B-Instruct-2507
+      - --ctx-size
+      - '8192'
+      - --parallel
+      - '1'
+      - --threads
+      - '2'
+      - --host
+      - 127.0.0.1
+      - --port
+      - '8091'
+      - --api-key-file
+      - /run/secrets/model_key
+    volumes:
+      - ${RESEARCH_MODEL_FILE:?Set a local reviewed GGUF file}:/models/model.gguf:ro
+    secrets:
+      - model_key
+    ports:
+      - '127.0.0.1:8090:8090'
+    networks:
+      - internal
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 8g
+    cpus: 2
+  planner:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    network_mode: service:model
+    env_file:
+      - ${RESEARCH_PLANNER_ENV_FILE:?Set a protected planner env file}
+    depends_on:
+      - model
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    pids_limit: 64
+secrets:
+  model_key:
+    file: ${RESEARCH_MODEL_KEY_FILE:?Set a protected model key file}
+networks:
+  internal:
+    internal: true

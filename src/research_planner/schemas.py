@@ -1,0 +1,195 @@
+"""Versioned, closed wire contracts; names are proposals, never resolved identities."""
+
+from datetime import date
+from typing import Annotated, Final, Literal, Self
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
+
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StringConstraints,
+    field_validator,
+    model_validator,
+)
+
+SCHEMA_VERSION: Final = "research-query-plan-v1"
+Query = Annotated[str, StringConstraints(min_length=1, max_length=2000, pattern=r"\S")]
+Slot = Annotated[str, StringConstraints(min_length=1, max_length=160, pattern=r"\S")]
+Topic = Annotated[str, StringConstraints(min_length=1, max_length=500, pattern=r"\S")]
+EntityType = Literal["event", "venue", "organization"]
+Intent = Literal["search", "list", "count", "aggregate", "recommend", "compare"]
+Temporal = Literal[
+    "none",
+    "today",
+    "tomorrow",
+    "this_weekend",
+    "next_week",
+    "this_month",
+    "this_year",
+    "past",
+    "future",
+    "explicit_range",
+]
+Metric = Literal["event_count", "venue_count", "organization_count", "occurrence_count", "none"]
+GroupBy = Literal["venue", "area", "organization", "category", "none"]
+ExecutionType = Literal["structured", "aggregate", "semantic", "hybrid"]
+
+
+class ClosedModel(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True, allow_inf_nan=False)
+
+
+class PlanRequest(ClosedModel):
+    query: Query
+    timezone: Annotated[str, StringConstraints(min_length=1, max_length=64)] = "Europe/Berlin"
+    language: Literal["de", "da", "en", "auto"] = "auto"
+
+    @field_validator("timezone")
+    @classmethod
+    def known_timezone(cls, value: str) -> str:
+        try:
+            ZoneInfo(value)
+        except (ZoneInfoNotFoundError, ValueError):
+            raise ValueError("unknown_timezone") from None
+        return value
+
+
+class ComparisonTarget(ClosedModel):
+    kind: Literal["venue", "area", "organization"]
+    query: Slot
+
+
+class ResearchQueryPlan(ClosedModel):
+    # All fields required, including nullable fields: identical JSON Schema for serving and API.
+    original_query: Query
+    intent: Intent
+    entity_type: EntityType
+    semantic_query: Topic | None
+    area_query: Slot | None
+    venue_query: Slot | None
+    organization_query: Slot | None
+    category_queries: list[Slot] = Field(max_length=8)
+    genre_queries: list[Slot] = Field(max_length=8)
+    temporal: Temporal
+    explicit_from_date: date | None
+    explicit_to_date: date | None
+    time_of_day: Literal["none", "evening"]
+    metric: Metric
+    group_by: GroupBy
+    comparison_targets: list[ComparisonTarget] = Field(max_length=4)
+    semantic_focus: Topic | None
+    requires_semantic_relevance: bool
+    answer_mode: Literal["records", "count", "aggregate", "recommendation", "comparison"]
+    clarification: Literal["none", "needs_criteria", "needs_location", "needs_date"]
+    unsupported_reason: Literal["outside_research", "multi_area", "unsupported_constraint"] | None
+
+    @model_validator(mode="after")
+    def consistent_plan(self) -> Self:
+        modes = {
+            "search": "records",
+            "list": "records",
+            "count": "count",
+            "aggregate": "aggregate",
+            "recommend": "recommendation",
+            "compare": "comparison",
+        }
+        if self.answer_mode != modes[self.intent]:
+            raise ValueError("intent_answer_mode_mismatch")
+        has_semantics = self.semantic_query is not None
+        if self.requires_semantic_relevance != has_semantics:
+            raise ValueError("semantic_relevance_mismatch")
+        if self.semantic_focus is not None and not has_semantics:
+            raise ValueError("semantic_focus_requires_query")
+        if self.intent == "recommend" and not has_semantics:
+            raise ValueError("recommendation_requires_preference")
+        if self.temporal == "explicit_range":
+            if self.explicit_from_date is None or self.explicit_to_date is None:
+                raise ValueError("explicit_range_requires_both_dates")
+            if self.explicit_from_date > self.explicit_to_date:
+                raise ValueError("unordered_dates")
+        elif self.explicit_from_date is not None or self.explicit_to_date is not None:
+            raise ValueError("dates_require_explicit_range")
+        if self.time_of_day == "evening" and self.temporal == "none":
+            raise ValueError("evening_requires_period")
+        if self.intent in {"count", "aggregate"} and self.metric == "none":
+            raise ValueError("metric_required")
+        if self.intent in {"search", "list", "recommend"} and self.metric != "none":
+            raise ValueError("unexpected_metric")
+        if self.intent == "aggregate" and self.group_by == "none":
+            raise ValueError("grouping_required")
+        if self.intent != "aggregate" and self.group_by != "none":
+            raise ValueError("unexpected_grouping")
+        expected_entity = {
+            "event_count": "event",
+            "occurrence_count": "event",
+            "venue_count": "venue",
+            "organization_count": "organization",
+        }
+        if self.metric != "none" and expected_entity[self.metric] != self.entity_type:
+            raise ValueError("metric_entity_mismatch")
+        if self.intent != "compare" and self.comparison_targets:
+            raise ValueError("unexpected_comparison_targets")
+        if self.clarification == "needs_criteria" and self.intent != "compare":
+            raise ValueError("criteria_require_comparison")
+        if (
+            self.intent == "compare"
+            and self.clarification == "none"
+            and not self.unsupported_reason
+        ):
+            if len(self.comparison_targets) < 2 or self.metric == "none":
+                raise ValueError("comparison_requires_targets_and_metric")
+        targets = [(t.kind, t.query.casefold().strip()) for t in self.comparison_targets]
+        if len(set(targets)) != len(targets):
+            raise ValueError("duplicate_comparison_target")
+        return self
+
+
+class PlanDiagnostics(ClosedModel):
+    request_id: str = Field(pattern=r"^[a-f0-9]{32}$")
+    planner_intent: Intent
+    planner_model: str = Field(min_length=1, max_length=160)
+    planner_prompt_version: Literal["research-planner-v1"]
+    planner_ms: float = Field(ge=0)
+    total_ms: float = Field(ge=0)
+
+
+class PlanEnvelope(ClosedModel):
+    schema_version: Literal["research-query-plan-v1"] = SCHEMA_VERSION
+    prompt_version: Literal["research-planner-v1"]
+    model: str = Field(min_length=1, max_length=160)
+    plan: ResearchQueryPlan
+    reference_date: date
+    timezone: str = Field(max_length=64)
+    diagnostics: PlanDiagnostics
+
+
+class PlannedResponse(PlanEnvelope):
+    kind: Literal["plan"] = "plan"
+
+
+class ClarificationResponse(PlanEnvelope):
+    kind: Literal["needs_clarification"] = "needs_clarification"
+
+
+PlanResponse = Annotated[PlannedResponse | ClarificationResponse, Field(discriminator="kind")]
+
+
+class ErrorDetail(ClosedModel):
+    code: Literal[
+        "planner_unavailable",
+        "planner_invalid_response",
+        "planner_unsupported_plan",
+        "invalid_request",
+        "unauthorized",
+        "request_too_large",
+    ]
+    message: str
+
+
+class ErrorResponse(ClosedModel):
+    error: ErrorDetail
+
+
+class HealthResponse(ClosedModel):
+    status: Literal["ok", "ready"]
