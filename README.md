@@ -25,6 +25,9 @@ unchanged; internal, Groq and other configured OpenAI models remain supported.
 Acceptance covers the current corpus, not every possible query or provider operating
 condition. Continue monitoring and regression testing.
 
+Use the internal systemd unit for llama.cpp and the OpenAI systemd unit for Terra;
+see [systemd variants and installation](docs/deployment.md#systemd-variants).
+
 ## Development
 
 Requires Python 3.13 and uv. Dependencies are locked in `uv.lock`.

@@ -1,0 +1,38 @@
+[Unit]
+Description=Kulturbytes research query planner (OpenAI)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=research-planner
+Group=research-planner
+WorkingDirectory=/opt/uranus-research-planner
+EnvironmentFile=/etc/research-planner/planner.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/opt/uranus-research-planner/.venv/bin/uvicorn research_planner.app:create_app --factory --host 127.0.0.1 --port 8090 --workers 1 --no-access-log
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+# OpenAI requires outbound DNS and verified HTTPS to api.openai.com:443.
+# OS-level outbound access is enabled; systemd does not filter by hostname here.
+# Do not apply the internal unit's loopback-only IPAddressDeny/IPAddressAllow policy.
+# With provider=openai, the application allows only https://api.openai.com/v1
+# (GET /models and POST /chat/completions). See docs/deployment.md.
+UMask=0077
+MemoryMax=512M
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target
