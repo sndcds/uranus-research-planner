@@ -12,12 +12,12 @@ from research_planner.app import create_app
 from research_planner.config import Settings
 from research_planner.errors import PlannerError
 from research_planner.prompts import SYSTEM_PROMPT
-from tests.conftest import FIXTURES, KEY, MODEL_KEY, FakePlanner, make_plan
+from tests.conftest import FIXTURES, KEY, MODEL_KEY, FakePlanner, fixture_plan, make_plan
 
 
 @pytest.mark.parametrize("case", FIXTURES, ids=lambda case: case["id"])
 def test_api_fixture_responses(settings, auth, case):
-    fake = FakePlanner(make_plan(case["query"], **case["plan"]))
+    fake = FakePlanner(fixture_plan(case))
     with TestClient(create_app(settings, fake)) as client:
         response = client.post("/plan", json={"query": case["query"]}, headers=auth)
     assert fake.closed
@@ -29,11 +29,11 @@ def test_api_fixture_responses(settings, auth, case):
         assert response.status_code == 200
         data = response.json()
         assert data["kind"] == (
-            "needs_clarification" if case["plan"].get("clarification") else "plan"
+            "needs_clarification" if case["plan"]["clarification"] != "none" else "plan"
         )
         assert data["plan"] == fake.result.model_dump(mode="json")
         assert data["schema_version"] == "research-query-plan-v1"
-        assert data["prompt_version"] == "research-planner-v1"
+        assert data["prompt_version"] == "research-planner-v2"
         assert "count" not in data  # even semantic/count requests only produce plans
         assert "items" not in data
         assert data["diagnostics"]["planner_ms"] >= 0
@@ -144,7 +144,7 @@ def test_logs_are_value_redacted(settings, auth, caplog):
         if record.name == "research_planner.metrics"
     )
     assert event["planner_intent"] == "list"
-    assert event["planner_prompt_version"] == "research-planner-v1"
+    assert event["planner_prompt_version"] == "research-planner-v2"
     for secret in (query, "PRIVATE_TOPIC", KEY, MODEL_KEY, "Glücksburg", SYSTEM_PROMPT):
         assert secret not in caplog.text
 

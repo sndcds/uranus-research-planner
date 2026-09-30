@@ -8,7 +8,7 @@ import pytest
 from research_planner.config import Settings
 from research_planner.model_client import StructuredModelClient
 from research_planner.schemas import PlanRequest
-from tests.conftest import FIXTURES
+from tests.conftest import FIXTURES, assert_golden_plan, fixture_plan
 
 pytestmark = [
     pytest.mark.integration,
@@ -21,28 +21,10 @@ pytestmark = [
 
 @pytest.mark.parametrize("case", FIXTURES, ids=lambda case: case["id"])
 async def test_local_model_semantics(case):
+    expected = fixture_plan(case)
     client = StructuredModelClient(Settings())
     try:
         result = await client.plan(PlanRequest(query=case["query"]), date(2026, 9, 29))
-        actual = result.model_dump(mode="json")
-        for key, expected in case["plan"].items():
-            if key == "semantic_query":
-                assert bool(actual[key]) == bool(expected)
-            else:
-                assert actual[key] == expected
-        # Critical negative constraints matter even where fixtures omit default values.
-        from tests.conftest import make_plan
-
-        expected_plan = make_plan(case["query"], **case["plan"])
-        for key in (
-            "area_query",
-            "venue_query",
-            "organization_query",
-            "metric",
-            "requires_semantic_relevance",
-            "intent",
-            "temporal",
-        ):
-            assert actual[key] == getattr(expected_plan, key)
+        assert_golden_plan(result, expected)
     finally:
         await client.close()

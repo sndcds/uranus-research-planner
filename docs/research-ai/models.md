@@ -53,10 +53,15 @@ claim. Warm up the model, measure p50/p95 and saturation with 1/2 concurrent cal
 and observe encoder/Qdrant contention. Increase hardware or simplify the measured
 prompt before relaxing deadlines. Native output avoids long reasoning sequences.
 
-The 30 reviewed fixtures include all 15 required German questions plus dates,
-comparison, privacy/injection, Danish and English examples. Normal tests mock their
-outputs. Opt-in live tests compare critical structured slots and semantic presence;
-they are an initial smoke gate, not a complete semantic-quality benchmark. Add
+The 35 reviewed fixtures (previously 30) contain complete golden plans, including
+five explicit entity-versus-filter cases, dates, comparisons, privacy/injection,
+Danish and English examples. Normal tests mock their outputs. Opt-in live tests
+compare every field, including null/none/empty values, against the full golden plan.
+Only `semantic_query` uses case-insensitive comparison (`casefold`); its entire
+content must match. All other fields, including names, original_query and
+semantic_focus, remain exact. No trimming, paraphrase matching, or presence-only
+semantic check is performed. This is an acceptance gate, not a complete language
+benchmark; legitimate paraphrases may fail and require reviewed fixtures. Add
 unseen paraphrases, typos, ambiguous names, negation, multi-clause constraints and
 more Danish before enabling the UI. Measure invalid-plan rate, exact slot accuracy,
 inappropriate clarification and silent condition loss; do not replace those metrics
@@ -64,3 +69,64 @@ with an LLM-provided confidence score.
 
 No Jina intent classifier: one more classifier still cannot produce all bounded
 slots, comparison targets and temporal structure. Jina v3 remains retrieval-only.
+
+## Small-model structured-output correction (2026-09-30)
+
+The operator's Qwen3-4B-Instruct-2507 / llama.cpp / Q4_K_M live run for
+“Wie viele Veranstaltungen waren im Kühlhaus?” correctly produced `count`,
+`venue_query=Kühlhaus`, `temporal=past` and `metric=event_count`, but used
+`entity_type=venue`, invented eleven fields, emitted null for `group_by`,
+`time_of_day` and `clarification`, and omitted `semantic_focus`. Rejecting that
+output with 502 was correct. The change improves the prompt/schema interface;
+it does not establish that Qwen now passes live acceptance.
+
+Small instruction models need schema-friendly output contracts and a concrete
+complete example. Prompt v2 starts with output rules and a 21-field golden JSON,
+then explains intent, requested entity versus filters, residual semantics, time,
+comparison and safety. Long lists resembling additional fields were removed.
+The unspecified “welcher ort ist besser?” fixture now explicitly requests `venue`
+with `needs_criteria`; its old `event` value was inherited from test defaults.
+
+Before/after measurement of `SYSTEM_PROMPT` alone (schema, user message and chat
+template excluded): 6,764 → 6,553 characters; approximately 1,691 → 1,638 tokens
+using `round(characters / 4)`. This is a rough consistent estimate, **not** a Qwen
+tokenizer measurement or proof of lower CPU latency. No tokenizer/model was
+installed; the operator must measure actual prompt tokens and p50/p95 latency.
+
+### Schema audit and validation boundary
+
+The actual `ResearchQueryPlan.model_json_schema()` was inspected before editing:
+
+| Property | Before | After |
+| --- | --- | --- |
+| Required plan fields | All 21, no defaults | Unchanged |
+| Closed objects | `additionalProperties: false`, including ComparisonTarget | Unchanged |
+| Nullable fields | Eight `anyOf` unions with null, including unsupported_reason | Unchanged |
+| Unused enums | Literal `"none"` for temporal/time_of_day/metric/group_by/clarification | Unchanged |
+| Query / Slot / Topic | `minLength: 1`, max 2000 / 160 / 500, `pattern: "\\S"` | Same lengths; nonblank check in Pydantic AfterValidator |
+| Arrays | Typed items; category/genre max 8, comparison max 4 | Unchanged |
+
+The plan-schema diff is exclusively removal of `pattern`. The OpenAPI snapshot
+also records prompt metadata v2; the plan schema version remains v1.
+
+The observed `pattern \S is not supported` warning comes from converting a regex
+outside llama.cpp's supported subset: this pattern is not anchored. The upstream
+[grammar documentation](https://github.com/ggml-org/llama.cpp/blob/master/grammars/README.md)
+requires `^...$` patterns and documents incomplete JSON Schema support. Grammar
+can constrain required properties, closed objects, enums, typed arrays, nullable
+alternatives and length bounds. Actual support must be checked on the pinned build.
+It does not establish the meaning of a question or execute Pydantic validators.
+
+Pydantic remains the final validation boundary for **all** constraints, especially
+whitespace-only text, real calendar dates, ordered ranges, matching entity/metric
+and intent/answer mode, semantic dependencies, distinct comparison targets and
+other cross-field rules. The shared validator checks `value.strip()` but returns
+the original value unchanged. It covers request queries, plan slots, list items
+and comparison queries. No extra keys are ignored, missing fields filled, null
+enums converted, or wrong entities repaired.
+
+`json_schema` remains the preferred default. `json_object` is an explicit
+operator-selected fallback/test mode with identical final validation; schema
+rejection never triggers an automatic downgrade. The planner receives no live
+PostgreSQL/Qdrant data or venue/area/organization lookups. Name existence and
+resolution remain the responsibility of uranus-admin.
