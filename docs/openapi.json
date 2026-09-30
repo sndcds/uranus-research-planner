@@ -187,7 +187,7 @@
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v3",
+            "const": "research-planner-v4",
             "title": "Prompt Version"
           },
           "model": {
@@ -342,7 +342,7 @@
           },
           "planner_prompt_version": {
             "type": "string",
-            "const": "research-planner-v3",
+            "const": "research-planner-v4",
             "title": "Planner Prompt Version"
           },
           "planner_ms": {
@@ -412,7 +412,7 @@
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v3",
+            "const": "research-planner-v4",
             "title": "Prompt Version"
           },
           "model": {

@@ -197,7 +197,7 @@ The operator reproduced a `temperature=0` rejection for `gpt-5.6-luna`. A minima
 Chat Completions JSON request with reasoning_effort=none, no temperature and
 max_completion_tokens=100 succeeded, returning the exact model ID, finish_reason=stop
 and zero reasoning tokens. This verifies parameter compatibility for that minimal
-request only. Full planner schema/5-case/37-case acceptance remains pending; the
+request only. Full planner schema/3-case/5-case/37-case acceptance for prompt v4 remains pending; the
 mocked GPT-5.6 sibling test does not establish live sibling support. Unrelated or
 future model families require separate acceptance and receive no GPT-5.6 override.
 
@@ -212,7 +212,7 @@ Normal CI disables live inference and mocks all three providers. Never enable th
 flag merely to run the ordinary unit suite against production.
 
 Use `RESEARCH_PLANNER_OUTPUT_MODE=json_schema` as the preferred default. Small
-models need the schema-friendly contract, prompt v3 rules and complete golden
+models need the schema-friendly contract, prompt v4 rules and complete golden
 example.
 llama.cpp supports only a subset of JSON Schema regex features; the plan now uses
 min/max string lengths with Pydantic nonblank validation instead of `pattern=\S`.
@@ -220,9 +220,20 @@ Inspect the pinned server's schema conversion warnings. Pydantic remains the
 final boundary; invalid output is never automatically repaired. `json_object`
 is only an explicitly selected diagnostic alternative, with no automatic fallback.
 
-First rerun exactly the five critical cases below. The operator reported 3 passed
-and 2 failed with Qwen prompt v2; require **5 passed with v3** for each provider
-before the full corpus. No live Groq or OpenAI pass is claimed here.
+First run the three persistent v3 failures with prompt v4. Require **3 passed**:
+
+```sh
+RESEARCH_PLANNER_OUTPUT_MODE=json_schema RESEARCH_PLANNER_LIVE_TEST=1 \
+  uv run pytest -q tests/test_local_model.py -k 'tomorrow or injection or private'
+```
+
+The tomorrow plan must keep `Workshops für Kinder` intact in semantic_query, with
+empty category/genre lists. Injection/private requests must return the canonical
+neutral outside_research plan. A noncanonical unsupported plan is invalid (502),
+not repaired; a valid unsupported plan retains the API's unsupported mapping (422).
+
+Then rerun the five historical critical cases below; require **5 passed with v4**
+for each evaluated model before the full corpus. No v4 live improvement is claimed.
 In particular count_venues must use temporal=none, and organizations_area must
 use intent=list, semantic_query=null and temporal=none:
 
@@ -232,7 +243,7 @@ RESEARCH_PLANNER_OUTPUT_MODE=json_schema RESEARCH_PLANNER_LIVE_TEST=1 \
   -k 'count_past_kuehlhaus or events_deutsches_haus or venues_area or count_venues or organizations_area'
 ```
 
-Only after that gate passes, run all 37 complete golden plans (including semantic
+Only after both gates pass, run all 37 complete golden plans (including semantic
 requests, count versus occurrences, comparison/clarification, dates, Danish,
 English and unsafe requests):
 
@@ -260,12 +271,20 @@ after model evaluation and the separate admin integration PR.
 
 ## Manual provider comparison
 
-Use the same commit, prompt v3, json_schema mode, 37 fixtures, timezone and test
+Use the same commit, prompt v4, json_schema mode, 37 fixtures, timezone and test
 reference date for local Qwen, Groq gpt-oss-20b and OpenAI gpt-5.6-luna. Future models
 must use one of the explicitly supported providers and pass the same gate. Keep timeout/max tokens
 and concurrency constant when comparing; record any deliberate changes.
 
-After the five-case gate, retain a separate JUnit report per provider/model:
+Evaluate at least `gpt-5.6-terra` and `gpt-5.6-sol` on OpenAI: set MODEL to one,
+run the three-case gate, five-case gate and full corpus, then repeat for the other.
+Use the OpenAI configuration above with timeout=30, max tokens=1200 and concurrency=2;
+change only MODEL between runs. Keep prompt v4, output mode, fixtures and their fixed
+reference date (2026-09-29) identical. Do not infer sibling accuracy from the shared
+GPT-5.6 request-parameter policy. Operator v3 results are recorded in
+[the model evaluation notes](research-ai/models.md#prompt-v4-category-and-outside-research-clarification).
+
+After both gates, retain a separate JUnit report per provider/model:
 
 ```sh
 # Real inference; only in the explicitly configured operator environment above.

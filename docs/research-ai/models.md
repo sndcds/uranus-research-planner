@@ -169,9 +169,9 @@ There is no query-text heuristic or temporal repair. Tests simulate both reporte
 outputs in both modes and verify rejection or unchanged output as appropriate.
 No database/lookups, live model calls or deployments are part of this fix.
 
-The operator must first rerun the same five cases with v3, requiring **5 passed**,
+For the v3 correction, the operator was asked to rerun the same five cases, requiring **5 passed**,
 then run all 37 fixtures. See the [manual acceptance commands](../deployment.md#manual-model-acceptance-after-merge).
-That result has not yet been measured; offline tests do not establish Qwen accuracy.
+These historical notes do not establish Qwen accuracy; current v4 acceptance is described below.
 
 
 ## Allowlisted hosted inference: Groq
@@ -206,8 +206,8 @@ failure, without retries, enlarged budgets or a switch to another model/output m
 External inference sends query text and planning context to Groq, using a server-only
 provider key. No database, area, venue, organization or Qdrant data is added. Only
 the exact allowlisted endpoint is permitted; arbitrary public URLs remain forbidden.
-Internal numeric-IP restrictions are unchanged. Public API/schema v1 and prompt v3
-are unchanged because provider selection changes no planner semantics.
+Internal numeric-IP restrictions are unchanged. The Groq integration retained API/schema
+v1 and the then-current prompt v3 because provider selection changes no planner semantics.
 
 Use the [deployment acceptance and comparison workflow](../deployment.md#manual-provider-comparison)
 to record planner_ms, total_ms, pass/fail, invalid-plan rate, exact golden match,
@@ -248,8 +248,9 @@ new environment variables or speculative tuning options are introduced.
 Response checks and token bounds remain unchanged. Any returned reasoning,
 truncation, model-ID mismatch or invalid plan still fails closed, without retries,
 repair, fallback or an output-mode downgrade.
-The public API, research-query-plan-v1, research-planner-v3 and 37 golden plans are
-unchanged. Local llama.cpp and Groq remain supported.
+The request-compatibility change retained the public API, research-query-plan-v1,
+the then-current research-planner-v3 and 37 golden plans. Local llama.cpp and Groq
+remain supported; the subsequent v4 clarification below changes no provider settings.
 
 OpenAI receives the system prompt, user query, language/timezone, reference date
 and output schema. It receives no PostgreSQL rows, Qdrant documents, resolved venue
@@ -264,6 +265,48 @@ exact configured model within the two-second deadline and 32 KiB response bound.
 has not made live OpenAI requests. Listing, exact completion model IDs, native schema
 acceptance, full planner parameter compatibility, latency and planning accuracy need the
 [manual acceptance procedure](../deployment.md#manual-model-acceptance-after-merge):
-first require 5 critical passes, then all 37 golden plans. Use the documented
+for v4, require the 3 persistent cases, then 5 historical cases, then all 37 golden plans. Use the documented
 comparison workflow for latency, invalid-plan rate and exact golden match; do not
 interpret mocked tests as model acceptance.
+
+
+## Prompt v4: category and outside_research clarification
+
+The operator reported these live results with prompt v3 after the OpenAI request
+compatibility fix: Luna **29 passed / 8 failed** of 37; Terra **32 passed / 5 failed**.
+Terra failed location, tomorrow, comparison, injection and private. Re-running only
+those five on Sol passed location/comparison and failed tomorrow/injection/private
+(**2 passed / 3 failed**, not a full Sol evaluation). Repeated failures suggest a
+shared interpretation ambiguity; they do not prove that prompt v4 will resolve it.
+
+The complete 37-fixture audit found no expectation needing revision. All category/
+genre lists are currently empty, including tomorrow, youth, semantic_count and
+accessible. The existing prompt documents Konzerte/Jazz as structured examples;
+those remain supported and have an explicit positive contract regression test.
+No live taxonomy or lookup is added. Prompt v4 says to keep ordinary semantic
+phrases intact, with examples for Workshops für Kinder, creative youth offers and
+accessible events. The observed Workshops/für Kinder split remains structurally
+valid in isolation and is rejected by exact golden comparison, not a brittle
+word-based validator or runtime repair.
+
+Exactly two fixtures use outside_research: injection and private. Both already use
+the neutral list/event/records plan with no semantic query, filters, temporal
+constraints, comparisons or clarification. Once a request is outside research,
+those inferred research fields have no meaning. Prompt v4 includes a full neutral
+JSON example and explicitly stops further interpretation. A Pydantic consistency
+rule rejects noncanonical outside_research plans; it never changes model values.
+Other unsupported reasons and all prior intent/temporal/semantic rules remain active.
+
+Version change: **research-planner-v3 → research-planner-v4** in prompt, response and
+diagnostics metadata. **research-query-plan-v1 stays unchanged**: fields, requiredness,
+types, enums and generated plan JSON Schema are identical. OpenAPI changes only in
+prompt-version constants. The new validator tightens an inconsistent combination,
+not the wire representation. Fixtures remain exactly the same 37 full golden plans.
+
+No live paid calls were made for this change. Evaluate Terra and Sol with identical
+v4 prompt, json_schema mode, reference date, timeout, token cap and fixtures using
+[the operator commands](../deployment.md#manual-model-acceptance-after-merge): first
+require **3 passed** (tomorrow/injection/private), then **5 passed** (historical gate),
+then run all **37**. No v4 accuracy or latency improvement is claimed before those
+operator results exist. Provider request parameters, security boundaries, no retries,
+no fallback and no output repair remain unchanged.
