@@ -97,6 +97,32 @@ class ResearchQueryPlan(ClosedModel):
 
     @model_validator(mode="after")
     def consistent_plan(self) -> Self:
+        if self.unsupported_reason == "outside_research":
+            # Out-of-scope input has no research interpretation. Reject residual
+            # semantics/filters; never replace model values with these constants.
+            neutral: dict[str, object] = {
+                "intent": "list",
+                "entity_type": "event",
+                "semantic_query": None,
+                "area_query": None,
+                "venue_query": None,
+                "organization_query": None,
+                "category_queries": [],
+                "genre_queries": [],
+                "temporal": "none",
+                "explicit_from_date": None,
+                "explicit_to_date": None,
+                "time_of_day": "none",
+                "metric": "none",
+                "group_by": "none",
+                "comparison_targets": [],
+                "semantic_focus": None,
+                "requires_semantic_relevance": False,
+                "answer_mode": "records",
+                "clarification": "none",
+            }
+            if any(getattr(self, field) != value for field, value in neutral.items()):
+                raise ValueError("outside_research_requires_neutral_plan")
         modes = {
             "search": "records",
             "list": "records",
@@ -162,14 +188,14 @@ class PlanDiagnostics(ClosedModel):
     request_id: str = Field(pattern=r"^[a-f0-9]{32}$")
     planner_intent: Intent
     planner_model: str = Field(min_length=1, max_length=160)
-    planner_prompt_version: Literal["research-planner-v3"]
+    planner_prompt_version: Literal["research-planner-v4"]
     planner_ms: float = Field(ge=0)
     total_ms: float = Field(ge=0)
 
 
 class PlanEnvelope(ClosedModel):
     schema_version: Literal["research-query-plan-v1"] = SCHEMA_VERSION
-    prompt_version: Literal["research-planner-v3"]
+    prompt_version: Literal["research-planner-v4"]
     model: str = Field(min_length=1, max_length=160)
     plan: ResearchQueryPlan
     reference_date: date

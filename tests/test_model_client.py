@@ -662,3 +662,46 @@ async def test_legacy_internal_origin_keeps_completion_and_readiness_paths():
         ]
     finally:
         await client.close()
+
+
+@pytest.mark.parametrize("output_mode", ["json_schema", "json_object"])
+@pytest.mark.parametrize("case_id", ["tomorrow", "injection", "private"])
+async def test_observed_v3_failures_are_not_repaired(settings, output_mode, case_id):
+    from tests.conftest import assert_golden_plan
+
+    case = next(case for case in FIXTURES if case["id"] == case_id)
+    expected = fixture_plan(case)
+    changes = (
+        {"category_queries": ["Workshops"], "semantic_query": "für Kinder"}
+        if case_id == "tomorrow"
+        else {
+            "intent": "search",
+            "entity_type": "organization",
+            "semantic_query": "admin emails",
+            "requires_semantic_relevance": True,
+        }
+    )
+    data = expected.model_dump(mode="json") | changes
+    settings.output_mode = output_mode
+    calls = []
+
+    def respond(request):
+        calls.append(json.loads(request.content))
+        return httpx.Response(200, json=completion(settings, json.dumps(data)))
+
+    client = StructuredModelClient(settings, httpx.MockTransport(respond))
+    try:
+        if case_id == "tomorrow":
+            actual = await client.plan(PlanRequest(query=case["query"]), date(2026, 9, 29))
+            assert actual.model_dump(mode="json") == data
+            with pytest.raises(AssertionError):
+                assert_golden_plan(actual, expected)
+        else:
+            with pytest.raises(PlannerError) as error:
+                await client.plan(PlanRequest(query=case["query"]), date(2026, 9, 29))
+            assert error.value.code == "planner_invalid_response"
+            assert error.value.status == 502
+        assert len(calls) == 1
+        assert calls[0]["response_format"]["type"] == output_mode
+    finally:
+        await client.close()

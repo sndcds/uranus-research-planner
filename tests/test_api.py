@@ -33,7 +33,7 @@ def test_api_fixture_responses(settings, auth, case):
         )
         assert data["plan"] == fake.result.model_dump(mode="json")
         assert data["schema_version"] == "research-query-plan-v1"
-        assert data["prompt_version"] == "research-planner-v3"
+        assert data["prompt_version"] == "research-planner-v4"
         assert "count" not in data  # even semantic/count requests only produce plans
         assert "items" not in data
         assert data["diagnostics"]["planner_ms"] >= 0
@@ -144,7 +144,7 @@ def test_logs_are_value_redacted(settings, auth, caplog):
         if record.name == "research_planner.metrics"
     )
     assert event["planner_intent"] == "list"
-    assert event["planner_prompt_version"] == "research-planner-v3"
+    assert event["planner_prompt_version"] == "research-planner-v4"
     for secret in (query, "PRIVATE_TOPIC", KEY, MODEL_KEY, "Glücksburg", SYSTEM_PROMPT):
         assert secret not in caplog.text
 
@@ -275,3 +275,23 @@ def test_provider_configuration_does_not_change_openapi(provider_settings):
     assert schema == json.loads((Path(__file__).parents[1] / "docs" / "openapi.json").read_text())
     assert MODEL_KEY not in json.dumps(schema)
     assert KEY not in json.dumps(schema)
+
+
+@pytest.mark.parametrize("case_id", ["injection", "private"])
+def test_noncanonical_outside_research_is_rejected_before_unsupported_mapping(
+    settings, auth, case_id
+):
+    case = next(case for case in FIXTURES if case["id"] == case_id)
+    invalid = fixture_plan(case).model_copy(
+        update={
+            "intent": "search",
+            "entity_type": "organization",
+            "semantic_query": "admin emails",
+            "requires_semantic_relevance": True,
+        }
+    )
+    with TestClient(create_app(settings, FakePlanner(invalid))) as client:
+        response = client.post("/plan", headers=auth, json={"query": case["query"]})
+    assert response.status_code == 502
+    assert response.json()["error"]["code"] == "planner_invalid_response"
+    assert invalid.semantic_query == "admin emails"

@@ -68,6 +68,29 @@ metric. There are no UUID, SQL, confidence, tool, raw-field or reasoning fields.
 NaN, Infinity, duplicate JSON keys, Markdown-wrapped JSON, truncated completions and
 tool/chain-of-thought responses fail closed before framework parsing.
 
+Prompt v4 keeps category/genre extraction conservative. Only clearly documented
+structured taxonomy filters belong in those lists (for example, category `Konzerte`
+and genre `Jazz`). Ordinary topics and audience phrases stay intact in semantic_query:
+`Workshops für Kinder`, `kreative Angebote für Jugendliche`, and `barrierefreie
+Veranstaltungen` each keep empty category/genre lists. Uncertain terms remain
+semantic; no word-based taxonomy validator or runtime rewriting is added.
+
+For `unsupported_reason=outside_research`, stop research interpretation. The canonical
+plan copies original_query exactly, uses intent=list, entity_type=event,
+answer_mode=records and requires_semantic_relevance=false. All text/date filters and
+semantic_focus are null, all lists are empty, and temporal/time_of_day/metric/group_by/
+clarification are `none`. semantic_query is null; unsupported_reason remains
+outside_research. No inferred admin entity/topic/filter is meaningful in this state.
+Pydantic rejects any deviation with `outside_research_requires_neutral_plan`; it does
+not supply defaults, clear fields or repair output. Valid unsupported plans still map
+to 422; invalid ones fail with 502. Other unsupported reasons keep their existing rules.
+
+The 37-fixture audit found exactly two outside_research cases (injection and private),
+both already canonical; none require a different research interpretation. All fixture
+expectations remain unchanged. Schema v1 retains identical fields/types/enums/JSON
+Schema; the stricter semantic consistency check rejects formerly accepted invalid
+combinations. Only prompt metadata in the public OpenAPI changes from v3 to v4.
+
 These checks establish shape and consistency, **not faithful interpretation**. A
 syntactically valid model can still misunderstand a question. Show the understood
 plan in the UI and evaluate the model on paraphrases before enabling the feature.
@@ -343,7 +366,8 @@ A shared immutable ModelEndpoint policy constructs the SDK base, completion and
 readiness URLs and validates every outgoing method/full URL before credentials
 are attached. Only `POST <base_url>/chat/completions` and `GET <base_url>/models`
 are permitted. All configuration is operator-side; the public request and response
-contracts, ResearchQueryPlan v1 and prompt v3 remain unchanged. Choosing Groq or OpenAI
+contracts and ResearchQueryPlan v1 remain unchanged by provider selection; the current
+semantic prompt is v4. Choosing Groq or OpenAI
 sends the prompt and query context externally, never live records or entity lookups.
 Firewall and host egress remain operator responsibilities; no infrastructure is changed.
 

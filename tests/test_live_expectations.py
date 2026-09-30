@@ -63,3 +63,43 @@ def test_live_comparison_rejects_present_past_confusion(case_id):
     with pytest.raises(AssertionError):
         assert_golden_plan(actual, expected)
     assert actual.temporal == wrong_period
+
+
+def test_tomorrow_golden_rejects_category_splitting_without_runtime_heuristics():
+    from research_planner.schemas import ResearchQueryPlan
+
+    expected = fixture_plan(next(case for case in FIXTURES if case["id"] == "tomorrow"))
+    assert expected.original_query == "welche Workshops für Kinder gibt es morgen?"
+    assert expected.intent == "search"
+    assert expected.entity_type == "event"
+    assert expected.semantic_query == "Workshops für Kinder"
+    assert expected.category_queries == expected.genre_queries == []
+    assert expected.temporal == "tomorrow"
+    data = expected.model_dump(mode="json") | {
+        "semantic_query": "für Kinder",
+        "category_queries": ["Workshops"],
+    }
+    # This combination could be legitimate for a different taxonomy/query.
+    actual = ResearchQueryPlan.model_validate(data)
+    with pytest.raises(AssertionError):
+        assert_golden_plan(actual, expected)
+    assert actual.model_dump(mode="json") == data
+
+
+@pytest.mark.parametrize("case_id", ["injection", "private"])
+def test_outside_research_golden_is_complete_and_neutral(case_id):
+    expected = fixture_plan(next(case for case in FIXTURES if case["id"] == case_id))
+    neutral = make_plan(
+        expected.original_query, area_query=None, unsupported_reason="outside_research"
+    )
+    assert_golden_plan(expected, neutral)
+    actual = expected.model_copy(
+        update={
+            "intent": "search",
+            "entity_type": "organization",
+            "semantic_query": "admin emails",
+            "requires_semantic_relevance": True,
+        }
+    )
+    with pytest.raises(AssertionError):
+        assert_golden_plan(actual, expected)

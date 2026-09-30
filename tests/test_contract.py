@@ -297,3 +297,60 @@ def test_present_and_past_golden_plans(case_id, query, intent, entity, area, met
     )
     assert plan.semantic_query is None
     assert plan.requires_semantic_relevance is False
+
+
+@pytest.mark.parametrize(
+    "field,value",
+    [
+        ("intent", "search"),
+        ("entity_type", "organization"),
+        ("semantic_query", "admin emails"),
+        ("area_query", "Glücksburg"),
+        ("venue_query", "Kühlhaus"),
+        ("organization_query", "Stadt Glücksburg"),
+        ("category_queries", ["Konzerte"]),
+        ("genre_queries", ["Jazz"]),
+        ("temporal", "tomorrow"),
+        ("explicit_from_date", "2026-09-30"),
+        ("explicit_to_date", "2026-09-30"),
+        ("time_of_day", "evening"),
+        ("metric", "event_count"),
+        ("group_by", "venue"),
+        ("comparison_targets", [{"kind": "venue", "query": "Kühlhaus"}]),
+        ("semantic_focus", "admin emails"),
+        ("requires_semantic_relevance", True),
+        ("answer_mode", "comparison"),
+        ("clarification", "needs_location"),
+    ],
+)
+def test_outside_research_rejects_every_noncanonical_field(field, value):
+    case = next(case for case in FIXTURES if case["id"] == "private")
+    data = fixture_plan(case).model_dump(mode="json") | {field: value}
+    with pytest.raises(ValidationError, match="outside_research_requires_neutral_plan"):
+        ResearchQueryPlan.model_validate_json(json.dumps(data))
+    assert data[field] == value  # validation does not repair the supplied plan
+
+
+@pytest.mark.parametrize("reason", [None, "multi_area", "unsupported_constraint"])
+def test_neutral_plan_rule_does_not_apply_to_other_unsupported_reasons(reason):
+    plan = make_plan(
+        intent="search",
+        entity_type="organization",
+        semantic_query="Kunst",
+        requires_semantic_relevance=True,
+        unsupported_reason=reason,
+    )
+    assert plan.entity_type == "organization"
+    assert plan.semantic_query == "Kunst"
+    assert plan.area_query == "Glücksburg"
+
+
+def test_documented_structured_category_and_genre_filters_remain_valid():
+    plan = make_plan(
+        "Jazz Konzerte in Glücksburg",
+        category_queries=["Konzerte"],
+        genre_queries=["Jazz"],
+    )
+    assert plan.category_queries == ["Konzerte"]
+    assert plan.genre_queries == ["Jazz"]
+    assert plan.semantic_query is None
