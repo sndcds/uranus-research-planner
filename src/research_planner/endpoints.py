@@ -1,11 +1,16 @@
 """Explicit provider policy; no arbitrary public endpoints or provider autodetection."""
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 from ipaddress import ip_address, ip_network
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 from urllib.parse import urlsplit
 
 import httpx
+
+if TYPE_CHECKING:
+    from pydantic_ai.models.openai import OpenAIChatModelSettings
 
 ModelProvider = Literal["internal", "groq", "openai"]
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
@@ -76,10 +81,14 @@ class ModelEndpoint:
             ("POST", httpx.URL(self.completion_url)),
         }
 
-    def completion_options(self, model: str) -> dict[str, object]:
+    def generation_options(self, model: str) -> OpenAIChatModelSettings:
+        # OpenAI GPT-5.6 rejects temperature=0. Use its non-reasoning mode without
+        # sending a sampling override; PydanticAI serializes this typed setting.
+        if self.provider == "openai" and model.startswith("gpt-5.6-"):
+            return {"openai_reasoning_effort": "none"}
         # Groq GPT-OSS defaults to a separate reasoning field, forbidden by our
         # response boundary. Suppress it at generation; never strip it afterwards.
         # Other models stay configurable and need their own operator acceptance.
         if self.provider == "groq" and model in {"openai/gpt-oss-20b", "openai/gpt-oss-120b"}:
-            return {"include_reasoning": False}
-        return {}
+            return {"temperature": 0, "extra_body": {"include_reasoning": False}}
+        return {"temperature": 0}

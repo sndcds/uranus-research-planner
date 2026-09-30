@@ -134,7 +134,8 @@ automatic downgrade when a server rejects JSON Schema.
 
 PydanticAI is used for typed structured output, provider separation and testability.
 Its Agent object is not an autonomous research agent: request limit 1, tool-call
-limit 0, no tools/toolsets, no history, retries 0, temperature 0, bounded max tokens.
+limit 0, no tools/toolsets, no history, retries 0 and bounded max tokens. Generation
+settings follow the [provider/model compatibility policy](../deployment.md#manual-model-acceptance-after-merge).
 SDK retries are also disabled. Telemetry instrumentation is explicitly disabled.
 The small HTTP transport remains application-owned because generic SDKs do not
 enforce the provider endpoint allowlist, byte-limit, redirect and log-redaction contract.
