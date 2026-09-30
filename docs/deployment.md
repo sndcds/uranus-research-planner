@@ -6,6 +6,39 @@ downloads weights.
 Use the [model decision](research-ai/models.md) to evaluate the existing host first.
 The repository contains examples, not verified live paths, units or capacity claims.
 
+## Current recommended production candidate
+
+OpenAI `gpt-5.6-terra` with `research-planner-v4` is the current recommended production
+candidate based on operator-run prompt-v4 acceptance: **37/37 golden plans passed**.
+The operator's 2026-09-30 results are:
+
+- Previously problematic five cases (location, tomorrow, comparison, injection,
+  private): **5 passed, 32 deselected**, 14.77 s pytest duration.
+- Full current golden suite: **37 passed**, 82.42 s pytest duration;
+  wall clock **83.098 s** (`real 1m23.098s`).
+
+Recommended configuration: provider=openai, base_url=https://api.openai.com/v1,
+model=gpt-5.6-terra, prompt=research-planner-v4, output_mode=json_schema,
+timeout=30 seconds, max_tokens=1200, max_concurrent_requests=2. The prompt version
+comes from the application, not an environment override. Use the complete OpenAI
+shell example below or the commented block in [.env.example](../.env.example).
+
+The generic/internal code defaults remain provider=internal and
+model=Qwen/Qwen3-4B-Instruct-2507, with timeout=8 seconds. OpenAI deployment must set
+the recommended values explicitly. Model selection remains configurable; this does
+not remove Luna, Sol, Groq GPT-OSS or local Qwen support.
+
+The suite accepted structured output and all current golden interpretations under
+the existing comparison rules. Suite duration is not API p50/p95/p99 latency and
+establishes no uptime, production rate-limit suitability, universal language accuracy
+or future model-version stability. Continue monitoring and regression testing;
+production rollout remains an operator decision.
+
+Historical evaluations of Luna v3, Terra v3, Sol's partial v3 run, Groq GPT-OSS and
+internal Qwen remain in the [model evaluation notes](research-ai/models.md).
+See the [dated acceptance record and comparison table](research-ai/models.md#operator-acceptance-gpt-56-terra--prompt-v4)
+for measured scope and runtime; no deployment is performed by these examples.
+
 ## Configuration
 
 | Variable | Default / contract |
@@ -15,7 +48,7 @@ The repository contains examples, not verified live paths, units or capacity cla
 | `RESEARCH_PLANNER_MODEL_URL` | Deprecated internal origin without `/v1`; cannot coexist with MODEL_BASE_URL or provider=groq/openai |
 | `RESEARCH_PLANNER_MODEL_API_KEY` | Separate outgoing Bearer secret; 16–512 printable ASCII characters |
 | `RESEARCH_PLANNER_SERVICE_API_KEY` | Incoming service Bearer secret; same bounds; never delivered to a browser |
-| `RESEARCH_PLANNER_MODEL` | `Qwen/Qwen3-4B-Instruct-2507`; set `openai/gpt-oss-20b` for Groq or `gpt-5.6-luna` for OpenAI evaluation; always operator-configurable |
+| `RESEARCH_PLANNER_MODEL` | `Qwen/Qwen3-4B-Instruct-2507`; set `openai/gpt-oss-20b` for Groq or `gpt-5.6-terra` for the recommended OpenAI candidate; always operator-configurable |
 | `RESEARCH_PLANNER_TIMEOUT_SECONDS` | 8; allowed 0.1–30; absolute model deadline |
 | `RESEARCH_PLANNER_MAX_TOKENS` | 1200; allowed 256–2048 |
 | `RESEARCH_PLANNER_OUTPUT_MODE` | `json_schema`; explicit `json_object` alternative |
@@ -161,8 +194,8 @@ export RESEARCH_PLANNER_OUTPUT_MODE=json_schema
 export RESEARCH_PLANNER_LIVE_TEST=1
 ```
 
-For OpenAI, use this configuration instead. The key placeholders must be replaced
-through the same secure operator workflow:
+For the recommended OpenAI Terra candidate, use this configuration instead. Replace
+the key placeholders through the same secure operator workflow:
 
 ```sh
 unset RESEARCH_PLANNER_MODEL_URL
@@ -170,7 +203,7 @@ export RESEARCH_PLANNER_MODEL_PROVIDER=openai
 export RESEARCH_PLANNER_MODEL_BASE_URL=https://api.openai.com/v1
 export RESEARCH_PLANNER_MODEL_API_KEY='sk_example_redacted'
 export RESEARCH_PLANNER_SERVICE_API_KEY='service_example_redacted'
-export RESEARCH_PLANNER_MODEL=gpt-5.6-luna
+export RESEARCH_PLANNER_MODEL=gpt-5.6-terra
 export RESEARCH_PLANNER_TIMEOUT_SECONDS=30
 export RESEARCH_PLANNER_MAX_TOKENS=1200
 export RESEARCH_PLANNER_OUTPUT_MODE=json_schema
@@ -197,9 +230,10 @@ The operator reproduced a `temperature=0` rejection for `gpt-5.6-luna`. A minima
 Chat Completions JSON request with reasoning_effort=none, no temperature and
 max_completion_tokens=100 succeeded, returning the exact model ID, finish_reason=stop
 and zero reasoning tokens. This verifies parameter compatibility for that minimal
-request only. Full planner schema/3-case/5-case/37-case acceptance for prompt v4 remains pending; the
-mocked GPT-5.6 sibling test does not establish live sibling support. Unrelated or
-future model families require separate acceptance and receive no GPT-5.6 override.
+request only. Subsequent Terra prompt-v4 acceptance passed all 37 golden plans;
+see the dated record above. Mocked GPT-5.6 sibling tests alone do not establish live
+sibling support. Other models require their own acceptance; unrelated or future
+model families receive no GPT-5.6 override.
 
 Readiness must still list the exact model, and completion model IDs must match
 exactly. An alias mismatch, unsupported parameter, oversized model list or rejected
@@ -233,7 +267,8 @@ neutral outside_research plan. A noncanonical unsupported plan is invalid (502),
 not repaired; a valid unsupported plan retains the API's unsupported mapping (422).
 
 Then rerun the five historical critical cases below; require **5 passed with v4**
-for each evaluated model before the full corpus. No v4 live improvement is claimed.
+for each evaluated model before the full corpus. Terra's recorded v4 full-suite pass
+covers these cases; repeat the gates for model, prompt or dependency changes.
 In particular count_venues must use temporal=none, and organizations_area must
 use intent=list, semantic_query=null and temporal=none:
 
@@ -272,17 +307,19 @@ after model evaluation and the separate admin integration PR.
 ## Manual provider comparison
 
 Use the same commit, prompt v4, json_schema mode, 37 fixtures, timezone and test
-reference date for local Qwen, Groq gpt-oss-20b and OpenAI gpt-5.6-luna. Future models
-must use one of the explicitly supported providers and pass the same gate. Keep timeout/max tokens
-and concurrency constant when comparing; record any deliberate changes.
+reference date for local Qwen, Groq gpt-oss-20b and OpenAI gpt-5.6-terra; Luna and
+Sol remain configurable comparison candidates. Future models must use an explicitly
+supported provider and pass the same gate. Keep timeout/max tokens and concurrency
+constant when comparing; record any deliberate changes.
 
-Evaluate at least `gpt-5.6-terra` and `gpt-5.6-sol` on OpenAI: set MODEL to one,
+To compare the accepted `gpt-5.6-terra` candidate with `gpt-5.6-sol`, set MODEL to one,
 run the three-case gate, five-case gate and full corpus, then repeat for the other.
 Use the OpenAI configuration above with timeout=30, max tokens=1200 and concurrency=2;
 change only MODEL between runs. Keep prompt v4, output mode, fixtures and their fixed
 reference date (2026-09-29) identical. Do not infer sibling accuracy from the shared
-GPT-5.6 request-parameter policy. Operator v3 results are recorded in
-[the model evaluation notes](research-ai/models.md#prompt-v4-category-and-outside-research-clarification).
+GPT-5.6 request-parameter policy. Sol has only the recorded partial v3 result,
+not a full acceptance pass. Operator results are recorded in
+[the dated comparison table](research-ai/models.md#operator-acceptance-gpt-56-terra--prompt-v4).
 
 After both gates, retain a separate JUnit report per provider/model:
 

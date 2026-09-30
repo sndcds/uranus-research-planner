@@ -1,9 +1,11 @@
 # Instruction model decision
 
-Assessment date: 2026-09-29. These are candidates, not locally benchmarked winners.
-No model is installed by this repository and no production service is changed.
-The local-model assessment below is historical; see the hosted-provider section
-for the subsequently added Groq and OpenAI options.
+Initial local-model assessment: 2026-09-29. The local candidates below are historical,
+not locally benchmarked winners. No model is installed by this repository and no
+production service is changed. The current recommended production candidate is
+**OpenAI gpt-5.6-terra with research-planner-v4**, based on the
+[2026-09-30 operator acceptance record](#operator-acceptance-gpt-56-terra--prompt-v4):
+**37/37 golden plans passed**. Model selection remains configurable.
 
 The inspected admin documentation describes an AMD64 **CPU** AI host, with existing
 budgets of two CPUs/5 GiB for the encoder and two CPUs/2 GiB for Qdrant. It does not
@@ -212,15 +214,18 @@ v1 and the then-current prompt v3 because provider selection changes no planner 
 Use the [deployment acceptance and comparison workflow](../deployment.md#manual-provider-comparison)
 to record planner_ms, total_ms, pass/fail, invalid-plan rate, exact golden match,
 model/prompt/output mode and token usage when available. First require 5 critical
-passes, then run all 37 cases. No live Groq calls, latency measurements or acceptance
-results are claimed by this implementation; all provider tests use mocked HTTP.
+passes, then run all 37 cases. The operator reports **5/5 critical cases** for Groq
+GPT-OSS: this is a **partial** result, with no full-suite result, prompt version or
+runtime supplied in this record. Do not infer 37/37. Repository provider tests use
+mocked HTTP; no live requests were made while implementing this documentation.
 
 ## Allowlisted hosted inference: OpenAI
 
 OpenAI is a third explicit provider using the same AsyncOpenAI, OpenAIChatModel,
 OpenAIProvider and NativeOutput(ResearchQueryPlan, strict=True) integration. Set
 MODEL_PROVIDER=openai and exactly MODEL_BASE_URL=https://api.openai.com/v1.
-The initial evaluation model is `gpt-5.6-luna`; MODEL remains operator-configurable.
+The initial evaluation model was `gpt-5.6-luna`; the current recommended candidate
+is `gpt-5.6-terra` after the v4 acceptance below. MODEL remains operator-configurable.
 The [official Luna model documentation](https://developers.openai.com/api/docs/models/gpt-5.6-luna)
 lists Chat Completions and structured-output support. This is not evidence of
 accuracy on our planner fixtures or compatibility with every current request option.
@@ -261,13 +266,13 @@ provisioned separately by the operator. The internal-only systemd unit is unchan
 
 The operator has confirmed the individual model lookup and the minimal completion
 above. Readiness still requires `GET https://api.openai.com/v1/models` to list the
-exact configured model within the two-second deadline and 32 KiB response bound. This implementation
-has not made live OpenAI requests. Listing, exact completion model IDs, native schema
-acceptance, full planner parameter compatibility, latency and planning accuracy need the
+exact configured model within the two-second deadline and 32 KiB response bound.
+The later operator-run Terra v4 evaluation below passed all 37 golden plans; it does
+not replace deployment readiness checks or production latency measurement. Repository
+implementation tests remain mocked. For subsequent model/prompt changes, use the
 [manual acceptance procedure](../deployment.md#manual-model-acceptance-after-merge):
-for v4, require the 3 persistent cases, then 5 historical cases, then all 37 golden plans. Use the documented
-comparison workflow for latency, invalid-plan rate and exact golden match; do not
-interpret mocked tests as model acceptance.
+3 persistent cases, 5 historical cases, then all 37 golden plans. Record latency,
+invalid-plan rate and exact golden match separately.
 
 
 ## Prompt v4: category and outside_research clarification
@@ -277,7 +282,8 @@ compatibility fix: Luna **29 passed / 8 failed** of 37; Terra **32 passed / 5 fa
 Terra failed location, tomorrow, comparison, injection and private. Re-running only
 those five on Sol passed location/comparison and failed tomorrow/injection/private
 (**2 passed / 3 failed**, not a full Sol evaluation). Repeated failures suggest a
-shared interpretation ambiguity; they do not prove that prompt v4 will resolve it.
+shared interpretation ambiguity and motivated v4; the subsequent Terra v4 acceptance
+is recorded below.
 
 The complete 37-fixture audit found no expectation needing revision. All category/
 genre lists are currently empty, including tomorrow, youth, semantic_count and
@@ -303,10 +309,66 @@ types, enums and generated plan JSON Schema are identical. OpenAPI changes only 
 prompt-version constants. The new validator tightens an inconsistent combination,
 not the wire representation. Fixtures remain exactly the same 37 full golden plans.
 
-No live paid calls were made for this change. Evaluate Terra and Sol with identical
-v4 prompt, json_schema mode, reference date, timeout, token cap and fixtures using
-[the operator commands](../deployment.md#manual-model-acceptance-after-merge): first
-require **3 passed** (tomorrow/injection/private), then **5 passed** (historical gate),
-then run all **37**. No v4 accuracy or latency improvement is claimed before those
-operator results exist. Provider request parameters, security boundaries, no retries,
-no fallback and no output repair remain unchanged.
+No live paid calls were made during implementation of v4. The operator subsequently
+completed Terra acceptance below. Continue to use identical prompt, json_schema mode,
+reference date, timeout, token cap and fixtures for model comparisons. The
+[operator commands](../deployment.md#manual-model-acceptance-after-merge) retain the
+3-case persistent gate, 5-case historical gate and all 37 cases for regression testing.
+Provider request parameters, security boundaries, no retries, no fallback and no
+output repair remain unchanged.
+
+## Operator acceptance: GPT-5.6 Terra + prompt v4
+
+Date: **2026-09-30**. These are verified live results reported by the operator, not
+mocked CI measurements or live calls performed while preparing this documentation.
+`gpt-5.6-terra` is the **current recommended production candidate** based on
+operator-run prompt-v4 acceptance: **37/37 golden plans passed**. This is the current
+best verified acceptance result for this planner, not a universal model guarantee.
+
+Configuration:
+
+```text
+provider=openai
+base_url=https://api.openai.com/v1
+model=gpt-5.6-terra
+prompt=research-planner-v4
+schema=research-query-plan-v1
+output_mode=json_schema
+timeout=30
+max_tokens=1200
+```
+
+The recommended deployment example also sets max_concurrent_requests=2. The live
+suite calls the model client directly; it is not an API concurrency/load benchmark.
+No Python defaults changed: internal/Qwen remains the generic configuration. OpenAI
+operators explicitly select Terra; Luna, Sol and other models remain configurable.
+
+| Provider/model | Prompt | Scope | Observed result | Pytest duration | Wall clock |
+| --- | --- | --- | --- | --- | --- |
+| OpenAI gpt-5.6-luna | v3 | Full 37 cases | 29 passed / 8 failed | 86.50 s | Not reported |
+| OpenAI gpt-5.6-terra | v3 | Full 37 cases | 32 passed / 5 failed | 78.81 s | Not reported |
+| OpenAI gpt-5.6-sol | v3 | Terra's 5 failures only (partial) | 2 passed / 3 failed | 11.42 s | 12.169 s |
+| OpenAI gpt-5.6-terra | v4 | Previously problematic 5 cases | 5 passed / 32 deselected | 14.77 s | Not reported |
+| OpenAI gpt-5.6-terra | v4 | Full 37 cases | 37 passed | 82.42 s | 83.098 s |
+
+The five previously problematic cases were location, tomorrow, comparison, injection
+and private. They differ from the historical entity/filter five-case gate documented
+in deployment. Sol passed location/comparison and failed tomorrow/injection/private.
+**Sol was not evaluated on all 37 cases.** No Sol v4 result is supplied. Groq's known
+5/5 critical-case result is partial; no Groq full-suite result is claimed. Internal
+Qwen's historical evaluation and CPU limitations remain documented above.
+
+Terra v4's full run had wall clock `real 1m23.098s`. Its sequential 37-case pytest run
+completed in 82.42 s, approximately 2.23 s per case on average **including test/framework
+overhead**. This is not a p50/p95/p99 production latency benchmark and must not be
+reported as API planner_ms or total_ms. The different partial/full scopes are not
+interchangeable performance comparisons.
+
+The 37/37 result means all current golden interpretations matched under the existing
+complete-field comparator (only semantic_query casing may differ), structured output
+was accepted, and the current semantic contract was satisfied. It does not establish
+correctness for all natural-language queries, provider uptime guarantees, production
+rate-limit suitability, p95/p99 latency or future model-version stability. Continue
+monitoring invalid plans, interpretation failures, availability and latency, and rerun
+regressions for model, prompt or dependency changes. Deployment remains an operator
+decision; no deployment, runtime change or paid live request is part of this PR.
