@@ -15,6 +15,29 @@ MODEL_KEY = "test-model-key-not-a-secret"
 FIXTURES = json.loads((Path(__file__).parent / "fixtures" / "queries.json").read_text())
 
 
+def fixture_plan(case):
+    """Golden plans are complete wire objects; never inherit make_plan defaults."""
+    plan = ResearchQueryPlan.model_validate_json(json.dumps(case["plan"]))
+    assert plan.original_query == case["query"]
+    return plan
+
+
+def assert_golden_plan(actual, expected):
+    """Only semantic_query casing may vary; its full content must still match.
+
+    Names, original_query, semantic_focus, dates, lists and all other fields stay exact.
+    This normalization is exclusively a test comparison, never runtime plan repair.
+    """
+
+    def normalized(plan):
+        data = plan.model_dump(mode="json")
+        if data["semantic_query"] is not None:
+            data["semantic_query"] = data["semantic_query"].casefold()
+        return data
+
+    assert normalized(actual) == normalized(expected)
+
+
 @pytest.fixture(autouse=True)
 def forbid_unconfigured_network(monkeypatch):
     if os.getenv("RESEARCH_PLANNER_LIVE_TEST") == "1":

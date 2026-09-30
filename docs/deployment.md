@@ -71,12 +71,51 @@ image is chosen or downloaded by running ordinary tests.
 
 Liveness: `GET /health`, no dependency calls. Readiness: authenticated `GET /ready`,
 two-second limit, fixed model must be listed. Readiness does not establish JSON
-Schema support, output quality or latency; run the explicit smoke tests separately.
+Schema support, output quality or latency; run the explicit acceptance tests separately.
+
+## Manual model acceptance after merge
+
+These commands are for an operator on the AI host after merge, with the existing
+model URL and credentials securely configured. They perform real model requests;
+they are not run by this PR or ordinary CI. Do not install models, restart services
+or change production configuration as part of the code checks.
+
+Use `RESEARCH_PLANNER_OUTPUT_MODE=json_schema` as the preferred default. Small
+models need the complete schema-friendly contract and prompt v2 golden example.
+llama.cpp supports only a subset of JSON Schema regex features; the plan now uses
+min/max string lengths with Pydantic nonblank validation instead of `pattern=\S`.
+Inspect the pinned server's schema conversion warnings. Pydantic remains the
+final boundary; invalid output is never automatically repaired. `json_object`
+is only an explicitly selected diagnostic alternative, with no automatic fallback.
+
+First run the exact observed failure and the entity/filter distinctions:
 
 ```sh
-# Only after configuring an isolated local model; this performs model calls.
-RESEARCH_PLANNER_LIVE_TEST=1 uv run pytest -q tests/test_local_model.py
+RESEARCH_PLANNER_OUTPUT_MODE=json_schema RESEARCH_PLANNER_LIVE_TEST=1 \
+  uv run pytest -q tests/test_local_model.py \
+  -k 'count_past_kuehlhaus or events_deutsches_haus or venues_area or count_venues or organizations_area'
 ```
+
+Then run all 35 complete golden plans (including semantic requests, count versus
+occurrences, comparison/clarification, dates, Danish, English and unsafe requests):
+
+```sh
+RESEARCH_PLANNER_OUTPUT_MODE=json_schema RESEARCH_PLANNER_LIVE_TEST=1 \
+  uv run pytest -q tests/test_local_model.py
+```
+
+Every plan field must match; only the casing of `semantic_query` may vary.
+In particular the Kühlhaus case must return `entity_type=event`, all 21 fields,
+`semantic_focus=null`, the three previously broken enums as `"none"`, and no
+invented keys. See the [complete golden JSON](research-ai/natural-language-research.md#closed-plan).
+The tests call the model client directly, so unsupported requests are compared
+as plans before the API maps them to 422. No real data/lookups are supplied.
+
+Record model revision, GGUF checksum/quantization, llama.cpp build, prompt version,
+output mode, pass/fail counts, invalid-plan rate, actual prompt tokens and latency.
+Repeat with unseen paraphrases and concurrency 1/2 in a separate operator-run load
+evaluation. A passing mocked suite or readiness check proves no Qwen accuracy;
+real live quality and CPU latency remain separate acceptance decisions.
 
 No production restarts, migrations, Qdrant reconcile/reindex, AWS changes or
 deployment operations are performed by this PR. Rollout remains an operator task

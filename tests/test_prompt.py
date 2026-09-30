@@ -1,0 +1,13 @@
+import json
+
+from research_planner.prompts import SYSTEM_PROMPT
+from tests.conftest import FIXTURES, fixture_plan
+
+
+def test_prompt_contains_complete_validated_live_case():
+    assert SYSTEM_PROMPT.startswith("CRITICAL OUTPUT RULES:")
+    example = SYSTEM_PROMPT.split("\n{", 1)[1].split("\n}", 1)[0]
+    golden = json.loads("{" + example + "\n}")
+    case = next(case for case in FIXTURES if case["id"] == "count_past_kuehlhaus")
+    assert golden == fixture_plan(case).model_dump(mode="json")
+    assert "Use this exact field set for every response." in SYSTEM_PROMPT

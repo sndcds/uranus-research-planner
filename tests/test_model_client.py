@@ -8,9 +8,9 @@ import pytest
 
 from research_planner.errors import PlannerError
 from research_planner.model_client import StructuredModelClient
-from research_planner.schemas import PlanRequest
+from research_planner.schemas import PlanRequest, ResearchQueryPlan
 from research_planner.transport import MAX_MODEL_RESPONSE_BYTES, BoundedModelTransport
-from tests.conftest import FIXTURES, MODEL_KEY, make_plan
+from tests.conftest import FIXTURES, MODEL_KEY, fixture_plan, make_plan
 
 
 def completion(settings, content=None):
@@ -35,7 +35,7 @@ def completion(settings, content=None):
 
 @pytest.mark.parametrize("case", FIXTURES, ids=lambda case: case["id"])
 async def test_pydanticai_parses_reviewed_outputs_without_llm(settings, case):
-    expected = make_plan(case["query"], **case["plan"])
+    expected = fixture_plan(case)
     calls = []
 
     def respond(request):
@@ -53,6 +53,15 @@ async def test_pydanticai_parses_reviewed_outputs_without_llm(settings, case):
         assert body.get("max_tokens", body.get("max_completion_tokens")) == 1200
         assert body["response_format"]["type"] == "json_schema"
         assert body["response_format"]["json_schema"]["strict"] is True
+        schema = body["response_format"]["json_schema"]["schema"]
+        assert set(schema["required"]) == set(ResearchQueryPlan.model_fields)
+        assert schema["additionalProperties"] is False
+        assert schema["$defs"]["ComparisonTarget"]["additionalProperties"] is False
+        assert '"pattern"' not in json.dumps(schema)
+        assert '"default"' not in json.dumps(schema)
+        assert schema["properties"]["group_by"]["type"] == "string"
+        assert "none" in schema["properties"]["group_by"]["enum"]
+        assert {"type": "null"} in schema["properties"]["semantic_focus"]["anyOf"]
         assert not body.get("tools")
         assert not body.get("stream")
         user = json.loads(body["messages"][-1]["content"])
@@ -280,5 +289,86 @@ async def test_chunked_response_limit_closes_upstream(settings):
         with pytest.raises(PlannerError, match="planner_invalid_response"):
             await client.plan(PlanRequest(query="events"), date(2026, 9, 29))
         assert chunks.closed
+    finally:
+        await client.close()
+
+
+@pytest.mark.parametrize("output_mode", ["json_schema", "json_object"])
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "accessibility",
+        "free_admission",
+        "interesting",
+        "unsupported_constraint",
+        "null_group_by",
+        "null_time_of_day",
+        "null_clarification",
+        "missing_semantic_focus",
+        "wrong_entity",
+        "observed_live_output",
+    ],
+)
+async def test_live_failure_regressions_are_not_repaired(settings, output_mode, mutation):
+    case = next(case for case in FIXTURES if case["id"] == "count_past_kuehlhaus")
+    data = fixture_plan(case).model_dump(mode="json")
+    if mutation.startswith("null_"):
+        data[mutation.removeprefix("null_")] = None
+    elif mutation == "missing_semantic_focus":
+        del data["semantic_focus"]
+    elif mutation == "wrong_entity":
+        data["entity_type"] = "venue"
+    elif mutation == "observed_live_output":
+        data["entity_type"] = "venue"
+        del data["semantic_focus"]
+        for field in ("group_by", "time_of_day", "clarification"):
+            data[field] = None
+        for field in (
+            "accessibility",
+            "free_admission",
+            "family_suitable",
+            "young_children",
+            "teenagers",
+            "creative",
+            "interesting",
+            "spannend",
+            "similarity",
+        ):
+            data[field] = None
+        data.update(external_research=False, unsupported_constraint=False)
+    else:
+        data[mutation] = None
+    settings.output_mode = output_mode
+    calls = []
+
+    def respond(request):
+        calls.append(json.loads(request.content))
+        return httpx.Response(200, json=completion(settings, json.dumps(data)))
+
+    client = StructuredModelClient(settings, httpx.MockTransport(respond))
+    try:
+        with pytest.raises(PlannerError) as error:
+            await client.plan(PlanRequest(query=case["query"]), date(2026, 9, 29))
+        assert error.value.code == "planner_invalid_response"
+        assert error.value.status == 502
+        assert len(calls) == 1
+        assert calls[0]["response_format"]["type"] == output_mode
+    finally:
+        await client.close()
+
+
+async def test_schema_rejection_does_not_downgrade_to_json_object(settings):
+    calls = []
+
+    def respond(request):
+        calls.append(json.loads(request.content))
+        return httpx.Response(400, json={"error": {"message": "schema unsupported"}})
+
+    client = StructuredModelClient(settings, httpx.MockTransport(respond))
+    try:
+        with pytest.raises(PlannerError, match="planner_unavailable"):
+            await client.plan(PlanRequest(query="events"), date(2026, 9, 29))
+        assert len(calls) == 1
+        assert calls[0]["response_format"]["type"] == "json_schema"
     finally:
         await client.close()

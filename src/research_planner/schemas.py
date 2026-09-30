@@ -5,6 +5,7 @@ from typing import Annotated, Final, Literal, Self
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from pydantic import (
+    AfterValidator,
     BaseModel,
     ConfigDict,
     Field,
@@ -14,9 +15,19 @@ from pydantic import (
 )
 
 SCHEMA_VERSION: Final = "research-query-plan-v1"
-Query = Annotated[str, StringConstraints(min_length=1, max_length=2000, pattern=r"\S")]
-Slot = Annotated[str, StringConstraints(min_length=1, max_length=160, pattern=r"\S")]
-Topic = Annotated[str, StringConstraints(min_length=1, max_length=500, pattern=r"\S")]
+
+
+def nonblank(value: str) -> str:
+    # Keep grammar-compatible lengths in JSON Schema; validate whitespace here.
+    # Return the original text: validation must not silently normalize model output.
+    if not value.strip():
+        raise ValueError("blank_string")
+    return value
+
+
+Query = Annotated[str, StringConstraints(min_length=1, max_length=2000), AfterValidator(nonblank)]
+Slot = Annotated[str, StringConstraints(min_length=1, max_length=160), AfterValidator(nonblank)]
+Topic = Annotated[str, StringConstraints(min_length=1, max_length=500), AfterValidator(nonblank)]
 EntityType = Literal["event", "venue", "organization"]
 Intent = Literal["search", "list", "count", "aggregate", "recommend", "compare"]
 Temporal = Literal[
@@ -149,14 +160,14 @@ class PlanDiagnostics(ClosedModel):
     request_id: str = Field(pattern=r"^[a-f0-9]{32}$")
     planner_intent: Intent
     planner_model: str = Field(min_length=1, max_length=160)
-    planner_prompt_version: Literal["research-planner-v1"]
+    planner_prompt_version: Literal["research-planner-v2"]
     planner_ms: float = Field(ge=0)
     total_ms: float = Field(ge=0)
 
 
 class PlanEnvelope(ClosedModel):
     schema_version: Literal["research-query-plan-v1"] = SCHEMA_VERSION
-    prompt_version: Literal["research-planner-v1"]
+    prompt_version: Literal["research-planner-v2"]
     model: str = Field(min_length=1, max_length=160)
     plan: ResearchQueryPlan
     reference_date: date

@@ -187,7 +187,7 @@
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v1",
+            "const": "research-planner-v2",
             "title": "Prompt Version"
           },
           "model": {
@@ -246,7 +246,6 @@
             "type": "string",
             "maxLength": 160,
             "minLength": 1,
-            "pattern": "\\S",
             "title": "Query"
           }
         },
@@ -343,7 +342,7 @@
           },
           "planner_prompt_version": {
             "type": "string",
-            "const": "research-planner-v1",
+            "const": "research-planner-v2",
             "title": "Planner Prompt Version"
           },
           "planner_ms": {
@@ -375,7 +374,6 @@
             "type": "string",
             "maxLength": 2000,
             "minLength": 1,
-            "pattern": "\\S",
             "title": "Query"
           },
           "timezone": {
@@ -414,7 +412,7 @@
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v1",
+            "const": "research-planner-v2",
             "title": "Prompt Version"
           },
           "model": {
@@ -464,7 +462,6 @@
             "type": "string",
             "maxLength": 2000,
             "minLength": 1,
-            "pattern": "\\S",
             "title": "Original Query"
           },
           "intent": {
@@ -493,8 +490,7 @@
               {
                 "type": "string",
                 "maxLength": 500,
-                "minLength": 1,
-                "pattern": "\\S"
+                "minLength": 1
               },
               {
                 "type": "null"
@@ -507,8 +503,7 @@
               {
                 "type": "string",
                 "maxLength": 160,
-                "minLength": 1,
-                "pattern": "\\S"
+                "minLength": 1
               },
               {
                 "type": "null"
@@ -521,8 +516,7 @@
               {
                 "type": "string",
                 "maxLength": 160,
-                "minLength": 1,
-                "pattern": "\\S"
+                "minLength": 1
               },
               {
                 "type": "null"
@@ -535,8 +529,7 @@
               {
                 "type": "string",
                 "maxLength": 160,
-                "minLength": 1,
-                "pattern": "\\S"
+                "minLength": 1
               },
               {
                 "type": "null"
@@ -548,8 +541,7 @@
             "items": {
               "type": "string",
               "maxLength": 160,
-              "minLength": 1,
-              "pattern": "\\S"
+              "minLength": 1
             },
             "type": "array",
             "maxItems": 8,
@@ -559,8 +551,7 @@
             "items": {
               "type": "string",
               "maxLength": 160,
-              "minLength": 1,
-              "pattern": "\\S"
+              "minLength": 1
             },
             "type": "array",
             "maxItems": 8,
@@ -649,8 +640,7 @@
               {
                 "type": "string",
                 "maxLength": 500,
-                "minLength": 1,
-                "pattern": "\\S"
+                "minLength": 1
               },
               {
                 "type": "null"

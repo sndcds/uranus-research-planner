@@ -33,6 +33,8 @@ eligibility, quantity, accessibility or cultural value.
 The canonical contract is `src/research_planner/schemas.py::ResearchQueryPlan`;
 [OpenAPI](../openapi.json) is generated from it and equality-tested. All plan fields
 are required, nullable where appropriate. Unknown keys and coercion are rejected.
+The model has no implicit wire defaults. `extra="forbid"`, strict validation and
+all cross-field consistency checks remain active.
 
 | Field | Allowed values / limits |
 | --- | --- |
@@ -63,6 +65,58 @@ tool/chain-of-thought responses fail closed before framework parsing.
 These checks establish shape and consistency, **not faithful interpretation**. A
 syntactically valid model can still misunderstand a question. Show the understood
 plan in the UI and evaluate the model on paraphrases before enabling the feature.
+
+`entity_type` describes the requested result, never a filter's type. Counting
+Veranstaltungen at Kühlhaus uses `event` plus `venue_query="Kühlhaus"`; listing
+Veranstaltungen at Deutsches Haus also uses `event`. Listing Veranstaltungsorte
+in Glücksburg uses `venue` plus `area_query="Glücksburg"`; counting them in
+Flensburg uses `venue_count`. Asking for Organisationen uses `organization`.
+These are interpretation rules, not permission to look up any names.
+
+Unused `temporal`, `time_of_day`, `metric`, `group_by` and `clarification` must be
+the string `"none"`, never null. Nullable text/date fields and `unsupported_reason`
+use null when absent. `semantic_focus` is required even when null; only supply
+text when semantic_query exists and an additional normalized preference is useful.
+Qualitative or subjective conditions without a contract field stay in
+semantic_query, including their negations and conjunctions; never add a new key.
+
+The prompt contains this complete acceptance example, also checked against the
+[golden fixtures](../../tests/fixtures/queries.json):
+
+```json
+{
+  "original_query": "Wie viele Veranstaltungen waren im Kühlhaus?",
+  "intent": "count",
+  "entity_type": "event",
+  "semantic_query": null,
+  "area_query": null,
+  "venue_query": "Kühlhaus",
+  "organization_query": null,
+  "category_queries": [],
+  "genre_queries": [],
+  "temporal": "past",
+  "explicit_from_date": null,
+  "explicit_to_date": null,
+  "time_of_day": "none",
+  "metric": "event_count",
+  "group_by": "none",
+  "comparison_targets": [],
+  "semantic_focus": null,
+  "requires_semantic_relevance": false,
+  "answer_mode": "count",
+  "clarification": "none",
+  "unsupported_reason": null
+}
+```
+
+For small local models, JSON Schema keeps simple length bounds; nonblank Query,
+Slot and Topic validation runs in Pydantic because llama.cpp does not support
+every regex feature. See the [schema audit](models.md#schema-audit-and-validation-boundary).
+`json_schema` is preferred; `json_object` is only an explicit alternative.
+Neither mode repairs invalid plans: invented keys, null enums, missing fields
+and entity/metric conflicts still produce `planner_invalid_response` (502).
+Offline contract tests cannot establish live model quality; run the separate
+[operator acceptance tests](../deployment.md#manual-model-acceptance-after-merge).
 
 ## Provider and PydanticAI
 
