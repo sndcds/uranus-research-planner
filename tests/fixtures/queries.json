@@ -952,5 +952,59 @@
       "clarification": "none",
       "unsupported_reason": null
     }
+  },
+  {
+    "id": "count_past_venues",
+    "query": "Wie viele Veranstaltungsorte gab es in Flensburg?",
+    "plan": {
+      "original_query": "Wie viele Veranstaltungsorte gab es in Flensburg?",
+      "intent": "count",
+      "entity_type": "venue",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "past",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "venue_count",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "count",
+      "clarification": "none",
+      "unsupported_reason": null
+    }
+  },
+  {
+    "id": "organizations_past",
+    "query": "Welche Organisationen gab es in Glücksburg?",
+    "plan": {
+      "original_query": "Welche Organisationen gab es in Glücksburg?",
+      "intent": "list",
+      "entity_type": "organization",
+      "semantic_query": null,
+      "area_query": "Glücksburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "past",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null
+    }
   }
 ]

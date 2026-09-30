@@ -51,3 +51,15 @@ def test_full_comparison_rejects_unexpected_but_valid_plan_changes(changes):
     )
     with pytest.raises(AssertionError):
         assert_golden_plan(actual, expected)
+
+
+@pytest.mark.parametrize(
+    "case_id", ["count_venues", "count_past_venues", "organizations_area", "organizations_past"]
+)
+def test_live_comparison_rejects_present_past_confusion(case_id):
+    expected = fixture_plan(next(case for case in FIXTURES if case["id"] == case_id))
+    wrong_period = "past" if expected.temporal == "none" else "none"
+    actual = expected.model_copy(update={"temporal": wrong_period})
+    with pytest.raises(AssertionError):
+        assert_golden_plan(actual, expected)
+    assert actual.temporal == wrong_period

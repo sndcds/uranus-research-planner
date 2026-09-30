@@ -372,3 +372,39 @@ async def test_schema_rejection_does_not_downgrade_to_json_object(settings):
         assert calls[0]["response_format"]["type"] == "json_schema"
     finally:
         await client.close()
+
+
+@pytest.mark.parametrize("output_mode", ["json_schema", "json_object"])
+@pytest.mark.parametrize("case_id", ["count_venues", "organizations_area"])
+async def test_observed_v2_failures_are_not_repaired(settings, output_mode, case_id):
+    from tests.conftest import assert_golden_plan
+
+    case = next(case for case in FIXTURES if case["id"] == case_id)
+    expected = fixture_plan(case)
+    mutation = {"temporal": "past"} if case_id == "count_venues" else {"intent": "search"}
+    content = json.dumps(expected.model_dump(mode="json") | mutation)
+    settings.output_mode = output_mode
+    calls = []
+
+    def respond(request):
+        calls.append(json.loads(request.content))
+        return httpx.Response(200, json=completion(settings, content))
+
+    client = StructuredModelClient(settings, httpx.MockTransport(respond))
+    try:
+        if case_id == "organizations_area":
+            with pytest.raises(PlannerError) as error:
+                await client.plan(PlanRequest(query=case["query"]), date(2026, 9, 29))
+            assert error.value.code == "planner_invalid_response"
+            assert error.value.status == 502
+        else:
+            # Grammar/consistency cannot determine tense from language. The golden
+            # evaluation detects the semantic error; runtime must never repair it.
+            actual = await client.plan(PlanRequest(query=case["query"]), date(2026, 9, 29))
+            assert actual.model_dump(mode="json") == json.loads(content)
+            with pytest.raises(AssertionError):
+                assert_golden_plan(actual, expected)
+        assert len(calls) == 1
+        assert calls[0]["response_format"]["type"] == output_mode
+    finally:
+        await client.close()

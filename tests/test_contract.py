@@ -223,3 +223,77 @@ def test_entity_is_requested_result_not_filter(case_id, entity, area, venue, met
             ResearchQueryPlan.model_validate_json(
                 json.dumps(plan.model_dump(mode="json") | {"entity_type": "venue"})
             )
+
+
+@pytest.mark.parametrize("entity", ["event", "venue", "organization"])
+def test_search_requires_semantic_residual(entity):
+    with pytest.raises(ValidationError, match="search_requires_semantic_query"):
+        make_plan(intent="search", entity_type=entity, semantic_query=None)
+
+
+@pytest.mark.parametrize(
+    "intent,semantic_query", [("list", None), ("search", "Kunst"), ("list", "Kunst")]
+)
+def test_list_and_semantic_search_remain_valid(intent, semantic_query):
+    plan = make_plan(
+        intent=intent,
+        semantic_query=semantic_query,
+        requires_semantic_relevance=semantic_query is not None,
+    )
+    assert plan.intent == intent
+    assert plan.semantic_query == semantic_query
+
+
+@pytest.mark.parametrize(
+    "case_id,query,intent,entity,area,metric,temporal",
+    [
+        (
+            "count_venues",
+            "Wie viele Veranstaltungsorte gibt es in Flensburg?",
+            "count",
+            "venue",
+            "Flensburg",
+            "venue_count",
+            "none",
+        ),
+        (
+            "count_past_venues",
+            "Wie viele Veranstaltungsorte gab es in Flensburg?",
+            "count",
+            "venue",
+            "Flensburg",
+            "venue_count",
+            "past",
+        ),
+        (
+            "organizations_area",
+            "Welche Organisationen gibt es in Glücksburg?",
+            "list",
+            "organization",
+            "Glücksburg",
+            "none",
+            "none",
+        ),
+        (
+            "organizations_past",
+            "Welche Organisationen gab es in Glücksburg?",
+            "list",
+            "organization",
+            "Glücksburg",
+            "none",
+            "past",
+        ),
+    ],
+)
+def test_present_and_past_golden_plans(case_id, query, intent, entity, area, metric, temporal):
+    plan = fixture_plan(next(case for case in FIXTURES if case["id"] == case_id))
+    assert plan.original_query == query
+    assert (plan.intent, plan.entity_type, plan.area_query, plan.metric, plan.temporal) == (
+        intent,
+        entity,
+        area,
+        metric,
+        temporal,
+    )
+    assert plan.semantic_query is None
+    assert plan.requires_semantic_relevance is False

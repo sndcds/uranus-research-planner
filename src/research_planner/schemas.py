@@ -112,6 +112,8 @@ class ResearchQueryPlan(ClosedModel):
             raise ValueError("semantic_relevance_mismatch")
         if self.semantic_focus is not None and not has_semantics:
             raise ValueError("semantic_focus_requires_query")
+        if self.intent == "search" and not has_semantics:
+            raise ValueError("search_requires_semantic_query")
         if self.intent == "recommend" and not has_semantics:
             raise ValueError("recommendation_requires_preference")
         if self.temporal == "explicit_range":
@@ -160,14 +162,14 @@ class PlanDiagnostics(ClosedModel):
     request_id: str = Field(pattern=r"^[a-f0-9]{32}$")
     planner_intent: Intent
     planner_model: str = Field(min_length=1, max_length=160)
-    planner_prompt_version: Literal["research-planner-v2"]
+    planner_prompt_version: Literal["research-planner-v3"]
     planner_ms: float = Field(ge=0)
     total_ms: float = Field(ge=0)
 
 
 class PlanEnvelope(ClosedModel):
     schema_version: Literal["research-query-plan-v1"] = SCHEMA_VERSION
-    prompt_version: Literal["research-planner-v2"]
+    prompt_version: Literal["research-planner-v3"]
     model: str = Field(min_length=1, max_length=160)
     plan: ResearchQueryPlan
     reference_date: date
