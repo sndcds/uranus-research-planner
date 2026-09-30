@@ -68,13 +68,13 @@ See the generated [OpenAPI contract](docs/openapi.json), the full
 PydanticAI provides typed native JSON output and provider abstraction. Its `Agent`
 is configured for **one request, zero tools, zero automatic retries, no history and
 no telemetry instrumentation**. There is no autonomous research agent.
-The OpenAI-compatible SDK is a protocol adapter for either an internal numeric-IP
-endpoint or the explicitly allowlisted Groq API. Set MODEL_PROVIDER and the full
-MODEL_BASE_URL as documented in the [deployment guide](docs/deployment.md).
+The OpenAI-compatible SDK is a protocol adapter for an internal numeric-IP
+endpoint or the explicitly allowlisted Groq and OpenAI APIs. Set MODEL_PROVIDER
+and the full MODEL_BASE_URL as documented in the [deployment guide](docs/deployment.md).
 Internal SSRF restrictions remain; arbitrary external URLs, redirects, environment
 proxies and provider fallback are forbidden. Both keys stay server-side. No browser
-connects to Groq or receives its key. Selecting Groq sends planning input externally;
-no database records or live lookups are supplied.
+connects to a model provider or receives its key. Selecting Groq or OpenAI sends
+planning input externally; no database records or live lookups are supplied.
 
 Jina v3 continues to perform semantic retrieval in `uranus-admin`. PostgreSQL/PostGIS
 remains authoritative for identities, public eligibility, dates and exact counts.

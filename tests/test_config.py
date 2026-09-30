@@ -194,10 +194,12 @@ def test_reject_noncanonical_groq_base_urls(url):
     "changes",
     [
         {"model_provider": "auto"},
-        {"model_provider": "openai"},
+        {"model_provider": "arbitrary"},
         {"model_base_url": "http://127.0.0.1:8091/v1"},
         {"model_provider": "groq", "model_url": "http://127.0.0.1:8091"},
         {"model_provider": "groq", "model_url": "https://api.groq.com/openai/v1"},
+        {"model_provider": "openai", "model_url": "http://127.0.0.1:8091"},
+        {"model_provider": "openai", "model_url": "https://api.openai.com/v1"},
         {"model_url": "http://127.0.0.1:8091", "model_base_url": "http://127.0.0.1:8091/v1"},
     ],
 )
@@ -256,3 +258,92 @@ def test_internal_configuration_does_not_resolve_dns(monkeypatch):
         model_api_key=MODEL_KEY,
     )
     assert settings.endpoint.base_url == "https://10.0.0.1:8091/v1"
+
+
+@pytest.mark.parametrize("model", ["gpt-5.6-luna", "another-model"])
+def test_openai_exact_base_url_with_configurable_model(model):
+    settings = Settings(
+        model_provider="openai",
+        model_base_url="https://api.openai.com/v1",
+        model=model,
+        service_api_key=KEY,
+        model_api_key=MODEL_KEY,
+    )
+    assert settings.model_provider == "openai"
+    assert settings.model == model
+    assert settings.endpoint.models_url == "https://api.openai.com/v1/models"
+    assert settings.endpoint.completion_url == "https://api.openai.com/v1/chat/completions"
+    assert MODEL_KEY not in repr(settings)
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "http://api.openai.com/v1",
+        "https://api.openai.com:443/v1",
+        "https://api.openai.com:8443/v1",
+        "https://api.openai.com/v1/",
+        "https://api.openai.com/v1?x=1",
+        "https://api.openai.com/v1?",
+        "https://api.openai.com/v1#fragment",
+        "https://api.openai.com/v1#",
+        "https://api.openai.com.evil.example/v1",
+        "https://api.openai.com@evil.example/v1",
+        "https://evil.example@api.openai.com/v1",
+        "https://user:password@api.openai.com/v1",
+        "https://evil.example/v1",
+        "https://127.0.0.1/v1",
+        "https://api.openai.com/openai/v1",
+        "https://api.openai.com/v1/chat/completions",
+        "https://API.OPENAI.COM/v1",
+        "https://api.openai.com./v1",
+        "https://api.openai.com/x/../v1",
+        "https://api.openai.com/%76%31",
+        "https://api.openai.com//v1",
+        "https://api.openai.com\\@evil.example/v1",
+        "https://api.openai.com/v1\n",
+        " https://api.openai.com/v1",
+        "https://api.groq.com/openai/v1",
+        "",
+        "not a URL",
+    ],
+)
+def test_reject_noncanonical_openai_base_urls_without_exposing_keys(url):
+    with pytest.raises(ValidationError, match="openai_requires_canonical_api_base_url") as error:
+        Settings(
+            model_provider="openai",
+            model_base_url=url,
+            service_api_key=KEY,
+            model_api_key=MODEL_KEY,
+        )
+    assert MODEL_KEY not in str(error.value)
+    assert KEY not in str(error.value)
+
+
+@pytest.mark.parametrize("base_url", [None, "https://api.openai.com/v1"])
+def test_openai_rejects_legacy_url_even_with_valid_keys(base_url):
+    with pytest.raises(ValidationError, match="legacy_model_url_requires_internal_and_no_base_url"):
+        Settings(
+            model_provider="openai",
+            model_url="http://127.0.0.1:8091",
+            model_base_url=base_url,
+            service_api_key=KEY,
+            model_api_key=MODEL_KEY,
+        )
+
+
+def test_openai_environment_configuration_is_explicit(monkeypatch):
+    monkeypatch.delenv("RESEARCH_PLANNER_MODEL_URL", raising=False)
+    for suffix, value in {
+        "MODEL_PROVIDER": "openai",
+        "MODEL_BASE_URL": "https://api.openai.com/v1",
+        "MODEL": "gpt-5.6-luna",
+        "MODEL_API_KEY": MODEL_KEY,
+        "SERVICE_API_KEY": KEY,
+    }.items():
+        monkeypatch.setenv("RESEARCH_PLANNER_" + suffix, value)
+    assert Settings().endpoint.base_url == "https://api.openai.com/v1"
+    assert Settings().model == "gpt-5.6-luna"
+    monkeypatch.delenv("RESEARCH_PLANNER_MODEL_PROVIDER")
+    with pytest.raises(ValidationError):
+        Settings()

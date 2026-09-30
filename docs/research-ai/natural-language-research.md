@@ -142,7 +142,7 @@ enforce the provider endpoint allowlist, byte-limit, redirect and log-redaction 
 `pydantic-ai-slim[openai]` avoids unused provider integrations. The OpenAI SDK is pinned
 to major 2 because major 3 switches its HTTP transport type; upgrades must retain
 these tested boundaries. The operator chooses internal inference or the explicitly
-allowlisted Groq API; the OpenAI SDK is a protocol adapter, not a choice of provider.
+allowlisted Groq or OpenAI API; the OpenAI SDK is a shared protocol adapter.
 The [PydanticAI output documentation](https://ai.pydantic.dev/output/) explains native
 versus prompted output. [Model choices](models.md) discuss the self-hosted server.
 
@@ -333,15 +333,16 @@ The internal provider requires a numeric loopback/RFC1918/IPv6 ULA address, expl
 port and `/v1` API path; there is no DNS lookup. HTTP is loopback-only; remote private
 addresses require verified TLS. For named AI hosts use a separately provisioned
 SSH tunnel to loopback. The groq provider accepts only the exact
-`https://api.groq.com/openai/v1` base, using DNS and verified TLS. This explicit
-exception does not enable arbitrary public URLs. Both policies reject URL credentials,
-unexpected paths, query strings, fragments, redirects and environment proxies.
+`https://api.groq.com/openai/v1` base; openai accepts only
+`https://api.openai.com/v1`. Both external providers use DNS and verified TLS. These
+explicit exceptions do not enable arbitrary public URLs. All policies reject URL
+credentials, unexpected paths, query strings, fragments, redirects and environment proxies.
 
 A shared immutable ModelEndpoint policy constructs the SDK base, completion and
 readiness URLs and validates every outgoing method/full URL before credentials
 are attached. Only `POST <base_url>/chat/completions` and `GET <base_url>/models`
 are permitted. All configuration is operator-side; the public request and response
-contracts, ResearchQueryPlan v1 and prompt v3 remain unchanged. Choosing Groq
+contracts, ResearchQueryPlan v1 and prompt v3 remain unchanged. Choosing Groq or OpenAI
 sends the prompt and query context externally, never live records or entity lookups.
 Firewall and host egress remain operator responsibilities; no infrastructure is changed.
 
