@@ -24,6 +24,8 @@ ProtectControlGroups=true
 RestrictSUIDSGID=true
 LockPersonality=true
 RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+# Internal/loopback example. Groq requires separately provisioned DNS/HTTPS egress.
+# See docs/deployment.md; do not silently remove this network boundary.
 IPAddressDeny=any
 IPAddressAllow=localhost
 UMask=0077

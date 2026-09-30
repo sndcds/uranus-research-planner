@@ -46,7 +46,7 @@ def create_app(
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         nonlocal provider
         configure_logging()
-        if planner is None and settings.model_url is not None:
+        if planner is None and settings.model_base_url is not None:
             provider = StructuredModelClient(settings)
         try:
             yield

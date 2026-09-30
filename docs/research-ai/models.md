@@ -1,7 +1,9 @@
 # Instruction model decision
 
 Assessment date: 2026-09-29. These are candidates, not locally benchmarked winners.
-No model is installed by this PR and no production service is changed.
+No model is installed by this repository and no production service is changed.
+The local-model assessment below is historical; see the hosted-provider section
+for the subsequently added Groq option.
 
 The inspected admin documentation describes an AMD64 **CPU** AI host, with existing
 budgets of two CPUs/5 GiB for the encoder and two CPUs/2 GiB for Qdrant. It does not
@@ -170,3 +172,45 @@ No database/lookups, live model calls or deployments are part of this fix.
 The operator must first rerun the same five cases with v3, requiring **5 passed**,
 then run all 37 fixtures. See the [manual acceptance commands](../deployment.md#manual-model-acceptance-after-merge).
 That result has not yet been measured; offline tests do not establish Qwen accuracy.
+
+
+## Allowlisted hosted inference: Groq
+
+Local Qwen has been reported too slow on the available AWS host. Groq is an
+additional operator-selected inference option using the existing OpenAI-compatible
+client, not a planner rewrite. The initial example is `openai/gpt-oss-20b` at
+`https://api.groq.com/openai/v1`; MODEL remains configurable. Local llama.cpp remains
+supported and the default provider is internal. No automatic provider failover exists.
+
+Groq documents [OpenAI-compatible API access](https://console.groq.com/docs/openai)
+and [strict JSON Schema output](https://console.groq.com/docs/structured-outputs)
+for GPT-OSS 20B/120B. That supports retaining AsyncOpenAI, OpenAIChatModel,
+OpenAIProvider and NativeOutput(strict=True), without a Groq SDK dependency.
+Our complete schema and actual planning accuracy still require operator acceptance;
+provider marketing guarantees do not replace Pydantic or the 37 golden plans.
+
+The [Groq reasoning documentation](https://console.groq.com/docs/reasoning) states
+that GPT-OSS returns a separate reasoning field by default and accepts
+`include_reasoning=false` to suppress it. The endpoint adapter sends that documented
+option only for Groq's `openai/gpt-oss-20b` and `openai/gpt-oss-120b`, through
+PydanticAI's extra_body setting. Other configured models receive no model-specific
+option. Returned reasoning is still rejected, never stripped or exposed.
+
+Low/medium/high reasoning effort is documented for these models, and the installed
+PydanticAI adapter supports openai_reasoning_effort. This first integration deliberately
+leaves effort unset: no latency/accuracy tradeoff has been benchmarked, and other
+models have different supported settings. Suppressing returned reasoning does not
+disable internal reasoning or its token cost. Token/deadline exhaustion remains a
+failure, without retries, enlarged budgets or a switch to another model/output mode.
+
+External inference sends query text and planning context to Groq, using a server-only
+provider key. No database, area, venue, organization or Qdrant data is added. Only
+the exact allowlisted endpoint is permitted; arbitrary public URLs remain forbidden.
+Internal numeric-IP restrictions are unchanged. Public API/schema v1 and prompt v3
+are unchanged because provider selection changes no planner semantics.
+
+Use the [deployment acceptance and comparison workflow](../deployment.md#manual-provider-comparison)
+to record planner_ms, total_ms, pass/fail, invalid-plan rate, exact golden match,
+model/prompt/output mode and token usage when available. First require 5 critical
+passes, then run all 37 cases. No live Groq calls, latency measurements or acceptance
+results are claimed by this implementation; all provider tests use mocked HTTP.

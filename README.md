@@ -5,7 +5,7 @@ Danish and English research questions into a closed, validated `ResearchQueryPla
 It has **no database, Qdrant, encoder, external search, tools or user-session access**.
 
 ```text
-uranus-admin → POST /plan → local instruction model → validated plan
+uranus-admin → POST /plan → configured instruction model → validated plan
 uranus-admin → public name resolution → PostgreSQL / Jina + Qdrant → verified results
 ```
 
@@ -27,7 +27,7 @@ git diff --check
 ```
 
 Ordinary tests use fake planners and mocked model HTTP. Optional model evaluation is
-skipped unless `RESEARCH_PLANNER_LIVE_TEST=1` and a local model is explicitly configured.
+skipped unless `RESEARCH_PLANNER_LIVE_TEST=1` and a supported provider is explicitly configured.
 Passing fixtures proves contracts and dispatch boundaries, **not model language accuracy**.
 
 ```sh
@@ -37,14 +37,14 @@ uv run uvicorn research_planner.app:create_app --factory --host 127.0.0.1 --port
 Without configuration `/health` works; `/ready` and `/plan` return 503.
 Configure the variables in [.env.example](.env.example) through the process environment
 or an explicitly supplied uvicorn `--env-file`. The application does not load `.env` implicitly.
-Both service and model keys are required when a model origin is configured.
+Both service and model keys are required when a model API base URL is configured.
 
 ## API
 
 | Endpoint | Purpose | Authentication |
 | --- | --- | --- |
 | `GET /health` | Process liveness, no model call | None; internal listener |
-| `GET /ready` | Fixed model is listed by internal `/v1/models` | Service Bearer key |
+| `GET /ready` | Fixed model is listed by configured `<base_url>/models` | Service Bearer key |
 | `POST /plan` | One bounded structured planning call | Service Bearer key |
 
 Example body:
@@ -68,8 +68,13 @@ See the generated [OpenAPI contract](docs/openapi.json), the full
 PydanticAI provides typed native JSON output and provider abstraction. Its `Agent`
 is configured for **one request, zero tools, zero automatic retries, no history and
 no telemetry instrumentation**. There is no autonomous research agent.
-The OpenAI-compatible SDK is a protocol adapter for an internal server, not an
-external OpenAI service. No fallback provider or internet access is configured.
+The OpenAI-compatible SDK is a protocol adapter for either an internal numeric-IP
+endpoint or the explicitly allowlisted Groq API. Set MODEL_PROVIDER and the full
+MODEL_BASE_URL as documented in the [deployment guide](docs/deployment.md).
+Internal SSRF restrictions remain; arbitrary external URLs, redirects, environment
+proxies and provider fallback are forbidden. Both keys stay server-side. No browser
+connects to Groq or receives its key. Selecting Groq sends planning input externally;
+no database records or live lookups are supplied.
 
 Jina v3 continues to perform semantic retrieval in `uranus-admin`. PostgreSQL/PostGIS
 remains authoritative for identities, public eligibility, dates and exact counts.
