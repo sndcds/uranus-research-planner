@@ -63,17 +63,15 @@ class StructuredModelClient:
             if settings.output_mode == "json_schema"
             else PromptedOutput(ResearchQueryPlan)
         )
+        model_settings = self.endpoint.generation_options(settings.model)
+        model_settings["max_tokens"] = settings.max_tokens
+        model_settings["timeout"] = settings.timeout_seconds
         self.agent: Agent[None, ResearchQueryPlan] = Agent(
             model,
             output_type=output,
             system_prompt=SYSTEM_PROMPT,
             retries=0,
-            model_settings={
-                "temperature": 0,
-                "max_tokens": settings.max_tokens,
-                "timeout": settings.timeout_seconds,
-                "extra_body": self.endpoint.completion_options(settings.model),
-            },
+            model_settings=model_settings,
         )
         self.agent.instrument = False
 

@@ -225,11 +225,29 @@ The [official Luna model documentation](https://developers.openai.com/api/docs/m
 lists Chat Completions and structured-output support. This is not evidence of
 accuracy on our planner fixtures or compatibility with every current request option.
 
-No OpenAI-specific reasoning setting is introduced. Groq's `include_reasoning=false`
-remains restricted to Groq GPT-OSS; OpenAI receives neither that field nor
-`reasoning_effort`/`reasoning_format`. Temperature, token bounds and response checks
-remain unchanged. Any returned reasoning, truncation, model-ID mismatch or invalid
-plan still fails closed, without retries, repair, fallback or an output-mode downgrade.
+After PR #5, live OpenAI planner calls reached the API but returned planner_unavailable.
+The operator isolated the cause: `gpt-5.6-luna` rejects the previously unconditional
+`temperature=0`. A minimal Chat Completions JSON request without temperature and with
+`reasoning_effort=none`, `max_completion_tokens=100` succeeded with the exact model
+ID, finish_reason=stop and reasoning_tokens=0. This is a request-parameter issue,
+not evidence of a provider or authentication failure.
+
+The centralized ModelEndpoint generation policy now sends reasoning_effort=none and
+omits temperature only when provider=openai and the model starts with `gpt-5.6-`.
+It uses PydanticAI's typed `openai_reasoning_effort` setting. The installed adapter
+already serializes max_tokens as max_completion_tokens; no token-field workaround
+or duplicate limit is added. Mocked request bodies verify the exact configured cap.
+
+Groq GPT-OSS retains temperature=0 and include_reasoning=false, without reasoning_effort.
+Internal Qwen and unrelated configured models retain temperature=0 without either
+reasoning option. OpenAI receives no Groq include_reasoning/reasoning_format fields.
+The GPT-5.6 sibling request test establishes policy scope only, not live support;
+other model families need separate operator acceptance. No arbitrary settings,
+new environment variables or speculative tuning options are introduced.
+
+Response checks and token bounds remain unchanged. Any returned reasoning,
+truncation, model-ID mismatch or invalid plan still fails closed, without retries,
+repair, fallback or an output-mode downgrade.
 The public API, research-query-plan-v1, research-planner-v3 and 37 golden plans are
 unchanged. Local llama.cpp and Groq remain supported.
 
@@ -240,11 +258,11 @@ and must never be delivered to browsers. Exact endpoint allowlisting and all sha
 transport limits remain active; external DNS/HTTPS egress to api.openai.com must be
 provisioned separately by the operator. The internal-only systemd unit is unchanged.
 
-The operator has confirmed access to the individual model lookup endpoint. Readiness
-still requires `GET https://api.openai.com/v1/models` to list the exact configured
-model within the two-second deadline and 32 KiB response bound. This implementation
+The operator has confirmed the individual model lookup and the minimal completion
+above. Readiness still requires `GET https://api.openai.com/v1/models` to list the
+exact configured model within the two-second deadline and 32 KiB response bound. This implementation
 has not made live OpenAI requests. Listing, exact completion model IDs, native schema
-acceptance, parameter compatibility, latency and planning accuracy need the
+acceptance, full planner parameter compatibility, latency and planning accuracy need the
 [manual acceptance procedure](../deployment.md#manual-model-acceptance-after-merge):
 first require 5 critical passes, then all 37 golden plans. Use the documented
 comparison workflow for latency, invalid-plan rate and exact golden match; do not

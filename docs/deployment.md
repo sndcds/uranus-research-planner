@@ -74,7 +74,8 @@ organization records or arbitrary admin database state; there are no live lookup
 ## Model server contract
 
 - `POST <base_url>/chat/completions`: nonstreaming JSON Schema output, fixed model,
-  temperature 0, max tokens. No tools/reasoning. Completion includes exactly one
+  bounded max tokens and provider/model-specific generation settings (below).
+  No tools or returned reasoning. Completion includes exactly one
   choice, assistant text containing a JSON object, `finish_reason=stop`, matching model ID.
 - Authenticated `GET <base_url>/models` for readiness; the response data must list
   the exact configured model ID. Internal path: `/v1/models`; Groq path:
@@ -177,13 +178,32 @@ export RESEARCH_PLANNER_MAX_CONCURRENT_REQUESTS=2
 export RESEARCH_PLANNER_LIVE_TEST=1
 ```
 
-OpenAI receives no Groq `include_reasoning` field and no `reasoning_effort` or
-`reasoning_format`. Token limits and temperature retain the existing client behavior;
-there are no speculative model-specific overrides. The operator-confirmed model
-lookup does not establish list readiness, Chat Completions compatibility or golden
-accuracy. Readiness must still list the exact model, and the completion's model ID
-must match exactly. An alias mismatch, unsupported parameter, oversized model list
-or rejected schema fails closed; investigate before any separately reviewed change.
+The endpoint policy supplies fixed generation settings; these are not arbitrary
+operator/request parameters:
+
+| Provider/model | Outgoing generation parameters |
+| --- | --- |
+| `openai`, model starts with `gpt-5.6-` | `reasoning_effort=none`; `temperature` omitted |
+| `groq`, `openai/gpt-oss-20b` or `openai/gpt-oss-120b` | `temperature=0`, `include_reasoning=false`; no reasoning_effort |
+| Internal Qwen and other configured models | `temperature=0`; no reasoning_effort or include_reasoning |
+
+OpenAI never receives Groq's `include_reasoning` or `reasoning_format`. PydanticAI
+serializes the policy's `openai_reasoning_effort` as `reasoning_effort`. Its existing
+`max_tokens` setting already becomes `max_completion_tokens` on the wire; mocked
+requests verify exactly one token-limit field, with the configured value (1200 above).
+No temperature=1, top_p, verbosity or alternative reasoning effort is injected.
+
+The operator reproduced a `temperature=0` rejection for `gpt-5.6-luna`. A minimal
+Chat Completions JSON request with reasoning_effort=none, no temperature and
+max_completion_tokens=100 succeeded, returning the exact model ID, finish_reason=stop
+and zero reasoning tokens. This verifies parameter compatibility for that minimal
+request only. Full planner schema/5-case/37-case acceptance remains pending; the
+mocked GPT-5.6 sibling test does not establish live sibling support. Unrelated or
+future model families require separate acceptance and receive no GPT-5.6 override.
+
+Readiness must still list the exact model, and completion model IDs must match
+exactly. An alias mismatch, unsupported parameter, oversized model list or rejected
+schema fails closed; investigate before any separately reviewed change.
 
 For local Qwen, use MODEL_PROVIDER=internal, MODEL_BASE_URL=http://127.0.0.1:8091/v1,
 the internal model key and MODEL=Qwen/Qwen3-4B-Instruct-2507 instead. The test file
@@ -273,5 +293,6 @@ Report cold/warm p50/p95, sample counts and concurrency separately. The current
 client does not expose provider token usage in the public response or logs: record
 input/output tokens as **unavailable** unless the provider's existing usage reporting
 supplies them. Never invent token counts or expose raw responses/keys to obtain them.
-Reasoning effort is not configurable in this implementation; document the provider
-model default and treat low-effort reasoning as a future separately tested benchmark.
+Reasoning effort is not operator-configurable: OpenAI GPT-5.6 uses the fixed `none`
+compatibility policy; other models retain their provider default. Record that policy
+when comparing runs. Other reasoning settings require separately reviewed tests.

@@ -63,11 +63,16 @@ async def test_pydanticai_parses_reviewed_outputs_without_llm(settings, case):
             assert body["include_reasoning"] is False
         else:
             assert "include_reasoning" not in body
-        assert "reasoning_effort" not in body
+        if settings.model_provider == "openai":
+            assert body["reasoning_effort"] == "none"
+            assert "temperature" not in body
+        else:
+            assert "reasoning_effort" not in body
+            assert body["temperature"] == 0
         assert "reasoning_format" not in body
         assert body["model"] == settings.model
-        assert body["temperature"] == 0
-        assert body.get("max_tokens", body.get("max_completion_tokens")) == 1200
+        assert body["max_completion_tokens"] == 1200
+        assert "max_tokens" not in body
         assert body["response_format"]["type"] == "json_schema"
         assert body["response_format"]["json_schema"]["strict"] is True
         schema = body["response_format"]["json_schema"]["schema"]
@@ -542,9 +547,26 @@ async def test_transport_rejects_unexpected_destinations_before_auth(settings, m
         await transport.aclose()
 
 
-@pytest.mark.parametrize("model", ["openai/gpt-oss-20b", "openai/gpt-oss-120b", "another-model"])
-async def test_reasoning_suppression_is_scoped_to_groq_gpt_oss(settings, model):
+@pytest.mark.parametrize(
+    "model, openai_gpt56, groq_gpt_oss",
+    [
+        ("gpt-5.6-luna", True, False),
+        ("gpt-5.6-terra", True, False),
+        ("gpt-5.60-luna", False, False),
+        ("gpt-5.7-luna", False, False),
+        ("another-model", False, False),
+        ("openai/gpt-oss-20b", False, True),
+        ("openai/gpt-oss-120b", False, True),
+        ("Qwen/Qwen3-4B-Instruct-2507", False, False),
+    ],
+)
+@pytest.mark.parametrize("output_mode", ["json_schema", "json_object"])
+async def test_generation_options_are_scoped_to_provider_and_model(
+    settings, model, openai_gpt56, groq_gpt_oss, output_mode
+):
     settings.model = model
+    settings.output_mode = output_mode
+    settings.max_tokens = 777
     calls = []
 
     def respond(request):
@@ -554,13 +576,24 @@ async def test_reasoning_suppression_is_scoped_to_groq_gpt_oss(settings, model):
     client = StructuredModelClient(settings, httpx.MockTransport(respond))
     try:
         await client.plan(PlanRequest(query=make_plan().original_query), date(2026, 9, 29))
-        assert calls[0]["model"] == model
-        if settings.model_provider == "groq" and model != "another-model":
-            assert calls[0]["include_reasoning"] is False
+        assert len(calls) == 1
+        body = calls[0]
+        assert body["model"] == model
+        if settings.model_provider == "groq" and groq_gpt_oss:
+            assert body["include_reasoning"] is False
         else:
-            assert "include_reasoning" not in calls[0]
-        assert "reasoning_effort" not in calls[0]
-        assert "reasoning_format" not in calls[0]
+            assert "include_reasoning" not in body
+        if settings.model_provider == "openai" and openai_gpt56:
+            assert body["reasoning_effort"] == "none"
+            assert "temperature" not in body
+        else:
+            assert "reasoning_effort" not in body
+            assert body["temperature"] == 0
+        assert body["max_completion_tokens"] == 777
+        assert not {"max_tokens", "reasoning_format", "top_p", "verbosity"} & body.keys()
+        assert body["response_format"]["type"] == output_mode
+        if output_mode == "json_schema":
+            assert body["response_format"]["json_schema"]["strict"] is True
     finally:
         await client.close()
 
