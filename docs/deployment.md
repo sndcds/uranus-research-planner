@@ -81,14 +81,18 @@ they are not run by this PR or ordinary CI. Do not install models, restart servi
 or change production configuration as part of the code checks.
 
 Use `RESEARCH_PLANNER_OUTPUT_MODE=json_schema` as the preferred default. Small
-models need the complete schema-friendly contract and prompt v2 golden example.
+models need the schema-friendly contract, prompt v3 rules and complete golden
+example.
 llama.cpp supports only a subset of JSON Schema regex features; the plan now uses
 min/max string lengths with Pydantic nonblank validation instead of `pattern=\S`.
 Inspect the pinned server's schema conversion warnings. Pydantic remains the
 final boundary; invalid output is never automatically repaired. `json_object`
 is only an explicitly selected diagnostic alternative, with no automatic fallback.
 
-First run the exact observed failure and the entity/filter distinctions:
+First rerun exactly the five critical cases below. The operator reported 3 passed
+and 2 failed with prompt v2; require **5 passed with v3** before the full corpus.
+In particular count_venues must use temporal=none, and organizations_area must
+use intent=list, semantic_query=null and temporal=none:
 
 ```sh
 RESEARCH_PLANNER_OUTPUT_MODE=json_schema RESEARCH_PLANNER_LIVE_TEST=1 \
@@ -96,8 +100,9 @@ RESEARCH_PLANNER_OUTPUT_MODE=json_schema RESEARCH_PLANNER_LIVE_TEST=1 \
   -k 'count_past_kuehlhaus or events_deutsches_haus or venues_area or count_venues or organizations_area'
 ```
 
-Then run all 35 complete golden plans (including semantic requests, count versus
-occurrences, comparison/clarification, dates, Danish, English and unsafe requests):
+Only after that gate passes, run all 37 complete golden plans (including semantic
+requests, count versus occurrences, comparison/clarification, dates, Danish,
+English and unsafe requests):
 
 ```sh
 RESEARCH_PLANNER_OUTPUT_MODE=json_schema RESEARCH_PLANNER_LIVE_TEST=1 \

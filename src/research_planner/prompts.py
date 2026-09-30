@@ -2,7 +2,7 @@
 
 from typing import Final
 
-RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v2"
+RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v3"
 
 SYSTEM_PROMPT = """CRITICAL OUTPUT RULES:
 1. Return exactly one JSON object with exactly the ResearchQueryPlan fields shown below.
@@ -45,15 +45,21 @@ Interpret German, Danish and English. Copy original_query exactly from query.
 INTENT AND ENTITY:
 intent -> answer_mode: search -> records, list -> records, count -> count,
 aggregate -> aggregate, recommend -> recommendation, compare -> comparison.
-Use list for structured records, search for a residual topic, recommend for requested
-subjective suggestions, count for quantities, aggregate for grouped quantities/rankings.
+For record retrieval, use list when only structured entities/filters remain:
+semantic_query=null, no subjective or topical residual condition.
+Use search ONLY when semantic_query is non-null. Do not invent a residual to use search.
+Use recommend for requested subjective suggestions, count for quantities,
+aggregate for grouped quantities/rankings; these intents keep their own rules.
 entity_type describes WHAT the user asks to retrieve/count/compare, not a filter's type:
 - Wie viele Veranstaltungen waren im Kühlhaus? -> event; venue_query=Kühlhaus
 - Welche Veranstaltungen gibt es im Kühlhaus? -> event; venue_query=Kühlhaus
 - Welche Veranstaltungen finden im Deutschen Haus statt? -> event; venue_query=Deutsches Haus
-- Welche Veranstaltungsorte gibt es in Glücksburg? -> venue; area_query=Glücksburg
-- Wie viele Veranstaltungsorte gibt es in Flensburg? -> venue; metric=venue_count
-- Welche Organisationen gibt es in Glücksburg? -> organization; area_query=Glücksburg
+- Welche Veranstaltungsorte gibt es in Glücksburg? -> list; venue; area_query=Glücksburg;
+  semantic_query=null; temporal=none
+- Wie viele Veranstaltungsorte gibt es in Flensburg? -> count; venue; area_query=Flensburg;
+  metric=venue_count; semantic_query=null; temporal=none
+- Welche Organisationen gibt es in Glücksburg? -> list; organization; area_query=Glücksburg;
+  semantic_query=null; temporal=none
 - Welche Organisationen veranstalten Kultur in Glücksburg? -> organization
 metric: event_count counts distinct events regardless of repeated dates; occurrence_count
 only for explicit Termine/occurrences; venue_count for venues; organization_count for
@@ -82,6 +88,8 @@ never erase semantic conditions to manufacture an exact structured count.
 semantic_focus must be present: null unless semantic_query exists AND an additional
 normalized preference is useful. Do not fill it routinely.
 "kunst in glücksburg" -> search, area_query=Glücksburg, semantic_query=Kunst.
+"barrierefreie Veranstaltungen im Kühlhaus" -> search, venue_query=Kühlhaus,
+semantic_query=barrierefreie Veranstaltungen.
 "was ist heute kulturell besonders spannend?" -> recommend, today,
 semantic_query=kulturell besonders spannend.
 "was kann ich heute abend in flensburg machen?" -> recommend, today, evening,
@@ -89,8 +97,15 @@ area_query=Flensburg, semantic_query=kulturelle Aktivitäten.
 
 TIME:
 temporal: none, today, tomorrow, this_weekend, next_week, this_month, this_year, past,
-future, explicit_range. No implicit future filter. "waren"/"gab es"/"fanden statt"/
-"were held" imply past. Present "finden statt" alone does not imply past or future.
+future, explicit_range. Without a time reference use temporal=none; no implicit past/future.
+"gibt es", "welche ... gibt es", "es gibt" are PRESENT tense, never a reason to set past.
+Do not confuse "gibt es" with "gab es". "finden statt" alone also has no time filter.
+"gab es", "waren", "fanden statt", "were held" indicate past, absent a more specific period.
+"Wie viele Veranstaltungsorte gibt es in Flensburg?" -> temporal=none.
+"Welche Organisationen gibt es in Glücksburg?" -> temporal=none, intent=list.
+"Wie viele Veranstaltungsorte gab es in Flensburg?" -> temporal=past, intent=count.
+"Welche Organisationen gab es in Glücksburg?" -> temporal=past, intent=list.
+"Welche Veranstaltungen waren im Kühlhaus?" -> temporal=past, intent=list.
 Keep relative enums; the caller resolves them using reference_date and timezone.
 Today is the local calendar date; weekend is Saturday/Sunday of the current ISO week;
 next_week is next Monday-Sunday; past is before today; future includes today.

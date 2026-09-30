@@ -55,6 +55,12 @@ all cross-field consistency checks remain active.
 | `clarification` | none, needs_criteria, needs_location, needs_date |
 | `unsupported_reason` | null, outside_research, multi_area, unsupported_constraint |
 
+For record retrieval with only structured entities/filters and no residual condition,
+use `intent=list` and `semantic_query=null`. `intent=search` requires a non-null
+semantic_query; Pydantic rejects search without a residual. Existing list plans
+with semantic content remain valid and must retain that condition during execution.
+Count, aggregate, recommend and compare keep their intent-specific rules.
+
 Counts require a metric compatible with entity type. Aggregates require grouping;
 other intents cannot specify grouping. Recommendations require semantic preference
 text. A comparison without clarification needs at least two distinct targets and a
@@ -192,6 +198,13 @@ Europe/Berlin only for standalone callers). The service computes `reference_date
 once using a timezone-aware clock and returns it with the plan. Admin must use this
 same date for resolution across midnight; do not independently recompute “today”.
 Relative windows are executed in admin; no temporal database query occurs here.
+
+Without a time reference, use `temporal=none`. German “gibt es”, “welche … gibt es”
+and “es gibt” are present tense and do not imply past. “Gab es”, “waren”,
+“fanden statt” and “were held” indicate past unless a more specific period is
+given. Thus “Wie viele Veranstaltungsorte gibt es in Flensburg?” has no date
+filter, whereas the same question with “gab es” uses past. Organization listings
+follow the same distinction and use list when there is no semantic residual.
 
 | Plan | Inclusive occurrence start-date window |
 | --- | --- |

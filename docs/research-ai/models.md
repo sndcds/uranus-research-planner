@@ -53,8 +53,8 @@ claim. Warm up the model, measure p50/p95 and saturation with 1/2 concurrent cal
 and observe encoder/Qdrant contention. Increase hardware or simplify the measured
 prompt before relaxing deadlines. Native output avoids long reasoning sequences.
 
-The 35 reviewed fixtures (previously 30) contain complete golden plans, including
-five explicit entity-versus-filter cases, dates, comparisons, privacy/injection,
+The 37 reviewed fixtures (30 initially, 35 after PR #2) contain complete golden
+plans, including five explicit entity-versus-filter cases, dates, comparisons, privacy/injection,
 Danish and English examples. Normal tests mock their outputs. Opt-in live tests
 compare every field, including null/none/empty values, against the full golden plan.
 Only `semantic_query` uses case-insensitive comparison (`casefold`); its entire
@@ -130,3 +130,43 @@ operator-selected fallback/test mode with identical final validation; schema
 rejection never triggers an automatic downgrade. The planner receives no live
 PostgreSQL/Qdrant data or venue/area/organization lookups. Name existence and
 resolution remain the responsibility of uranus-admin.
+
+## Temporal and list intent correction after PR #2
+
+The operator ran the five critical Qwen3-4B-Instruct-2507 / llama.cpp tests in
+json_schema mode with prompt v2: **3 passed, 2 failed**. The venue count question
+“Wie viele Veranstaltungsorte gibt es in Flensburg?” had the correct count,
+venue entity, Flensburg filter and venue_count metric, but temporal=past.
+“Welche Organisationen gibt es in Glücksburg?” had the correct organization,
+Glücksburg filter and null semantic_query, but intent=search instead of list.
+
+Prompt **research-planner-v2 → research-planner-v3** explicitly contrasts present
+“gibt es” with past “gab es”, defaults to temporal=none without a time reference,
+and distinguishes structured record listing from search with a semantic residual.
+The existing complete golden plans remain unchanged; two additional past-tense
+fixtures cover venue counts and organization listings, bringing the corpus to 37.
+
+The source, documented semantics and all 35 existing fixtures were audited before
+adding the consistency rule: all six search fixtures already have semantic text,
+including the needs_location clarification. No legitimate search-without-residual
+case was found. Pydantic now rejects it with `search_requires_semantic_query`;
+the model client reports planner_invalid_response (502), without retry or changing
+search to list. List with null remains valid; list with a semantic residual also
+remains valid, preserving the existing downstream rule not to discard conditions.
+
+**research-query-plan-v1 is retained:** fields, requiredness, types, enum values,
+JSON Schema and valid intended interpretations are unchanged. Validation is
+intentionally stricter for a previously accepted inconsistent combination. This
+is a semantic consistency bug fix, not a new wire representation; consumers must
+still handle the existing invalid-response error. OpenAPI changes only for prompt
+version metadata. JSON Schema grammar alone cannot enforce the new validator.
+
+A grammatically valid past plan for a present-tense question can still pass
+Pydantic; the complete golden comparison detects that interpretation error.
+There is no query-text heuristic or temporal repair. Tests simulate both reported
+outputs in both modes and verify rejection or unchanged output as appropriate.
+No database/lookups, live model calls or deployments are part of this fix.
+
+The operator must first rerun the same five cases with v3, requiring **5 passed**,
+then run all 37 fixtures. See the [manual acceptance commands](../deployment.md#manual-model-acceptance-after-merge).
+That result has not yet been measured; offline tests do not establish Qwen accuracy.
