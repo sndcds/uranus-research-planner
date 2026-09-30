@@ -111,13 +111,17 @@ def auth():
     return {"Authorization": "Bearer " + KEY}
 
 
-@pytest.fixture(params=["internal", "groq"])
+@pytest.fixture(params=["internal", "groq", "openai"])
 def provider_settings(request):
-    groq = request.param == "groq"
+    base_url, model = {
+        "internal": ("http://127.0.0.1:8091/v1", "Qwen/Qwen3-4B-Instruct-2507"),
+        "groq": ("https://api.groq.com/openai/v1", "openai/gpt-oss-20b"),
+        "openai": ("https://api.openai.com/v1", "gpt-5.6-luna"),
+    }[request.param]
     return Settings(
         model_provider=request.param,
-        model_base_url="https://api.groq.com/openai/v1" if groq else "http://127.0.0.1:8091/v1",
-        model="openai/gpt-oss-20b" if groq else "Qwen/Qwen3-4B-Instruct-2507",
+        model_base_url=base_url,
+        model=model,
         service_api_key=SecretStr(KEY),
         model_api_key=SecretStr(MODEL_KEY),
         _env_file=None,

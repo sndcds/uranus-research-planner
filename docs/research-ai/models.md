@@ -3,7 +3,7 @@
 Assessment date: 2026-09-29. These are candidates, not locally benchmarked winners.
 No model is installed by this repository and no production service is changed.
 The local-model assessment below is historical; see the hosted-provider section
-for the subsequently added Groq option.
+for the subsequently added Groq and OpenAI options.
 
 The inspected admin documentation describes an AMD64 **CPU** AI host, with existing
 budgets of two CPUs/5 GiB for the encoder and two CPUs/2 GiB for Qdrant. It does not
@@ -214,3 +214,38 @@ to record planner_ms, total_ms, pass/fail, invalid-plan rate, exact golden match
 model/prompt/output mode and token usage when available. First require 5 critical
 passes, then run all 37 cases. No live Groq calls, latency measurements or acceptance
 results are claimed by this implementation; all provider tests use mocked HTTP.
+
+## Allowlisted hosted inference: OpenAI
+
+OpenAI is a third explicit provider using the same AsyncOpenAI, OpenAIChatModel,
+OpenAIProvider and NativeOutput(ResearchQueryPlan, strict=True) integration. Set
+MODEL_PROVIDER=openai and exactly MODEL_BASE_URL=https://api.openai.com/v1.
+The initial evaluation model is `gpt-5.6-luna`; MODEL remains operator-configurable.
+The [official Luna model documentation](https://developers.openai.com/api/docs/models/gpt-5.6-luna)
+lists Chat Completions and structured-output support. This is not evidence of
+accuracy on our planner fixtures or compatibility with every current request option.
+
+No OpenAI-specific reasoning setting is introduced. Groq's `include_reasoning=false`
+remains restricted to Groq GPT-OSS; OpenAI receives neither that field nor
+`reasoning_effort`/`reasoning_format`. Temperature, token bounds and response checks
+remain unchanged. Any returned reasoning, truncation, model-ID mismatch or invalid
+plan still fails closed, without retries, repair, fallback or an output-mode downgrade.
+The public API, research-query-plan-v1, research-planner-v3 and 37 golden plans are
+unchanged. Local llama.cpp and Groq remain supported.
+
+OpenAI receives the system prompt, user query, language/timezone, reference date
+and output schema. It receives no PostgreSQL rows, Qdrant documents, resolved venue
+or organization records, or arbitrary admin state. Provider keys stay server-side
+and must never be delivered to browsers. Exact endpoint allowlisting and all shared
+transport limits remain active; external DNS/HTTPS egress to api.openai.com must be
+provisioned separately by the operator. The internal-only systemd unit is unchanged.
+
+The operator has confirmed access to the individual model lookup endpoint. Readiness
+still requires `GET https://api.openai.com/v1/models` to list the exact configured
+model within the two-second deadline and 32 KiB response bound. This implementation
+has not made live OpenAI requests. Listing, exact completion model IDs, native schema
+acceptance, parameter compatibility, latency and planning accuracy need the
+[manual acceptance procedure](../deployment.md#manual-model-acceptance-after-merge):
+first require 5 critical passes, then all 37 golden plans. Use the documented
+comparison workflow for latency, invalid-plan rate and exact golden match; do not
+interpret mocked tests as model acceptance.

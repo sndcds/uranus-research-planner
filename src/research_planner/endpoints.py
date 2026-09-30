@@ -7,8 +7,9 @@ from urllib.parse import urlsplit
 
 import httpx
 
-ModelProvider = Literal["internal", "groq"]
+ModelProvider = Literal["internal", "groq", "openai"]
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
+OPENAI_BASE_URL = "https://api.openai.com/v1"
 INTERNAL_NETWORKS = tuple(
     ip_network(n)
     for n in ("127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "::1/128", "fc00::/7")
@@ -52,6 +53,10 @@ class ModelEndpoint:
             if self.base_url != GROQ_BASE_URL:
                 raise ValueError("groq_requires_canonical_api_base_url")
             canonical = GROQ_BASE_URL
+        elif self.provider == "openai":
+            if self.base_url != OPENAI_BASE_URL:
+                raise ValueError("openai_requires_canonical_api_base_url")
+            canonical = OPENAI_BASE_URL
         else:
             raise ValueError("unsupported_model_provider")
         object.__setattr__(self, "base_url", canonical)

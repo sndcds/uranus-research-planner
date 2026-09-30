@@ -15,7 +15,7 @@ from tests.conftest import FIXTURES, MODEL_KEY, fixture_plan, make_plan
 
 @pytest.fixture
 def settings(provider_settings):
-    """Run every client/transport regression against both provider policies."""
+    """Run every client/transport regression against all three provider policies."""
     return provider_settings
 
 
@@ -517,7 +517,7 @@ async def test_transport_rejects_unexpected_destinations_before_auth(settings, m
     elif mutation == "scheme":
         url = url.copy_with(scheme="ftp")
     elif mutation == "host":
-        url = url.copy_with(host="api.groq.com.evil.example")
+        url = url.copy_with(host=url.host + ".evil.example")
     elif mutation == "port":
         url = url.copy_with(port=8443)
     elif mutation == "userinfo":
