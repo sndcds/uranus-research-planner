@@ -139,17 +139,167 @@ same API but must be independently sized, pinned and schema-tested.
 
 ## API service
 
-[Systemd example](../deploy/systemd/uranus-research-planner.service) runs from a
-pre-provisioned venv and reads a protected EnvironmentFile. Paths/user ownership
-must be provisioned by the operator; no installer is executed here. The example
-binds loopback, suppresses access logs and denies non-loopback IP traffic. For
-remote hosts prefer a separately managed SSH tunnel to a loopback port. Do not
-weaken the unit's network restriction silently for remote private HTTPS endpoints.
-This unit is deliberately an **internal-only** network example: it blocks Groq and OpenAI.
-External-provider systemd deployments need operator-provisioned service egress for
-DNS and verified HTTPS to api.groq.com or api.openai.com, respectively. systemd
-IPAddressAllow takes IPs/CIDRs, not a dynamic hostname policy; use the host's reviewed egress controls rather than
-blindly removing `IPAddressDeny=any`. No unit or infrastructure is changed automatically.
+### Systemd variants
+
+Choose one repository-managed unit for the configured provider:
+
+| Variant | Repository unit | Network policy |
+| --- | --- | --- |
+| Internal llama.cpp | [uranus-research-planner.service](../deploy/systemd/uranus-research-planner.service) | `IPAddressDeny=any`, `IPAddressAllow=localhost`; non-loopback traffic blocked |
+| OpenAI / Terra | [uranus-research-planner-openai.service](../deploy/systemd/uranus-research-planner-openai.service) | OS-level outbound networking enabled for DNS + HTTPS; no systemd hostname filter |
+
+Both run as `research-planner:research-planner` from a pre-provisioned
+`/opt/uranus-research-planner` and venv, reading the protected
+`/etc/research-planner/planner.env`. The operator must provision that user, installed
+code/dependencies, paths and environment file first. Keep the environment file
+root-owned with mode 0600; systemd reads it before dropping privileges. Both units
+bind one uvicorn worker to **127.0.0.1:8090**, suppress access logs, and preserve
+NoNewPrivileges, PrivateTmp, PrivateDevices, ProtectSystem=strict, ProtectHome,
+ProtectKernelTunables, ProtectKernelModules, ProtectControlGroups, RestrictSUIDSGID,
+LockPersonality, restricted address families, UMask=0077, MemoryMax=512M and TasksMax=64.
+
+Use the internal unit for:
+
+```env
+RESEARCH_PLANNER_MODEL_PROVIDER=internal
+RESEARCH_PLANNER_MODEL_BASE_URL=http://127.0.0.1:8091/v1
+```
+
+It deliberately blocks OpenAI, Groq and remote private endpoints. For a remote
+internal model, prefer a separately provisioned SSH tunnel to loopback. The internal
+unit and its network boundary remain unchanged.
+
+Use the OpenAI unit with the [recommended production configuration](#current-recommended-production-candidate):
+
+```env
+RESEARCH_PLANNER_MODEL_PROVIDER=openai
+RESEARCH_PLANNER_MODEL_BASE_URL=https://api.openai.com/v1
+RESEARCH_PLANNER_MODEL=gpt-5.6-terra
+```
+
+Supply both existing keys and timeout/token/output/concurrency settings as shown in
+the complete OpenAI environment example below. No new environment variables are
+introduced. The OpenAI unit waits for network-online.target and needs working DNS
+and outbound HTTPS to **api.openai.com:443** through the host/cloud network.
+
+The operator observed `/health` succeeding but `/ready` returning planner_unavailable
+when an OpenAI environment was paired with the internal-only unit. Liveness makes
+no provider call; readiness needs outbound network access. Install the matching
+repository variant rather than an undocumented local network override.
+
+The OpenAI unit omits IPAddressDeny/IPAddressAllow and therefore has **OS-level
+outbound network access**, not a hostname allowlist. systemd IPAddressAllow accepts
+IPs/CIDRs, not dynamic api.openai.com DNS names. With provider=openai, the unchanged
+application policy accepts only the exact base `https://api.openai.com/v1`, and its
+transport permits only:
+
+- `GET https://api.openai.com/v1/models`
+- `POST https://api.openai.com/v1/chat/completions`
+
+The transport retains trust_env=False, follow_redirects=False, zero retries, fixed
+Bearer credential replacement, 64 KiB request/32 KiB response bounds and strict
+response validation. No arbitrary or request-controlled model URL is accepted.
+This application boundary does not replace an OS-level egress policy. Operators
+wanting stronger host restrictions can provision reviewed nftables/firewall rules,
+cloud egress controls or network-managed proxy infrastructure separately. Ordinary
+HTTP_PROXY/HTTPS_PROXY variables will not work: this client ignores proxy environment
+variables. A proxy-based deployment needs a separately reviewed compatible design;
+no proxy, firewall or cloud policy is implemented here.
+
+### Install one systemd variant
+
+Run these commands **only as an operator deployment action**, after provisioning
+the prerequisites and matching environment. Both variants install under the same
+service name; install **exactly one**, not both as separate running services. They
+share the same port. Existing local drop-ins can still override the installed file;
+inspect `sudo systemctl cat uranus-research-planner.service` and explicitly resolve
+any conflicting overrides before switching variants. No local override is required
+by this repository procedure.
+
+From the repository checkout, choose the internal variant:
+
+```bash
+sudo install -m 0644 \
+  deploy/systemd/uranus-research-planner.service \
+  /etc/systemd/system/uranus-research-planner.service
+```
+
+**Or**, for OpenAI/Terra, choose:
+
+```bash
+sudo install -m 0644 \
+  deploy/systemd/uranus-research-planner-openai.service \
+  /etc/systemd/system/uranus-research-planner.service
+```
+
+Then apply the selected unit:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable uranus-research-planner.service
+sudo systemctl restart uranus-research-planner.service
+```
+
+These installation/restart commands are documentation only; they are not run by CI
+or during implementation. Unit-file validation is read-only:
+
+```bash
+systemd-analyze verify deploy/systemd/uranus-research-planner.service
+systemd-analyze verify deploy/systemd/uranus-research-planner-openai.service
+```
+
+Verification also checks the absolute ExecStart executable; it requires the
+pre-provisioned `/opt/uranus-research-planner/.venv/bin/uvicorn` path to exist.
+
+### Verify the installed service
+
+```bash
+sudo systemctl status uranus-research-planner.service --no-pager -l
+curl -sS http://127.0.0.1:8090/health | jq .
+```
+
+Expected liveness: `{"status":"ok"}`. For authenticated checks, use a trusted operator
+Bash shell and a shell-compatible, protected planner.env (simple KEY=value entries
+as in the examples). Do not enable shell tracing or publish the environment contents.
+The commands below load existing credentials; they do not create or print new keys.
+
+```bash
+set +x
+set -o pipefail
+set -a
+source <(sudo cat /etc/research-planner/planner.env)
+set +a
+
+curl -sS \
+  -H "Authorization: Bearer $RESEARCH_PLANNER_SERVICE_API_KEY" \
+  http://127.0.0.1:8090/ready | jq .
+```
+
+Expected readiness for a working OpenAI/Terra deployment: `{"status":"ready"}`.
+It confirms that the exact configured model is listed, not full inference quality.
+
+The following **real, paid inference smoke test** is operator-only:
+
+```bash
+curl -sS --fail \
+  -X POST \
+  -H "Authorization: Bearer $RESEARCH_PLANNER_SERVICE_API_KEY" \
+  -H "Content-Type: application/json" \
+  http://127.0.0.1:8090/plan \
+  -d '{
+    "query": "Was ist heute Abend in Flensburg kulturell interessant?",
+    "timezone": "Europe/Berlin",
+    "language": "de"
+  }' | jq .
+```
+
+Expect HTTP success and a valid plan envelope with
+`prompt_version=research-planner-v4`, `schema_version=research-query-plan-v1` and
+`model=gpt-5.6-terra`, without credentials in the response. Inspect the returned plan;
+this smoke test does not prescribe exact semantic fields or replace golden acceptance.
+No verification request above is performed automatically by installation or CI.
+
+### Docker examples
 
 [Dockerfile](../deploy/docker/Dockerfile) and
 [Compose example](../deploy/docker/compose.yaml) build only the API. They use an
