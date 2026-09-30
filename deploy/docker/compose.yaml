@@ -1,3 +1,5 @@
+# Internal provider only: MODEL_BASE_URL=http://127.0.0.1:8091/v1.
+# Groq uses the separate compose.groq.yaml example.
 # Example only. Supply a reviewed llama.cpp server image with its digest and local weights.
 services:
   model:

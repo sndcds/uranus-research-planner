@@ -99,7 +99,7 @@ class FakePlanner:
 @pytest.fixture
 def settings():
     return Settings(
-        model_url="http://127.0.0.1:8091",
+        model_base_url="http://127.0.0.1:8091/v1",
         service_api_key=SecretStr(KEY),
         model_api_key=SecretStr(MODEL_KEY),
         _env_file=None,
@@ -109,3 +109,16 @@ def settings():
 @pytest.fixture
 def auth():
     return {"Authorization": "Bearer " + KEY}
+
+
+@pytest.fixture(params=["internal", "groq"])
+def provider_settings(request):
+    groq = request.param == "groq"
+    return Settings(
+        model_provider=request.param,
+        model_base_url="https://api.groq.com/openai/v1" if groq else "http://127.0.0.1:8091/v1",
+        model="openai/gpt-oss-20b" if groq else "Qwen/Qwen3-4B-Instruct-2507",
+        service_api_key=SecretStr(KEY),
+        model_api_key=SecretStr(MODEL_KEY),
+        _env_file=None,
+    )

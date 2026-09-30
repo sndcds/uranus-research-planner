@@ -14,7 +14,7 @@ pytestmark = [
     pytest.mark.integration,
     pytest.mark.skipif(
         os.getenv("RESEARCH_PLANNER_LIVE_TEST") != "1",
-        reason="local model explicitly opt-in only",
+        reason="model inference explicitly opt-in only",
     ),
 ]
 

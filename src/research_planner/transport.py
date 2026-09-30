@@ -14,8 +14,8 @@ MAX_MODEL_RESPONSE_BYTES = 32 * 1024
 
 class BoundedModelTransport(httpx.AsyncBaseTransport):
     def __init__(self, settings: Settings, inner: httpx.AsyncBaseTransport | None = None):
-        assert settings.model_url is not None and settings.model_api_key is not None
-        self.origin = httpx.URL(settings.model_url)
+        assert settings.model_api_key is not None
+        self.endpoint = settings.endpoint
         self.key = settings.model_api_key.get_secret_value()
         self.model = settings.model
         self.inner = inner or httpx.AsyncHTTPTransport(
@@ -29,19 +29,7 @@ class BoundedModelTransport(httpx.AsyncBaseTransport):
 
     async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
         url = request.url
-        if (
-            (url.scheme, url.host, url.port)
-            != (self.origin.scheme, self.origin.host, self.origin.port)
-            or url.query
-            or url.fragment
-            or url.username
-            or url.password
-            or (request.method, url.path)
-            not in {
-                ("POST", "/v1/chat/completions"),
-                ("GET", "/v1/models"),
-            }
-        ):
+        if not self.endpoint.allows(request.method, url):
             raise PlannerError("planner_unavailable")
         body = await request.aread()
         if len(body) > MAX_MODEL_REQUEST_BYTES:

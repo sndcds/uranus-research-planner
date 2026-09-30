@@ -1,4 +1,4 @@
-"""PydanticAI structured output, without tools, memory, retries or public providers."""
+"""PydanticAI structured output, without tools, memory, retries or provider fallback."""
 
 import asyncio
 import json
@@ -24,14 +24,15 @@ from research_planner.transport import BoundedModelTransport
 
 class StructuredModelClient:
     def __init__(self, settings: Settings, transport: httpx.AsyncBaseTransport | None = None):
-        if settings.model_url is None or settings.model_api_key is None:
+        if settings.model_base_url is None or settings.model_api_key is None:
             raise ValueError("model_configuration_required")
         self.settings = settings
+        self.endpoint = settings.endpoint
         # SDK DEBUG logs contain request bodies. Disable even under OPENAI_LOG=debug.
         for name in ("openai", "openai._base_client", "openai._client", "httpx"):
             logging.getLogger(name).disabled = True
         self.client = httpx.AsyncClient(
-            base_url=settings.model_url,
+            base_url=self.endpoint.base_url,
             timeout=httpx.Timeout(
                 settings.timeout_seconds, connect=min(settings.timeout_seconds, 2)
             ),
@@ -40,7 +41,7 @@ class StructuredModelClient:
             transport=BoundedModelTransport(settings, transport),
         )
         self.sdk = AsyncOpenAI(
-            base_url=settings.model_url + "/v1",
+            base_url=self.endpoint.base_url,
             api_key=settings.model_api_key.get_secret_value(),
             organization="",
             project="",
@@ -71,6 +72,7 @@ class StructuredModelClient:
                 "temperature": 0,
                 "max_tokens": settings.max_tokens,
                 "timeout": settings.timeout_seconds,
+                "extra_body": self.endpoint.completion_options(settings.model),
             },
         )
         self.agent.instrument = False
@@ -81,7 +83,7 @@ class StructuredModelClient:
     async def ready(self) -> bool:
         try:
             async with asyncio.timeout(min(self.settings.timeout_seconds, 2)):
-                response = await self.client.get("/v1/models")
+                response = await self.client.get(self.endpoint.models_url)
                 models = decode(response.content).get("data")
                 return isinstance(models, list) and any(
                     isinstance(item, dict) and item.get("id") == self.settings.model

@@ -6,7 +6,7 @@
 flowchart TD
   U[Research user] --> A[uranus-admin: user permission and explicit filters]
   A --> P[POST /plan: authenticated internal planner]
-  P --> M[Local instruction model via PydanticAI]
+  P --> M[Configured instruction model via PydanticAI]
   M --> V[Closed ResearchQueryPlan validation]
   V --> A
   A --> R[Public authoritative name resolution]
@@ -137,11 +137,12 @@ Its Agent object is not an autonomous research agent: request limit 1, tool-call
 limit 0, no tools/toolsets, no history, retries 0, temperature 0, bounded max tokens.
 SDK retries are also disabled. Telemetry instrumentation is explicitly disabled.
 The small HTTP transport remains application-owned because generic SDKs do not
-enforce the internal-origin, byte-limit, redirect and log-redaction contract.
+enforce the provider endpoint allowlist, byte-limit, redirect and log-redaction contract.
 
 `pydantic-ai-slim[openai]` avoids unused provider integrations. The OpenAI SDK is pinned
 to major 2 because major 3 switches its HTTP transport type; upgrades must retain
-these tested boundaries. Using this wire protocol does not call a public provider.
+these tested boundaries. The operator chooses internal inference or the explicitly
+allowlisted Groq API; the OpenAI SDK is a protocol adapter, not a choice of provider.
 The [PydanticAI output documentation](https://ai.pydantic.dev/output/) explains native
 versus prompted output. [Model choices](models.md) discuss the self-hosted server.
 
@@ -327,14 +328,23 @@ it does not perform those stages. No confidence percentage is introduced.
 ## Security, lifecycle and deployment
 
 Two separate keys: incoming service authentication and outgoing model authentication.
-Numeric loopback/RFC1918/IPv6 ULA origin only, explicit port, no DNS/rebinding, URL
-credentials, paths, query strings, public hosts, redirects or environment proxies.
-Plain HTTP is allowed only on loopback; remote private addresses require verified
-TLS. For named AI hosts use a provisioned SSH tunnel bound to loopback. Firewall
-and host configuration remain operator responsibilities; the service does not create
-tunnels or access production infrastructure.
+The browser never receives the model provider key or controls provider configuration.
+The internal provider requires a numeric loopback/RFC1918/IPv6 ULA address, explicit
+port and `/v1` API path; there is no DNS lookup. HTTP is loopback-only; remote private
+addresses require verified TLS. For named AI hosts use a separately provisioned
+SSH tunnel to loopback. The groq provider accepts only the exact
+`https://api.groq.com/openai/v1` base, using DNS and verified TLS. This explicit
+exception does not enable arbitrary public URLs. Both policies reject URL credentials,
+unexpected paths, query strings, fragments, redirects and environment proxies.
 
-Outgoing paths/methods are fixed (`POST /v1/chat/completions`, `GET /v1/models`).
+A shared immutable ModelEndpoint policy constructs the SDK base, completion and
+readiness URLs and validates every outgoing method/full URL before credentials
+are attached. Only `POST <base_url>/chat/completions` and `GET <base_url>/models`
+are permitted. All configuration is operator-side; the public request and response
+contracts, ResearchQueryPlan v1 and prompt v3 remain unchanged. Choosing Groq
+sends the prompt and query context externally, never live records or entity lookups.
+Firewall and host egress remain operator responsibilities; no infrastructure is changed.
+
 64 KiB model request, 32 KiB model response, no compressed responses, 1200 default
 output tokens, eight-second default total model deadline, two concurrent requests
 and no application queue. Readiness has a two-second budget and checks the configured

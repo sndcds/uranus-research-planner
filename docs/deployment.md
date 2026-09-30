@@ -1,7 +1,7 @@
-# Internal deployment example (no deployment performed)
+# Planner deployment examples (no deployment performed)
 
-There are two independent processes: this lightweight planner API and a separately
-provisioned instruction-model server. The API never installs or downloads weights.
+The lightweight planner API uses either a separately provisioned internal model
+server or the explicitly allowlisted Groq API. It never installs or downloads weights.
 Use the [model decision](research-ai/models.md) to evaluate the existing host first.
 The repository contains examples, not verified live paths, units or capacity claims.
 
@@ -9,10 +9,12 @@ The repository contains examples, not verified live paths, units or capacity cla
 
 | Variable | Default / contract |
 | --- | --- |
-| `RESEARCH_PLANNER_MODEL_URL` | Unset disables planning; numeric internal origin with explicit port, no `/v1` suffix |
+| `RESEARCH_PLANNER_MODEL_PROVIDER` | `internal`; only `internal` or `groq`, never auto-detected |
+| `RESEARCH_PLANNER_MODEL_BASE_URL` | Full API base URL; unset (with no legacy URL) disables planning |
+| `RESEARCH_PLANNER_MODEL_URL` | Deprecated internal origin without `/v1`; cannot coexist with MODEL_BASE_URL or provider=groq |
 | `RESEARCH_PLANNER_MODEL_API_KEY` | Separate outgoing Bearer secret; 16–512 printable ASCII characters |
 | `RESEARCH_PLANNER_SERVICE_API_KEY` | Incoming service Bearer secret; same bounds; never delivered to a browser |
-| `RESEARCH_PLANNER_MODEL` | `Qwen/Qwen3-4B-Instruct-2507`; fixed server alias |
+| `RESEARCH_PLANNER_MODEL` | `Qwen/Qwen3-4B-Instruct-2507`; set `openai/gpt-oss-20b` for the initial Groq evaluation; always operator-configurable |
 | `RESEARCH_PLANNER_TIMEOUT_SECONDS` | 8; allowed 0.1–30; absolute model deadline |
 | `RESEARCH_PLANNER_MAX_TOKENS` | 1200; allowed 256–2048 |
 | `RESEARCH_PLANNER_OUTPUT_MODE` | `json_schema`; explicit `json_object` alternative |
@@ -24,14 +26,53 @@ the future admin PR; do not confuse those with the service's outgoing model URL/
 Timezone comes from admin's `settings.event_timezone` in each request. There is no
 user-controlled URL/model/provider or tools field in the request.
 
+### Endpoint policy and migration
+
+For `internal`, set MODEL_BASE_URL to `http://127.0.0.1:8091/v1` or a numeric
+private HTTPS endpoint such as `https://10.0.0.1:8091/v1`. Explicit ports remain
+mandatory, HTTP is loopback-only, and hostname/DNS endpoints are forbidden.
+Only `/v1` (optionally one trailing slash, normalized away) is accepted. Public,
+metadata/link-local and unspecified addresses are rejected. URL credentials,
+escapes, query strings, fragments and other paths are rejected before normalization.
+
+For `groq`, the only accepted base URL is exactly
+`https://api.groq.com/openai/v1`. No alternate host, port (even explicit :443),
+trailing slash, path, userinfo, query or fragment is accepted. Groq uses normal
+DNS and verified TLS; internal endpoints still do not use DNS. This fixed external
+exception is not permission to access arbitrary public HTTPS services. Future
+providers require an explicit policy and tests in `endpoints.py`.
+
+Both providers use AsyncOpenAI, OpenAIChatModel and OpenAIProvider. The configured
+base URL is passed directly to the SDK; it never appends another `/v1`. Transport
+checks full destination URLs and only permits the two methods/paths below, replacing
+headers with the configured Bearer credential and a small fixed header set.
+`trust_env=False`, verified TLS and `follow_redirects=False` remain active, including
+on the underlying HTTP transport. No retries, provider fallback, mode downgrade
+or output repair exist. Provider errors and bodies are not surfaced to callers.
+
+Existing MODEL_URL deployments continue to work **only** for the internal origin
+format: `http://127.0.0.1:8091` maps to `http://127.0.0.1:8091/v1`. To migrate,
+remove MODEL_URL and set MODEL_BASE_URL with `/v1`; set MODEL_PROVIDER explicitly.
+Supplying both names is an error, even if equivalent. MODEL_URL with groq is an
+error; provider selection is never inferred from a URL. Configuration is read
+from the server process environment, never from requests, prompts or browser inputs.
+See [.env.example](../.env.example). Keep provider and service keys separate and
+server-side; neither belongs in JavaScript, a browser response, logs or source control.
+Choosing Groq sends the query, timezone/language, reference date, prompt and schema
+to that external provider; it supplies no database records or entity lookups.
+
 ## Model server contract
 
-- `POST /v1/chat/completions`: nonstreaming JSON Schema output, fixed model,
+- `POST <base_url>/chat/completions`: nonstreaming JSON Schema output, fixed model,
   temperature 0, max tokens. No tools/reasoning. Completion includes exactly one
   choice, assistant text containing a JSON object, `finish_reason=stop`, matching model ID.
-- `GET /v1/models`: `{"data":[{"id":"Qwen/Qwen3-4B-Instruct-2507"}]}` for readiness.
+- Authenticated `GET <base_url>/models` for readiness; the response data must list
+  the exact configured model ID. Internal path: `/v1/models`; Groq path:
+  `/openai/v1/models`. Deadline: min(configured timeout, 2 seconds). Bad/oversized
+  responses, missing IDs, timeouts and redirects return readiness false; no completion
+  is generated and no provider response body is exposed.
 - Model server's own health endpoint may be `/health` (llama.cpp); the service checks
-  model availability via `/v1/models`, not that engine-specific endpoint.
+  model availability via the configured API base plus `/models`, not that health endpoint.
 - Disable request-body, prompt, completion and credential logging on the model server
   and reverse proxy. Do not enable tracing/capture middleware around this service.
 
@@ -59,6 +100,11 @@ must be provisioned by the operator; no installer is executed here. The example
 binds loopback, suppresses access logs and denies non-loopback IP traffic. For
 remote hosts prefer a separately managed SSH tunnel to a loopback port. Do not
 weaken the unit's network restriction silently for remote private HTTPS endpoints.
+This unit is deliberately an **internal-only** network example: it also blocks Groq.
+A Groq systemd deployment needs separately provisioned service egress permitting
+DNS and verified HTTPS to api.groq.com. systemd IPAddressAllow takes IPs/CIDRs,
+not a dynamic hostname policy; use the host's reviewed egress controls rather than
+blindly removing IPAddressDeny. No unit or infrastructure is changed automatically.
 
 [Dockerfile](../deploy/docker/Dockerfile) and
 [Compose example](../deploy/docker/compose.yaml) build only the API. They use an
@@ -69,16 +115,44 @@ namespace, preserving plaintext-loopback-only policy. Image and model artifacts
 must be pinned/reviewed by the operator before production use. No default model
 image is chosen or downloaded by running ordinary tests.
 
+For external inference, the separate [Groq Compose example](../deploy/docker/compose.groq.yaml)
+runs only the planner on a normal bridge with a loopback-bound API port. It uses a
+protected Groq environment file, with the provider/base pinned in the example.
+The host must allow the required DNS/HTTPS egress; the application still permits
+only the exact Groq endpoints. Do not combine it with the internal model Compose
+file. Neither example is deployed by this PR.
+
 Liveness: `GET /health`, no dependency calls. Readiness: authenticated `GET /ready`,
 two-second limit, fixed model must be listed. Readiness does not establish JSON
 Schema support, output quality or latency; run the explicit acceptance tests separately.
 
 ## Manual model acceptance after merge
 
-These commands are for an operator on the AI host after merge, with the existing
-model URL and credentials securely configured. They perform real model requests;
+These commands are for an operator after merge with provider configuration and
+credentials securely supplied. They perform real model requests;
 they are not run by this PR or ordinary CI. Do not install models, restart services
 or change production configuration as part of the code checks.
+
+For Groq, configure the operator shell (or a protected environment file) before
+running tests. The keys below are deliberately invalid placeholders; replace them
+through your secret-management workflow, not a shared shell history:
+
+```sh
+unset RESEARCH_PLANNER_MODEL_URL
+export RESEARCH_PLANNER_MODEL_PROVIDER=groq
+export RESEARCH_PLANNER_MODEL_BASE_URL=https://api.groq.com/openai/v1
+export RESEARCH_PLANNER_MODEL_API_KEY='gsk_example_redacted'
+export RESEARCH_PLANNER_SERVICE_API_KEY='service_example_redacted'
+export RESEARCH_PLANNER_MODEL=openai/gpt-oss-20b
+export RESEARCH_PLANNER_OUTPUT_MODE=json_schema
+export RESEARCH_PLANNER_LIVE_TEST=1
+```
+
+For local Qwen, use MODEL_PROVIDER=internal, MODEL_BASE_URL=http://127.0.0.1:8091/v1,
+the internal model key and MODEL=Qwen/Qwen3-4B-Instruct-2507 instead. The test file
+retains its name for compatibility; it evaluates either explicitly configured provider.
+Normal CI disables live inference and mocks both providers. Never enable the live
+flag merely to run the ordinary unit suite against production.
 
 Use `RESEARCH_PLANNER_OUTPUT_MODE=json_schema` as the preferred default. Small
 models need the schema-friendly contract, prompt v3 rules and complete golden
@@ -90,7 +164,8 @@ final boundary; invalid output is never automatically repaired. `json_object`
 is only an explicitly selected diagnostic alternative, with no automatic fallback.
 
 First rerun exactly the five critical cases below. The operator reported 3 passed
-and 2 failed with prompt v2; require **5 passed with v3** before the full corpus.
+and 2 failed with Qwen prompt v2; require **5 passed with v3** for each provider
+before the full corpus. This PR does not claim a live Groq pass.
 In particular count_venues must use temporal=none, and organizations_area must
 use intent=list, semantic_query=null and temporal=none:
 
@@ -125,3 +200,41 @@ real live quality and CPU latency remain separate acceptance decisions.
 No production restarts, migrations, Qdrant reconcile/reindex, AWS changes or
 deployment operations are performed by this PR. Rollout remains an operator task
 after model evaluation and the separate admin integration PR.
+
+## Manual provider comparison
+
+Use the same commit, prompt v3, json_schema mode, 37 fixtures, timezone and test
+reference date for local Qwen and Groq gpt-oss-20b. Future models must use one of
+the explicitly supported providers and pass the same gate. Keep timeout/max tokens
+and concurrency constant when comparing; record any deliberate changes.
+
+After the five-case gate, retain a separate JUnit report per provider/model:
+
+```sh
+# Real inference; only in the explicitly configured operator environment above.
+uv run pytest -q tests/test_local_model.py --junitxml=/tmp/planner-groq-acceptance.xml
+```
+
+Record case ID, provider, model ID, prompt version, output mode, pass/fail, exact
+golden match, safe failure code, planner_ms, total_ms, input tokens and output tokens.
+Golden match means the existing full-field comparison, with only semantic_query
+casing allowed to differ. Count planner_invalid_response failures separately from
+valid-but-wrong plans and unavailable/rate-limited calls; report counts and the
+invalid-plan rate over all attempted cases. Reports may contain synthetic fixture
+text; use this workflow only with the reviewed corpus and keep reports out of git.
+
+The fixture tests call the model client directly and therefore do **not** produce
+API planner_ms/total_ms diagnostics. Do not relabel pytest duration as either metric.
+For timing, submit the same fixture queries to an operator-run planner API with the
+same configuration and record its safe research_plan log events: planner_ms measures
+the client/validation stage, total_ms the API stage (including failed calls). Success
+responses also contain these diagnostics. Keep test IDs associated with requests
+in the operator harness; do not enable prompt/body logging. Record the API's returned
+reference_date because it uses the current date, unlike the fixed-date fixture run.
+
+Report cold/warm p50/p95, sample counts and concurrency separately. The current
+client does not expose provider token usage in the public response or logs: record
+input/output tokens as **unavailable** unless the provider's existing usage reporting
+supplies them. Never invent token counts or expose raw responses/keys to obtain them.
+Reasoning effort is not configurable in this implementation; document the provider
+model default and treat low-effort reasoning as a future separately tested benchmark.

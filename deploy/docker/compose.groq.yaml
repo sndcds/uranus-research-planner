@@ -1,0 +1,21 @@
+# Separate example: no local model service. Run only when explicitly selected.
+# Requires outbound DNS and verified HTTPS to api.groq.com through host egress policy.
+services:
+  planner:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    env_file:
+      - ${RESEARCH_PLANNER_ENV_FILE:?Set a protected Groq planner env file}
+    environment:
+      RESEARCH_PLANNER_MODEL_PROVIDER: groq
+      RESEARCH_PLANNER_MODEL_BASE_URL: https://api.groq.com/openai/v1
+    ports:
+      - '127.0.0.1:8090:8090'
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    pids_limit: 64
