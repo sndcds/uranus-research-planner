@@ -91,6 +91,23 @@ class PlanEnvelopeV4(ClosedV4):
     plan: PlanV4
 
 
+class ProviderDataDecision(ClosedV4):
+    """Recognized intent, including constraints the executable contract cannot express."""
+
+    # All fields are required. Do not inherit DataPlan: its compatibility validator
+    # would reject constrained decisions before Python can classify them as unsupported.
+
+    domain: Literal["data"]
+    operation: Literal["rank"]
+    entity_type: Literal["event", "venue", "organization", "category"]
+    metric: Literal["description_characters", "occurrence_count", "event_count", "venue_count"]
+    ordering: Literal["asc", "desc"]
+    limit: int = Field(ge=1, le=20)
+    area_query: str | None = Field(min_length=1, max_length=160)
+    has_temporal_constraint: bool
+    has_other_constraint: bool
+
+
 class DomainProposal(ClosedV4):
     """Provider-only decision: null means unsupported, never an executable plan.
 
@@ -98,7 +115,7 @@ class DomainProposal(ClosedV4):
     The public envelope retains its domain discriminator and never exposes null.
     """
 
-    plan: DataPlan | KnowledgePlan | None
+    plan: ProviderDataDecision | KnowledgePlan | None
 
     @model_validator(mode="before")
     @classmethod
@@ -108,7 +125,7 @@ class DomainProposal(ClosedV4):
         if isinstance(value, dict) and isinstance(value.get("plan"), dict):
             plan = value["plan"]
             models: dict[str, type[ClosedV4]] = {
-                "data": DataPlan,
+                "data": ProviderDataDecision,
                 "project_knowledge": KnowledgePlan,
             }
             domain = plan.get("domain")

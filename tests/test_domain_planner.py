@@ -12,7 +12,13 @@ from pydantic import ValidationError
 from research_planner.app import create_app
 from research_planner.domain_planner import DomainPlanner
 from research_planner.domain_prompts import DOMAIN_PROMPT_VERSION, DOMAIN_SYSTEM_PROMPT
-from research_planner.domain_schema import DataPlan, DomainProposal, KnowledgePlan
+from research_planner.domain_schema import (
+    EXECUTABLE,
+    DataPlan,
+    DomainProposal,
+    KnowledgePlan,
+    ProviderDataDecision,
+)
 from research_planner.errors import PlannerError
 from research_planner.model_client import StructuredModelClient
 from research_planner.schemas import PlanRequest
@@ -20,6 +26,18 @@ from tests.conftest import MODEL_KEY, make_plan
 from tests.test_model_client import completion
 
 CASES = json.loads((Path(__file__).parent / "fixtures/domain_queries.json").read_text())
+
+
+def data_decision(plan):
+    """Explicit mocked recognition for unconstrained public golden plans."""
+    return plan | {"has_temporal_constraint": False, "has_other_constraint": False}
+
+
+def fixture_decision(case):
+    if "provider_decision" in case:
+        return case["provider_decision"]
+    plan = case["plan"]
+    return data_decision(plan) if plan and plan["domain"] == "data" else plan
 
 
 def provider_for(settings, content, calls):
@@ -33,7 +51,7 @@ def provider_for(settings, content, calls):
 @pytest.mark.parametrize("case", CASES, ids=lambda case: case["id"])
 async def test_golden_provider_responses(provider_settings, case):
     calls = []
-    provider = provider_for(provider_settings, json.dumps({"plan": case["plan"]}), calls)
+    provider = provider_for(provider_settings, json.dumps({"plan": fixture_decision(case)}), calls)
     try:
         request = PlanRequest(query=case["query"], language=case["language"])
         if case["plan"] is None:
@@ -76,6 +94,75 @@ async def test_exact_structured_schema(provider_settings):
     assert output["json_schema"]["schema"] == expected
     assert "category_count" not in json.dumps(expected)
     assert "unknown" not in json.dumps(expected)
+    decision_schema = expected["$defs"]["ProviderDataDecision"]
+    assert set(decision_schema["required"]) == set(ProviderDataDecision.model_fields)
+    assert "DataPlan" not in expected["$defs"]
+
+
+@pytest.mark.parametrize("entity,metric", sorted(EXECUTABLE))
+@pytest.mark.parametrize(
+    "constraints",
+    [
+        {"area_query": "Husum"},
+        {"has_temporal_constraint": True},
+        {"has_other_constraint": True},
+        {"area_query": "Flensburg", "has_temporal_constraint": True},
+        {"area_query": "Flensburg", "has_other_constraint": True},
+        {"has_temporal_constraint": True, "has_other_constraint": True},
+    ],
+)
+def test_reported_constraints_fail_closed_at_route(settings, auth, entity, metric, constraints):
+    decision = (
+        data_decision(CASES[0]["plan"])
+        | {
+            "entity_type": entity,
+            "metric": metric,
+        }
+        | constraints
+    )
+    # Recognized constraints must survive provider validation for every metric.
+    assert DomainProposal.model_validate({"plan": decision}).plan.model_dump() == decision
+    calls = []
+    provider = provider_for(settings, json.dumps({"plan": decision}), calls)
+    with TestClient(create_app(settings, provider)) as client:
+        response = client.post("/v4/plan", headers=auth, json={"query": "constrained question"})
+    if (entity, metric) == ("organization", "event_count") and constraints == {
+        "area_query": "Husum"
+    }:
+        assert response.status_code == 200
+        assert response.json()["plan"]["area_query"] == "Husum"
+        assert set(response.json()["plan"]) == set(DataPlan.model_fields)
+    else:
+        assert response.status_code == 422
+        assert response.json()["error"]["code"] == "planner_unsupported_plan"
+    assert len(calls) == 1
+
+
+@pytest.mark.parametrize("field", ["has_temporal_constraint", "has_other_constraint"])
+@pytest.mark.parametrize("value", [None, "false", 0, 1, [], {}])
+async def test_constraint_flags_must_be_explicit_booleans(provider_settings, field, value):
+    decision = data_decision(CASES[0]["plan"]) | {field: value}
+    calls = []
+    provider = provider_for(provider_settings, json.dumps({"plan": decision}), calls)
+    try:
+        with pytest.raises(PlannerError, match="planner_invalid_response"):
+            await DomainPlanner(provider).interpret(PlanRequest(query="q"))
+        assert len(calls) == 1
+    finally:
+        await provider.close()
+
+
+async def test_incompatible_recognized_pair_is_unsupported(settings):
+    decision = data_decision(CASES[0]["plan"]) | {"entity_type": "venue"}
+    calls = []
+    provider = provider_for(settings, json.dumps({"plan": decision}), calls)
+    try:
+        with pytest.raises(PlannerError) as error:
+            await DomainPlanner(provider).interpret(PlanRequest(query="q"))
+        assert (error.value.code, error.value.status) == ("planner_unsupported_plan", 422)
+        assert len(calls) == 1
+    finally:
+        await provider.close()
 
 
 @pytest.mark.parametrize(
@@ -139,10 +226,10 @@ def test_closed_knowledge_contract(mutation):
         '{"plan":{"domain":[]}}',
         '{"plan":"data"}',
         '{"plan":null,"confidence":NaN}',
-        json.dumps({"plan": CASES[0]["plan"] | {"limit": "3"}}),
-        json.dumps({"plan": CASES[0]["plan"] | {"metric": "invented"}}),
-        json.dumps({"plan": CASES[0]["plan"] | {"sql": "SELECT 1"}}),
-        json.dumps({"plan": CASES[0]["plan"] | {"area_query": "Husum"}}),
+        json.dumps({"plan": data_decision(CASES[0]["plan"]) | {"limit": "3"}}),
+        json.dumps({"plan": data_decision(CASES[0]["plan"]) | {"metric": "invented"}}),
+        json.dumps({"plan": data_decision(CASES[0]["plan"]) | {"sql": "SELECT 1"}}),
+        json.dumps({"plan": CASES[0]["plan"]}),  # Old executable-only provider output.
     ],
 )
 async def test_invalid_provider_no_repair_or_retry(provider_settings, content):
@@ -161,8 +248,8 @@ async def test_revalidate_injected_provider_and_preserve_original_query():
     class Provider:
         async def plan_v4(self, request):
             return DomainProposal.model_construct(
-                plan=DataPlan.model_construct(
-                    entity_type="event", metric="description_characters", limit=21
+                plan=ProviderDataDecision.model_construct(
+                    **(data_decision(CASES[0]["plan"]) | {"limit": 21})
                 )
             )
 
@@ -172,7 +259,7 @@ async def test_revalidate_injected_provider_and_preserve_original_query():
 
 async def test_original_query_is_server_owned(settings):
     query = "  Welches Event\nhat die längste Beschreibung?  "
-    provider = provider_for(settings, json.dumps({"plan": CASES[0]["plan"]}), [])
+    provider = provider_for(settings, json.dumps({"plan": fixture_decision(CASES[0])}), [])
     try:
         result = await DomainPlanner(provider).interpret(PlanRequest(query=query))
         assert result.original_query == query
@@ -193,7 +280,7 @@ async def test_knowledge_query_cannot_add_facts_or_selectors(settings):
 
 def test_v4_route_infers_and_authenticates(settings, auth):
     calls = []
-    provider = provider_for(settings, json.dumps({"plan": CASES[0]["plan"]}), calls)
+    provider = provider_for(settings, json.dumps({"plan": fixture_decision(CASES[0])}), calls)
     with TestClient(create_app(settings, provider)) as client:
         assert client.post("/v4/plan", json={"query": "q"}).status_code == 401
         assert not calls
@@ -233,7 +320,9 @@ async def test_shared_admission_limit(settings, auth, occupied_route):
         async def plan_v4(self, request):
             entered.set()
             await release.wait()
-            return DomainProposal(plan=DataPlan.model_validate(CASES[0]["plan"]))
+            return DomainProposal(
+                plan=ProviderDataDecision.model_validate(fixture_decision(CASES[0]))
+            )
 
     settings.max_concurrent_requests = 1
     app = create_app(settings, Provider())
@@ -280,8 +369,9 @@ def test_corpus_preserves_catalogue_and_holds_out_paraphrases():
 @pytest.mark.parametrize("case_index", [0, 18])
 async def test_missing_provider_fields_are_not_defaulted(settings, case_index):
     case = CASES[case_index]
-    for field in case["plan"]:
-        incomplete = {key: value for key, value in case["plan"].items() if key != field}
+    decision = fixture_decision(case)
+    for field in decision:
+        incomplete = {key: value for key, value in decision.items() if key != field}
         calls = []
         provider = provider_for(settings, json.dumps({"plan": incomplete}), calls)
         try:

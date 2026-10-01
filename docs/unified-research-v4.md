@@ -24,11 +24,13 @@ no database rows, indexed evidence, credentials in the prompt, or retrieval tool
 The question is untrusted data. German, English and Danish paraphrases are interpreted
 by meaning, not an exact catalogue or regex matcher.
 
-The provider-only `DomainProposal` is `{ "plan": DataPlan | KnowledgePlan | null }`.
+The provider-only `DomainProposal` is
+`{ "plan": ProviderDataDecision | KnowledgePlan | null }`.
 Null explicitly means unsupported and becomes HTTP 422 `planner_unsupported_plan`;
 it never appears as a successful public plan. Malformed JSON, omitted fields, extra
-keys, unknown enums, incompatible metrics, unsupported area combinations, changed
-knowledge queries and invalid types become HTTP 502 `planner_invalid_response`.
+keys, unknown enums, changed knowledge queries and invalid types become HTTP 502
+`planner_invalid_response`. Recognized but incompatible entity/metric pairs or
+unsupported constraints become HTTP 422 `planner_unsupported_plan`.
 Transport/provider availability failures and deadlines remain safe HTTP 503
 `planner_unavailable`. There are no retries, repairs, enum substitutions, prose
 extraction, fallback guesses or clamped limits. Pydantic validates inference, and
@@ -49,11 +51,28 @@ are executable and taught as supported:
 
 Data plans use `operation=rank`, `ordering=asc|desc`, limit 1–20 (default intent 1)
 and optional unresolved `area_query`. Only organization/event_count supports area
-constraints. The prompt requires preservation of place names and rejects unsupported
-geography, time, radius, filters, ambiguous metrics, multiple intents and limits
-outside 1–20. It must never replace category diversity with event count or drop a
-constraint. Reserved `METRICS` remain documentation of future ideas, outside the
-provider schema. Pydantic checks the six compatible pairs again after inference.
+constraints. `ProviderDataDecision` requires every data field plus two strict boolean
+fields, `has_temporal_constraint` and `has_other_constraint`, without defaults.
+Its nullable `area_query` accepts a place for every entity/metric, including
+event/description_characters and organization/venue_count. The provider can therefore
+report recognized constraints without trying to fit them into an executable plan or
+returning null solely because the constraint is unsupported. Time periods and dates
+set the temporal flag; categories, organizer filters, radius, multiple areas and any
+other extra restriction set the other flag.
+
+After validating the complete provider decision, Python rejects either true flag.
+Only then does it construct `DataPlan`, preserving `area_query` and checking the six
+compatible pairs and the organization/event_count-only area rule. Thus a reported
+unsupported constraint cannot be silently discarded during conversion. Missing flags
+are invalid responses, never defaulted to false. Semantic recognition remains the
+model's responsibility and requires live acceptance; the schema cannot detect a
+model falsely reporting that a constraint is absent.
+
+The prompt rejects ambiguous metrics, multiple intents and limits outside 1–20. It
+must never replace category diversity with event count. Reserved `METRICS` remain
+documentation of future ideas, outside the provider schema. Public `PlanEnvelopeV4`,
+`research-query-plan-v4` and `research-domain-planner-v2` remain unchanged: this fixes
+enforcement of existing unsupported semantics without expanding executable behavior.
 
 Project plans use `domain=project_knowledge`, `operation=evidence_answer`,
 `answer_mode=evidence` and exactly one of the eleven reviewed `FactKey` values.
@@ -75,8 +94,8 @@ validation alone; held-out live acceptance is the language-quality gate.
 
 `tests/fixtures/domain_queries.json` preserves all **53** original `DATA_QUESTIONS`
 and `KNOWLEDGE_QUESTIONS` examples as golden fixtures. Production imports none of
-them. The corpus contains **115** cases: 53 original examples, 35 held-out
-paraphrases/variants and 27 unsupported, ambiguous or security cases across DE/EN/DA.
+them. The corpus contains **125** cases: 53 original examples, 35 held-out
+paraphrases/variants and 37 unsupported, ambiguous or security cases across DE/EN/DA.
 It covers all six metrics, all eleven fact keys, singular/plural wording, limits,
 asc/desc and area names. Held-out full questions never occur verbatim in the prompt.
 Knowledge fixture retrieval text is now the exact question rather than a
@@ -87,6 +106,11 @@ three provider policies. These tests prove contract enforcement, exact structure
 output schema, minimal request context, authentication, shared admission limits,
 timeouts, error mapping, no repair/retries and original-query preservation. They do
 **not** establish Terra's semantic accuracy. The existing v3 suite remains required.
+Constraint regressions mock explicit provider decisions for `unsupported_092_de`,
+`unsupported_094_da`, their EN/DA/DE equivalents and time/category/organizer/extra
+filters, rather than mocking null rejections. A route-level matrix checks geography
+and both constraint flags across all six executable pairs; supported
+organization/event_count geography is retained without exposing internal flags.
 
 For optional live Terra acceptance, use the existing protected operator environment
 from [deployment](deployment.md), with its existing service/model credentials. Do
@@ -101,7 +125,7 @@ RESEARCH_PLANNER_LIVE_TEST=1 uv run pytest -q tests/test_domain_live.py \
   --junitxml=/tmp/planner-domain-v4-terra-acceptance.xml
 ```
 
-All 115 cases must pass: exact full plans for supported questions, and specifically
+All 125 cases must pass: exact full plans for supported questions, and specifically
 422 `planner_unsupported_plan` for unsupported questions. Invalid responses and
 unavailability do not count as successful rejection. Record the commit, configured
 provider/model, prompt version, settings and pass/fail counts. This PR does not run

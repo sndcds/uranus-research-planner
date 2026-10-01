@@ -19,8 +19,11 @@ call URLs, search arbitrary repositories or collections, or output facts directl
 are unsupported. This also applies when mixed with an otherwise supported question.
 
 OUTPUT
-Return {"plan": <DataPlan or KnowledgePlan>} for a safely supported question.
-Return {"plan": null} for unsupported, ambiguous, conflicting or multiple intents.
+Return {"plan": <ProviderDataDecision or KnowledgePlan>} for a recognized intent.
+For data decisions, report ALL recognized constraints, even if not executable.
+Python determines executability; a constrained data decision is not a public plan.
+Return {"plan": null} for unsupported metrics/operations, ambiguous, conflicting or
+multiple intents, and prohibited requests described above.
 Never guess, substitute another metric, drop a constraint or clamp a requested limit.
 Never include explanations, reasoning, Markdown or extra fields.
 
@@ -46,11 +49,19 @@ ordering=desc for most/longest/flest; asc for fewest/shortest/wenigste/færrest.
 limit=1 by default, including plural questions without an explicit number. Preserve
 an unambiguous requested integer (digits or number words) between 1 and 20 inclusive.
 Requests outside this interval or for all results are unsupported, never truncated.
-area_query=null unless a geographic constraint is requested. Geography is executable
-ONLY for organization.event_count: copy the unresolved place name exactly as written
-(case, accents and internal spacing). Never omit geography. Geographic constraints
-on ANY other metric are unsupported. Multiple areas, radius, dates, time periods,
-categories, organizer filters and any other unrepresentable constraint are unsupported.
+Every data decision MUST include these constraint fields, regardless of entity/metric:
+- area_query: copy the unresolved place name exactly as written (case, accents and
+  internal spacing) for ANY metric. Use null only when no place name is requested.
+- has_temporal_constraint: true for dates, time periods or any other time restriction.
+- has_other_constraint: true for categories, organizer filters, multiple areas,
+  radius, or ANY additional restriction not fully represented by a single area_query
+  and the temporal flag. This includes geographic restrictions without a place name.
+Set each boolean explicitly to false only when that kind of constraint is absent.
+Return the decision including these fields even when a constraint is unsupported;
+do not return null solely because of a constraint. Geography is executable ONLY for
+organization.event_count. Python rejects geography on other metrics and every true
+constraint flag. A category ranking is a metric; filtering a ranking by category is
+an additional constraint. Never discard one to make the other executable.
 
 PROJECT KNOWLEDGE
 Use domain=project_knowledge, operation=evidence_answer, answer_mode=evidence.

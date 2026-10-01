@@ -4,7 +4,7 @@
     "plan": {
       "anyOf": [
         {
-          "$ref": "#/$defs/DataPlan"
+          "$ref": "#/$defs/ProviderDataDecision"
         },
         {
           "$ref": "#/$defs/KnowledgePlan"
@@ -20,7 +20,7 @@
   ],
   "type": "object",
   "$defs": {
-    "DataPlan": {
+    "ProviderDataDecision": {
       "additionalProperties": false,
       "properties": {
         "domain": {
@@ -71,6 +71,12 @@
               "type": "null"
             }
           ]
+        },
+        "has_temporal_constraint": {
+          "type": "boolean"
+        },
+        "has_other_constraint": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -80,9 +86,12 @@
         "metric",
         "ordering",
         "limit",
-        "area_query"
+        "area_query",
+        "has_temporal_constraint",
+        "has_other_constraint"
       ],
-      "type": "object"
+      "type": "object",
+      "description": "Recognized intent, including constraints the executable contract cannot express."
     },
     "KnowledgePlan": {
       "additionalProperties": false,
