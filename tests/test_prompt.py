@@ -22,3 +22,10 @@ def test_prompt_contains_complete_canonical_outside_research_example():
     case = next(case for case in FIXTURES if case["id"] == "injection")
     assert golden == fixture_plan(case).model_dump(mode="json")
     assert ResearchQueryPlan.model_validate_json(json.dumps(golden)).original_query == case["query"]
+
+
+def test_prompt_separates_taxonomies_and_preserves_parentage():
+    assert "Never map an event type to category_queries." in SYSTEM_PROMPT
+    assert '"Jazz Konzerte", "Jazz-Konzerte", "Jazzkonzerte"' in SYSTEM_PROMPT
+    assert "genres are subordinate to event types" in SYSTEM_PROMPT
+    assert 'Konzerte -> category_queries=["Konzerte"]' not in SYSTEM_PROMPT

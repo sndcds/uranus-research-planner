@@ -80,6 +80,7 @@ class ResearchQueryPlan(ClosedModel):
     area_query: Slot | None
     venue_query: Slot | None
     organization_query: Slot | None
+    event_type_queries: list[Slot] = Field(max_length=8)
     category_queries: list[Slot] = Field(max_length=8)
     genre_queries: list[Slot] = Field(max_length=8)
     temporal: Temporal
@@ -109,6 +110,7 @@ class ResearchQueryPlan(ClosedModel):
                 "area_query": None,
                 "venue_query": None,
                 "organization_query": None,
+                "event_type_queries": [],
                 "category_queries": [],
                 "genre_queries": [],
                 "temporal": "none",
@@ -204,14 +206,14 @@ class PlanDiagnostics(ClosedModel):
     request_id: str = Field(pattern=r"^[a-f0-9]{32}$")
     planner_intent: Intent
     planner_model: str = Field(min_length=1, max_length=160)
-    planner_prompt_version: Literal["research-planner-v6"]
+    planner_prompt_version: Literal["research-planner-v7"]
     planner_ms: float = Field(ge=0)
     total_ms: float = Field(ge=0)
 
 
 class PlanEnvelope(ClosedModel):
     schema_version: Literal["research-query-plan-v3"] = SCHEMA_VERSION
-    prompt_version: Literal["research-planner-v6"]
+    prompt_version: Literal["research-planner-v7"]
     model: str = Field(min_length=1, max_length=160)
     plan: ResearchQueryPlan
     reference_date: date

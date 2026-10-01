@@ -43,7 +43,7 @@ all cross-field consistency checks remain active.
 | `entity_type` | event, venue, organization |
 | `semantic_query`, `semantic_focus` | Nullable, nonblank, at most 500 characters |
 | `area_query`, `venue_query`, `organization_query` | Nullable names, at most 160 characters |
-| `category_queries`, `genre_queries` | At most eight names each, 160 characters each |
+| `event_type_queries`, `category_queries`, `genre_queries` | At most eight names each, 160 characters each |
 | `temporal` | none, today, tomorrow, this_weekend, next_week, this_month, this_year, past, future, explicit_range |
 | `explicit_from_date`, `explicit_to_date` | Both ordered ISO dates for explicit_range; otherwise null |
 | `time_of_day` | none, evening |
@@ -121,6 +121,7 @@ The prompt contains this complete acceptance example, also checked against the
   "area_query": null,
   "venue_query": "Kühlhaus",
   "organization_query": null,
+  "event_type_queries": [],
   "category_queries": [],
   "genre_queries": [],
   "temporal": "past",
@@ -415,3 +416,36 @@ claim can be inferred from the offline fixture tests in this PR.
 
 The required v3/v6 fields, occurrence ordering, limits and unsupported hybrid behavior
 are specified in [chronological records](../chronological-records.md).
+
+
+### v3 taxonomy contract (prompt v7)
+
+Categories != event types != genres. The source of truth is:
+
+- Categories: `event.categories` and the event category lookup.
+- Event types: `event_type_link.type_id -> event_type`.
+- Genres: `event_type_link.(type_id, genre_id) -> genre_type`.
+
+Genres are subordinate to event types. The required `event_type_queries` list
+contains at most eight nonblank names of at most 160 characters, just like the
+category and genre lists. No list defaults at the provider boundary; neutral and
+outside-research plans explicitly contain `event_type_queries=[]`.
+
+“Konzerte” is an event type, “Jazz” a genre. “Jazz Konzerte”, “Jazz-Konzerte” and
+“Jazzkonzerte” use `event_type_queries=["Konzerte"]`, `genre_queries=["Jazz"]` and
+`category_queries=[]`. With “heute”, the plan is a structured event list with
+`temporal=today`, `semantic_query=null` and `requires_semantic_relevance=false`.
+Uncertain taxonomy terms remain semantic; Planner never invents IDs.
+
+The schema identifier stays `research-query-plan-v3`; the semantic change and
+required wire-field addition are gated by `research-planner-v7`. Update Admin's
+strict mirror alongside Planner; v6 envelopes are not accepted by the v7 mirror.
+The independent v4 domain contract and behavior are unchanged.
+
+Admin resolves exact canonical labels for types used by public events, then
+genres, then categories. Genre identities preserve their parent as `type_id:genre_id`.
+If any resolved genre has a parent outside explicitly resolved event types, Admin
+returns `needs_clarification` with `taxonomy_conflict`, preserving both resolutions.
+PostgreSQL intersects dates, locations, categories, event types and genre pairs.
+Qdrant only ranks complete eligible IDs; SQL rechecks constraints on rehydration.
+Zero eligible records are a successful empty records result.

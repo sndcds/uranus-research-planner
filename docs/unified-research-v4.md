@@ -1,6 +1,6 @@
 # Additive domain planning contract v4
 
-Existing `POST /plan` keeps `research-query-plan-v3`, the `research-planner-v6`
+Existing `POST /plan` keeps `research-query-plan-v3`, the `research-planner-v7`
 prompt, its response, and its provider output mode. `POST /v4/plan` accepts the same
 bounded, authenticated `PlanRequest` and now performs real model inference. It
 returns `research-query-plan-v4` with `original_query`,

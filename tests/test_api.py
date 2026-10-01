@@ -33,7 +33,7 @@ def test_api_fixture_responses(settings, auth, case):
         )
         assert data["plan"] == fake.result.model_dump(mode="json")
         assert data["schema_version"] == "research-query-plan-v3"
-        assert data["prompt_version"] == "research-planner-v6"
+        assert data["prompt_version"] == "research-planner-v7"
         assert "count" not in data  # even semantic/count requests only produce plans
         assert "items" not in data
         assert data["diagnostics"]["planner_ms"] >= 0
@@ -144,7 +144,7 @@ def test_logs_are_value_redacted(settings, auth, caplog):
         if record.name == "research_planner.metrics"
     )
     assert event["planner_intent"] == "list"
-    assert event["planner_prompt_version"] == "research-planner-v6"
+    assert event["planner_prompt_version"] == "research-planner-v7"
     for secret in (query, "PRIVATE_TOPIC", KEY, MODEL_KEY, "Glücksburg", SYSTEM_PROMPT):
         assert secret not in caplog.text
 

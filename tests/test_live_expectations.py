@@ -30,7 +30,7 @@ def test_semantic_query_casing_is_the_only_text_flexibility():
         {"area_query": "glücksburg"},
         {"venue_query": "Kühlhaus"},
         {"organization_query": "Stadt Glücksburg"},
-        {"category_queries": ["Konzerte"]},
+        {"event_type_queries": ["Konzerte"]},
         {"genre_queries": ["Jazz"]},
         {"temporal": "today", "time_of_day": "evening"},
         {"clarification": "needs_location"},
@@ -103,3 +103,19 @@ def test_outside_research_golden_is_complete_and_neutral(case_id):
     )
     with pytest.raises(AssertionError):
         assert_golden_plan(actual, expected)
+
+
+@pytest.mark.parametrize(
+    "case", [c for c in FIXTURES if c["id"].startswith(("jazz_", "concerts_"))]
+)
+def test_taxonomy_regression_golden(case):
+    expected = fixture_plan(case)
+    assert expected.intent == "list" and expected.entity_type == "event"
+    assert expected.temporal == "today"
+    assert expected.category_queries == []
+    assert expected.semantic_query is None and not expected.requires_semantic_relevance
+    assert expected.event_type_queries == ([] if case["id"] == "jazz_de" else ["Konzerte"])
+    assert expected.genre_queries == ([] if case["id"] == "concerts_de" else ["Jazz"])
+    wrong = expected.model_copy(update={"event_type_queries": [], "category_queries": ["Konzerte"]})
+    with pytest.raises(AssertionError):
+        assert_golden_plan(wrong, expected)

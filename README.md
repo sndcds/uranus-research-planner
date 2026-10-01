@@ -14,7 +14,7 @@ This repository implements the first line. The second line remains a separate
 
 ## Current contract
 
-The required contract is `research-query-plan-v3` / `research-planner-v6`, including
+The required contract is `research-query-plan-v3` / `research-planner-v7`, including
 `ordering` and `limit`. See [chronology and coordinated deployment](docs/chronological-records.md).
 Previous model acceptance below applies to v1/v4, not the new prompt.
 
