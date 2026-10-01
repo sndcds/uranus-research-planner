@@ -410,3 +410,8 @@ ambiguity UI; Pydantic/Zod/proxy/OpenAPI updates; DB/permission/filter regressio
 Before rollout: evaluate real DE/DA/EN paraphrases, injection attempts, quantization,
 slot accuracy and p50/p95 latency on the actual host. No live accuracy or latency
 claim can be inferred from the offline fixture tests in this PR.
+
+## Chronological contract extension
+
+The required v2/v5 fields, occurrence ordering, limits and unsupported hybrid behavior
+are specified in [chronological records](../chronological-records.md).

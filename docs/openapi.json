@@ -181,13 +181,13 @@
         "properties": {
           "schema_version": {
             "type": "string",
-            "const": "research-query-plan-v1",
+            "const": "research-query-plan-v2",
             "title": "Schema Version",
-            "default": "research-query-plan-v1"
+            "default": "research-query-plan-v2"
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v4",
+            "const": "research-planner-v5",
             "title": "Prompt Version"
           },
           "model": {
@@ -342,7 +342,7 @@
           },
           "planner_prompt_version": {
             "type": "string",
-            "const": "research-planner-v4",
+            "const": "research-planner-v5",
             "title": "Planner Prompt Version"
           },
           "planner_ms": {
@@ -406,13 +406,13 @@
         "properties": {
           "schema_version": {
             "type": "string",
-            "const": "research-query-plan-v1",
+            "const": "research-query-plan-v2",
             "title": "Schema Version",
-            "default": "research-query-plan-v1"
+            "default": "research-query-plan-v2"
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v4",
+            "const": "research-planner-v5",
             "title": "Prompt Version"
           },
           "model": {
@@ -573,6 +573,28 @@
             ],
             "title": "Temporal"
           },
+          "ordering": {
+            "type": "string",
+            "enum": [
+              "none",
+              "earliest",
+              "latest"
+            ],
+            "title": "Ordering"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 20.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
           "explicit_from_date": {
             "anyOf": [
               {
@@ -703,6 +725,8 @@
           "category_queries",
           "genre_queries",
           "temporal",
+          "ordering",
+          "limit",
           "explicit_from_date",
           "explicit_to_date",
           "time_of_day",

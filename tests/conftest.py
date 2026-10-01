@@ -62,6 +62,8 @@ def make_plan(query="suche events in glücksburg", **changes):
         "category_queries": [],
         "genre_queries": [],
         "temporal": "none",
+        "ordering": "none",
+        "limit": None,
         "explicit_from_date": None,
         "explicit_to_date": None,
         "time_of_day": "none",
