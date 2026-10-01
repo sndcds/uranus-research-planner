@@ -13,6 +13,14 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer
 
+from research_planner.analytics_guard import analytical_mismatch
+from research_planner.analytics_schema import (
+    AnalyticalClarification,
+    AnalyticalDiagnostics,
+    AnalyticalPlanResponse,
+    AnalyticalQueryPlan,
+    AnalyticalResponse,
+)
 from research_planner.config import Settings
 from research_planner.domain_planner import DomainPlanner
 from research_planner.domain_schema import PlanEnvelopeV4
@@ -99,7 +107,7 @@ def create_app(
 
     @asynccontextmanager
     async def inference_slot() -> AsyncIterator[None]:
-        # Both versions share admission, with no unbounded queue in front of inference.
+        # All plan versions share admission, with no unbounded queue before inference.
         if slots.locked():
             raise PlannerError("planner_unavailable")
         async with slots, asyncio.timeout(settings.timeout_seconds):
@@ -133,7 +141,10 @@ def create_app(
             except (ValueError, TypeError, AttributeError):
                 raise PlannerError("planner_invalid_response", 502) from None
             intent = proposal.intent
-            if proposal.unsupported_reason is not None:
+            if proposal.unsupported_reason is not None or (
+                proposal.clarification == "none"
+                and analytical_mismatch(request.query, proposal.intent, proposal.group_by)
+            ):
                 raise PlannerError("planner_unsupported_plan", 422)
             diagnostics = PlanDiagnostics(
                 request_id=request_id,
@@ -165,6 +176,83 @@ def create_app(
                 request_id=request_id,
                 model=settings.model,
                 prompt_version=RESEARCH_PLANNER_PROMPT_VERSION,
+                intent=intent,
+                planner_ms=planner_ms,
+                total_ms=round((perf_counter() - started) * 1000, 2),
+                error_type=error_type,
+            )
+
+    @app.post(
+        "/v5/plan",
+        response_model=AnalyticalPlanResponse,
+        dependencies=[Depends(service_auth)],
+        responses={code: {"model": ErrorResponse} for code in (401, 413, 422, 502, 503)},
+    )
+    async def analytical_plan(request: PlanRequest) -> AnalyticalPlanResponse:
+        started = perf_counter()
+        request_id = uuid4().hex
+        intent = None
+        error_type = "none"
+        planner_ms = 0.0
+        try:
+            reference_date = now().astimezone(ZoneInfo(request.timezone)).date()
+            async with inference_slot():
+                model_started = perf_counter()
+                try:
+                    proposal = await provider.plan_v5(request, reference_date)
+                finally:
+                    planner_ms = round((perf_counter() - model_started) * 1000, 2)
+            # Revalidate every provider, including injected implementations. Never trust model_copy.
+            try:
+                proposal = AnalyticalQueryPlan.model_validate_json(proposal.model_dump_json())
+                if proposal.original_query != request.query:
+                    raise ValueError
+            except (ValueError, TypeError, AttributeError):
+                raise PlannerError("planner_invalid_response", 502) from None
+            intent = proposal.intent
+            if proposal.unsupported_reason is not None or (
+                proposal.clarification == "none"
+                and analytical_mismatch(
+                    request.query,
+                    proposal.intent,
+                    proposal.group_by,
+                    proposal.taxonomy,
+                    proposal.area_relation,
+                    proposal.time_of_day,
+                )
+            ):
+                raise PlannerError("planner_unsupported_plan", 422)
+            diagnostics = AnalyticalDiagnostics(
+                request_id=request_id,
+                planner_intent=proposal.intent,
+                planner_model=settings.model,
+                planner_prompt_version="research-planner-v8",
+                planner_ms=planner_ms,
+                total_ms=round((perf_counter() - started) * 1000, 2),
+            )
+            response_type = (
+                AnalyticalClarification if proposal.clarification != "none" else AnalyticalResponse
+            )
+            return response_type(
+                schema_version="research-query-plan-v5",
+                prompt_version="research-planner-v8",
+                model=settings.model,
+                plan=proposal,
+                reference_date=reference_date,
+                timezone=request.timezone,
+                diagnostics=diagnostics,
+            )
+        except TimeoutError:
+            error_type = "planner_unavailable"
+            raise PlannerError("planner_unavailable") from None
+        except PlannerError as exc:
+            error_type = exc.code
+            raise
+        finally:
+            log_plan(
+                request_id=request_id,
+                model=settings.model,
+                prompt_version="research-planner-v8",
                 intent=intent,
                 planner_ms=planner_ms,
                 total_ms=round((perf_counter() - started) * 1000, 2),

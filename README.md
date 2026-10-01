@@ -109,3 +109,9 @@ An additive authenticated `/v4/plan` endpoint is available for coordinated Admin
 project-knowledge integration. It preserves `/plan` v3 and uses a bounded multilingual
 model-backed interpreter using the configured provider and strict schema. See
 [domain v4 and migration](docs/unified-research-v4.md).
+
+## Analytical Research contract
+
+See [v5/v8 analytical planning and coordinated activation](docs/analytical-research-v5.md) for taxonomy,
+exact rankings, spatial predicates and time windows. Legacy v3/v7 and unified v4
+remain available; activate the new path only after both components are installed.

@@ -14,6 +14,8 @@ from pydantic_ai.profiles.openai import OpenAIJsonSchemaTransformer, OpenAIModel
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.usage import UsageLimits
 
+from research_planner.analytics_prompts import ANALYTICS_PROMPT
+from research_planner.analytics_schema import AnalyticalQueryPlan
 from research_planner.config import Settings
 from research_planner.domain_prompts import DOMAIN_SYSTEM_PROMPT
 from research_planner.domain_schema import DomainProposal
@@ -95,6 +97,20 @@ class StructuredModelClient:
             model_settings=model_settings,
         )
         self.domain_agent.instrument = False
+        self.analytics_agent: Agent[None, AnalyticalQueryPlan] = Agent(
+            domain_model,
+            output_type=NativeOutput(AnalyticalQueryPlan, strict=True),
+            system_prompt=ANALYTICS_PROMPT,
+            retries=0,
+            model_settings=model_settings,
+        )
+        self.analytics_agent.instrument = False
+
+    async def plan_v5(self, request: PlanRequest, reference_date: date) -> AnalyticalQueryPlan:
+        return await self._infer(
+            self.analytics_agent,
+            {**request.model_dump(mode="json"), "reference_date": reference_date.isoformat()},
+        )
 
     async def close(self) -> None:
         await self.client.aclose()
