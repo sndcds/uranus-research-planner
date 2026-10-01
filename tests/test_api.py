@@ -32,8 +32,8 @@ def test_api_fixture_responses(settings, auth, case):
             "needs_clarification" if case["plan"]["clarification"] != "none" else "plan"
         )
         assert data["plan"] == fake.result.model_dump(mode="json")
-        assert data["schema_version"] == "research-query-plan-v1"
-        assert data["prompt_version"] == "research-planner-v4"
+        assert data["schema_version"] == "research-query-plan-v2"
+        assert data["prompt_version"] == "research-planner-v5"
         assert "count" not in data  # even semantic/count requests only produce plans
         assert "items" not in data
         assert data["diagnostics"]["planner_ms"] >= 0
@@ -144,7 +144,7 @@ def test_logs_are_value_redacted(settings, auth, caplog):
         if record.name == "research_planner.metrics"
     )
     assert event["planner_intent"] == "list"
-    assert event["planner_prompt_version"] == "research-planner-v4"
+    assert event["planner_prompt_version"] == "research-planner-v5"
     for secret in (query, "PRIVATE_TOPIC", KEY, MODEL_KEY, "Glücksburg", SYSTEM_PROMPT):
         assert secret not in caplog.text
 
@@ -295,3 +295,27 @@ def test_noncanonical_outside_research_is_rejected_before_unsupported_mapping(
     assert response.status_code == 502
     assert response.json()["error"]["code"] == "planner_invalid_response"
     assert invalid.semantic_query == "admin emails"
+
+
+def test_first_event_regression_through_structured_provider(settings, auth):
+    from research_planner.model_client import StructuredModelClient
+    from tests.test_model_client import completion
+
+    case = next(c for c in FIXTURES if c["id"] == "first_system_de")
+    expected = fixture_plan(case)
+    provider = StructuredModelClient(
+        settings,
+        httpx.MockTransport(
+            lambda request: httpx.Response(
+                200, json=completion(settings, expected.model_dump_json())
+            )
+        ),
+    )
+    with TestClient(create_app(settings, provider)) as client:
+        response = client.post("/plan", headers=auth, json={"query": case["query"]})
+    assert response.status_code == 200, response.text
+    assert response.json()["plan"] == expected.model_dump(mode="json")
+    assert response.json()["plan"]["ordering"] == "earliest"
+    assert response.json()["plan"]["limit"] == 1
+    for code in ("planner_invalid_response", "research_planner_invalid_response", "upstream_error"):
+        assert code not in response.text

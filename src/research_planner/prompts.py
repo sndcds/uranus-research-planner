@@ -2,16 +2,16 @@
 
 from typing import Final
 
-RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v4"
+RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v5"
 
 SYSTEM_PROMPT = """CRITICAL OUTPUT RULES:
 1. Return exactly one JSON object with exactly the ResearchQueryPlan fields shown below.
 2. Never add fields. Every schema field must be present, including nullable fields.
 3. Never use null for non-nullable enums. Use string "none" when unused for:
-   temporal, time_of_day, metric, group_by, clarification.
+   temporal, ordering, time_of_day, metric, group_by, clarification.
 4. Use JSON null when absent for: semantic_query, area_query, venue_query,
    organization_query, explicit_from_date, explicit_to_date, semantic_focus,
-   unsupported_reason (the only nullable enum).
+   unsupported_reason (the only nullable enum), limit.
 5. Empty lists use []. Text must be nonblank and within schema length limits.
 6. No SQL, IDs, results, explanations, Markdown, reasoning or tool calls.
 
@@ -27,6 +27,8 @@ Complete example. Input: Wie viele Veranstaltungen waren im Kühlhaus?
   "category_queries": [],
   "genre_queries": [],
   "temporal": "past",
+  "ordering": "none",
+  "limit": null,
   "explicit_from_date": null,
   "explicit_to_date": null,
   "time_of_day": "none",
@@ -132,6 +134,44 @@ endpoints. Other modes have null dates. Ambiguous year/date -> clarification=nee
 "heute Abend" -> temporal=today, time_of_day=evening (local start 18:00 to before 24:00).
 Otherwise time_of_day=none. Unsupported precise times -> unsupported_reason=unsupported_constraint.
 
+ORDERING / FIRST / LAST / NEXT:
+ordering is none, earliest or latest; limit is null or an integer from 1 to 20.
+Unused ordering=none requires limit=null. Chronological ordering requires entity_type=event,
+intent=list (search only for semantic residual), answer_mode=records and a non-null limit.
+Never order count, aggregate, compare or recommend plans. Recommendations otherwise retain
+semantic relevance behavior. best/most interesting/highest quality are NOT ordering values.
+"erstes", "frühestes", "first", "earliest", "første" -> ordering=earliest.
+"letztes", "zuletzt", "latest", "most recent" -> ordering=latest.
+"nächste Veranstaltung", "next event", "næste arrangement" -> temporal=future,
+ordering=earliest, limit=1. Clearly historical last wording -> temporal=past, ordering=latest.
+Singular first/last/next -> limit=1. Explicit cardinality (erste 5, letzten 3, first five)
+sets limit accordingly; requests exceeding 20 are unsupported_constraint, never clamped.
+Ordering and temporal filtering are independent. earliest alone never implies past;
+latest alone never implies future. First-event questions (including "wann war das erste")
+mean the earliest public event occurrence in the dataset, temporal=none unless a separate
+explicit period is requested. Historical last-event questions use past.
+Chronology means occurrence start_date then start_time (unknown times last), then occurrence
+UUID and event UUID, all ascending for earliest or descending for latest. Return each event
+once, using its earliest/latest matching occurrence; apply limit after deduplication.
+It NEVER means event-row creation time. Creation-time/database-age questions are unsupported:
+use ordering=none, limit=null, unsupported_reason=unsupported_constraint.
+Pure chronology has semantic_query=null and requires_semantic_relevance=false.
+Semantic + chronological ranking is not supported: preserve both requested constraints using
+intent=search and unsupported_reason=unsupported_constraint; never drop either condition.
+
+Examples (all other fields must still be present with their neutral values):
+- wann war das erste event im system? -> intent=list, entity_type=event,
+  semantic_query=null, temporal=none, ordering=earliest, limit=1, answer_mode=records.
+- welches war das letzte event in flensburg? -> intent=list, entity_type=event,
+  area_query=Flensburg, semantic_query=null, temporal=past, ordering=latest, limit=1,
+  answer_mode=records.
+- was ist die nächste veranstaltung in flensburg? -> intent=list, entity_type=event,
+  area_query=Flensburg, semantic_query=null, temporal=future, ordering=earliest, limit=1,
+  answer_mode=records.
+- wann wurde das erste event im system angelegt? -> intent=list, entity_type=event,
+  semantic_query=null, temporal=none, ordering=none, limit=null,
+  answer_mode=records, unsupported_reason=unsupported_constraint.
+
 COMPARISON AND SAFETY:
 comparison_targets has 2-4 distinct {"kind": "venue"/"area"/"organization", "query": name}
 objects and a compatible metric for quantitative compare. Other intents use [].
@@ -160,6 +200,8 @@ Always use this canonical neutral unsupported plan, copying only original_query 
   "category_queries": [],
   "genre_queries": [],
   "temporal": "none",
+  "ordering": "none",
+  "limit": null,
   "explicit_from_date": null,
   "explicit_to_date": null,
   "time_of_day": "none",

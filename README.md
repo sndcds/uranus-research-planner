@@ -12,9 +12,15 @@ uranus-admin → public name resolution → PostgreSQL / Jina + Qdrant → verif
 This repository implements the first line. The second line remains a separate
 `uranus-admin` integration PR. No Research UI or execution endpoint is introduced here.
 
-## Recommended production candidate
+## Current contract
 
-`gpt-5.6-terra` on OpenAI with `research-planner-v4` is the current recommended
+The required contract is `research-query-plan-v2` / `research-planner-v5`, including
+`ordering` and `limit`. See [chronology and coordinated deployment](docs/chronological-records.md).
+Previous model acceptance below applies to v1/v4, not the new prompt.
+
+## Previous production candidate
+
+`gpt-5.6-terra` on OpenAI with `research-planner-v4` was the recommended
 production candidate, based on operator-run acceptance on 2026-09-30: **37/37 golden
 plans passed**. The 82.42 s pytest suite duration is not a production latency benchmark.
 See the [acceptance record](docs/research-ai/models.md#operator-acceptance-gpt-56-terra--prompt-v4)
