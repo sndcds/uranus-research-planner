@@ -1,6 +1,6 @@
 # Planner deployment examples (no deployment performed)
 
-Current releases require a [coordinated v2/v5 deployment](chronological-records.md).
+Current releases require a [coordinated v3/v6 deployment](chronological-records.md).
 Historical v4 acceptance below does not establish live v5 accuracy.
 
 The lightweight planner API uses a separately provisioned internal model
@@ -297,7 +297,7 @@ curl -sS --fail \
 ```
 
 Expect HTTP success and a valid plan envelope with
-`prompt_version=research-planner-v5`, `schema_version=research-query-plan-v2` and
+`prompt_version=research-planner-v6`, `schema_version=research-query-plan-v3` and
 `model=gpt-5.6-terra`, without credentials in the response. Inspect the returned plan;
 this smoke test does not prescribe exact semantic fields or replace golden acceptance.
 No verification request above is performed automatically by installation or CI.

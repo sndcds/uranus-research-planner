@@ -413,5 +413,5 @@ claim can be inferred from the offline fixture tests in this PR.
 
 ## Chronological contract extension
 
-The required v2/v5 fields, occurrence ordering, limits and unsupported hybrid behavior
+The required v3/v6 fields, occurrence ordering, limits and unsupported hybrid behavior
 are specified in [chronological records](../chronological-records.md).
