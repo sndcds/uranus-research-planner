@@ -14,6 +14,8 @@ from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer
 
 from research_planner.config import Settings
+from research_planner.domain_planner import interpret
+from research_planner.domain_schema import PlanEnvelopeV4
 from research_planner.errors import PlannerError
 from research_planner.logging import configure_logging, log_plan
 from research_planner.model_client import StructuredModelClient
@@ -163,5 +165,9 @@ def create_app(
                 total_ms=round((perf_counter() - started) * 1000, 2),
                 error_type=error_type,
             )
+
+    @app.post("/v4/plan", response_model=PlanEnvelopeV4, dependencies=[Depends(service_auth)])
+    async def domain_plan(request: PlanRequest) -> PlanEnvelopeV4:
+        return interpret(request.query)
 
     return app

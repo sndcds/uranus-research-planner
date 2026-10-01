@@ -102,3 +102,9 @@ Jina v3 continues to perform semantic retrieval in `uranus-admin`. PostgreSQL/Po
 remains authoritative for identities, public eligibility, dates and exact counts.
 Plans are interpretations, not facts. No production deployment or index change is
 part of this repository's initial implementation.
+
+## Proposed unified Research domain
+
+An additive authenticated `/v4/plan` endpoint is available for coordinated Admin and
+project-knowledge integration. It preserves `/plan` v3 and uses a bounded multilingual
+question catalogue. See [domain v4 and migration](docs/unified-research-v4.md).
