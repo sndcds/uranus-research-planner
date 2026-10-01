@@ -1,0 +1,142 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "plan": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ProviderDataDecision"
+        },
+        {
+          "$ref": "#/$defs/KnowledgePlan"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "plan"
+  ],
+  "type": "object",
+  "$defs": {
+    "ProviderDataDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "domain": {
+          "const": "data",
+          "type": "string"
+        },
+        "operation": {
+          "const": "rank",
+          "type": "string"
+        },
+        "entity_type": {
+          "enum": [
+            "event",
+            "venue",
+            "organization",
+            "category"
+          ],
+          "type": "string"
+        },
+        "metric": {
+          "enum": [
+            "description_characters",
+            "occurrence_count",
+            "event_count",
+            "venue_count"
+          ],
+          "type": "string"
+        },
+        "ordering": {
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "type": "string"
+        },
+        "limit": {
+          "maximum": 20,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "area_query": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "minLength=1, maxLength=160"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "has_temporal_constraint": {
+          "type": "boolean"
+        },
+        "has_other_constraint": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "domain",
+        "operation",
+        "entity_type",
+        "metric",
+        "ordering",
+        "limit",
+        "area_query",
+        "has_temporal_constraint",
+        "has_other_constraint"
+      ],
+      "type": "object",
+      "description": "Recognized intent, including constraints the executable contract cannot express."
+    },
+    "KnowledgePlan": {
+      "additionalProperties": false,
+      "properties": {
+        "domain": {
+          "const": "project_knowledge",
+          "type": "string"
+        },
+        "operation": {
+          "const": "evidence_answer",
+          "type": "string"
+        },
+        "knowledge_query": {
+          "type": "string",
+          "description": "minLength=1, maxLength=2000"
+        },
+        "fact": {
+          "enum": [
+            "uranus_overview",
+            "admin_overview",
+            "semantic_search_repository",
+            "embedding_component",
+            "embedding_model",
+            "qdrant_usage",
+            "encoder_communication",
+            "planner_component",
+            "geocoding",
+            "architecture",
+            "founding_date"
+          ],
+          "type": "string"
+        },
+        "answer_mode": {
+          "const": "evidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain",
+        "operation",
+        "knowledge_query",
+        "fact",
+        "answer_mode"
+      ],
+      "type": "object"
+    }
+  }
+}

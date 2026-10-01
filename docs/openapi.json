@@ -173,6 +173,89 @@
           }
         ]
       }
+    },
+    "/v4/plan": {
+      "post": {
+        "summary": "Domain Plan",
+        "operationId": "domain_plan_v4_plan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanEnvelopeV4"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Content Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -257,6 +340,78 @@
         ],
         "title": "ComparisonTarget"
       },
+      "DataPlan": {
+        "properties": {
+          "domain": {
+            "type": "string",
+            "const": "data",
+            "title": "Domain",
+            "default": "data"
+          },
+          "operation": {
+            "type": "string",
+            "const": "rank",
+            "title": "Operation",
+            "default": "rank"
+          },
+          "entity_type": {
+            "type": "string",
+            "enum": [
+              "event",
+              "venue",
+              "organization",
+              "category"
+            ],
+            "title": "Entity Type"
+          },
+          "metric": {
+            "type": "string",
+            "enum": [
+              "description_characters",
+              "occurrence_count",
+              "event_count",
+              "venue_count"
+            ],
+            "title": "Metric"
+          },
+          "ordering": {
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ],
+            "title": "Ordering",
+            "default": "desc"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 1
+          },
+          "area_query": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Area Query"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "entity_type",
+          "metric"
+        ],
+        "title": "DataPlan"
+      },
       "ErrorDetail": {
         "properties": {
           "code": {
@@ -315,6 +470,58 @@
         ],
         "title": "HealthResponse"
       },
+      "KnowledgePlan": {
+        "properties": {
+          "domain": {
+            "type": "string",
+            "const": "project_knowledge",
+            "title": "Domain",
+            "default": "project_knowledge"
+          },
+          "operation": {
+            "type": "string",
+            "const": "evidence_answer",
+            "title": "Operation",
+            "default": "evidence_answer"
+          },
+          "knowledge_query": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Knowledge Query"
+          },
+          "fact": {
+            "type": "string",
+            "enum": [
+              "uranus_overview",
+              "admin_overview",
+              "semantic_search_repository",
+              "embedding_component",
+              "embedding_model",
+              "qdrant_usage",
+              "encoder_communication",
+              "planner_component",
+              "geocoding",
+              "architecture",
+              "founding_date"
+            ],
+            "title": "Fact"
+          },
+          "answer_mode": {
+            "type": "string",
+            "const": "evidence",
+            "title": "Answer Mode",
+            "default": "evidence"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "knowledge_query",
+          "fact"
+        ],
+        "title": "KnowledgePlan"
+      },
       "PlanDiagnostics": {
         "properties": {
           "request_id": {
@@ -367,6 +574,53 @@
           "total_ms"
         ],
         "title": "PlanDiagnostics"
+      },
+      "PlanEnvelopeV4": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "research-query-plan-v4",
+            "title": "Schema Version",
+            "default": "research-query-plan-v4"
+          },
+          "interpreter_version": {
+            "type": "string",
+            "const": "research-domain-planner-v2",
+            "title": "Interpreter Version",
+            "default": "research-domain-planner-v2"
+          },
+          "original_query": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Original Query"
+          },
+          "plan": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DataPlan"
+              },
+              {
+                "$ref": "#/components/schemas/KnowledgePlan"
+              }
+            ],
+            "title": "Plan",
+            "discriminator": {
+              "propertyName": "domain",
+              "mapping": {
+                "data": "#/components/schemas/DataPlan",
+                "project_knowledge": "#/components/schemas/KnowledgePlan"
+              }
+            }
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "original_query",
+          "plan"
+        ],
+        "title": "PlanEnvelopeV4"
       },
       "PlanRequest": {
         "properties": {
