@@ -14,7 +14,7 @@ from pydantic import (
     model_validator,
 )
 
-SCHEMA_VERSION: Final = "research-query-plan-v2"
+SCHEMA_VERSION: Final = "research-query-plan-v3"
 
 
 def nonblank(value: str) -> str:
@@ -83,7 +83,7 @@ class ResearchQueryPlan(ClosedModel):
     category_queries: list[Slot] = Field(max_length=8)
     genre_queries: list[Slot] = Field(max_length=8)
     temporal: Temporal
-    ordering: Literal["none", "earliest", "latest"]
+    ordering: Literal["asc", "desc"] | None
     limit: Annotated[int, Field(ge=1, le=20)] | None
     explicit_from_date: date | None
     explicit_to_date: date | None
@@ -112,7 +112,7 @@ class ResearchQueryPlan(ClosedModel):
                 "category_queries": [],
                 "genre_queries": [],
                 "temporal": "none",
-                "ordering": "none",
+                "ordering": None,
                 "limit": None,
                 "explicit_from_date": None,
                 "explicit_to_date": None,
@@ -137,16 +137,13 @@ class ResearchQueryPlan(ClosedModel):
         }
         if self.answer_mode != modes[self.intent]:
             raise ValueError("intent_answer_mode_mismatch")
-        if self.ordering == "none":
-            if self.limit is not None:
-                raise ValueError("limit_requires_ordering")
-        else:
+        if self.limit is not None and self.intent not in {"list", "search", "recommend"}:
+            raise ValueError("limit_requires_record_results")
+        if self.ordering is not None:
             if self.intent not in {"list", "search"} or self.answer_mode != "records":
                 raise ValueError("ordering_requires_records")
             if self.entity_type != "event":
                 raise ValueError("ordering_requires_event")
-            if self.limit is None:
-                raise ValueError("ordering_requires_limit")
             if (
                 self.semantic_query is not None
                 and self.unsupported_reason != "unsupported_constraint"
@@ -207,14 +204,14 @@ class PlanDiagnostics(ClosedModel):
     request_id: str = Field(pattern=r"^[a-f0-9]{32}$")
     planner_intent: Intent
     planner_model: str = Field(min_length=1, max_length=160)
-    planner_prompt_version: Literal["research-planner-v5"]
+    planner_prompt_version: Literal["research-planner-v6"]
     planner_ms: float = Field(ge=0)
     total_ms: float = Field(ge=0)
 
 
 class PlanEnvelope(ClosedModel):
-    schema_version: Literal["research-query-plan-v2"] = SCHEMA_VERSION
-    prompt_version: Literal["research-planner-v5"]
+    schema_version: Literal["research-query-plan-v3"] = SCHEMA_VERSION
+    prompt_version: Literal["research-planner-v6"]
     model: str = Field(min_length=1, max_length=160)
     plan: ResearchQueryPlan
     reference_date: date

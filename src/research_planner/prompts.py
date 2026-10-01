@@ -2,16 +2,16 @@
 
 from typing import Final
 
-RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v5"
+RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v6"
 
 SYSTEM_PROMPT = """CRITICAL OUTPUT RULES:
 1. Return exactly one JSON object with exactly the ResearchQueryPlan fields shown below.
 2. Never add fields. Every schema field must be present, including nullable fields.
 3. Never use null for non-nullable enums. Use string "none" when unused for:
-   temporal, ordering, time_of_day, metric, group_by, clarification.
+   temporal, time_of_day, metric, group_by, clarification.
 4. Use JSON null when absent for: semantic_query, area_query, venue_query,
    organization_query, explicit_from_date, explicit_to_date, semantic_focus,
-   unsupported_reason (the only nullable enum), limit.
+   unsupported_reason, ordering, limit.
 5. Empty lists use []. Text must be nonblank and within schema length limits.
 6. No SQL, IDs, results, explanations, Markdown, reasoning or tool calls.
 
@@ -27,7 +27,7 @@ Complete example. Input: Wie viele Veranstaltungen waren im Kühlhaus?
   "category_queries": [],
   "genre_queries": [],
   "temporal": "past",
-  "ordering": "none",
+  "ordering": null,
   "limit": null,
   "explicit_from_date": null,
   "explicit_to_date": null,
@@ -134,42 +134,76 @@ endpoints. Other modes have null dates. Ambiguous year/date -> clarification=nee
 "heute Abend" -> temporal=today, time_of_day=evening (local start 18:00 to before 24:00).
 Otherwise time_of_day=none. Unsupported precise times -> unsupported_reason=unsupported_constraint.
 
-ORDERING / FIRST / LAST / NEXT:
-ordering is none, earliest or latest; limit is null or an integer from 1 to 20.
-Unused ordering=none requires limit=null. Chronological ordering requires entity_type=event,
-intent=list (search only for semantic residual), answer_mode=records and a non-null limit.
-Never order count, aggregate, compare or recommend plans. Recommendations otherwise retain
-semantic relevance behavior. best/most interesting/highest quality are NOT ordering values.
-"erstes", "frühestes", "first", "earliest", "første" -> ordering=earliest.
-"letztes", "zuletzt", "latest", "most recent" -> ordering=latest.
+ORDERING AND RESULT LIMIT:
+ordering is null, "asc" or "desc". limit is null or an integer from 1 to 20.
+Both fields are always present. Ordering and limit are INDEPENDENT.
+No requested sorting -> ordering=null. No requested result count -> limit=null.
+Do not emit asc just because the entity is event: the executor owns default ASC for
+STRUCTURED event record lists. null means the user did not specify a direction.
+A limit without ordering is supported. limit=null still uses a bounded response (max 20).
+
+"sortiere nach datum", "chronologisch", "älteste zuerst", "früheste zuerst", "ascending",
+"oldest first", "sort them by date", "sorter dem efter dato" -> ordering=asc.
+"absteigend nach datum", "neueste zuerst", "späteste zuerst", "descending", "latest first",
+"sort by date descending", "sorter dem faldende efter dato" -> ordering=desc.
+"erste Veranstaltung", "erstes Event", "frühestes Event", "first event", "første arrangement"
+-> ordering=asc, limit=1.
+"letzte Veranstaltung", "letztes Event", "zuletzt", "last event", "latest event"
+-> ordering=desc, limit=1. Clearly historical wording also sets temporal=past.
 "nächste Veranstaltung", "next event", "næste arrangement" -> temporal=future,
-ordering=earliest, limit=1. Clearly historical last wording -> temporal=past, ordering=latest.
-Singular first/last/next -> limit=1. Explicit cardinality (erste 5, letzten 3, first five)
-sets limit accordingly; requests exceeding 20 are unsupported_constraint, never clamped.
-Ordering and temporal filtering are independent. earliest alone never implies past;
-latest alone never implies future. First-event questions (including "wann war das erste")
-mean the earliest public event occurrence in the dataset, temporal=none unless a separate
-explicit period is requested. Historical last-event questions use past.
-Chronology means occurrence start_date then start_time (unknown times last), then occurrence
-UUID and event UUID, all ascending for earliest or descending for latest. Return each event
-once, using its earliest/latest matching occurrence; apply limit after deduplication.
-It NEVER means event-row creation time. Creation-time/database-age questions are unsupported:
-use ordering=none, limit=null, unsupported_reason=unsupported_constraint.
-Pure chronology has semantic_query=null and requires_semantic_relevance=false.
-Semantic + chronological ranking is not supported: preserve both requested constraints using
-intent=search and unsupported_reason=unsupported_constraint; never drop either condition.
+ordering=asc, limit=1.
+"erste 5 Veranstaltungen", "first five events", "de første fem arrangementer"
+-> ordering=asc, limit=5. "letzten 3 Veranstaltungen", "last three events"
+-> ordering=desc, limit=3. "zeige nur 2 Ergebnisse", "show only two results",
+"vis kun to resultater" -> limit=2, ordering=null unless sorting is also requested.
+Numeric and spelled-out cardinalities are equivalent. "erste zwei Ergebnisse" means
+ordering=asc, limit=2, never semantic relevance. Bare sort/limit commands refer to event
+records without inventing a previous topic, place or conversation context.
+Exceeding 20 -> unsupported_constraint with limit=null, never silently clamp the request.
+
+Non-null ordering requires entity_type=event, intent=list or search, answer_mode=records.
+There are no venue/organization date-order semantics: reject these requests as unsupported,
+with ordering=null. Limits are supported for list/search/recommend record results, including
+venue/organization lists. Recommendations retain semantic relevance and ordering=null.
+Count/aggregate/compare require ordering=null AND limit=null. An exact count combined
+with an output-list limit is unsupported_constraint; never count only N rows.
+Best/most interesting/highest quality are not chronological ordering concepts.
+Semantic relevance results keep their relevance ranking, even when ordering=null.
+Explicit semantic + date ordering is unsupported: retain both requested conditions in a
+search plan with unsupported_reason=unsupported_constraint. Do not drop either condition.
+Pure sorting/cardinality commands have semantic_query=null and requires_semantic_relevance=false.
+
+Ordering and temporal filters are independent. ASC alone never implies past; DESC alone
+never implies future or past. First-event questions (including "wann war das erste") mean
+all matching public occurrences with temporal=none unless a separate period is specified.
+"zeige die letzten 2" without historical wording does not itself impose a past filter.
+Chronology is occurrence start_date, start_time (unknown times last), occurrence UUID,
+then event UUID, all ASC or all DESC. Each event appears once, using its earliest/latest
+matching occurrence, with the limit applied after deduplication. It never means row creation.
+Creation-time/database-age questions -> ordering=null, limit=null,
+unsupported_reason=unsupported_constraint. Never reinterpret creation time as an event date.
 
 Examples (all other fields must still be present with their neutral values):
+- welche veranstaltungen sind in flensburg? -> intent=list, entity_type=event,
+  area_query=Flensburg, semantic_query=null, temporal=none, ordering=null, limit=null.
+- welche veranstaltungen sind in flensburg? sortiere die nach datum. -> intent=list,
+  entity_type=event, area_query=Flensburg, semantic_query=null, temporal=none,
+  ordering=asc, limit=null, answer_mode=records, unsupported_reason=null.
+- welche veranstaltungen sind in flensburg? sortiere die nach datum. zeige nur 2 ergebnisse.
+  -> intent=list, entity_type=event, area_query=Flensburg, semantic_query=null, temporal=none,
+  ordering=asc, limit=2, answer_mode=records, unsupported_reason=null.
+- zeige nur 2 veranstaltungen in flensburg -> intent=list, entity_type=event,
+  area_query=Flensburg, semantic_query=null, temporal=none, ordering=null, limit=2.
+- zeige die letzten 2 veranstaltungen in flensburg -> intent=list, entity_type=event,
+  area_query=Flensburg, semantic_query=null, temporal=none, ordering=desc, limit=2.
 - wann war das erste event im system? -> intent=list, entity_type=event,
-  semantic_query=null, temporal=none, ordering=earliest, limit=1, answer_mode=records.
+  semantic_query=null, temporal=none, ordering=asc, limit=1, answer_mode=records.
 - welches war das letzte event in flensburg? -> intent=list, entity_type=event,
-  area_query=Flensburg, semantic_query=null, temporal=past, ordering=latest, limit=1,
-  answer_mode=records.
+  area_query=Flensburg, semantic_query=null, temporal=past, ordering=desc, limit=1.
 - was ist die nächste veranstaltung in flensburg? -> intent=list, entity_type=event,
-  area_query=Flensburg, semantic_query=null, temporal=future, ordering=earliest, limit=1,
-  answer_mode=records.
+  area_query=Flensburg, semantic_query=null, temporal=future, ordering=asc, limit=1.
 - wann wurde das erste event im system angelegt? -> intent=list, entity_type=event,
-  semantic_query=null, temporal=none, ordering=none, limit=null,
+  semantic_query=null, temporal=none, ordering=null, limit=null,
   answer_mode=records, unsupported_reason=unsupported_constraint.
 
 COMPARISON AND SAFETY:
@@ -200,7 +234,7 @@ Always use this canonical neutral unsupported plan, copying only original_query 
   "category_queries": [],
   "genre_queries": [],
   "temporal": "none",
-  "ordering": "none",
+  "ordering": null,
   "limit": null,
   "explicit_from_date": null,
   "explicit_to_date": null,

@@ -24,7 +24,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -53,7 +53,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -82,7 +82,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -111,7 +111,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -140,7 +140,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -169,7 +169,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -198,7 +198,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -227,7 +227,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -256,7 +256,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -285,7 +285,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -314,7 +314,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -343,7 +343,7 @@
       "answer_mode": "recommendation",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -372,7 +372,7 @@
       "answer_mode": "aggregate",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -401,7 +401,7 @@
       "answer_mode": "comparison",
       "clarification": "needs_criteria",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -430,7 +430,7 @@
       "answer_mode": "recommendation",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -459,7 +459,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -488,7 +488,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -517,7 +517,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -546,7 +546,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -575,7 +575,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -604,7 +604,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -633,7 +633,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -662,7 +662,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -700,7 +700,7 @@
       "answer_mode": "comparison",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -729,7 +729,7 @@
       "answer_mode": "records",
       "clarification": "needs_location",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -758,7 +758,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": "multi_area",
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -787,7 +787,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": "outside_research",
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -816,7 +816,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": "outside_research",
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -845,7 +845,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -874,7 +874,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -903,7 +903,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -932,7 +932,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -961,7 +961,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -990,7 +990,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -1019,7 +1019,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -1048,7 +1048,7 @@
       "answer_mode": "count",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -1077,7 +1077,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -1106,7 +1106,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1135,7 +1135,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "latest",
+      "ordering": "desc",
       "limit": 1
     }
   },
@@ -1164,7 +1164,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1193,7 +1193,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1222,7 +1222,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "latest",
+      "ordering": "desc",
       "limit": 1
     }
   },
@@ -1251,7 +1251,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 5
     }
   },
@@ -1280,7 +1280,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "latest",
+      "ordering": "desc",
       "limit": 3
     }
   },
@@ -1309,7 +1309,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1338,7 +1338,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "latest",
+      "ordering": "desc",
       "limit": 1
     }
   },
@@ -1367,7 +1367,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1396,7 +1396,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 5
     }
   },
@@ -1425,7 +1425,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1454,7 +1454,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1483,7 +1483,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "latest",
+      "ordering": "desc",
       "limit": 1
     }
   },
@@ -1512,7 +1512,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": null,
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
     }
   },
@@ -1541,7 +1541,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": "unsupported_constraint",
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -1570,7 +1570,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": "unsupported_constraint",
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -1599,7 +1599,7 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": "unsupported_constraint",
-      "ordering": "none",
+      "ordering": null,
       "limit": null
     }
   },
@@ -1630,8 +1630,704 @@
       "answer_mode": "records",
       "clarification": "none",
       "unsupported_reason": "unsupported_constraint",
-      "ordering": "earliest",
+      "ordering": "asc",
       "limit": 1
+    }
+  },
+  {
+    "id": "list_default_de",
+    "query": "welche veranstaltungen sind in flensburg?",
+    "plan": {
+      "original_query": "welche veranstaltungen sind in flensburg?",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": null
+    }
+  },
+  {
+    "id": "list_default_gibt_de",
+    "query": "welche veranstaltungen gibt es in flensburg?",
+    "plan": {
+      "original_query": "welche veranstaltungen gibt es in flensburg?",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_asc_de",
+    "query": "welche veranstaltungen sind in flensburg? sortiere die nach datum.",
+    "plan": {
+      "original_query": "welche veranstaltungen sind in flensburg? sortiere die nach datum.",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "asc",
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_limit_regression_de",
+    "query": "welche veranstaltungen sind in flensburg? sortiere die nach datum. zeige nur 2 ergebnisse.",
+    "plan": {
+      "original_query": "welche veranstaltungen sind in flensburg? sortiere die nach datum. zeige nur 2 ergebnisse.",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "asc",
+      "limit": 2
+    }
+  },
+  {
+    "id": "limit_only_area_de",
+    "query": "zeige nur 2 veranstaltungen in flensburg",
+    "plan": {
+      "original_query": "zeige nur 2 veranstaltungen in flensburg",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": 2
+    }
+  },
+  {
+    "id": "limit_five_area_de",
+    "query": "zeige mir nur 5 veranstaltungen in flensburg",
+    "plan": {
+      "original_query": "zeige mir nur 5 veranstaltungen in flensburg",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": 5
+    }
+  },
+  {
+    "id": "last_two_area_de",
+    "query": "zeige die letzten 2 veranstaltungen in flensburg",
+    "plan": {
+      "original_query": "zeige die letzten 2 veranstaltungen in flensburg",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "desc",
+      "limit": 2
+    }
+  },
+  {
+    "id": "sort_desc_area_de",
+    "query": "sortiere die veranstaltungen in flensburg absteigend nach datum",
+    "plan": {
+      "original_query": "sortiere die veranstaltungen in flensburg absteigend nach datum",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "desc",
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_command_de",
+    "query": "sortiere die nach datum",
+    "plan": {
+      "original_query": "sortiere die nach datum",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "asc",
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_desc_command_de",
+    "query": "sortiere die absteigend nach datum",
+    "plan": {
+      "original_query": "sortiere die absteigend nach datum",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "desc",
+      "limit": null
+    }
+  },
+  {
+    "id": "limit_command_de",
+    "query": "zeige nur 2 ergebnisse",
+    "plan": {
+      "original_query": "zeige nur 2 ergebnisse",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": 2
+    }
+  },
+  {
+    "id": "first_command_de",
+    "query": "zeige die ersten 5 veranstaltungen",
+    "plan": {
+      "original_query": "zeige die ersten 5 veranstaltungen",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "asc",
+      "limit": 5
+    }
+  },
+  {
+    "id": "last_command_de",
+    "query": "zeige die letzten 3 veranstaltungen",
+    "plan": {
+      "original_query": "zeige die letzten 3 veranstaltungen",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "desc",
+      "limit": 3
+    }
+  },
+  {
+    "id": "list_default_en",
+    "query": "show events in Flensburg",
+    "plan": {
+      "original_query": "show events in Flensburg",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_command_en",
+    "query": "sort them by date",
+    "plan": {
+      "original_query": "sort them by date",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "asc",
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_desc_command_en",
+    "query": "sort by date descending",
+    "plan": {
+      "original_query": "sort by date descending",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "desc",
+      "limit": null
+    }
+  },
+  {
+    "id": "limit_command_en",
+    "query": "show only two results",
+    "plan": {
+      "original_query": "show only two results",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": 2
+    }
+  },
+  {
+    "id": "last_command_en",
+    "query": "show the last three events",
+    "plan": {
+      "original_query": "show the last three events",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "desc",
+      "limit": 3
+    }
+  },
+  {
+    "id": "list_default_da",
+    "query": "vis arrangementer i Flensborg",
+    "plan": {
+      "original_query": "vis arrangementer i Flensborg",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensborg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_command_da",
+    "query": "sorter dem efter dato",
+    "plan": {
+      "original_query": "sorter dem efter dato",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "asc",
+      "limit": null
+    }
+  },
+  {
+    "id": "sort_desc_command_da",
+    "query": "sorter dem faldende efter dato",
+    "plan": {
+      "original_query": "sorter dem faldende efter dato",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "desc",
+      "limit": null
+    }
+  },
+  {
+    "id": "limit_command_da",
+    "query": "vis kun to resultater",
+    "plan": {
+      "original_query": "vis kun to resultater",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": null,
+      "limit": 2
+    }
+  },
+  {
+    "id": "first_command_da",
+    "query": "vis de første fem arrangementer",
+    "plan": {
+      "original_query": "vis de første fem arrangementer",
+      "intent": "list",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": null,
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "none",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "records",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "ordering": "asc",
+      "limit": 5
+    }
+  },
+  {
+    "id": "count_limit_unsupported",
+    "query": "wie viele Veranstaltungen gibt es in Flensburg? zeige nur 2 ergebnisse",
+    "plan": {
+      "original_query": "wie viele Veranstaltungen gibt es in Flensburg? zeige nur 2 ergebnisse",
+      "intent": "count",
+      "entity_type": "event",
+      "semantic_query": null,
+      "area_query": "Flensburg",
+      "venue_query": null,
+      "organization_query": null,
+      "category_queries": [],
+      "genre_queries": [],
+      "temporal": "none",
+      "explicit_from_date": null,
+      "explicit_to_date": null,
+      "time_of_day": "none",
+      "metric": "event_count",
+      "group_by": "none",
+      "comparison_targets": [],
+      "semantic_focus": null,
+      "requires_semantic_relevance": false,
+      "answer_mode": "count",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "ordering": null,
+      "limit": null
     }
   }
 ]
