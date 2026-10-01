@@ -2,7 +2,7 @@
 
 from typing import Final
 
-RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v6"
+RESEARCH_PLANNER_PROMPT_VERSION: Final = "research-planner-v7"
 
 SYSTEM_PROMPT = """CRITICAL OUTPUT RULES:
 1. Return exactly one JSON object with exactly the ResearchQueryPlan fields shown below.
@@ -24,6 +24,7 @@ Complete example. Input: Wie viele Veranstaltungen waren im Kühlhaus?
   "area_query": null,
   "venue_query": "Kühlhaus",
   "organization_query": null,
+  "event_type_queries": [],
   "category_queries": [],
   "genre_queries": [],
   "temporal": "past",
@@ -96,23 +97,46 @@ semantic_query=kulturell besonders spannend.
 "was kann ich heute abend in flensburg machen?" -> recommend, today, evening,
 area_query=Flensburg, semantic_query=kulturelle Aktivitäten.
 
-CATEGORY / GENRE EXTRACTION:
-Use category_queries and genre_queries only for explicitly supported structured taxonomy
-filters, max 8 each. Documented examples: Konzerte -> category_queries=["Konzerte"],
-Jazz -> genre_queries=["Jazz"]. Explicit structured filters must still be preserved.
-Do not convert ordinary topic words or audience phrases into structured categories/genres.
+CATEGORY / EVENT TYPE / GENRE EXTRACTION:
+Categories != event types != genres. Each list has at most 8 names, never IDs.
+category_queries: only labels from event.categories / the category lookup.
+event_type_queries: event type labels from Uranus event_type, linked by event_type_link.type_id.
+genre_queries: genre labels from Uranus genre_type; genres are subordinate to event types
+via event_type_link.(type_id, genre_id). Admin resolves names, not the planner.
+Never map an event type to category_queries.
+Explicit structured examples (all have semantic_query=null, requires_semantic_relevance=false):
+- "Konzerte" -> event_type_queries=["Konzerte"]; category_queries=[]; genre_queries=[].
+- "Jazz" -> genre_queries=["Jazz"]; event_type_queries=[]; category_queries=[].
+- "Jazz Konzerte", "Jazz-Konzerte", "Jazzkonzerte" -> event_type_queries=["Konzerte"];
+  genre_queries=["Jazz"]; category_queries=[].
+- "welche jazz konzerte finden heute statt", "Welche Jazzkonzerte gibt es heute?",
+  "Welche Jazz-Konzerte finden heute statt?" -> intent=list; entity_type=event;
+  event_type_queries=["Konzerte"]; genre_queries=["Jazz"]; category_queries=[]; temporal=today.
+- "Welche Konzerte finden heute statt?" -> intent=list; event_type_queries=["Konzerte"];
+  genre_queries=[]; category_queries=[]; temporal=today.
+- "Gibt es heute Jazz?" -> intent=list; genre_queries=["Jazz"]; event_type_queries=[];
+  category_queries=[]; temporal=today.
+English "jazz concerts today" and Danish "jazzkoncerter i dag" use the same canonical
+labels Konzerte and Jazz, with temporal=today. "concerts" / "koncerter" mean Konzerte.
+Explicit structured filters must still be preserved.
+Do not convert ordinary topic words or audience phrases into structured
+categories/event types/genres.
 Keep semantic phrases intact unless a filter clearly belongs to the documented taxonomy.
 Unknown terms and Kunst remain semantic. When uncertain, preserve the complete semantic
 phrase in semantic_query rather than splitting off a word that sounds category-like.
 For record retrieval:
 - "Workshops für Kinder" -> search; semantic_query="Workshops für Kinder";
-  category_queries=[]; genre_queries=[] (NOT category Workshops plus residual für Kinder).
+  event_type_queries=[]; category_queries=[]; genre_queries=[]
+  (NOT category Workshops plus residual für Kinder).
 - "welche Workshops für Kinder gibt es morgen?" -> search; entity_type=event;
-  semantic_query="Workshops für Kinder"; category_queries=[]; genre_queries=[]; temporal=tomorrow.
+  semantic_query="Workshops für Kinder"; event_type_queries=[]; category_queries=[];
+  genre_queries=[]; temporal=tomorrow.
 - "kreative Angebote für Jugendliche" -> search;
-  semantic_query="kreative Angebote für Jugendliche"; category_queries=[]; genre_queries=[].
+  semantic_query="kreative Angebote für Jugendliche"; event_type_queries=[];
+  category_queries=[]; genre_queries=[].
 - "barrierefreie Veranstaltungen" -> search;
-  semantic_query="barrierefreie Veranstaltungen"; category_queries=[]; genre_queries=[].
+  semantic_query="barrierefreie Veranstaltungen"; event_type_queries=[];
+  category_queries=[]; genre_queries=[].
 Semantic quantity/recommendation/comparison requests still retain their own intent.
 
 TIME:
@@ -231,6 +255,7 @@ Always use this canonical neutral unsupported plan, copying only original_query 
   "area_query": null,
   "venue_query": null,
   "organization_query": null,
+  "event_type_queries": [],
   "category_queries": [],
   "genre_queries": [],
   "temporal": "none",

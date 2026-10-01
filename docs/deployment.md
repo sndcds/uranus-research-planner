@@ -297,7 +297,7 @@ curl -sS --fail \
 ```
 
 Expect HTTP success and a valid plan envelope with
-`prompt_version=research-planner-v6`, `schema_version=research-query-plan-v3` and
+`prompt_version=research-planner-v7`, `schema_version=research-query-plan-v3` and
 `model=gpt-5.6-terra`, without credentials in the response. Inspect the returned plan;
 this smoke test does not prescribe exact semantic fields or replace golden acceptance.
 No verification request above is performed automatically by installation or CI.

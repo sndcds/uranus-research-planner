@@ -27,6 +27,7 @@ def test_reviewed_query_plan_fixtures(case):
         {"semantic_query": "x" * 501},
         {"genre_queries": ["Jazz"] * 9},
         {"category_queries": ["Kunst"] * 9},
+        {"event_type_queries": ["Konzerte"] * 9},
         {"requires_semantic_relevance": "false"},
         {"requires_semantic_relevance": 1},
         {"semantic_query": "interessant"},
@@ -145,7 +146,7 @@ def test_schema_uses_grammar_friendly_string_bounds():
         assert null == {"type": "null"}
         assert text["minLength"] == 1
         assert text["maxLength"] == (500 if field.startswith("semantic_") else 160)
-    for field in ("category_queries", "genre_queries"):
+    for field in ("event_type_queries", "category_queries", "genre_queries"):
         assert schema["properties"][field]["maxItems"] == 8
         assert schema["properties"][field]["items"]["maxLength"] == 160
     assert schema["properties"]["comparison_targets"]["maxItems"] == 4
@@ -184,6 +185,7 @@ def test_query_slot_topic_validate_without_modifying_text(value):
         {"venue_query": "\n\t"},
         {"organization_query": "   "},
         {"category_queries": ["   "]},
+        {"event_type_queries": ["   "]},
         {"genre_queries": ["\n\t"]},
         {"semantic_query": "   ", "requires_semantic_relevance": True},
         {"semantic_query": "Kunst", "requires_semantic_relevance": True, "semantic_focus": "\n\t"},
@@ -308,7 +310,8 @@ def test_present_and_past_golden_plans(case_id, query, intent, entity, area, met
         ("area_query", "Glücksburg"),
         ("venue_query", "Kühlhaus"),
         ("organization_query", "Stadt Glücksburg"),
-        ("category_queries", ["Konzerte"]),
+        ("event_type_queries", ["Konzerte"]),
+        ("category_queries", ["Musik"]),
         ("genre_queries", ["Jazz"]),
         ("temporal", "tomorrow"),
         ("explicit_from_date", "2026-09-30"),
@@ -345,13 +348,14 @@ def test_neutral_plan_rule_does_not_apply_to_other_unsupported_reasons(reason):
     assert plan.area_query == "Glücksburg"
 
 
-def test_documented_structured_category_and_genre_filters_remain_valid():
+def test_documented_structured_event_type_and_genre_filters_remain_valid():
     plan = make_plan(
         "Jazz Konzerte in Glücksburg",
-        category_queries=["Konzerte"],
+        event_type_queries=["Konzerte"],
         genre_queries=["Jazz"],
     )
-    assert plan.category_queries == ["Konzerte"]
+    assert plan.event_type_queries == ["Konzerte"]
+    assert plan.category_queries == []
     assert plan.genre_queries == ["Jazz"]
     assert plan.semantic_query is None
 
