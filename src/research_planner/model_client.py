@@ -10,11 +10,13 @@ from openai import APIError, AsyncOpenAI
 from pydantic_ai import Agent, NativeOutput, PromptedOutput
 from pydantic_ai.exceptions import ModelAPIError, UnexpectedModelBehavior, UsageLimitExceeded
 from pydantic_ai.models.openai import OpenAIChatModel
-from pydantic_ai.profiles.openai import OpenAIModelProfile
+from pydantic_ai.profiles.openai import OpenAIJsonSchemaTransformer, OpenAIModelProfile
 from pydantic_ai.providers.openai import OpenAIProvider
 from pydantic_ai.usage import UsageLimits
 
 from research_planner.config import Settings
+from research_planner.domain_prompts import DOMAIN_SYSTEM_PROMPT
+from research_planner.domain_schema import DomainProposal
 from research_planner.errors import PlannerError
 from research_planner.json_codec import decode
 from research_planner.prompts import SYSTEM_PROMPT
@@ -74,6 +76,25 @@ class StructuredModelClient:
             model_settings=model_settings,
         )
         self.agent.instrument = False
+        # V4 needs required nullable fields with no JSON Schema defaults. Keep the v3
+        # profile/wire request unchanged; both adapters share the one SDK/transport.
+        domain_model = OpenAIChatModel(
+            settings.model,
+            provider=OpenAIProvider(openai_client=self.sdk),
+            profile=OpenAIModelProfile(
+                supports_tools=False,
+                supports_json_schema_output=True,
+                json_schema_transformer=OpenAIJsonSchemaTransformer,
+            ),
+        )
+        self.domain_agent: Agent[None, DomainProposal] = Agent(
+            domain_model,
+            output_type=NativeOutput(DomainProposal, strict=True),
+            system_prompt=DOMAIN_SYSTEM_PROMPT,
+            retries=0,
+            model_settings=model_settings,
+        )
+        self.domain_agent.instrument = False
 
     async def close(self) -> None:
         await self.client.aclose()
@@ -91,20 +112,26 @@ class StructuredModelClient:
             return False
 
     async def plan(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlan:
+        output = await self._infer(
+            self.agent,
+            {**request.model_dump(mode="json"), "reference_date": reference_date.isoformat()},
+        )
+        if output.original_query != request.query:
+            raise PlannerError("planner_invalid_response", 502)
+        return output
+
+    async def plan_v4(self, request: PlanRequest) -> DomainProposal:
+        return await self._infer(
+            self.domain_agent, {"query": request.query, "language": request.language}
+        )
+
+    async def _infer[T](self, agent: Agent[None, T], context: dict[str, object]) -> T:
         try:
             async with asyncio.timeout(self.settings.timeout_seconds):
-                result = await self.agent.run(
-                    json.dumps(
-                        {
-                            **request.model_dump(mode="json"),
-                            "reference_date": reference_date.isoformat(),
-                        },
-                        ensure_ascii=False,
-                    ),
+                result = await agent.run(
+                    json.dumps(context, ensure_ascii=False),
                     usage_limits=UsageLimits(request_limit=1, tool_calls_limit=0),
                 )
-            if result.output.original_query != request.query:
-                raise PlannerError("planner_invalid_response", 502)
             return result.output
         except (UnexpectedModelBehavior, UsageLimitExceeded, ValueError):
             raise PlannerError("planner_invalid_response", 502) from None

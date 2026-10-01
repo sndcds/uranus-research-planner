@@ -107,4 +107,5 @@ part of this repository's initial implementation.
 
 An additive authenticated `/v4/plan` endpoint is available for coordinated Admin and
 project-knowledge integration. It preserves `/plan` v3 and uses a bounded multilingual
-question catalogue. See [domain v4 and migration](docs/unified-research-v4.md).
+model-backed interpreter using the configured provider and strict schema. See
+[domain v4 and migration](docs/unified-research-v4.md).

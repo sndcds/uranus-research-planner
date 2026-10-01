@@ -199,12 +199,52 @@
               }
             }
           },
-          "422": {
-            "description": "Validation Error",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Content Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -320,8 +360,7 @@
               "event",
               "venue",
               "organization",
-              "category",
-              "area"
+              "category"
             ],
             "title": "Entity Type"
           },
@@ -329,16 +368,9 @@
             "type": "string",
             "enum": [
               "description_characters",
-              "description_words",
-              "public_text_characters",
               "occurrence_count",
-              "duration_minutes",
               "event_count",
-              "organization_count",
-              "category_count",
-              "venue_count",
-              "area_count",
-              "events_per_capita"
+              "venue_count"
             ],
             "title": "Metric"
           },
@@ -420,19 +452,6 @@
         ],
         "title": "ErrorResponse"
       },
-      "HTTPValidationError": {
-        "properties": {
-          "detail": {
-            "items": {
-              "$ref": "#/components/schemas/ValidationError"
-            },
-            "type": "array",
-            "title": "Detail"
-          }
-        },
-        "type": "object",
-        "title": "HTTPValidationError"
-      },
       "HealthResponse": {
         "properties": {
           "status": {
@@ -484,8 +503,7 @@
               "planner_component",
               "geocoding",
               "architecture",
-              "founding_date",
-              "unknown"
+              "founding_date"
             ],
             "title": "Fact"
           },
@@ -567,9 +585,9 @@
           },
           "interpreter_version": {
             "type": "string",
-            "const": "reviewed-catalogue-v1",
+            "const": "research-domain-planner-v2",
             "title": "Interpreter Version",
-            "default": "reviewed-catalogue-v1"
+            "default": "research-domain-planner-v2"
           },
           "original_query": {
             "type": "string",
@@ -982,46 +1000,6 @@
           "unsupported_reason"
         ],
         "title": "ResearchQueryPlan"
-      },
-      "ValidationError": {
-        "properties": {
-          "loc": {
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "integer"
-                }
-              ]
-            },
-            "type": "array",
-            "title": "Location"
-          },
-          "msg": {
-            "type": "string",
-            "title": "Message"
-          },
-          "type": {
-            "type": "string",
-            "title": "Error Type"
-          },
-          "input": {
-            "title": "Input"
-          },
-          "ctx": {
-            "type": "object",
-            "title": "Context"
-          }
-        },
-        "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
-        "title": "ValidationError"
       }
     },
     "securitySchemes": {

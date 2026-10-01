@@ -3,12 +3,15 @@
 from datetime import date
 from typing import Protocol
 
+from research_planner.domain_schema import DomainProposal
 from research_planner.errors import PlannerError
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 
 
 class ResearchPlanner(Protocol):
     async def plan(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlan: ...
+
+    async def plan_v4(self, request: PlanRequest) -> DomainProposal: ...
 
     async def ready(self) -> bool: ...
 
@@ -17,6 +20,9 @@ class ResearchPlanner(Protocol):
 
 class UnavailablePlanner:
     async def plan(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlan:
+        raise PlannerError("planner_unavailable")
+
+    async def plan_v4(self, request: PlanRequest) -> DomainProposal:
         raise PlannerError("planner_unavailable")
 
     async def ready(self) -> bool:

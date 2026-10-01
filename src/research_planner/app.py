@@ -14,7 +14,7 @@ from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer
 
 from research_planner.config import Settings
-from research_planner.domain_planner import interpret
+from research_planner.domain_planner import DomainPlanner
 from research_planner.domain_schema import PlanEnvelopeV4
 from research_planner.errors import PlannerError
 from research_planner.logging import configure_logging, log_plan
@@ -97,6 +97,14 @@ def create_app(
             raise PlannerError("planner_unavailable") from None
         return HealthResponse(status="ready")
 
+    @asynccontextmanager
+    async def inference_slot() -> AsyncIterator[None]:
+        # Both versions share admission, with no unbounded queue in front of inference.
+        if slots.locked():
+            raise PlannerError("planner_unavailable")
+        async with slots, asyncio.timeout(settings.timeout_seconds):
+            yield
+
     @app.post(
         "/plan",
         response_model=PlanResponse,
@@ -110,11 +118,8 @@ def create_app(
         error_type = "none"
         planner_ms = 0.0
         try:
-            # No unbounded queue in front of the model. Admission rejection is a safe 503.
-            if slots.locked():
-                raise PlannerError("planner_unavailable")
             reference_date = now().astimezone(ZoneInfo(request.timezone)).date()
-            async with slots, asyncio.timeout(settings.timeout_seconds):
+            async with inference_slot():
                 model_started = perf_counter()
                 try:
                     proposal = await provider.plan(request, reference_date)
@@ -166,8 +171,17 @@ def create_app(
                 error_type=error_type,
             )
 
-    @app.post("/v4/plan", response_model=PlanEnvelopeV4, dependencies=[Depends(service_auth)])
+    @app.post(
+        "/v4/plan",
+        response_model=PlanEnvelopeV4,
+        dependencies=[Depends(service_auth)],
+        responses={code: {"model": ErrorResponse} for code in (401, 413, 422, 502, 503)},
+    )
     async def domain_plan(request: PlanRequest) -> PlanEnvelopeV4:
-        return interpret(request.query)
+        try:
+            async with inference_slot():
+                return await DomainPlanner(provider).interpret(request)
+        except TimeoutError:
+            raise PlannerError("planner_unavailable") from None
 
     return app
