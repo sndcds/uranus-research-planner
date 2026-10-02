@@ -71,6 +71,7 @@ async def test_authenticated_v5_endpoint(settings, auth, case):
         else:
             assert response.status_code == 200, response.text
             assert response.json()["schema_version"] == "research-query-plan-v5"
+            assert response.json()["prompt_version"] == "research-planner-v10"
             assert response.json()["plan"] == case["plan"]
 
 
@@ -157,3 +158,50 @@ async def test_v5_boundary_rejects_browser_execution_fields(settings, auth):
         assert response.status_code == 422
         response = await client.post("/v5/plan", headers=auth, json={"query": "x" * 17000})
         assert response.status_code == 413
+
+
+RANKING_CASES = [
+    c
+    for c in CASES
+    if c["plan"]["metric"] == "occurrence_count"
+    and c["plan"]["intent"] == "aggregate"
+    and c["plan"]["limit"] is not None
+]
+
+
+@pytest.mark.parametrize("case", RANKING_CASES, ids=lambda c: c["query"])
+@pytest.mark.parametrize(
+    "grouping", ["event", "event_type", "genre", "venue", "organization", "category", "none"]
+)
+def test_ranking_never_substitutes_dimensions(case, grouping):
+    assert analytical_mismatch(case["query"], "aggregate", grouping) == (
+        grouping != case["plan"]["group_by"]
+    )
+
+
+@pytest.mark.parametrize(
+    "metric,entity",
+    [("event_count", "event"), ("venue_count", "venue"), ("organization_count", "organization")],
+)
+def test_event_grouping_requires_occurrences(metric, entity):
+    case = next(c for c in CASES if c["query"] == "Welches Event hat die meisten Termine?")
+    with pytest.raises(ValidationError, match="event_grouping_requires_occurrence_count"):
+        AnalyticalQueryPlan.model_validate_json(
+            json.dumps(case["plan"] | {"metric": metric, "entity_type": entity})
+        )
+
+
+async def test_event_type_substitution_rejected_at_planner_boundary(settings, auth):
+    case = next(c for c in CASES if c["query"] == "Welches Event hat die meisten Termine?")
+    provider = FakePlanner()
+
+    async def plan_v5(request, reference):
+        return AnalyticalQueryPlan.model_validate(case["plan"] | {"group_by": "event_type"})
+
+    provider.plan_v5 = plan_v5
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=create_app(settings, provider)), base_url="http://test"
+    ) as client:
+        response = await client.post("/v5/plan", headers=auth, json={"query": case["query"]})
+    assert response.status_code == 422
+    assert response.json()["error"]["code"] == "planner_unsupported_plan"

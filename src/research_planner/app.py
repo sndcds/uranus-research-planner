@@ -233,7 +233,7 @@ def create_app(
                 request_id=request_id,
                 planner_intent=proposal.intent,
                 planner_model=settings.model,
-                planner_prompt_version="research-planner-v8",
+                planner_prompt_version="research-planner-v10",
                 planner_ms=planner_ms,
                 total_ms=round((perf_counter() - started) * 1000, 2),
             )
@@ -242,7 +242,7 @@ def create_app(
             )
             return response_type(
                 schema_version="research-query-plan-v5",
-                prompt_version="research-planner-v8",
+                prompt_version="research-planner-v10",
                 model=settings.model,
                 plan=proposal,
                 reference_date=reference_date,
@@ -259,7 +259,7 @@ def create_app(
             log_plan(
                 request_id=request_id,
                 model=settings.model,
-                prompt_version="research-planner-v8",
+                prompt_version="research-planner-v10",
                 intent=intent,
                 planner_ms=planner_ms,
                 total_ms=round((perf_counter() - started) * 1000, 2),
@@ -310,7 +310,7 @@ def create_app(
                 request_id=request_id,
                 planner_intent=proposal.intent,
                 planner_model=settings.model,
-                planner_prompt_version="research-planner-v9",
+                planner_prompt_version="research-planner-v11",
                 planner_ms=planner_ms,
                 total_ms=round((perf_counter() - started) * 1000, 2),
             )
@@ -319,7 +319,7 @@ def create_app(
             )
             return response_type(
                 schema_version="research-query-plan-v6",
-                prompt_version="research-planner-v9",
+                prompt_version="research-planner-v11",
                 model=settings.model,
                 plan=proposal,
                 reference_date=reference_date,
@@ -336,7 +336,7 @@ def create_app(
             log_plan(
                 request_id=request_id,
                 model=settings.model,
-                prompt_version="research-planner-v9",
+                prompt_version="research-planner-v11",
                 intent=intent,
                 planner_ms=planner_ms,
                 total_ms=round((perf_counter() - started) * 1000, 2),
