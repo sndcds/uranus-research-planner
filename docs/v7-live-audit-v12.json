@@ -29594,6 +29594,78 @@
           "The supplied genitive denotes the same unresolved administrative area; source lookup and inflection normalization belong to the resolver.",
           "Accept only the two explicitly reviewed strings at spatial.area_query with unchanged relation/reference. No geographic aliases, fuzzy matching, changed roles or forbidden values are accepted."
         ]
+      },
+      {
+        "case_id": "geography-015-003",
+        "classification": "GOLDEN_TOO_STRICT",
+        "before": {
+          "id": "geography-015-003",
+          "question": "außerhalb Schleswig-Holsteins",
+          "category": "geography",
+          "capability_status": "supported",
+          "expect": {
+            "intent": "list",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "spatial": {
+              "relation": "outside",
+              "place_query": null,
+              "area_query": "Schleswig-Holstein",
+              "reference": "named",
+              "radius_m": null
+            },
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "außerhalb Schleswig-Holsteins",
+                "focus": null
+              }
+            ]
+          }
+        },
+        "after": {
+          "id": "geography-015-003",
+          "question": "außerhalb Schleswig-Holsteins",
+          "category": "geography",
+          "capability_status": "supported",
+          "expect": {
+            "intent": "list",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "spatial": {
+              "relation": "outside",
+              "place_query": null,
+              "area_query": "Schleswig-Holstein",
+              "reference": "named",
+              "radius_m": null
+            },
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "außerhalb Schleswig-Holsteins",
+                "focus": null
+              }
+            ]
+          },
+          "resolver_name_variants": {
+            "spatial.area_query": [
+              "Schleswig-Holstein",
+              "Schleswig-Holsteins"
+            ]
+          }
+        },
+        "evidence": "/tmp/v13-canon-c32-core.json",
+        "evidence_sha256": "749378b4dcbf3105715692cb3a5f7df1b69d61b5e6102f29767e3f9d1e37e85d",
+        "rationales": [
+          "The user-approved resolver inflection policy also applies to this independently observed genitive of the same administrative area.",
+          "Only the reviewed spatial.area_query pair is accepted; outside relation, named reference, canonical expect and all other paths are unchanged."
+        ]
       }
     ]
   }

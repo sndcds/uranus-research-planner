@@ -3628,3 +3628,12 @@ retain their model-provided name. Negative tests reject other places, role chang
 missing slots, forbidden values and unaudited paths. The complete before/after data and
 artifact hash are appended to `geo_name_addendum` in the JSON audit; all original
 208 mismatch classifications, 69 invalid records and 44 initial corrections remain intact.
+
+### Second individually audited Geo inflection (c32 Core)
+
+`geography-015-003`, “außerhalb Schleswig-Holsteins”, produced only area_query
+`Schleswig-Holsteins` instead of `Schleswig-Holstein`. Under the user-approved resolver
+policy this is **GOLDEN_TOO_STRICT**. The same two names are now explicitly declared
+for this case only; outside/named and every other expectation remain unchanged.
+The JSON addendum records exact before/after and the c32 Core artifact hash. This is
+the second Geo addendum, separate from the original44; no blanket alias normalization.

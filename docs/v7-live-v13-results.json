@@ -13513,6 +13513,18 @@
         ],
         "audit": "docs/v7-live-audit-v12.json#geo_name_addendum",
         "user_approved": true
+      },
+      {
+        "case_id": "geography-015-003",
+        "classification": "GOLDEN_TOO_STRICT",
+        "field": "resolver_name_variants.spatial.area_query",
+        "before": [],
+        "after": [
+          "Schleswig-Holstein",
+          "Schleswig-Holsteins"
+        ],
+        "audit": "docs/v7-live-audit-v12.json#geo_name_addendum",
+        "user_approved_policy": true
       }
     ],
     "public_schema_changes": 0,
@@ -75806,6 +75818,4545 @@
             }
           ]
         }
+      },
+      {
+        "name": "c32_core",
+        "artifact_path": "/tmp/v13-canon-c32-core.json",
+        "artifact_sha256": "749378b4dcbf3105715692cb3a5f7df1b69d61b5e6102f29767e3f9d1e37e85d",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "7bbfe143051f1fb989d5f0ea74968584a66edf6e71100f32afe1c2e26e5a8fd8",
+          "src/research_planner/research_v7_canonical.py": "e5f6690019fd77a39afdef75386c54c7ae4e5a9b414e7b8faac2cb67a53fe075",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 121,
+          "passed": 119,
+          "failed": 2,
+          "mismatch_count": 2,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "comparisons": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 9,
+              "passed": 8,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "journalism": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "knowledge": {
+              "total": 8,
+              "passed": 8,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "organizations": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 77,
+              "passed": 76,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "security": {
+              "total": 4,
+              "passed": 4,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "taxonomy": {
+              "total": 11,
+              "passed": 11,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "temporal": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "venues": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "knowledge": {
+              "total": 8,
+              "passed": 8,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_clarification": {
+              "total": 7,
+              "passed": 7,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_definition": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "planned": {
+              "total": 37,
+              "passed": 37,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 58,
+              "passed": 57,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 5,
+              "passed": 4,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "intent": 1,
+            "semantic": 1,
+            "spatial": 1,
+            "spatial.area_query": 1,
+            "unsupported_reason": 2
+          },
+          "cases": [
+            {
+              "case_id": "combined-060-009",
+              "category": "combined",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "comparisons-058-007",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "comparisons-058-008",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-042-002",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-051-001",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-051-002",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-051-003",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-051-004",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-052-001",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-052-002",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-013-001",
+              "category": "geography",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "geography-015-003",
+              "category": "geography",
+              "capability_status": "supported",
+              "question": "außerhalb Schleswig-Holsteins",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "spatial": {
+                    "relation": "outside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "außerhalb Schleswig-Holsteins",
+                      "focus": null
+                    }
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "außerhalb Schleswig-Holsteins",
+                "intent": "list",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "outside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holsteins",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "spatial.area_query",
+                  "expected": "Schleswig-Holstein",
+                  "actual": "Schleswig-Holsteins",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 140,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "journalism-059-001",
+              "category": "journalism",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "journalism-059-002",
+              "category": "journalism",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "journalism-059-005",
+              "category": "journalism",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-047-001",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-047-002",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-047-003",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-047-004",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-026-001",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-026-002",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-026-003",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "knowledge-026-004",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "status": "pass"
+            },
+            {
+              "case_id": "organizations-053-002",
+              "category": "organizations",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "organizations-053-005",
+              "category": "organizations",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-074-001",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-074-002",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-074-003",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-074-004",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-074-005",
+              "category": "regressions",
+              "capability_status": "needs_clarification",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-074-006",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-074-007",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-004-001",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-004-002",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-023-001",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-023-002",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-001",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-002",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-003",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-004",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-005",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-007",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-008",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-009",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-010",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-011",
+              "category": "regressions",
+              "capability_status": "needs_clarification",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-012",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-013",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-014",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-015",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-016",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-017",
+              "category": "regressions",
+              "capability_status": "needs_clarification",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-018",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-090-019",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-001",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-002",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-003",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-004",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-005",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-007",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-008",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-009",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-010",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-011",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-012",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-013",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-014",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-015",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-016",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-017",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-018",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-019",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-020",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-021",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-022",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-023",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-024",
+              "category": "regressions",
+              "capability_status": "unsupported",
+              "question": "Welche Instrumente kommen in den Veranstaltungen vor?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "unsupported_constraint",
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                      "focus": null
+                    }
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                "intent": "search",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                  "focus": "Instrumente"
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "intent",
+                  "expected": "list",
+                  "actual": "search",
+                  "kind": "mismatch"
+                },
+                {
+                  "path": "semantic",
+                  "expected": null,
+                  "actual": {
+                    "query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                    "focus": "Instrumente"
+                  },
+                  "kind": "mismatch"
+                },
+                {
+                  "path": "unsupported_reason",
+                  "expected": [
+                    null
+                  ],
+                  "actual": null,
+                  "kind": "forbidden_value"
+                },
+                {
+                  "path": "unsupported_reason",
+                  "expected": "unsupported_constraint",
+                  "actual": null,
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 132,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-025",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-091-026",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-001",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-002",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-003",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-004",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-005",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-006",
+              "category": "regressions",
+              "capability_status": "needs_clarification",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-007",
+              "category": "regressions",
+              "capability_status": "needs_clarification",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-008",
+              "category": "regressions",
+              "capability_status": "needs_clarification",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-009",
+              "category": "regressions",
+              "capability_status": "needs_clarification",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-010",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-011",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-012",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-092-013",
+              "category": "regressions",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-001",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-002",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-003",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-004",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-005",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-007",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "regressions-093-008",
+              "category": "regressions",
+              "capability_status": "planned",
+              "status": "pass"
+            },
+            {
+              "case_id": "security-078-001",
+              "category": "security",
+              "capability_status": "unsupported",
+              "status": "pass"
+            },
+            {
+              "case_id": "security-078-002",
+              "category": "security",
+              "capability_status": "unsupported",
+              "status": "pass"
+            },
+            {
+              "case_id": "security-078-003",
+              "category": "security",
+              "capability_status": "unsupported",
+              "status": "pass"
+            },
+            {
+              "case_id": "security-078-004",
+              "category": "security",
+              "capability_status": "unsupported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-048-001",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-048-002",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-048-003",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-048-005",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-049-001",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-049-002",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-049-004",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-049-005",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-049-006",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-011-001",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "taxonomy-011-002",
+              "category": "taxonomy",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "temporal-050-001",
+              "category": "temporal",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "temporal-050-002",
+              "category": "temporal",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "temporal-050-003",
+              "category": "temporal",
+              "capability_status": "supported",
+              "status": "pass"
+            },
+            {
+              "case_id": "venues-054-002",
+              "category": "venues",
+              "capability_status": "supported",
+              "status": "pass"
+            }
+          ]
+        }
+      },
+      {
+        "name": "c33_direct",
+        "artifact_path": "/tmp/v13-canon-c33-direct.json",
+        "artifact_sha256": "d0462914447554ba0546f5dc46064c7b96e52768fea68c1f873ac2f4e24c77eb",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "13e8735bf78e0ea589baeacce59dd440742da7537903315ad8365d8133756a8e",
+          "src/research_planner/research_v7_canonical.py": "e5f6690019fd77a39afdef75386c54c7ae4e5a9b414e7b8faac2cb67a53fe075",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a",
+          "tests/fixtures/v7/geography.json": "982d51d87537ac65dcbf717c1a455542d59795b36389c67c51da70494b559573"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 15,
+          "passed": 14,
+          "failed": 1,
+          "mismatch_count": 1,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "comparisons": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "graph": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "media": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "quality": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 5,
+              "passed": 4,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_definition": {
+              "total": 7,
+              "passed": 7,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 4,
+              "passed": 4,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "intent": 1,
+            "semantic": 1,
+            "unsupported_reason": 2
+          },
+          "cases": [
+            {
+              "case_id": "combined-060-010",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Kategorien oder Genres sind regional auffällig selten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "rare",
+                    "measure": "event_count"
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien oder Genres sind regional auffällig selten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Kategorien oder Genres sind regional auffällig selten?",
+                "intent": "anomaly",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "rare",
+                  "measure": "event_count"
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 127,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "comparisons-058-007",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "category",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Flensburg",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "category",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Flensburg",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-002",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "municipality",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+                "intent": "anomaly",
+                "entity_type": "municipality",
+                "metric": null,
+                "group_by": "municipality",
+                "ordering": null,
+                "limit": null,
+                "filters": [
+                  {
+                    "field": "category",
+                    "operator": "eq",
+                    "value": "Kultur"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 145,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-015-003",
+              "category": "geography",
+              "capability_status": "supported",
+              "question": "außerhalb Schleswig-Holsteins",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "spatial": {
+                    "relation": "outside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "außerhalb Schleswig-Holsteins",
+                      "focus": null
+                    }
+                  ]
+                },
+                "resolver_name_variants": {
+                  "spatial.area_query": [
+                    "Schleswig-Holstein",
+                    "Schleswig-Holsteins"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "außerhalb Schleswig-Holsteins",
+                "intent": "list",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "outside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 138,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "graph-064-006",
+              "category": "graph",
+              "capability_status": "needs_definition",
+              "question": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "organization",
+                    "target": "venue",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+                "intent": "relation",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "organization",
+                  "target": "venue",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "graph-064-007",
+              "category": "graph",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+                "intent": "anomaly",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 124,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "graph-064-008",
+              "category": "graph",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstalter sind überregional aktiv?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "distinct_count",
+                    "field": null,
+                    "distinct_by": "region",
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "organization",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "metric_filter": {
+                    "operator": "gt",
+                    "value": 1.0,
+                    "upper": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter sind überregional aktiv?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter sind überregional aktiv?",
+                "intent": "rank",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "distinct_count",
+                  "field": null,
+                  "distinct_by": "region",
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": {
+                  "operator": "gt",
+                  "value": 1.0,
+                  "upper": null
+                },
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 160,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "media-070-004",
+              "category": "media",
+              "capability_status": "needs_definition",
+              "question": "Welche Bilder sind besonders alt?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": null,
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "unsupported_constraint",
+                  "metric": {
+                    "operation": "value",
+                    "field": "created_at",
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "none",
+                  "ordering": "asc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Bilder sind besonders alt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Bilder sind besonders alt?",
+                "intent": "rank",
+                "entity_type": null,
+                "metric": {
+                  "operation": "value",
+                  "field": "created_at",
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": "asc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 149,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "quality-068-006",
+              "category": "quality",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+                "intent": "anomaly",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "venue",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 131,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-012",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "question": "How many accessible events are there?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    null
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "How many accessible events are there?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "accessible",
+                  "focus": null
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 158,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-018",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "question": "Hvor mange tilgængelige arrangementer er der?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    null
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvor mange tilgængelige arrangementer er der?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "tilgængelige",
+                  "focus": null
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 165,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-021",
+              "category": "regressions",
+              "capability_status": "supported",
+              "question": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "spatial": {
+                    "relation": "outside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "outside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-024",
+              "category": "regressions",
+              "capability_status": "unsupported",
+              "question": "Welche Instrumente kommen in den Veranstaltungen vor?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "unsupported_constraint",
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                      "focus": null
+                    }
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                "intent": "search",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "Instrumente",
+                  "focus": "Veranstaltungen"
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "intent",
+                  "expected": "list",
+                  "actual": "search",
+                  "kind": "mismatch"
+                },
+                {
+                  "path": "semantic",
+                  "expected": null,
+                  "actual": {
+                    "query": "Instrumente",
+                    "focus": "Veranstaltungen"
+                  },
+                  "kind": "mismatch"
+                },
+                {
+                  "path": "unsupported_reason",
+                  "expected": [
+                    null
+                  ],
+                  "actual": null,
+                  "kind": "forbidden_value"
+                },
+                {
+                  "path": "unsupported_reason",
+                  "expected": "unsupported_constraint",
+                  "actual": null,
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 126,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-025",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "question": "Wie viele Rollstuhlgerechte Veranstaltungen findest du?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    null
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Wie viele Rollstuhlgerechte Veranstaltungen findest du?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "Rollstuhlgerechte",
+                  "focus": "Barrierefreiheit für Rollstuhlnutzende"
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 178,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-061-008",
+              "category": "trends",
+              "capability_status": "needs_structured_data",
+              "question": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "anomaly": {
+                    "kind": "inactive",
+                    "measure": "event_count"
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+                "intent": "anomaly",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": "asc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "inactive",
+                  "measure": "event_count"
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 168,
+              "safe_error_code": null
+            }
+          ]
+        }
+      },
+      {
+        "name": "c34_direct",
+        "artifact_path": "/tmp/v13-canon-c34-direct.json",
+        "artifact_sha256": "c823b83587d89a5cee2b9ee5a480a4ff37feac98dcee4f4e07973c822ff205ad",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "bd8d23a68bd925437d0b5412d9cbd303ba7305edee9c796cfa120b37691e1e1d",
+          "src/research_planner/research_v7_canonical.py": "e5f6690019fd77a39afdef75386c54c7ae4e5a9b414e7b8faac2cb67a53fe075",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a",
+          "tests/fixtures/v7/geography.json": "982d51d87537ac65dcbf717c1a455542d59795b36389c67c51da70494b559573"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 15,
+          "passed": 15,
+          "failed": 0,
+          "mismatch_count": 0,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "comparisons": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "graph": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "media": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "quality": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 5,
+              "passed": 5,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_definition": {
+              "total": 7,
+              "passed": 7,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 4,
+              "passed": 4,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {},
+          "cases": [
+            {
+              "case_id": "combined-060-010",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Kategorien oder Genres sind regional auffällig selten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "rare",
+                    "measure": "event_count"
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien oder Genres sind regional auffällig selten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Kategorien oder Genres sind regional auffällig selten?",
+                "intent": "anomaly",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "rare",
+                  "measure": "event_count"
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 127,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "comparisons-058-007",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "category",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Flensburg",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "category",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Flensburg",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-002",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "municipality",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+                "intent": "anomaly",
+                "entity_type": "municipality",
+                "metric": null,
+                "group_by": "municipality",
+                "ordering": null,
+                "limit": null,
+                "filters": [
+                  {
+                    "field": "category",
+                    "operator": "eq",
+                    "value": "Kultur"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 145,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-015-003",
+              "category": "geography",
+              "capability_status": "supported",
+              "question": "außerhalb Schleswig-Holsteins",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "spatial": {
+                    "relation": "outside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "außerhalb Schleswig-Holsteins",
+                      "focus": null
+                    }
+                  ]
+                },
+                "resolver_name_variants": {
+                  "spatial.area_query": [
+                    "Schleswig-Holstein",
+                    "Schleswig-Holsteins"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "außerhalb Schleswig-Holsteins",
+                "intent": "list",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "outside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 138,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "graph-064-006",
+              "category": "graph",
+              "capability_status": "needs_definition",
+              "question": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "organization",
+                    "target": "venue",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+                "intent": "relation",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "organization",
+                  "target": "venue",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "graph-064-007",
+              "category": "graph",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+                "intent": "anomaly",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 124,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "graph-064-008",
+              "category": "graph",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstalter sind überregional aktiv?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "distinct_count",
+                    "field": null,
+                    "distinct_by": "region",
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "organization",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "metric_filter": {
+                    "operator": "gt",
+                    "value": 1.0,
+                    "upper": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter sind überregional aktiv?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter sind überregional aktiv?",
+                "intent": "rank",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "distinct_count",
+                  "field": null,
+                  "distinct_by": "region",
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": {
+                  "operator": "gt",
+                  "value": 1.0,
+                  "upper": null
+                },
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 160,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "media-070-004",
+              "category": "media",
+              "capability_status": "needs_definition",
+              "question": "Welche Bilder sind besonders alt?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": null,
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "unsupported_constraint",
+                  "metric": {
+                    "operation": "value",
+                    "field": "created_at",
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "none",
+                  "ordering": "asc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Bilder sind besonders alt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Bilder sind besonders alt?",
+                "intent": "rank",
+                "entity_type": null,
+                "metric": {
+                  "operation": "value",
+                  "field": "created_at",
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": "asc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 149,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "quality-068-006",
+              "category": "quality",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+                "intent": "anomaly",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "venue",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 131,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-012",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "question": "How many accessible events are there?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    null
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "How many accessible events are there?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "accessible",
+                  "focus": null
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 158,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-018",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "question": "Hvor mange tilgængelige arrangementer er der?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    null
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvor mange tilgængelige arrangementer er der?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "tilgængelige",
+                  "focus": "arrangementer"
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 168,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-021",
+              "category": "regressions",
+              "capability_status": "supported",
+              "question": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "spatial": {
+                    "relation": "outside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "outside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-024",
+              "category": "regressions",
+              "capability_status": "unsupported",
+              "question": "Welche Instrumente kommen in den Veranstaltungen vor?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "unsupported_constraint",
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                      "focus": null
+                    }
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+                "intent": "list",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 117,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-025",
+              "category": "regressions",
+              "capability_status": "needs_structured_data",
+              "question": "Wie viele Rollstuhlgerechte Veranstaltungen findest du?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    null
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Wie viele Rollstuhlgerechte Veranstaltungen findest du?",
+                "intent": "count",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "Rollstuhlgerechte Veranstaltungen",
+                  "focus": "Rollstuhlgerecht"
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-061-008",
+              "category": "trends",
+              "capability_status": "needs_structured_data",
+              "question": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "anomaly": {
+                    "kind": "inactive",
+                    "measure": "event_count"
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+                "intent": "anomaly",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": null,
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "inactive",
+                  "measure": "event_count"
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 168,
+              "safe_error_code": null
+            }
+          ]
+        }
+      },
+      {
+        "name": "c34_nine",
+        "artifact_path": "/tmp/v13-canon-c34-nine.json",
+        "artifact_sha256": "6a3835605cf0ea95a58a864aa499b14270e16d291ea99c9071bc15875b32714d",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "bd8d23a68bd925437d0b5412d9cbd303ba7305edee9c796cfa120b37691e1e1d",
+          "src/research_planner/research_v7_canonical.py": "e5f6690019fd77a39afdef75386c54c7ae4e5a9b414e7b8faac2cb67a53fe075",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a",
+          "tests/fixtures/v7/geography.json": "982d51d87537ac65dcbf717c1a455542d59795b36389c67c51da70494b559573"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 9,
+          "passed": 9,
+          "failed": 0,
+          "mismatch_count": 0,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "comparisons": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "organizations": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 7,
+              "passed": 7,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "planned": {
+              "total": 6,
+              "passed": 6,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {},
+          "cases": [
+            {
+              "case_id": "comparisons-058-007",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "category",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Flensburg",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "category",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Flensburg",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "organizations-053-002",
+              "category": "organizations",
+              "capability_status": "supported",
+              "question": "Welche Veranstalter bieten heute Veranstaltungen an?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "organization",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+                      "focus": null
+                    }
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+                "intent": "list",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 184,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-003",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welcher Veranstaltungstyp hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event_type",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event_type",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 154,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-004",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welches Genre hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "genre",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welches Genre hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welches Genre hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "genre",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 151,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-005",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welcher Ort hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "venue",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "venue",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welcher Ort hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welcher Ort hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "venue",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "venue",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 150,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welche Organisation hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "organization",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "organization",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Organisation hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Organisation hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 149,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-004",
+              "category": "regressions",
+              "capability_status": "supported",
+              "question": "Welche Genres zum Eventtyp Konzert gibt es?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "taxonomy",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "taxonomy": "genre",
+                  "filters": [
+                    {
+                      "field": "event_type",
+                      "operator": "eq",
+                      "value": "Konzert"
+                    }
+                  ],
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres zum Eventtyp Konzert gibt es?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "filters.0.value": [
+                    "Konzert",
+                    "Konzerte",
+                    "Konzerten"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Genres zum Eventtyp Konzert gibt es?",
+                "intent": "taxonomy",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [
+                  {
+                    "field": "event_type",
+                    "operator": "eq",
+                    "value": "Konzert"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": "genre",
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 132,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-093-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Hvilken begivenhed har færrest datoer?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "asc",
+                  "limit": 1,
+                  "semantic": null,
+                  "filters": []
+                },
+                "forbid": {
+                  "intent": [
+                    "list",
+                    "search",
+                    "aggregate"
+                  ],
+                  "group_by": [
+                    "event_type",
+                    "category",
+                    "genre",
+                    "venue",
+                    "organization"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvilken begivenhed har færrest datoer?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "asc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 154,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-093-008",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Hvilken begivenhedstype har flest datoer?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event_type",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null,
+                  "filters": []
+                },
+                "forbid": {
+                  "intent": [
+                    "list",
+                    "search",
+                    "aggregate"
+                  ],
+                  "group_by": [
+                    "event",
+                    "category",
+                    "genre",
+                    "venue",
+                    "organization"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvilken begivenhedstype har flest datoer?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event_type",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 155,
+              "safe_error_code": null
+            }
+          ]
+        }
       }
     ],
     "merge_ready": false,
@@ -76002,6 +80553,16 @@
         "openapi": "no diff",
         "doc_links": "pass",
         "diff_check": "pass"
+      },
+      {
+        "candidate": "c34",
+        "pytest": "4003 passed, 710 skipped",
+        "ruff": "pass",
+        "format": "pass",
+        "mypy": "pass",
+        "openapi": "no diff",
+        "doc_links": "pass",
+        "diff_check": "pass"
       }
     ],
     "ci": {
@@ -76041,14 +80602,15 @@
       }
     ],
     "current_candidate": {
-      "name": "c32",
-      "live_status": "direct_13_of_13_nine_9_of_9_core_running",
+      "name": "c34",
+      "live_status": "direct_15_of_15_nine_9_of_9_core_running",
       "source_sha256": {
-        "src/research_planner/research_v7_prompts.py": "7bbfe143051f1fb989d5f0ea74968584a66edf6e71100f32afe1c2e26e5a8fd8",
+        "src/research_planner/research_v7_prompts.py": "bd8d23a68bd925437d0b5412d9cbd303ba7305edee9c796cfa120b37691e1e1d",
         "src/research_planner/research_v7_canonical.py": "e5f6690019fd77a39afdef75386c54c7ae4e5a9b414e7b8faac2cb67a53fe075",
         "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
         "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
-        "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a",
+        "tests/fixtures/v7/geography.json": "982d51d87537ac65dcbf717c1a455542d59795b36389c67c51da70494b559573"
       },
       "merge_ready": false
     }
