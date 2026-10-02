@@ -3652,3 +3652,13 @@ The user resolved this population ambiguity: **keep Golden and document event as
 unqualified-record default**. Explicit entity names take precedence. The fixture remains
 unchanged; c38 documents the interpretation default and distinguishes `modified_at`
 (stale updates) from `created_at` (creation age). No schema/validator or comparator change.
+
+### Seasonal placeholder decision requested (c56 Target)
+
+`trends-061-010` requires occurrence_count/month in a blocked aggregate. The question
+names seasonality but neither dates/occurrences nor a monthly analysis unit. The existing
+audit records its invalid v12 output, but the contract documentation does not establish
+this seasonal placeholder. **CONTRACT_AMBIGUITY**: defining the monthly occurrence profile
+as a blocked default needs an explicit product decision. Golden remains unchanged; the
+alternative is a separate contract/Golden review, not silently accepting Terra's output.
+The JSON addendum records exact expected fields and source artifact/hash.

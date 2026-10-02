@@ -618,3 +618,39 @@ def test_unknown_time_group_preserves_event_population_and_past_constraint():
     data["metric"]["operation"] = "occurrence_count"
     paths = {d.path for d in compare_v7_expectations(normalize(data), case)}
     assert {"entity_type", "metric.operation", "temporal"} <= paths
+
+
+@pytest.mark.parametrize(
+    "id",
+    [
+        "anomalies-024-002",
+        "journalism-059-009",
+        "journalism-059-012",
+        "organizations-063-001",
+        "taxonomy-049-010",
+    ],
+)
+def test_noncomparison_intents_clear_only_typed_unused_targets(id):
+    witness = example_plan(CASES[id])
+    data = witness.model_dump(mode="json")
+    data["comparison_targets"] = [{"kind": "region", "query": "Schleswig-Holstein"}]
+    with pytest.raises(ValidationError, match="unexpected_comparison_targets"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(data))
+    assert normalize(data) == witness
+    data["comparison_targets"][0]["kind"] = "admin_user"
+    with pytest.raises(ValidationError):
+        normalize(data)
+
+
+def test_blocked_taxonomy_difference_keeps_known_inclusion_area():
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES["taxonomy-049-010"]
+    witness = example_plan(case)
+    assert witness.intent == "taxonomy" and witness.taxonomy == "genre"
+    assert witness.clarification == "needs_context"
+    assert witness.unsupported_reason == "unsupported_constraint"
+    assert witness.spatial.relation == "inside"
+    assert witness.spatial.area_query == "Schleswig-Holstein"
+    missing = normalize(witness.model_dump(mode="json") | {"spatial": None})
+    assert {d.path for d in compare_v7_expectations(missing, case)} == {"spatial"}

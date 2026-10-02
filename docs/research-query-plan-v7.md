@@ -400,3 +400,7 @@ A blocked regularity ranking defaults to descending order when direction is omit
 The canonicalizer fills only that missing direction; explicit ascending order remains,
 and no metric, window, subject or result limit is inferred. Clarification keeps the
 known ranking structure. Other rank operations still require a supplied direction.
+
+`comparison_targets` belongs only to `intent=compare`. Other intents neutralize this
+unused array after validating all target fields/types/bounds; compare targets are retained.
+The adapter never reconstructs missing comparison names or changes an intent.

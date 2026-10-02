@@ -1397,3 +1397,62 @@ on identical sources. No canonicalization, schema, validator or Golden change in
 
 c56 offline: **4020 passed, 710 skipped**. Ruff, format, Mypy, OpenAPI no-diff,
 docs links and whitespace gates pass. The candidate remains Draft pending wider live gates.
+
+c56 Core: **120/121 pass, 1 mismatch, 0 invalid/provider**. Security4/4, knowledge8/8,
+regressions77/77, supported57/58. This meets every agreed Core gate (supported minimum51).
+The one non-blocking supported mismatch is geography-052-001, list versus count; it is
+not hidden or reclassified. Target239 starts on identical sources. CI for1f8d695 passed:
+<https://github.com/sndcds/uranus-research-planner/actions/runs/37064448952>.
+
+c56 Target239: **192 pass, 41 mismatch, 6 invalid, 0 provider**. Security4/4,
+knowledge8/8, regressions76/77, supported58/58. Five invalids attach comparison_targets to
+non-compare intents; c57 neutralizes this unused field only after strict target validation.
+The sixth seasonal invalid exposes an undocumented month/occurrence placeholder: a user
+product decision is pending, Golden unchanged. Venue activity also regresses to event_count.
+Full455 remains blocked. Independent fixes continue while the seasonal decision is open.
+
+c57 independent: **5/6 pass, 1 mismatch, 0 invalid/provider**. The comparison-array
+invalids are gone and venue-use count passes. A blocked regional set difference drops
+its known inclusion area; c58 explicitly preserves that area while keeping unsupported
+execution and missing context. The seasonal default still awaits a product decision.
+
+c58 independent: **5/6 pass, 1 mismatch, 0 invalid/provider**. Known inclusion remains
+missing only for taxonomy discovery. c59 states retained spatial area restrictions at the
+taxonomy construction rule itself; the unsupported set-difference boundary is unchanged.
+
+c59 taxonomy single: **0/1 pass, 1 mismatch, 0 invalid/provider**; only known geography
+is omitted. c60 explains the general blocked set-difference decomposition (retain known
+inclusion A; block missing B; never execute the partial population). This is an algebra
+illustration without named places, case IDs, new operators or Golden changes.
+
+c60 taxonomy single: **0/1 pass, 1 mismatch, 0 invalid/provider**. The actual imported
+remote module path/version/prompt hash matches local c60, ruling out stale source loading.
+c61 expresses the same area-difference example with explicit existing SpatialV7 field
+names instead of functional shorthand; semantics and Golden stay unchanged.
+
+c61 taxonomy single: **0/1 pass, 1 mismatch, 0 invalid/provider**; the compressed
+inventory shorthand also loses taxonomy intent. c62 restores explicit intent/entity
+construction from c60 and puts the known geographic inclusion in the final consistency
+check with actual closed field names. No question-specific name or ID is used.
+
+c57/c58/c59/c60 offline each passed **4025 tests, 710 skipped**, with Ruff, format,
+Mypy, OpenAPI no-diff, docs links and diff checks passing. c61 offline passed **4026 tests,
+710 skipped**, including a focused negative witness for discarded inclusion geography.
+
+c62 taxonomy single: **0/1 pass, 1 mismatch, 0 invalid/provider**. The only difference
+is missing spatial inclusion; this is still an open model interpretation failure, not
+an accepted equivalent or a Golden change. Known source path/hash has been verified.
+The latest independent six-case batch remains c58: **5 pass, 1 mismatch, 0 invalid/provider**.
+No full Core/Target batch has been run on c62, so c56's earlier Core pass is not evidence
+that the latest candidate has passed those gates.
+
+The checkpoint awaits the separately documented product decision for trends-061-010:
+whether monthly occurrence counts are the canonical blocked seasonal placeholder. Golden
+is untouched pending that decision. The approved unqualified-record event default is
+implemented/documented, and typed comparison targets are neutralized only outside compare.
+No strict public validator, schema, model-call count, provider configuration or fixture
+was changed in this continuation. Full455 has **not** run; PR remains Draft, **not merge-ready**.
+
+c62 final offline validation: **4026 passed, 710 skipped**. Ruff, format, Mypy,
+OpenAPI export/no-diff, documentation links and git diff --check all pass. This validates
+the closed contract and deterministic normalization; it does not claim live acceptance.

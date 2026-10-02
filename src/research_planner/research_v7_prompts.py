@@ -35,7 +35,7 @@ Viele/wenige/häufig/selten: rank, no clarification.
   No period: all eligible records.
 - needs_location: deictic location, unidentified geographical reference or calendar area.
 - needs_context: actual prior-result/anaphoric reference (this comparison/analysis/statement,
-  that region, defined Kulturbytes coverage). Unnamed comparison cities are needs_criteria.
+  my/that region, defined Kulturbytes coverage). Unnamed comparison cities are needs_criteria.
 Location precedes distance;
 Definitions precede selection/date. Unsupported keeps needs_definition for undefined field cutoffs.
 insufficient_structured_data: authoritative population/history/provenance/audience/accessibility/
@@ -60,7 +60,7 @@ Type-filtered organizers: list, not graph.
 Graph: links/paths/named entities, not types.
 Where/wo/hvor events occur ALONE: list/event records with locations; no needs_location.
 
-5. SUBJECT
+5. ENTITY
 event=logical event; occurrence=date; venue=place; space=room; organization=organizer;
 Unqualified Datensätze/records default to event; explicit entities win.
 Unsupported subject: entity=null+unsupported_constraint; no fallback.
@@ -74,8 +74,9 @@ Keep subject/group/order/limit; simultaneous: overlap=true/period=none; metric_f
 Frequency/regularity: measure AND window.
 Duration=start/end; event=longest complete occurrence, never invented ends.
 Distinct IDs; no event_count per event.
-Many dates: rank event/group event, occurrence_count, no clarification. Venue activity:
-rank venue/group venue, occurrence_count/desc; event_count ONLY for explicit distinct events.
+Many dates: rank event/group event, occurrence_count, no clarification. Venue use:
+rank venue/group venue, occurrence_count/desc (viel veranstalten);
+ONLY distinct events: event_count.
 Taxonomy frequency: event_count unless explicitly dates.
 Distinct events: event_count; distinct_count needs distinct_by.
 Diversity counts distinct categories/genres/types/organizations/venues only; no Shannon.
@@ -90,12 +91,13 @@ Percentage: free/paid subset over SAME count/all; never all/all.
 Cutoffs on description length/price/record age: rank/needs_definition, keep metric.
 Undefined quality/dispersion is anomaly, NEVER rank/frequency/distance.
 
-7. GROUPING
+7. GROUP
 Rank entity group MUST equal entity; taxonomy/country/calendar may differ.
 Multi-group AGGREGATE: unsupported_constraint/needs_criteria, outer group; frequent: desc/20.
 This does NOT apply to undefined anomalies, whose threshold needs_definition first.
-Inventory (type-filtered genres): intent=taxonomy, entity=event, taxonomy=dimension;
-group_by=none; metric/ordering/limit/relation=null. Type uses filter, not graph.
+Inventory: intent=taxonomy, entity=event, taxonomy=dimension;
+group_by=none; metric/ordering/limit/relation=null.
+Types use filters.
 
 8. ORDER/LIMIT
 Rank needs order EVEN blocked: most/latest/regularity desc, least/earliest asc.
@@ -112,9 +114,9 @@ occurrences with genre Jazz ONLY. Event/Veranstaltung/Termin are not types.
 Preserve concept inflections; Admin resolves names/IDs.
 Explicit Kultur/Bildung/Sport/Freizeit/Familie/Gesellschaft categories are structured;
 Family/child suitability is semantic unless explicitly a category.
-Kulturangebote uses category Kultur, not a vague semantic keyword. Repeated taxonomy eq is
-intersection, not OR. Alternatives/subsets/multi-groupings can be
-unsupported. Missing price is not free; image presence proves no ownership/logo status;
+Kulturangebote: category=Kultur, not semantic. Repeated eq means AND.
+Alternatives/subsets/multi-groupings may be unsupported.
+Missing price is not free; image presence proves no ownership/logo status;
 registration link does not prove registration is mandatory.
 
 10. TEMPORAL
@@ -138,12 +140,13 @@ overlap=simultaneous events; multi_day=multiple dates;
 neither proves audience competition. Metadata dates cannot carry occurrence constraints.
 
 11. SPATIAL
-Areas=inside/outside+area_query. Streets/squares/marketplaces=at+place_query, NOT venue filters.
+Areas=inside/outside+area_query.
+Streets/squares/marketplaces=at+place_query, NOT venue filters.
 Businesses use venue filters; no coordinates/geocoding.
 Radius=within_radius, metres 1..500000, place_query for named center (10 km=10000);
 never semantic. Named place and area slots never coexist.
 Near me=nearby/user_location, needs_location, named slots null; no browser coordinates.
-Directional subdivisions: needs_definition; KEEP comparison_targets.
+Compare directional regions: needs_definition; KEEP comparison_targets.
 Borders use reference=border plus jurisdiction in area_query (Dänemark for Danish border).
 Unnamed border => needs_location; undefined near-border distance => needs_definition.
 Distance needs spatial even blocked: nearest/named, radius=null, place_query=base noun
@@ -157,7 +160,7 @@ EUR; less_than needs maximum, greater_than minimum, between both. NEVER price in
 Cheapest paid: price.currency=null,
 metric minimum/min_price/currency EUR. No conversion/price inference.
 
-13. RELATIONS
+13. RELATION
 Legal undirected edges: organization-event, event-occurrence/venue/space/category/event_type/
 genre, space-venue. Check EVERY adjacent pair of [source,*via,target], no self edge.
 Illegal path: relation=null, unsupported_constraint. Taxonomy co-occurrence: via=[event],
@@ -189,7 +192,7 @@ Jahre/years -> day/week/month/quarter/year respectively.
 Week/month/year grouping persists with needs_date.
 Unknown week count: needs_date, window=week, group_by=week, no guessed lookback.
 No unit: blocked month. No day/quarter group_by.
-Undefined unusualness/significance/density/quietness: anomaly/outlier, measure=null,
+Vague unusualness/Prägung/Dominanz/density/quiet: anomaly/outlier, measure=null,
 needs_definition; metric=null when outlier measure is undefined, NEVER partial frequency.
 Unusual long-term mean deviation: anomaly/outlier/measure=null, event, requested time group,
 insufficient_structured_data for missing historical baseline; NOT trend/previous_period.
@@ -224,5 +227,6 @@ Compare: 2..4 targets; missing => needs_criteria and [], never one; other intent
 Exact input? Rank metric/order/limit/group? Valid operands/edges even blocked?
 Non-data neutral? Semantic blocked? Distance with no reference?
 Trend consistent? Free currency null? Local clock temporal? Unused fields neutral?
-Blocks consistent? JSON only.
+Areas A-B: spatial={relation:inside,area_query:A,reference:named}; B blocked.
+Blocks consistent? JSON only
 """
