@@ -1,0 +1,596 @@
+[
+  {
+    "id": "explain-073-001",
+    "question": "Warum gilt dieser Veranstaltungsort als besonders aktiv?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "metric",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Warum gilt dieser Veranstaltungsort als besonders aktiv?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-002",
+    "question": "Warum wurde diese Region als besonders vielfältig eingestuft?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "metric",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Warum wurde diese Region als besonders vielfältig eingestuft?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-003",
+    "question": "Welche Daten führen zu der Aussage, dass diese Organisation besonders aktiv ist?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "population",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Daten führen zu der Aussage, dass diese Organisation besonders aktiv ist?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-004",
+    "question": "Auf welchen Veranstaltungen basiert dieser Vergleich?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "population",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Auf welchen Veranstaltungen basiert dieser Vergleich?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-005",
+    "question": "Welche Datensätze wurden für diese Kennzahl berücksichtigt?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "population",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Datensätze wurden für diese Kennzahl berücksichtigt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-006",
+    "question": "Welche Filter und Zeiträume wurden für dieses Ergebnis verwendet?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "filter",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Filter und Zeiträume wurden für dieses Ergebnis verwendet?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-007",
+    "question": "Welche Quelle belegt diese Aussage?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "source",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quelle belegt diese Aussage?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-008",
+    "question": "Welche Veranstaltungen wurden bei dieser Analyse ausgeschlossen?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "exclusion",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen wurden bei dieser Analyse ausgeschlossen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-009",
+    "question": "Wie wurde \"ländlich\" für diese Auswertung definiert?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "definition",
+        "term": "ländlich",
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie wurde \"ländlich\" für diese Auswertung definiert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-073-010",
+    "question": "Wie wurde \"ungewöhnlich\" in dieser Analyse berechnet?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "definition",
+        "term": "ungewöhnlich",
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie wurde \"ungewöhnlich\" in dieser Analyse berechnet?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-001",
+    "question": "Warum ist dieser Veranstaltungsort besonders aktiv?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "metric",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Warum ist dieser Veranstaltungsort besonders aktiv?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-002",
+    "question": "Welche Daten führen zu dieser Aussage?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "population",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Daten führen zu dieser Aussage?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-003",
+    "question": "Welche Veranstaltungen wurden dafür gezählt?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "population",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen wurden dafür gezählt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-004",
+    "question": "Welche Filter wurden benutzt?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "filter",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Filter wurden benutzt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-005",
+    "question": "Welche Quelle wurde verwendet?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "source",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quelle wurde verwendet?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-006",
+    "question": "Welche Datensätze wurden ausgeschlossen?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "exclusion",
+        "term": null,
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Datensätze wurden ausgeschlossen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-007",
+    "question": "Wie wurde \"ländlich\" definiert?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "definition",
+        "term": "ländlich",
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie wurde \"ländlich\" definiert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "explain-025-008",
+    "question": "Wie wurde \"ungewöhnlich\" berechnet?",
+    "category": "explain",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "explain",
+      "entity_type": null,
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "explain": {
+        "target": "definition",
+        "term": "ungewöhnlich",
+        "context": "previous_result"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie wurde \"ungewöhnlich\" berechnet?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  }
+]

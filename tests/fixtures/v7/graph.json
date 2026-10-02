@@ -1,0 +1,539 @@
+[
+  {
+    "id": "graph-046-001",
+    "question": "Wie hängt Organisation X mit Ort Y zusammen?",
+    "category": "graph",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "path",
+        "source": "organization",
+        "target": "venue",
+        "via": [
+          "event"
+        ],
+        "source_query": "Organisation X",
+        "target_query": "Ort Y"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie hängt Organisation X mit Ort Y zusammen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "graph-046-002",
+    "question": "Über welche Events sind zwei Organisationen miteinander verbunden?",
+    "category": "graph",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "event",
+      "clarification": "needs_context",
+      "unsupported_reason": "insufficient_structured_data",
+      "relation": {
+        "operation": "path",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Über welche Events sind zwei Organisationen miteinander verbunden?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "co_organizer_relationships"
+    ]
+  },
+  {
+    "id": "graph-046-003",
+    "question": "Welche Orte haben dieselben Veranstalter?",
+    "category": "graph",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "shared",
+        "source": "venue",
+        "target": "venue",
+        "via": [
+          "event",
+          "organization",
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben dieselben Veranstalter?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "graph-046-004",
+    "question": "Welche Organisationen bilden ein besonders dichtes Netzwerk?",
+    "category": "graph",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen bilden ein besonders dichtes Netzwerk?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Graphmetrik und Dichteschwelle fehlen."
+  },
+  {
+    "id": "graph-064-001",
+    "question": "Welche Organisationen treten häufig gemeinsam als Veranstalter auf?",
+    "category": "graph",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "relation": {
+        "operation": "shared",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen treten häufig gemeinsam als Veranstalter auf?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "co_organizer_relationships"
+    ]
+  },
+  {
+    "id": "graph-064-002",
+    "question": "Welche Veranstalter nutzen dieselben Räume?",
+    "category": "graph",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "shared",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event",
+          "space",
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter nutzen dieselben Räume?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "graph-064-003",
+    "question": "Welche Organisationen arbeiten über mehrere Veranstaltungsorte hinweg zusammen?",
+    "category": "graph",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "relation": {
+        "operation": "related",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event",
+          "venue",
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen arbeiten über mehrere Veranstaltungsorte hinweg zusammen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "authoritative_collaboration_not_shared_venues"
+    ]
+  },
+  {
+    "id": "graph-064-004",
+    "question": "Welche Veranstaltungsorte verbinden besonders viele Organisationen miteinander?",
+    "category": "graph",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "organization",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte verbinden besonders viele Organisationen miteinander?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "notes": "Gemeinsame Ortsnutzung ist keine behauptete Kooperation."
+  },
+  {
+    "id": "graph-064-005",
+    "question": "Welche Organisationen bilden regionale Netzwerke?",
+    "category": "graph",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen bilden regionale Netzwerke?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Netzwerkbegriff und Region sind nicht definiert."
+  },
+  {
+    "id": "graph-064-006",
+    "question": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+    "category": "graph",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "organization",
+        "target": "venue",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen verbinden Schleswig-Holstein und Dänemark?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Verbinden braucht eine fachliche Definition."
+  },
+  {
+    "id": "graph-064-007",
+    "question": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+    "category": "graph",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter sind ausschließlich lokal aktiv?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Lokal benötigt einen geographischen Maßstab und Vollständigkeit."
+  },
+  {
+    "id": "graph-064-008",
+    "question": "Welche Veranstalter sind überregional aktiv?",
+    "category": "graph",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "region",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter sind überregional aktiv?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Regionsebene muss definiert werden."
+  },
+  {
+    "id": "graph-064-009",
+    "question": "Welche Organisationen haben Veranstaltungen in mehreren Ländern?",
+    "category": "graph",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "country",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen haben Veranstaltungen in mehreren Ländern?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "graph-064-010",
+    "question": "Welche Orte fungieren als Knotenpunkte im Kulturangebot?",
+    "category": "graph",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte fungieren als Knotenpunkte im Kulturangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Knotenpunkt braucht eine definierte Graphmetrik."
+  }
+]

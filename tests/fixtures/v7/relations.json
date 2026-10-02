@@ -1,0 +1,415 @@
+[
+  {
+    "id": "relations-040-001",
+    "question": "Welche Organisationen veranstalten im Kühlhaus?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "organization",
+        "target": "venue",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": "Kühlhaus"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen veranstalten im Kühlhaus?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-040-002",
+    "question": "An welchen Orten veranstaltet das OK Lab Flensburg?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "venue",
+        "target": "organization",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": "OK Lab Flensburg"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "An welchen Orten veranstaltet das OK Lab Flensburg?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-040-003",
+    "question": "Welche Organisationen teilen sich Veranstaltungsorte?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "shared",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event",
+          "venue",
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen teilen sich Veranstaltungsorte?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-040-004",
+    "question": "Welche Räume gehören zu welchem Ort?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "space",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "space",
+        "target": "venue",
+        "via": [],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Räume gehören zu welchem Ort?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-040-005",
+    "question": "Welche Events fanden an mehreren Orten statt?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "venue",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "past",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events fanden an mehreren Orten statt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-040-006",
+    "question": "Welche Organisationen sind über gemeinsame Orte miteinander verbunden?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "path",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event",
+          "venue",
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen sind über gemeinsame Orte miteinander verbunden?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-016-001",
+    "question": "Welche Organisationen veranstalten im Kühlhaus?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "organization",
+        "target": "venue",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": "Kühlhaus"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen veranstalten im Kühlhaus?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-016-002",
+    "question": "An welchen Orten veranstaltet das OK Lab Flensburg?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "venue",
+        "target": "organization",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": "OK Lab Flensburg"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "An welchen Orten veranstaltet das OK Lab Flensburg?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-016-003",
+    "question": "Welche Organisationen teilen sich Veranstaltungsorte?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "shared",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event",
+          "venue",
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen teilen sich Veranstaltungsorte?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-016-004",
+    "question": "Welche Räume gehören zu welchem Ort?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "space",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "space",
+        "target": "venue",
+        "via": [],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Räume gehören zu welchem Ort?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "relations-016-005",
+    "question": "Welche Organisationen sind über gemeinsame Orte miteinander verbunden?",
+    "category": "relations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "path",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event",
+          "venue",
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen sind über gemeinsame Orte miteinander verbunden?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  }
+]

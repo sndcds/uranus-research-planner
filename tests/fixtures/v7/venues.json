@@ -1,0 +1,350 @@
+[
+  {
+    "id": "venues-054-001",
+    "question": "Welche Veranstaltungsorte haben die meisten Veranstaltungen?",
+    "category": "venues",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte haben die meisten Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "venues-054-002",
+    "question": "Welche Veranstaltungsorte bieten Konzerte an?",
+    "category": "venues",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte bieten Konzerte an?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "venues-054-003",
+    "question": "Welche Veranstaltungsorte haben Veranstaltungen für Kinder?",
+    "category": "venues",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "Veranstaltungen für Kinder",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "venues-054-004",
+    "question": "Welche Orte bieten heute mehrere Veranstaltungen an?",
+    "category": "venues",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte bieten heute mehrere Veranstaltungen an?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "venues-054-005",
+    "question": "Welche Veranstaltungsorte liegen besonders dicht beieinander?",
+    "category": "venues",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distance",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "asc",
+      "limit": 20,
+      "spatial": {
+        "relation": "nearest",
+        "place_query": null,
+        "area_query": null,
+        "reference": "nearest_venue",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte liegen besonders dicht beieinander?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "venues-054-006",
+    "question": "Welche Veranstaltungsorte sind auf einen bestimmten Veranstaltungstyp spezialisiert?",
+    "category": "venues",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte sind auf einen bestimmten Veranstaltungstyp spezialisiert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Spezialisierungsschwelle und Veranstaltungstyp fehlen."
+  },
+  {
+    "id": "venues-054-007",
+    "question": "Welche Veranstaltungsorte bieten besonders unterschiedliche Genres an?",
+    "category": "venues",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "diversity",
+        "field": null,
+        "distinct_by": "genre",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte bieten besonders unterschiedliche Genres an?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "venues-054-008",
+    "question": "Welche Orte haben Veranstaltungen an mehreren aufeinanderfolgenden Tagen?",
+    "category": "venues",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": null,
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben Veranstaltungen an mehreren aufeinanderfolgenden Tagen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "consecutive_day_sequence"
+    ]
+  },
+  {
+    "id": "venues-054-009",
+    "question": "Welche Veranstaltungsorte befinden sich in einer bestimmten Gemeinde?",
+    "category": "venues",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte befinden sich in einer bestimmten Gemeinde?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "venues-054-010",
+    "question": "Welche Veranstaltungen finden in ungewöhnlichen Veranstaltungsorten statt?",
+    "category": "venues",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden in ungewöhnlichen Veranstaltungsorten statt?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Ungewöhnlicher Veranstaltungsort ist nicht definiert."
+  }
+]

@@ -40,7 +40,7 @@ class RequestBoundary:
                 ] + [(b"cache-control", b"no-store"), (b"x-content-type-options", b"nosniff")]
             await send(message)
 
-        if scope["path"] not in {"/plan", "/v4/plan", "/v5/plan", "/v6/plan", "/ready"}:
+        if scope["path"] not in {"/plan", "/v4/plan", "/v5/plan", "/v6/plan", "/v7/plan", "/ready"}:
             await self.app(scope, receive, safe_send)
             return
         keys = [value for key, value in scope["headers"] if key.lower() == b"authorization"]
@@ -56,7 +56,7 @@ class RequestBoundary:
             await error_response("invalid_request", 422)(scope, receive, safe_send)
             return
         if (
-            scope["path"] not in {"/plan", "/v4/plan", "/v5/plan", "/v6/plan"}
+            scope["path"] not in {"/plan", "/v4/plan", "/v5/plan", "/v6/plan", "/v7/plan"}
             or scope["method"] != "POST"
         ):
             await self.app(scope, receive, safe_send)

@@ -1,0 +1,280 @@
+[
+  {
+    "id": "audiences-055-001",
+    "question": "Welche Veranstaltungen sind für Kinder geeignet?",
+    "category": "audiences",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für Kinder geeignet",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "audiences-055-002",
+    "question": "Welche Veranstaltungen richten sich an Familien?",
+    "category": "audiences",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für Familien",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "audiences-055-003",
+    "question": "Welche Veranstaltungen sind kostenlos?",
+    "category": "audiences",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen sind kostenlos?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "audiences-055-004",
+    "question": "Welche Veranstaltungen sind barrierearm bzw. barrierefrei?",
+    "category": "audiences",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "barrierearm oder barrierefrei",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "audiences-055-005",
+    "question": "Welche Veranstaltungen haben Angaben zur Barrierefreiheit?",
+    "category": "audiences",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "Angaben zur Barrierefreiheit",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "audiences-055-006",
+    "question": "Welche Veranstaltungen sind für bestimmte Altersgruppen geeignet?",
+    "category": "audiences",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für eine Altersgruppe geeignet",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "audiences-055-007",
+    "question": "Welche Veranstaltungen können ohne Eintritt besucht werden?",
+    "category": "audiences",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen können ohne Eintritt besucht werden?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "audiences-055-008",
+    "question": "Welche Veranstaltungen kombinieren mehrere Zielgruppen?",
+    "category": "audiences",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "mehrere Zielgruppen",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "audiences-055-009",
+    "question": "In welchen Regionen gibt es besonders viele kostenlose Veranstaltungen?",
+    "category": "audiences",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "In welchen Regionen gibt es besonders viele kostenlose Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "audiences-055-010",
+    "question": "Wo gibt es Angebote für Kinder am Wochenende?",
+    "category": "audiences",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "this_weekend",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für Kinder geeignet",
+        "focus": null
+      }
+    }
+  }
+]

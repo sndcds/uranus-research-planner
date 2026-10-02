@@ -1,0 +1,226 @@
+[
+  {
+    "id": "knowledge-047-001",
+    "question": "Was ist Uranus?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist Uranus?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Was ist Uranus?"
+      }
+    }
+  },
+  {
+    "id": "knowledge-047-002",
+    "question": "Welche Komponente macht das Geocoding?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Komponente macht das Geocoding?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Welche Komponente macht das Geocoding?"
+      }
+    }
+  },
+  {
+    "id": "knowledge-047-003",
+    "question": "Seit wann gibt es Kulturbytes?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Seit wann gibt es Kulturbytes?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Seit wann gibt es Kulturbytes?"
+      }
+    }
+  },
+  {
+    "id": "knowledge-047-004",
+    "question": "Welches Repo implementiert die semantische Suche?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Repo implementiert die semantische Suche?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Welches Repo implementiert die semantische Suche?"
+      }
+    }
+  },
+  {
+    "id": "knowledge-026-001",
+    "question": "Was ist Uranus?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist Uranus?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Was ist Uranus?"
+      }
+    }
+  },
+  {
+    "id": "knowledge-026-002",
+    "question": "Welche Komponente macht das Geocoding?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Komponente macht das Geocoding?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Welche Komponente macht das Geocoding?"
+      }
+    }
+  },
+  {
+    "id": "knowledge-026-003",
+    "question": "Seit wann gibt es Kulturbytes?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Seit wann gibt es Kulturbytes?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Seit wann gibt es Kulturbytes?"
+      }
+    }
+  },
+  {
+    "id": "knowledge-026-004",
+    "question": "Welches Repo implementiert die semantische Suche?",
+    "category": "knowledge",
+    "capability_status": "knowledge",
+    "expect": {
+      "intent": "knowledge",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Repo implementiert die semantische Suche?",
+          "focus": null
+        }
+      ],
+      "knowledge": [
+        null
+      ]
+    },
+    "example": {
+      "knowledge": {
+        "query": "Welches Repo implementiert die semantische Suche?"
+      }
+    }
+  }
+]

@@ -1,0 +1,1092 @@
+[
+  {
+    "id": "quality-044-001",
+    "question": "Welche Events haben keinen Ort?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "venue",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events haben keinen Ort?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-044-002",
+    "question": "Welche Orte haben keine Koordinaten?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "coordinates",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben keine Koordinaten?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-044-003",
+    "question": "Welche Veranstaltungen haben widersprüchliche Termine?",
+    "category": "quality",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben widersprüchliche Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Widerspruchsregeln für Datumsintervalle fehlen."
+  },
+  {
+    "id": "quality-044-004",
+    "question": "Welche Organisationen haben keine Beschreibung?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "description",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen haben keine Beschreibung?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-044-005",
+    "question": "Welche Events haben außergewöhnlich lange Texte?",
+    "category": "quality",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "field_length",
+        "field": "description",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events haben außergewöhnlich lange Texte?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Schwelle für außergewöhnlich lang fehlt."
+  },
+  {
+    "id": "quality-044-006",
+    "question": "Welche Bilder fehlen?",
+    "category": "quality",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "list",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Bilder fehlen?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "image_entity_and_media_ownership"
+    ]
+  },
+  {
+    "id": "quality-068-001",
+    "question": "Welche Veranstaltungen haben besonders kurze Beschreibungen?",
+    "category": "quality",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "field_length",
+        "field": "description",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben besonders kurze Beschreibungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Besonders kurz benötigt eine Schwelle."
+  },
+  {
+    "id": "quality-068-002",
+    "question": "Welche Veranstaltungen haben identische oder nahezu identische Beschreibungen?",
+    "category": "quality",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "unsupported_constraint",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben identische oder nahezu identische Beschreibungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Nahezu identisch benötigt eine Similarity-Metrik.",
+    "required_data": [
+      "description_pair_similarity"
+    ]
+  },
+  {
+    "id": "quality-068-003",
+    "question": "Welche Veranstaltungen verwenden denselben Beschreibungstext mehrfach?",
+    "category": "quality",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "relation": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen verwenden denselben Beschreibungstext mehrfach?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "shared_description_dimension"
+    ]
+  },
+  {
+    "id": "quality-068-004",
+    "question": "Welche Veranstalter veröffentlichen besonders ausführliche Beschreibungen?",
+    "category": "quality",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "field_length",
+        "field": "description",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter veröffentlichen besonders ausführliche Beschreibungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Aggregation der Textlängen und Ausführlichkeitsschwelle fehlen."
+  },
+  {
+    "id": "quality-068-005",
+    "question": "Welche Kategorien haben besonders häufig fehlende Beschreibungen?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "description",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien haben besonders häufig fehlende Beschreibungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "quality-068-006",
+    "question": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+    "category": "quality",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte haben besonders häufig unvollständige Datensätze?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Vollständigkeitskriterien fehlen."
+  },
+  {
+    "id": "quality-068-007",
+    "question": "Welche Events haben keinen Veranstalter?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "organization",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events haben keinen Veranstalter?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-068-008",
+    "question": "Welche Events haben keinen Veranstaltungstyp?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events haben keinen Veranstaltungstyp?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-068-009",
+    "question": "Welche Events haben weder Kategorie noch Genre?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "category",
+          "operator": "missing"
+        },
+        {
+          "field": "genre",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events haben weder Kategorie noch Genre?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-068-010",
+    "question": "Welche Datensätze wurden besonders lange nicht aktualisiert?",
+    "category": "quality",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "modified_at",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Datensätze wurden besonders lange nicht aktualisiert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Datensatztyp und Altersgrenze fehlen."
+  },
+  {
+    "id": "quality-068-011",
+    "question": "Welche Veranstaltungen wurden kurz vor Beginn noch geändert?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen wurden kurz vor Beginn noch geändert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Kurz benötigt eine Schwelle.",
+    "required_data": [
+      "modification_history"
+    ]
+  },
+  {
+    "id": "quality-068-012",
+    "question": "Welche Veranstaltungen wurden nach ihrer Veröffentlichung mehrfach geändert?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen wurden nach ihrer Veröffentlichung mehrfach geändert?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "publication_and_modification_history"
+    ]
+  },
+  {
+    "id": "quality-069-001",
+    "question": "Welche Events wurden nachträglich abgesagt?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "filters": [
+        {
+          "field": "status",
+          "operator": "eq",
+          "value": "cancelled"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events wurden nachträglich abgesagt?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "status_history"
+    ]
+  },
+  {
+    "id": "quality-069-002",
+    "question": "Welche Veranstalter sagen Veranstaltungen besonders häufig ab?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "status",
+          "operator": "eq",
+          "value": "cancelled"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter sagen Veranstaltungen besonders häufig ab?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "status_history"
+    ]
+  },
+  {
+    "id": "quality-069-003",
+    "question": "Welche Veranstaltungstypen werden besonders häufig verschoben?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen werden besonders häufig verschoben?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "rescheduling_history"
+    ]
+  },
+  {
+    "id": "quality-069-004",
+    "question": "Welche Orte haben besonders viele abgesagte Veranstaltungen?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "status",
+          "operator": "eq",
+          "value": "cancelled"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben besonders viele abgesagte Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "quality-069-005",
+    "question": "In welchen Zeiträumen gab es ungewöhnlich viele Absagen?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "filters": [
+        {
+          "field": "status",
+          "operator": "eq",
+          "value": "cancelled"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "In welchen Zeiträumen gab es ungewöhnlich viele Absagen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Ungewöhnliche Absagen benötigen Schwelle und Zeitfenster.",
+    "required_data": [
+      "status_history"
+    ]
+  },
+  {
+    "id": "quality-069-006",
+    "question": "Welche Events wurden mehrfach verschoben?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events wurden mehrfach verschoben?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "rescheduling_history"
+    ]
+  },
+  {
+    "id": "quality-069-007",
+    "question": "Welche Veranstaltungen wurden erst sehr kurzfristig veröffentlicht?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen wurden erst sehr kurzfristig veröffentlicht?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Kurzfristigkeitsschwelle fehlt.",
+    "required_data": [
+      "publication_history"
+    ]
+  },
+  {
+    "id": "quality-069-008",
+    "question": "Welche Veranstalter veröffentlichen besonders früh im Voraus?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter veröffentlichen besonders früh im Voraus?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Frühzeitigkeitsmaß fehlt.",
+    "required_data": [
+      "publication_history"
+    ]
+  },
+  {
+    "id": "quality-069-009",
+    "question": "Welche Veranstalter veröffentlichen besonders kurzfristig?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter veröffentlichen besonders kurzfristig?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Kurzfristigkeitsschwelle fehlt.",
+    "required_data": [
+      "publication_history"
+    ]
+  },
+  {
+    "id": "quality-069-010",
+    "question": "Wie lang ist der durchschnittliche Zeitraum zwischen Veröffentlichung und Veranstaltung?",
+    "category": "quality",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": "none",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie lang ist der durchschnittliche Zeitraum zwischen Veröffentlichung und Veranstaltung?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Kein Preisvergleich. Die Metrik ist nicht repräsentierbar. Keine Ausführung.",
+    "required_data": [
+      "publication_lead_time_metric",
+      "publication_timestamp"
+    ]
+  },
+  {
+    "id": "quality-010-001",
+    "question": "Welche Events haben keinen Ort?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "venue",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events haben keinen Ort?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-010-002",
+    "question": "Welche Orte haben keine Koordinaten?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "coordinates",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben keine Koordinaten?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "quality-010-003",
+    "question": "Welche Organisationen haben keine Beschreibung?",
+    "category": "quality",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "description",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen haben keine Beschreibung?",
+          "focus": null
+        }
+      ]
+    }
+  }
+]

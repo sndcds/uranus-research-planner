@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "regressions-074-001",
+    "question": "Welche Jazz-Konzerte finden heute statt?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        },
+        {
+          "field": "genre",
+          "operator": "eq",
+          "value": "Jazz"
+        }
+      ],
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Jazz-Konzerte finden heute statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-074-002",
+    "question": "Welche Genres gibt es?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-074-003",
+    "question": "Zeige die häufigsten Genres",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Zeige die häufigsten Genres",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-074-004",
+    "question": "wo finden heute veranstaltungen statt?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "wo finden heute veranstaltungen statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-074-005",
+    "question": "Was ist in meiner Nähe?",
+    "category": "regressions",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist in meiner Nähe?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "regressions-074-006",
+    "question": "Was ist heute in der Bachstraße Flensburg los?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "at",
+        "place_query": "Bachstraße Flensburg",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": null
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist heute in der Bachstraße Flensburg los?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-074-007",
+    "question": "gibt es neue veranstaltungen?",
+    "category": "regressions",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "gibt es neue veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Neu kann Erstellungszeit oder künftige Termine meinen."
+  },
+  {
+    "id": "regressions-004-001",
+    "question": "Wie viele Veranstaltungen?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "count",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie viele Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-004-002",
+    "question": "Wie viele Termine?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "count",
+      "entity_type": "occurrence",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie viele Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-023-001",
+    "question": "Gibt es neue Veranstaltungen?",
+    "category": "regressions",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Gibt es neue Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Neu ist ohne Zeitraum und Zeitfeld mehrdeutig."
+  },
+  {
+    "id": "regressions-023-002",
+    "question": "Gibt es neue Orte?",
+    "category": "regressions",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Gibt es neue Orte?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Neu ist ohne Zeitraum mehrdeutig."
+  },
+  {
+    "id": "regressions-090-001",
+    "question": "Welches Event hat die wenigsten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Event hat die wenigsten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-002",
+    "question": "Welche 5 Events haben die meisten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 5,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche 5 Events haben die meisten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-003",
+    "question": "Welcher Veranstaltungstyp hat die meisten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "occurrence",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-004",
+    "question": "Welches Genre hat die meisten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "occurrence",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Genre hat die meisten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-005",
+    "question": "Welcher Ort hat die meisten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Ort hat die meisten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-006",
+    "question": "Welche Organisation hat die meisten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisation hat die meisten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-007",
+    "question": "Which event has the most dates?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Which event has the most dates?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-008",
+    "question": "Which events have no venue?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "venue",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Which events have no venue?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-009",
+    "question": "Which events cost less than 10 euros?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "less_than",
+        "minimum": null,
+        "maximum": 10.0,
+        "currency": "EUR"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Which events cost less than 10 euros?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-010",
+    "question": "Which events are within 10 km of Flensburg?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "within_radius",
+        "place_query": "Flensburg",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": 10000
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Which events are within 10 km of Flensburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-011",
+    "question": "Which events are near me?",
+    "category": "regressions",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Which events are near me?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-012",
+    "question": "How many accessible events are there?",
+    "category": "regressions",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "count",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "accessible events",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "authoritative_accessibility_population"
+    ]
+  },
+  {
+    "id": "regressions-090-013",
+    "question": "Hvilken begivenhed har flest datoer?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Hvilken begivenhed har flest datoer?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-014",
+    "question": "Hvilke arrangementer mangler et sted?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "venue",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Hvilke arrangementer mangler et sted?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-015",
+    "question": "Hvilke arrangementer koster mindre end 10 euro?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "less_than",
+        "minimum": null,
+        "maximum": 10.0,
+        "currency": "EUR"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Hvilke arrangementer koster mindre end 10 euro?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-016",
+    "question": "Hvilke arrangementer finder sted inden for 10 km fra Flensburg?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "within_radius",
+        "place_query": "Flensburg",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": 10000
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Hvilke arrangementer finder sted inden for 10 km fra Flensburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-017",
+    "question": "Hvad sker der i nærheden af mig?",
+    "category": "regressions",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Hvad sker der i nærheden af mig?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "regressions-090-018",
+    "question": "Hvor mange tilgængelige arrangementer er der?",
+    "category": "regressions",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "count",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "tilgængelige arrangementer",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "authoritative_accessibility_population"
+    ]
+  },
+  {
+    "id": "regressions-090-019",
+    "question": "Wer veranstaltet die meisten Veranstaltungen?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wer veranstaltet die meisten Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-001",
+    "question": "Welche Genres gibt es?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-002",
+    "question": "Welche Kategorien gibt es?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "category",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien gibt es?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-003",
+    "question": "Welche Veranstaltungstypen gibt es?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "event_type",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen gibt es?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-004",
+    "question": "Welche Genres zum Eventtyp Konzert gibt es?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres zum Eventtyp Konzert gibt es?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-005",
+    "question": "Welche Kategorien kommen bei Konzerten vor?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "category",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien kommen bei Konzerten vor?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-006",
+    "question": "Zeige die häufigsten Genres",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Zeige die häufigsten Genres",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-007",
+    "question": "Welche Genres sind am häufigsten?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres sind am häufigsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-008",
+    "question": "Welche Veranstaltungstypen kommen am häufigsten vor?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen kommen am häufigsten vor?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-009",
+    "question": "Wer veranstaltet die meisten Veranstaltungen?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wer veranstaltet die meisten Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-010",
+    "question": "Wo finden viele Veranstaltungen statt?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wo finden viele Veranstaltungen statt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-011",
+    "question": "Wo ist am meisten los?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wo ist am meisten los?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-012",
+    "question": "Welche Veranstaltungsorte haben die meisten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte haben die meisten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-013",
+    "question": "Welche Orte veranstalten besonders viel?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte veranstalten besonders viel?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-014",
+    "question": "Welche Veranstaltung ist geographisch am westlichsten gelegen?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "longitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung ist geographisch am westlichsten gelegen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-015",
+    "question": "Welche Veranstaltung liegt am weitesten östlich?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "longitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung liegt am weitesten östlich?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-016",
+    "question": "Welche Veranstaltung ist am nördlichsten?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "latitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung ist am nördlichsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-017",
+    "question": "Welche Veranstaltung ist am südlichsten?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "latitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung ist am südlichsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-018",
+    "question": "Welcher Veranstaltungsort liegt am weitesten westlich?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "longitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Veranstaltungsort liegt am weitesten westlich?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-019",
+    "question": "Kennst du Veranstaltungen außerhalb von Schleswig-Holstein?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "outside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Kennst du Veranstaltungen außerhalb von Schleswig-Holstein?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-020",
+    "question": "Welche Events gibt es außerhalb von Hamburg?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "outside",
+        "place_query": null,
+        "area_query": "Hamburg",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events gibt es außerhalb von Hamburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-021",
+    "question": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "count",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "spatial": {
+        "relation": "outside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Gibt es Veranstaltungen außerhalb von Schleswig-Holstein?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-022",
+    "question": "Wie viele Jazz Konzerte gab es im August 2026?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "count",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        },
+        {
+          "field": "genre",
+          "operator": "eq",
+          "value": "Jazz"
+        }
+      ],
+      "temporal": {
+        "field": "start_date",
+        "period": "explicit_range",
+        "from_date": "2026-08-01",
+        "to_date": "2026-08-31",
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie viele Jazz Konzerte gab es im August 2026?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-023",
+    "question": "Wie viele Jazz-Termine gab es im August 2026?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "count",
+      "entity_type": "occurrence",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "filters": [
+        {
+          "field": "genre",
+          "operator": "eq",
+          "value": "Jazz"
+        }
+      ],
+      "temporal": {
+        "field": "start_date",
+        "period": "explicit_range",
+        "from_date": "2026-08-01",
+        "to_date": "2026-08-31",
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie viele Jazz-Termine gab es im August 2026?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "regressions-091-024",
+    "question": "Welche Instrumente kommen in den Veranstaltungen vor?",
+    "category": "regressions",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Instrumente kommen in den Veranstaltungen vor?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "instrument_extraction"
+    ]
+  },
+  {
+    "id": "regressions-091-025",
+    "question": "Wie viele Rollstuhlgerechte Veranstaltungen findest du?",
+    "category": "regressions",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "count",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "rollstuhlgerechte Veranstaltungen",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "authoritative_accessibility_population"
+    ]
+  },
+  {
+    "id": "regressions-091-026",
+    "question": "Veranstaltungen am Vormittag",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "morning",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Veranstaltungen am Vormittag",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-001",
+    "question": "Was ist heute in der Bachstraße Flensburg los?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "at",
+        "place_query": "Bachstraße Flensburg",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": null
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist heute in der Bachstraße Flensburg los?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-002",
+    "question": "Was läuft am Nordermarkt?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "at",
+        "place_query": "Nordermarkt",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was läuft am Nordermarkt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-003",
+    "question": "Was gibt es heute am Südermarkt?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "at",
+        "place_query": "Südermarkt",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": null
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was gibt es heute am Südermarkt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-004",
+    "question": "Was gibt es in Flensburg?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Flensburg",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was gibt es in Flensburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-005",
+    "question": "Was läuft im Volksbad?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "venue",
+          "operator": "eq",
+          "value": "Volksbad"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was läuft im Volksbad?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-006",
+    "question": "Was ist hier los?",
+    "category": "regressions",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist hier los?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-007",
+    "question": "Was ist in meiner Nähe?",
+    "category": "regressions",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist in meiner Nähe?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-008",
+    "question": "Was ist heute in meiner Nähe?",
+    "category": "regressions",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist heute in meiner Nähe?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-009",
+    "question": "Welche Veranstaltungen sind bei mir?",
+    "category": "regressions",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen sind bei mir?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-010",
+    "question": "wo finden heute veranstaltungen statt?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "wo finden heute veranstaltungen statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-011",
+    "question": "wo finden veranstaltungen statt?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "wo finden veranstaltungen statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-012",
+    "question": "Where do events take place?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Where do events take place?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "regressions-092-013",
+    "question": "Hvor finder arrangementer sted?",
+    "category": "regressions",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Hvor finder arrangementer sted?",
+          "focus": null
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "base": "e73358cc7ceec06f0edeb7d486ba75608c30f92a",
+  "files": {
+    "src/research_planner/analytics_schema.py": "c2bb23a6b7e3260f7f839afb0f4b078e69c48cdb1cf9be858c1d87dd6f2f7e81",
+    "src/research_planner/analytics_prompts.py": "87ebf00aa8730103c8f204ac8edcfce7afa9579e1947fdfc32d274b97ba75a0f",
+    "src/research_planner/analytics_guard.py": "8628f01c5f4dcc613e21ca655fea4e9ddfc4f2b94540764f7455896f7fdea556",
+    "src/research_planner/geography_schema.py": "f73548ba2dc6b1795fd05de9dc6bba3da8a6f6cc034fa375d2a403efc6292dbc",
+    "src/research_planner/geography_prompts.py": "97de6692d683c3a9a3f94ade0a0394873ae4895a698da5eec3843382526f47ff",
+    "src/research_planner/schemas.py": "006a58e6d413894dd5bf16d94218e10477d03fe6b1b80be6456b39a8635f354c",
+    "src/research_planner/prompts.py": "ef3b35df95e137423e22b641da6ccadb0d8dfec91c3a85aedc7c6164f4d76f96",
+    "src/research_planner/domain_schema.py": "11df77e21cc839b52d353668fa30fd961f935d211c7fbd843236cdd756b6e060",
+    "src/research_planner/domain_prompts.py": "4583996d577340ddc0ae6eb0ca64f8237e3d0dbbf1ab47f86407472c00456b3b",
+    "src/research_planner/domain_planner.py": "ba59b6781912a5dd5b9b03c0192d3f1e1fd07a6c65e7a2b3e7e82028697b5cb7",
+    "src/research_planner/config.py": "6a231a243cb2a0f7ca3c5e555796aa22d93c964bb47d5d8057156315498f7f61",
+    "src/research_planner/endpoints.py": "8e7bd9a0622a82ee498f1fe4263cfee8fc63932bff298037a93444b9a106b2f7",
+    "src/research_planner/transport.py": "e12ff5d0458846926bc4990522c436ff780b0d89691f653a8a11bc5a1075b131",
+    "tests/fixtures/analytics.json": "aba14638e10df3419efb7977c223316f1339ec0a0784ade1d083ce8937673b7b",
+    "tests/fixtures/domain_output_schema.json": "391e95c2dd2616e818890c6115e970d47a2573328877632fc2527794ef02d79b",
+    "tests/fixtures/domain_queries.json": "91e3ac84942acd46575f7ea728890d94c1438cae38f1ca0038f690b32dbfbc19",
+    "tests/fixtures/geography.json": "f8036bd23af71f8f5eb85608f06d6440298d009a97211f44a90adcde79d05479",
+    "tests/fixtures/queries.json": "3abb6eca8f1a508be9fd8a2c4b5cbb4e01ad197f312421ebfc69bf6791aa1c2d"
+  },
+  "paths": {
+    "/health": "07d797deb5ab09b10a90c73b9d0dde022f9007bc845beb6d8ec0574afb337e36",
+    "/ready": "fac8b5dca7ca24c2a9d8154b8890685f4c8b1c9dc7ec211c3c1bd9363e764655",
+    "/plan": "72ac6ed5d36aeab4051fe558c10b330f92ba3ab76d6a4f3b67145f722f167b5c",
+    "/v5/plan": "a0634ca01710a329a3756ecb29b6a9c37f1dd9fd1d5b52db05645aed1273c195",
+    "/v6/plan": "00cec787fb171f3f2efe3e56cf2f2cb53987ea3ddad8ac8eeb75e1abdf5bb8dd",
+    "/v4/plan": "7b168edff75e695c9ff30ad814f45ce63d27b7d332565b2e6fd224938956a4b5"
+  },
+  "components": {
+    "AnalyticalClarification": "9fcd1778970d94cb01484631ad17680fb2205937a6958f682b2713a09da229f7",
+    "AnalyticalDiagnostics": "2e02086aeef08a88c2c13c1eed86641f5459297d8f4b8b52dfe340d83077dd74",
+    "AnalyticalQueryPlan": "4afbd6a9d89d17f09e3a77688db2c9942bbf31a2dd8626af2a9d420cef7f8091",
+    "AnalyticalResponse": "0fe6b77fee1fe2805a45912f897620b464702752da30f0cfa2e426586e20ff2d",
+    "ClarificationResponse": "45182fab4b2b3539ba96683dbd04f6d43f58af31e2ca99b11a6d3a3172d252f3",
+    "ComparisonTarget": "c640b0283271cb51f4c45e01fd826478b2a5a9c1c1e3f72bdf10eeb0f3c38cee",
+    "DataPlan": "b42af0f352ecb57de5bbfb11d909ac7272b385299418d439d5fa7a2e982f11e8",
+    "ErrorDetail": "d7a1440af4947954d905602d18f9762fd7c91686e70fed4b6ad59584b9a67417",
+    "ErrorResponse": "a8a4eac64c19a74934de5e6ae04d816053489cb1a6e1ede9748bd4e7e5eccb60",
+    "GeographicClarification": "d0f939410a18dd2dcb86e034770c22161679e75e1cc78982374d606a1b15d034",
+    "GeographicDiagnostics": "dc56e0601864ed9cd6ede7142dad0038a77d990f6335d2f0a1a687b35a1314fe",
+    "GeographicQueryPlan": "f4f3ee19b1e7355dfd9af83e8d244be3f263acc78ab9263ad8d3843c058ae8a1",
+    "GeographicResponse": "f176e5876b01ef9dcae22880c86d9692abb491951be94ec2fcebe6ccf3406143",
+    "HealthResponse": "b92b68fb1f258ce9fa2893cea9f513e0280d91c6a9e01667f9ac618c3e198201",
+    "KnowledgePlan": "3f5fd6ed562e4678248318c5d24ea783421a4bb1ca4a231ae04756b22b5b15cd",
+    "PlanDiagnostics": "14ffd0d05319d2a68f8743c1985d9266fc41fe1bfd86950658305b820647597f",
+    "PlanEnvelopeV4": "526ef6d229ac4b1b43ea5c99f85213a5d5a194b333fc26fd521531d3852d5d93",
+    "PlanRequest": "609b34b5c440423191234dce31756ac3c05d76c9c7e5433fb98bf4439e17eed1",
+    "PlannedResponse": "ac97be980a9080dae929c9b7d51eae65d40fd041bf678108e089b73e412b79b0",
+    "ResearchQueryPlan": "6844fb677da5403290dd908f809571ba58910890818fb5b48e6feb058c443901"
+  }
+}

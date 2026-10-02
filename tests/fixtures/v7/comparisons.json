@@ -1,0 +1,745 @@
+[
+  {
+    "id": "comparisons-045-001",
+    "question": "Wer veranstaltet mehr, Kühlhaus oder Volksbad?",
+    "category": "comparisons",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "comparison_targets": [
+        {
+          "kind": "organization",
+          "query": "Kühlhaus"
+        },
+        {
+          "kind": "organization",
+          "query": "Volksbad"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wer veranstaltet mehr, Kühlhaus oder Volksbad?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-045-002",
+    "question": "Gibt es mehr Kultur- oder Bildungsangebote?",
+    "category": "comparisons",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "comparison_targets": [
+        {
+          "kind": "category",
+          "query": "Kultur"
+        },
+        {
+          "kind": "category",
+          "query": "Bildung"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Gibt es mehr Kultur- oder Bildungsangebote?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-045-003",
+    "question": "Welche Kommune hat mehr Events pro Einwohner?",
+    "category": "comparisons",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "municipality",
+      "clarification": "needs_criteria",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "ratio",
+        "field": null,
+        "distinct_by": null,
+        "numerator": {
+          "operation": "event_count",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "denominator": {
+          "operation": "population",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kommune hat mehr Events pro Einwohner?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Vergleichsziele fehlen zusätzlich.",
+    "required_data": [
+      "population"
+    ]
+  },
+  {
+    "id": "comparisons-045-004",
+    "question": "Welcher Ort hat die größere Themenvielfalt?",
+    "category": "comparisons",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "venue",
+      "clarification": "needs_criteria",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": "none",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Ort hat die größere Themenvielfalt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Themen dürfen nicht mit Genres gleichgesetzt werden. Metrikdefinition fehlt.",
+    "required_data": [
+      "complete_structured_topics"
+    ]
+  },
+  {
+    "id": "comparisons-058-001",
+    "question": "Wie unterscheidet sich das Kulturangebot von Flensburg und Rendsburg?",
+    "category": "comparisons",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "municipality",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "comparison_targets": [
+        {
+          "kind": "municipality",
+          "query": "Flensburg"
+        },
+        {
+          "kind": "municipality",
+          "query": "Rendsburg"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie unterscheidet sich das Kulturangebot von Flensburg und Rendsburg?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-058-002",
+    "question": "Welche Stadt hat mehr Konzerte?",
+    "category": "comparisons",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "municipality",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Stadt hat mehr Konzerte?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-058-003",
+    "question": "Welche Region hat mehr Veranstaltungen für Kinder?",
+    "category": "comparisons",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "region",
+      "clarification": "needs_criteria",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region"
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für Kinder geeignet",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "authoritative_audience_population"
+    ]
+  },
+  {
+    "id": "comparisons-058-004",
+    "question": "Welche Region hat die größere Genrevielfalt?",
+    "category": "comparisons",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "region",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "diversity",
+        "field": null,
+        "distinct_by": "genre",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Region hat die größere Genrevielfalt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-058-005",
+    "question": "Wie unterscheidet sich das Angebot zwischen Stadt und Land?",
+    "category": "comparisons",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "municipality",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie unterscheidet sich das Angebot zwischen Stadt und Land?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Stadt/Land und Vergleichsmaß benötigen Definitionen."
+  },
+  {
+    "id": "comparisons-058-006",
+    "question": "Wie unterscheidet sich das Veranstaltungsangebot zwischen Nord- und Südschleswig-Holstein?",
+    "category": "comparisons",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "comparison_targets": [
+        {
+          "kind": "region",
+          "query": "Nordschleswig-Holstein"
+        },
+        {
+          "kind": "region",
+          "query": "Südschleswig-Holstein"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie unterscheidet sich das Veranstaltungsangebot zwischen Nord- und Südschleswig-Holstein?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Gebietsabgrenzung und Vergleichsmaß fehlen."
+  },
+  {
+    "id": "comparisons-058-007",
+    "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+    "category": "comparisons",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 20,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Flensburg",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-058-008",
+    "question": "Welche Kategorien sind in Rendsburg besonders stark vertreten?",
+    "category": "comparisons",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 20,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Rendsburg",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien sind in Rendsburg besonders stark vertreten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-058-009",
+    "question": "Welche Regionen haben einen besonders hohen Anteil kostenloser Veranstaltungen?",
+    "category": "comparisons",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "percentage",
+        "field": null,
+        "distinct_by": null,
+        "numerator": {
+          "operation": "event_count",
+          "distinct_by": null,
+          "subset": "free"
+        },
+        "denominator": {
+          "operation": "event_count",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben einen besonders hohen Anteil kostenloser Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-058-010",
+    "question": "Welche Veranstalter sind in mehreren Regionen aktiv?",
+    "category": "comparisons",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "region",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter sind in mehreren Regionen aktiv?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-019-001",
+    "question": "Welche Region hat die größere Genrevielfalt?",
+    "category": "comparisons",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "region",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "diversity",
+        "field": null,
+        "distinct_by": "genre",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Region hat die größere Genrevielfalt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "comparisons-019-002",
+    "question": "Welche Orte haben das breiteste Veranstaltungsangebot?",
+    "category": "comparisons",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": null,
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben das breiteste Veranstaltungsangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Breite benötigt eine Diversitätsdimension."
+  },
+  {
+    "id": "comparisons-019-003",
+    "question": "Welche Veranstalter decken besonders viele unterschiedliche Kategorien ab?",
+    "category": "comparisons",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "diversity",
+        "field": null,
+        "distinct_by": "category",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter decken besonders viele unterschiedliche Kategorien ab?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  }
+]

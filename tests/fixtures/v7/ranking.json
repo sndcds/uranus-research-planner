@@ -1,0 +1,306 @@
+[
+  {
+    "id": "ranking-039-001",
+    "question": "Welches Event hat den längsten Beschreibungstext?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "field_length",
+        "field": "description",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Event hat den längsten Beschreibungstext?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "ranking-039-002",
+    "question": "Welche Organisation hat die meisten Veranstaltungen?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisation hat die meisten Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "ranking-039-003",
+    "question": "Welcher Ort wird am häufigsten genutzt?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Ort wird am häufigsten genutzt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "ranking-039-004",
+    "question": "Welches Event hat die meisten Termine?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Event hat die meisten Termine?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "ranking-039-005",
+    "question": "Welche Veranstaltung dauert am längsten?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "duration",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung dauert am längsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "ranking-039-006",
+    "question": "Welcher Ort hat die meisten unterschiedlichen Veranstalter?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "organization",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Ort hat die meisten unterschiedlichen Veranstalter?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "ranking-039-007",
+    "question": "Welche Kategorie kommt am häufigsten vor?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorie kommt am häufigsten vor?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "ranking-008-001",
+    "question": "Welcher Ort hat die meisten unterschiedlichen Veranstalter?",
+    "category": "ranking",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "organization",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Ort hat die meisten unterschiedlichen Veranstalter?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  }
+]

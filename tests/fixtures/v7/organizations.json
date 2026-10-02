@@ -1,0 +1,743 @@
+[
+  {
+    "id": "organizations-053-001",
+    "question": "Welche Veranstalter haben die meisten Veranstaltungen?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben die meisten Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-053-002",
+    "question": "Welche Veranstalter bieten heute Veranstaltungen an?",
+    "category": "organizations",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "organizations-053-003",
+    "question": "Welche Veranstalter bieten Veranstaltungen für Familien an?",
+    "category": "organizations",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "Veranstaltungen für Familien",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "organizations-053-004",
+    "question": "Welche Veranstalter bieten kostenlose Veranstaltungen an?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter bieten kostenlose Veranstaltungen an?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "organizations-053-005",
+    "question": "Welche Veranstalter veranstalten Konzerte?",
+    "category": "organizations",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter veranstalten Konzerte?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "organizations-053-006",
+    "question": "Welche Veranstalter bieten mehrere unterschiedliche Veranstaltungstypen an?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "event_type",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter bieten mehrere unterschiedliche Veranstaltungstypen an?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-053-007",
+    "question": "Welche Veranstalter sind an mehreren Orten aktiv?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "venue",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter sind an mehreren Orten aktiv?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-053-008",
+    "question": "Welche Veranstalter haben Veranstaltungen in mehreren Kategorien?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "category",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben Veranstaltungen in mehreren Kategorien?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-053-009",
+    "question": "Welche Organisationen arbeiten mit anderen Organisationen zusammen?",
+    "category": "organizations",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "relation": {
+        "operation": "related",
+        "source": "organization",
+        "target": "organization",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen arbeiten mit anderen Organisationen zusammen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "authoritative_collaboration_not_shared_venues"
+    ]
+  },
+  {
+    "id": "organizations-053-010",
+    "question": "Welche Veranstalter haben besonders viele Veranstaltungen in einem bestimmten Zeitraum?",
+    "category": "organizations",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_date",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben besonders viele Veranstaltungen in einem bestimmten Zeitraum?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "organizations-063-001",
+    "question": "Welche Veranstalter dominieren das Kulturangebot einer Region?",
+    "category": "organizations",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter dominieren das Kulturangebot einer Region?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Dominieren benötigt eine Schwelle."
+  },
+  {
+    "id": "organizations-063-002",
+    "question": "Wie groß ist der Anteil der Veranstaltungen des größten Veranstalters in einer Region?",
+    "category": "organizations",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_location",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": null,
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie groß ist der Anteil der Veranstaltungen des größten Veranstalters in einer Region?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "ratio_of_ranked_subpopulation"
+    ]
+  },
+  {
+    "id": "organizations-063-003",
+    "question": "Welche Veranstaltungsorte werden von nur einem Veranstalter genutzt?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "organization",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "eq",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte werden von nur einem Veranstalter genutzt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-063-004",
+    "question": "Welche Veranstaltungsorte werden von besonders vielen verschiedenen Veranstaltern genutzt?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "organization",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte werden von besonders vielen verschiedenen Veranstaltern genutzt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-063-005",
+    "question": "Welche Regionen hängen stark von wenigen Veranstaltungsorten ab?",
+    "category": "organizations",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen hängen stark von wenigen Veranstaltungsorten ab?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Abhängigkeit und wenige benötigen Definitionen."
+  },
+  {
+    "id": "organizations-063-006",
+    "question": "Welche Gemeinden haben nur einen einzigen Veranstaltungsort?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "venue_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "eq",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben nur einen einzigen Veranstaltungsort?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-063-007",
+    "question": "Welche Kategorien werden fast ausschließlich von einem Veranstalter angeboten?",
+    "category": "organizations",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "group_by": "category",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien werden fast ausschließlich von einem Veranstalter angeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Fast ausschließlich benötigt eine Anteilsschwelle."
+  },
+  {
+    "id": "organizations-063-008",
+    "question": "Welche Genres werden nur an einem einzigen Ort angeboten?",
+    "category": "organizations",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "venue",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "eq",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres werden nur an einem einzigen Ort angeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "organizations-063-009",
+    "question": "Welche Veranstalter sind für bestimmte Genres besonders prägend?",
+    "category": "organizations",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter sind für bestimmte Genres besonders prägend?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Prägend und die Genres sind nicht definiert."
+  },
+  {
+    "id": "organizations-063-010",
+    "question": "Welche Veranstalter haben das breiteste thematische Angebot?",
+    "category": "organizations",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": "none",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben das breiteste thematische Angebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Themen sind keine Genres. Thematische Breite benötigt Definition.",
+    "required_data": [
+      "complete_structured_topics"
+    ]
+  }
+]

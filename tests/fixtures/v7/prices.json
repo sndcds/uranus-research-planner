@@ -1,0 +1,902 @@
+[
+  {
+    "id": "prices-056-001",
+    "question": "Welche Veranstaltungen sind kostenlos?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen sind kostenlos?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-056-002",
+    "question": "Welche Veranstaltungen kosten weniger als 10 Euro?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "less_than",
+        "minimum": null,
+        "maximum": 10.0,
+        "currency": "EUR"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen kosten weniger als 10 Euro?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-056-003",
+    "question": "Welche Veranstaltungen kosten mehr als 30 Euro?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "greater_than",
+        "minimum": 30.0,
+        "maximum": null,
+        "currency": "EUR"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen kosten mehr als 30 Euro?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-056-004",
+    "question": "Wie hoch ist der durchschnittliche Eintrittspreis für Konzerte?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "average",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "none",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie hoch ist der durchschnittliche Eintrittspreis für Konzerte?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "notes": "Nominale minimale Eintrittspreise in EUR. Unbekannte Preise bleiben unbekannt."
+  },
+  {
+    "id": "prices-056-005",
+    "question": "Welche Veranstaltung ist die teuerste?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "maximum",
+        "field": "max_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung ist die teuerste?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-056-006",
+    "question": "Welche Veranstaltung ist die günstigste kostenpflichtige Veranstaltung?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "minimum",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "price": {
+        "mode": "paid",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung ist die günstigste kostenpflichtige Veranstaltung?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-056-007",
+    "question": "Welche Kategorien haben besonders viele kostenlose Veranstaltungen?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 20,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien haben besonders viele kostenlose Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-056-008",
+    "question": "Gibt es Regionen mit besonders vielen kostenlosen Angeboten?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Gibt es Regionen mit besonders vielen kostenlosen Angeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-056-009",
+    "question": "Welche Veranstalter bieten kostenlose Veranstaltungen an?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter bieten kostenlose Veranstaltungen an?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-067-001",
+    "question": "Welche Veranstaltungen haben Angaben zu Tickets, aber keinen Preis?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "ticket_link",
+          "operator": "present"
+        },
+        {
+          "field": "price",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben Angaben zu Tickets, aber keinen Preis?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-067-002",
+    "question": "Welche Veranstaltungen haben einen Preis, aber keinen Ticketlink?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "price",
+          "operator": "present"
+        },
+        {
+          "field": "ticket_link",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben einen Preis, aber keinen Ticketlink?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-067-003",
+    "question": "Welche Veranstaltungen haben widersprüchliche Preisangaben?",
+    "category": "prices",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben widersprüchliche Preisangaben?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Konsistenzregeln über Preisfelder müssen definiert werden."
+  },
+  {
+    "id": "prices-067-004",
+    "question": "Welche kostenlosen Veranstaltungen verlangen trotzdem eine Anmeldung?",
+    "category": "prices",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "filters": [
+        {
+          "field": "registration_link",
+          "operator": "present"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche kostenlosen Veranstaltungen verlangen trotzdem eine Anmeldung?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Ein Anmeldelink beweist keine Anmeldepflicht.",
+    "required_data": [
+      "authoritative_registration_requirement"
+    ]
+  },
+  {
+    "id": "prices-067-005",
+    "question": "Welche Kategorien sind im Durchschnitt am teuersten?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "average",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien sind im Durchschnitt am teuersten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-067-006",
+    "question": "Welche Veranstalter haben die höchsten durchschnittlichen Eintrittspreise?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "average",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben die höchsten durchschnittlichen Eintrittspreise?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-067-007",
+    "question": "Welche Regionen haben die niedrigsten durchschnittlichen Preise?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "average",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "region",
+      "ordering": "asc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben die niedrigsten durchschnittlichen Preise?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-067-008",
+    "question": "Wie unterscheiden sich die Eintrittspreise zwischen Stadt und Land?",
+    "category": "prices",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "compare",
+      "entity_type": "municipality",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "average",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "municipality",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie unterscheiden sich die Eintrittspreise zwischen Stadt und Land?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Stadt/Land-Abgrenzung fehlt."
+  },
+  {
+    "id": "prices-067-009",
+    "question": "Welche Veranstaltungstypen haben den größten Preisunterschied?",
+    "category": "prices",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": null,
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen haben den größten Preisunterschied?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "range_between_aggregate_extrema"
+    ]
+  },
+  {
+    "id": "prices-067-010",
+    "question": "Welche Genres sind besonders häufig kostenlos?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres sind besonders häufig kostenlos?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-017-001",
+    "question": "Welche Veranstaltungen sind kostenlos?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen sind kostenlos?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-017-002",
+    "question": "Welche Veranstaltungen kosten weniger als 10 Euro?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "less_than",
+        "minimum": null,
+        "maximum": 10.0,
+        "currency": "EUR"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen kosten weniger als 10 Euro?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-017-003",
+    "question": "Welche Veranstaltungen kosten mehr als 30 Euro?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "price": {
+        "mode": "greater_than",
+        "minimum": 30.0,
+        "maximum": null,
+        "currency": "EUR"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen kosten mehr als 30 Euro?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "prices-017-004",
+    "question": "Wie hoch ist der durchschnittliche Eintrittspreis für Konzerte?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "average",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "none",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie hoch ist der durchschnittliche Eintrittspreis für Konzerte?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-017-005",
+    "question": "Welche Veranstaltung ist die teuerste?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "maximum",
+        "field": "max_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung ist die teuerste?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "prices-017-006",
+    "question": "Welche Veranstaltung ist die günstigste kostenpflichtige Veranstaltung?",
+    "category": "prices",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "minimum",
+        "field": "min_price",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": "EUR"
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "price": {
+        "mode": "paid",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung ist die günstigste kostenpflichtige Veranstaltung?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  }
+]

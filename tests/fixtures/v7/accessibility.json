@@ -1,0 +1,68 @@
+[
+  {
+    "id": "accessibility-020-001",
+    "question": "Welche Veranstaltung erwähnt Barrierefreiheit?",
+    "category": "accessibility",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "erwähnt Barrierefreiheit",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "accessibility-020-002",
+    "question": "Wie viele barrierefreie Veranstaltungen gibt es?",
+    "category": "accessibility",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "count",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "barrierefreie Veranstaltungen",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "authoritative_accessibility_population"
+    ]
+  }
+]

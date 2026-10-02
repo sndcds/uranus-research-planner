@@ -1,0 +1,329 @@
+[
+  {
+    "id": "media-070-001",
+    "question": "Welche Bilder werden von mehreren Veranstaltungen verwendet?",
+    "category": "media",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "list",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Bilder werden von mehreren Veranstaltungen verwendet?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "image_entity_and_shared_media"
+    ]
+  },
+  {
+    "id": "media-070-002",
+    "question": "Welche Veranstaltungen haben kein eigenes Bild?",
+    "category": "media",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "filters": [
+        {
+          "field": "image",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben kein eigenes Bild?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "media_ownership_vs_inheritance"
+    ]
+  },
+  {
+    "id": "media-070-003",
+    "question": "Welche Veranstalter verwenden besonders häufig dieselben Bilder?",
+    "category": "media",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter verwenden besonders häufig dieselben Bilder?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "shared_media_lineage"
+    ]
+  },
+  {
+    "id": "media-070-004",
+    "question": "Welche Bilder sind besonders alt?",
+    "category": "media",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": null,
+      "clarification": "needs_definition",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": {
+        "operation": "value",
+        "field": "created_at",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "none",
+      "ordering": "asc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Bilder sind besonders alt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Altersgrenze fehlt.",
+    "required_data": [
+      "image_entity"
+    ]
+  },
+  {
+    "id": "media-070-005",
+    "question": "Welche Veranstaltungen haben nur externe Bilder?",
+    "category": "media",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben nur externe Bilder?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "media_ownership_vs_external_sources"
+    ]
+  },
+  {
+    "id": "media-070-006",
+    "question": "Welche Organisationen haben kein Logo?",
+    "category": "media",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "filters": [
+        {
+          "field": "image",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisationen haben kein Logo?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "logo_role_not_generic_image"
+    ]
+  },
+  {
+    "id": "media-070-007",
+    "question": "Welche Veranstaltungsorte haben kein Bild?",
+    "category": "media",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "image",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte haben kein Bild?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "media-070-008",
+    "question": "Welche Bildquellen werden am häufigsten verwendet?",
+    "category": "media",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Bildquellen werden am häufigsten verwendet?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "image_source_dimension",
+      "media_provenance"
+    ]
+  },
+  {
+    "id": "media-070-009",
+    "question": "Welche Veranstalter haben besonders vollständige Mediendaten?",
+    "category": "media",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben besonders vollständige Mediendaten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Medienvollständigkeit benötigt Kriterien."
+  },
+  {
+    "id": "media-070-010",
+    "question": "Welche Datensätze enthalten Bildlinks, die nicht mehr erreichbar sind?",
+    "category": "media",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Datensätze enthalten Bildlinks, die nicht mehr erreichbar sind?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "authorized_link_check_evidence"
+    ]
+  }
+]
