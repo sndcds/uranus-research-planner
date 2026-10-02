@@ -661,3 +661,34 @@ def test_core_taxonomy_inventory_including_type_restriction_stays_discovery(id, 
             "taxonomy",
             "filters.0",
         }
+
+
+@pytest.mark.parametrize(
+    "id,dimension",
+    [
+        ("comparisons-058-007", "category"),
+        ("regressions-090-003", "event_type"),
+        ("regressions-090-004", "genre"),
+    ],
+)
+def test_taxonomy_rank_dimension_belongs_only_in_group_by(id, dimension):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "rank" and witness.entity_type == "event"
+    assert witness.group_by == dimension and witness.taxonomy is None
+    assert witness.metric is not None
+    with pytest.raises(ValidationError, match="unexpected_taxonomy"):
+        parse(witness.model_dump(mode="json") | {"taxonomy": dimension})
+
+
+@pytest.mark.parametrize("id", ["regressions-074-002", "regressions-091-004"])
+def test_taxonomy_discovery_requires_dimension_without_grouping(id):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "taxonomy" and witness.entity_type == "event"
+    assert witness.taxonomy == "genre" and witness.group_by == "none"
+    assert witness.metric is witness.ordering is witness.limit is None
+    with pytest.raises(ValidationError, match="taxonomy_required"):
+        parse(witness.model_dump(mode="json") | {"taxonomy": None})

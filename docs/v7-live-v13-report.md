@@ -675,3 +675,70 @@ base 214f22d plus the exact recorded prompt; the running service was not modifie
   The merge gates are unmet; no acceptance stability or merge readiness is claimed.
 
 No deployment, merge, Admin, SQL, retrieval, geocoder or new capability.
+
+## Taxonomy-separation follow-up (base 4ff8811)
+
+Starting commit: `4ff8811319f876bd6285b87c6bd6040cc46d2c56`, matching the fetched
+`feat/v7-acceptance-v13` PR head. This follow-up only addresses the three
+`unexpected_taxonomy` outputs from the preceding nine-case run:
+
+| Case | Question | Invalid extra field on rank |
+| --- | --- | --- |
+| comparisons-058-007 | Welche Kategorien sind in Flensburg besonders stark vertreten? | taxonomy=category |
+| regressions-090-003 | Welcher Veranstaltungstyp hat die meisten Termine? | taxonomy=event_type |
+| regressions-090-004 | Welches Genre hat die meisten Termine? | taxonomy=genre |
+
+The existing validator already enforces the correct distinction. A taxonomy-dimensional
+ranking has entity=event and its dimension in group_by; taxonomy must be null.
+An inventory uses intent=taxonomy, a nonnull taxonomy dimension, group_by=none and
+null metric/ordering/limit. A type-filtered genre inventory remains discovery with a
+name filter. Prompt guidance and the existing final self-check now state both branches
+explicitly; duplicated subject guidance was shortened to preserve the existing length
+limit. Prompt stays **research-planner-v13** (13,997 characters).
+
+Five added contract-witness tests cover valid category/type/genre rankings and reject
+an extra taxonomy field for each; both plain and type-filtered genre inventories validate
+and reject a missing taxonomy with `taxonomy_required`. No prompt-substring-only test
+was substituted for these checks. Golden/schema/validator/comparator/API/provider
+changes: **zero**. Existing historical report objects are preserved.
+
+### Live result — STOP at the first three-case gate
+
+| Gate | Total | Pass | Mismatch | Invalid | Provider error |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Three taxonomy cases #1 | 3 | 2 | 1 | 0 | 0 |
+| Three taxonomy cases #2 | — | — | — | — | — |
+| Previous nine / Core / 239 / 455 | — | — | — | — | — |
+
+All three outputs now have intent=rank and taxonomy=null. The category and event-type
+cases pass their complete Golden expectations. `regressions-090-004` is valid but
+mismatches **entity_type**: expected `event`, actual `occurrence`. Its genre grouping,
+occurrence_count metric, taxonomy=null and singular limit=1 match. Counting dates does
+not change a taxonomy ranking's subject entity to occurrence; the unchanged Golden
+expectation remains authoritative.
+
+**The gate failed, so execution stopped. PR remains Draft and not merge-ready.**
+No second three-case, nine-case, Core, 239 or 455 run was started. No post-failure tuning,
+retry, fallback or repair was performed. Zero invalids in this small run does not establish
+stability or satisfy the Core merge gates. There are no fresh broader-gate scores for this
+candidate. The two historical blocker passes and previous Core scores remain historical.
+
+The complete safe report is appended under `taxonomy_separation_followup.runs` in the
+[JSON results](v7-live-v13-results.json), with artifact path
+`/tmp/v13-taxonomy-three-first.json`, SHA256, exact prompt hash and base commit. The isolated
+checkout used this exact candidate without changes to the running service.
+
+### Final validation
+
+- Full offline suite: **3446 passed, 710 skipped**; focused v13 tests: **67 passed**.
+- Ruff, format (68 files), mypy (29 source files): passed.
+- OpenAPI export: unchanged; documentation links and `git diff --check`: passed.
+- An intermediate prompt exceeded the existing length limit and failed two tests.
+  Redundant taxonomy guidance was shortened; the final full suite passed. No test limit
+  or assertion was weakened.
+- Historical JSON sections are unchanged; only this follow-up was appended.
+- Changed files: prompt, existing v13 test module, and the two existing reports.
+- No Golden, schema, validator, comparator, API or provider change. No new capability.
+
+No deployment or merge. Remaining blocker: genre-ranking subject entity; broader
+acceptance remains unmeasured on this candidate because the first gate failed.
