@@ -449,6 +449,31 @@ def test_clarification_cannot_erase_independently_known_structure(id, removed, p
         assert_v7_expectations(lossy, case)
 
 
+def test_unknown_week_count_preserves_known_granularity():
+    case = CASES["trends-022-001"]
+    witness = example_plan(case)
+    assert witness.intent == "trend" and witness.entity_type == "event"
+    assert witness.clarification == "needs_date"
+    assert witness.group_by == witness.trend.window == "week"
+    assert witness.trend.measure == "event_count"
+    assert witness.trend.comparison == "previous_period"
+    assert witness.trend.change == "absolute_change"
+    assert_v7_expectations(witness, case)
+    value = witness.model_dump(mode="json")
+    for wrong in (
+        value | {"group_by": "none"},
+        value | {"trend": value["trend"] | {"window": "month"}},
+    ):
+        # Keep any emitted metric internally consistent so failure proves the golden
+        # rejects a valid but incorrect unit, rather than a cross-field schema error.
+        if wrong["metric"] is not None:
+            wrong["metric"] = wrong["metric"] | {"window": wrong["trend"]["window"]}
+        actual = parse(wrong)
+        assert actual.clarification == "needs_date"
+        with pytest.raises(AssertionError, match="group_by|trend.window"):
+            assert_v7_expectations(actual, case)
+
+
 @pytest.mark.parametrize("id", ["knowledge-047-004", "knowledge-026-004"])
 def test_blocker_project_repository_witness_is_neutral_knowledge_not_search(id):
     case = CASES[id]
