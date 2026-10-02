@@ -223,6 +223,8 @@ def test_taxonomy_discovery_subject_is_the_event_population():
     "id,intent,entity,metric",
     [
         ("regressions-023-002", "list", "venue", None),
+        ("regressions-023-001", "list", "event", None),
+        ("regressions-074-007", "list", "event", None),
         ("regressions-091-007", "rank", "event", "event_count"),
         ("regressions-091-024", "list", "event", None),
         ("organizations-053-005", "list", "organization", None),
@@ -238,8 +240,10 @@ def test_subject_and_eligibility_rules_retain_existing_golden_semantics(id, inte
     assert witness.intent == intent and witness.entity_type == entity
     assert (witness.metric.operation if witness.metric else None) == metric
     assert witness.relation is None
-    if id == "regressions-023-002":
+    if id in {"regressions-023-002", "regressions-023-001", "regressions-074-007"}:
         assert witness.clarification == "needs_definition" and witness.temporal is None
+        with pytest.raises(AssertionError, match="clarification"):
+            assert_v7_expectations(witness.model_copy(update={"clarification": "none"}), case)
     if id == "regressions-091-024":
         assert witness.unsupported_reason == "unsupported_constraint"
     if id in {"organizations-053-005", "venues-054-002"}:

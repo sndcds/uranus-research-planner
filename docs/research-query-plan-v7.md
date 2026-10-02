@@ -342,8 +342,8 @@ unchanged local-time validators; no timezone or new temporal capability is intro
 
 The v13 NativeOutput adapter validates a closed proposal using the exact public field
 constraints and nested validators before applying deterministic normal forms. Non-taxonomy
-intents clear taxonomy; taxonomy discovery clears grouping, metric and metric_filter;
-taxonomy-dimensional rank uses entity=event independently of its count metric. Objects
+intents clear taxonomy; taxonomy discovery uses entity=event and clears grouping, metric
+and metric_filter; taxonomy-dimensional rank uses entity=event independently of its count metric. Objects
 reserved for anomaly/trend are null for other intents; relation is null for intents that
 cannot carry it. All unchanged public plan cross-field validators then run, followed by
 original-query equality at the client/API boundary. Unknown enums, extra fields and invalid
