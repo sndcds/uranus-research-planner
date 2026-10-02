@@ -420,3 +420,63 @@ The other historical mismatches were outside this narrow follow-up and were not 
 
 No schema, validator, golden, comparator, API, dependency, provider setting, retry/tool/
 fallback, Admin, SQL or retrieval change. No production deployment or merge.
+
+## Two remaining blockers: structural preservation follow-up
+
+Starting/current remote head verified: `040606b52eae75c2f7307b4fe133c422274d030b`;
+clean branch `feat/v7-acceptance-v13`. Prompt remains research-planner-v13. This follow-up
+changes only local regularity/trend/neutralization guidance and focused offline tests.
+Golden, schema, validator, comparator, API and provider changes: **zero**.
+
+The previous temporal output kept rank/organization/desc/20 and needs_definition but
+lost both its regularity metric and simultaneous temporal constraint. The previous trend
+kept its week metric/window and needs_date but lost group_by=week. The revised guidance
+retains the blocked regularity descriptor and explicit overlap, limits null metrics to
+unknown metrics, and states that weekly grouping survives needs_date. A clarification
+represents missing information; it does not make otherwise known fields unused.
+
+Three focused negative tests prove that dropping metric, temporal or weekly grouping
+still fails the unchanged golden comparator even if the plan remains schema-valid and
+retains its intent/clarification. Existing witness tests assert the required descriptor,
+overlap, ordering, limit and week grouping. No exact-question routing was introduced.
+
+### Two-case live gate: failed, STOP
+
+Isolated checkout: `/tmp/uranus-v13-preserve-040606b`; source is the starting PR head plus
+this prompt. Existing opt-in runner, sequential requests, unchanged provider settings,
+model gpt-5.6-terra, reference date 2026-10-02. No service checkout or deployment change.
+The archive has no .git directory, so the artifact's git_commit is null.
+
+Runtime prompt SHA256: `26c56c8cc0a74edc086eb7275701c2bd6d92dbdd86a25eb329df2a8126878318` (13998 characters).
+Private artifact: `/tmp/v13-structure-two.json`, SHA256 `942b74abdd064ba7be82d800e0194fbdcf61540b5ad5bbe03a3ceeb336470dbb`.
+
+The JSON report appends complete safe evidence under `structural_followup`; all earlier
+run objects and their outcomes remain unchanged.
+
+| Case | Result | Observed structure |
+| --- | --- | --- |
+| temporal-065-009 | pass | rank; organization grouping; regularity/occurrence_count/week; overlap=true; desc/20; needs_definition; metric_filter=null |
+| trends-022-001 | mismatch | group_by=none instead of week; trend.window=month instead of week; needs_date retained |
+
+**Total: 2; pass: 1; mismatch: 1; invalid_response: 0; provider_error: 0.**
+The regularity case passed once, not twice. The trend remains a merge blocker and now
+also loses the known week window. This worsening is recorded, not hidden or recategorized.
+
+**STOP applied:** neither 12-case run, Core, 239 nor 455 was started. No post-failure
+prompt adjustment, retry, golden change or fallback. Full-category security/knowledge/
+regression/supported rates are not newly measured. Historical category results are not
+substituted for this gate. PR remains Draft; **merge-ready: no**.
+
+### Validation and changed files
+
+Focused v13 tests: 42 passed. Full offline suite: **3421 passed, 710 skipped**.
+`uv sync --locked --group dev`, Ruff check, Ruff format (68 files), mypy (29 source files),
+OpenAPI export with zero diff, documentation links, and `git diff --check` all passed.
+Only these four files change in this follow-up:
+
+- `src/research_planner/research_v7_prompts.py`
+- `tests/test_research_v7_v13.py`
+- `docs/v7-live-v13-report.md`
+- `docs/v7-live-v13-results.json`
+
+No merge, deployment, Admin, SQL, retrieval, geocoder, provider, retry or fallback change.

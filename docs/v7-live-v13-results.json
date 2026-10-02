@@ -6897,5 +6897,328 @@
       "docs/v7-live-v13-report.md",
       "docs/v7-live-v13-results.json"
     ]
+  },
+  "structural_followup": {
+    "starting_commit": "040606b52eae75c2f7307b4fe133c422274d030b",
+    "prompt_version": "research-planner-v13",
+    "prompt_sha256": "26c56c8cc0a74edc086eb7275701c2bd6d92dbdd86a25eb329df2a8126878318",
+    "prompt_characters": 13998,
+    "golden_changes": 0,
+    "schema_changes": 0,
+    "validator_changes": 0,
+    "comparator_changes": 0,
+    "rules_changed": [
+      "Blocked regularity retains operation/measure/window, subject/group/order/limit and explicit overlap; no metric_filter.",
+      "Explicit weekly analysis retains group_by and trend.window even when needs_date.",
+      "Clarification preserves independently known structural fields; only unused fields become neutral."
+    ],
+    "runs": [
+      {
+        "name": "two_remaining_blockers",
+        "artifact_path": "/tmp/v13-structure-two.json",
+        "artifact_sha256": "942b74abdd064ba7be82d800e0194fbdcf61540b5ad5bbe03a3ceeb336470dbb",
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 2,
+          "passed": 1,
+          "failed": 1,
+          "mismatch_count": 1,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "temporal": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_clarification": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_definition": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "group_by": 1,
+            "trend": 1,
+            "trend.window": 1
+          },
+          "cases": [
+            {
+              "case_id": "temporal-065-009",
+              "category": "temporal",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "regularity",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": "occurrence_count",
+                    "window": "week",
+                    "currency": null
+                  },
+                  "group_by": "organization",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "none",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": true,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+                "intent": "rank",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "regularity",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": "occurrence_count",
+                  "window": "week",
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "none",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": true,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 222,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-022-001",
+              "category": "trends",
+              "capability_status": "needs_clarification",
+              "question": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "trend",
+                  "entity_type": "event",
+                  "clarification": "needs_date",
+                  "unsupported_reason": null,
+                  "group_by": "week",
+                  "trend": {
+                    "measure": "event_count",
+                    "comparison": "previous_period",
+                    "window": "week",
+                    "change": "absolute_change"
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+                "intent": "trend",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "absolute_change",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": "event_count",
+                  "window": "month",
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": {
+                  "measure": "event_count",
+                  "comparison": "previous_period",
+                  "window": "month",
+                  "change": "absolute_change"
+                },
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_date",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "group_by",
+                  "expected": "week",
+                  "actual": "none",
+                  "kind": "mismatch"
+                },
+                {
+                  "path": "trend.window",
+                  "expected": "week",
+                  "actual": "month",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            }
+          ]
+        }
+      }
+    ],
+    "gates": {
+      "two_remaining_blockers": "failed_1_of_2",
+      "blockers_12_first": "not_run_two_case_gate_failed",
+      "blockers_12_second": "not_run_two_case_gate_failed",
+      "core": "not_run_two_case_gate_failed",
+      "target_239": "not_run_two_case_gate_failed",
+      "full_455": "not_run_two_case_gate_failed",
+      "merge_ready": false
+    },
+    "remaining_blocker": {
+      "case_id": "trends-022-001",
+      "differences": [
+        {
+          "path": "group_by",
+          "expected": "week",
+          "actual": "none",
+          "kind": "mismatch"
+        },
+        {
+          "path": "trend.window",
+          "expected": "week",
+          "actual": "month",
+          "kind": "mismatch"
+        }
+      ]
+    },
+    "validation": {
+      "pytest": "3421 passed, 710 skipped",
+      "ruff": "passed",
+      "format": "passed (68 files)",
+      "mypy": "passed (29 source files)",
+      "openapi_diff": "unchanged",
+      "docs_links": "passed",
+      "diff_check": "passed"
+    }
   }
 }

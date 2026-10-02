@@ -426,6 +426,29 @@ def test_blocker_vague_weeks_never_invent_a_partial_lookback():
     parse(value | {"temporal": temporal | {"lookback": 2, "lookback_unit": "week"}})
 
 
+@pytest.mark.parametrize(
+    "id,removed,path",
+    [
+        ("temporal-065-009", {"metric": None}, "metric"),
+        ("temporal-065-009", {"temporal": None}, "temporal"),
+        ("trends-022-001", {"group_by": "none"}, "group_by"),
+    ],
+)
+def test_clarification_cannot_erase_independently_known_structure(id, removed, path):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert witness.clarification in {"needs_definition", "needs_date"}
+    assert_v7_expectations(witness, case)
+    # These losses can still pass schema validation. The unchanged golden must reject
+    # them even though the model retained a valid clarification and primary intent.
+    lossy = parse(witness.model_dump(mode="json") | removed)
+    assert lossy.clarification == witness.clarification and lossy.intent == witness.intent
+    differences = compare_v7_expectations(lossy, case)
+    assert any(d.path == path and d.kind == "mismatch" for d in differences)
+    with pytest.raises(AssertionError, match=path):
+        assert_v7_expectations(lossy, case)
+
+
 @pytest.mark.parametrize("id", ["knowledge-047-004", "knowledge-026-004"])
 def test_blocker_project_repository_witness_is_neutral_knowledge_not_search(id):
     case = CASES[id]
