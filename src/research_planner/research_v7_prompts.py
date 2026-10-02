@@ -49,9 +49,9 @@ rank=ordered subjects; compare=target comparison; taxonomy=dictionary; relation=
 trend=period change; anomaly=unusualness; explain=evidence; knowledge=project.
 Quantity (viele/besonders viel/stark vertreten/am meisten los): rank, no clarification.
 metric FIRST, metric_filter SECOND; no metric => no metric_filter, even "mehrere".
-anomaly=null unless intent=anomaly.
-Counts per category: aggregate; categories with most: rank. Distribution: order/limit null
-unless requested. Existence: count; new/updated records: list.
+Counts per category: aggregate; categories with most: rank. Temporal count profiles:
+aggregate, desc/20 defaults. Other aggregates: order/limit null unless requested.
+Existence: count; new/updated records: list.
 Organizers/venues/events by date/type/price: list, relation=null; implicit links are NOT graph.
 Where-events discovery: event records, not deictic location.
 
@@ -59,8 +59,9 @@ Where-events discovery: event records, not deictic location.
 Subjects: event=logical event, occurrence=date, venue=place, space=room, organization=organizer,
 municipality, region. Never replace organizers with venues. Images/sources/instruments never become
 event. Attribute inventories outside category/event_type/genre: list/event, taxonomy=null,
-unsupported_constraint. Taxonomy ranks: entity=event even for date counts; taxonomy
-is not an entity. Count Termine: entity=occurrence; count Veranstaltungen: entity=event.
+unsupported_constraint even blocked; entity=null. Keep intent/metric.
+Record age: value(created_at) rank, old asc/new desc; vague: needs_definition.
+Taxonomy is not an entity. Count Termine: occurrence; count Veranstaltungen: event.
 
 6. METRIC
 Regularity: rank/needs_definition; KEEP metric={operation:regularity,
@@ -89,7 +90,6 @@ Rank: group_by=subject, including price/text/coordinates. Explicit taxonomy/coun
 grouping wins; never substitute. count/list/search/taxonomy/relation/explain/knowledge: none.
 Inventory (type-filtered genres): intent=taxonomy, entity=event, taxonomy=dimension;
 group_by=none; metric/ordering/limit/relation=null. Type uses filter, not graph.
-Rank by category/event_type/genre: dimension in group_by ONLY; taxonomy=null.
 
 8. ORDER AND LIMIT
 Rank: most/latest desc, fewest/earliest asc. Limit: SUBJECT, NOT plural dates!
@@ -113,6 +113,8 @@ registration link does not prove registration is mandatory.
 10. TEMPORAL
 Without an explicit time constraint set temporal=null. NEVER emit an all-neutral temporal
 object. period=none is ONLY for a real clock/calendar/overlap/multi_day constraint.
+Daypart alone (morning/Vormittag, afternoon, evening, night): temporal with
+field=start_date, period=none, time_of_day=that part. No date still retains daypart.
 Use supplied reference_date/timezone. Timing=start_date, creation=created_at,
 change=modified_at. "New" needs_definition, not future/semantic. Past tense=past; present
 adds no future. Lookback/unit are ATOMIC: both null or both set with past. Vague last weeks:
@@ -154,11 +156,11 @@ Venues of organizer: venue->organization via event, target_query=organizer.
 shared: same source/target, nonempty via; organizations sharing venues via=[event,venue,event].
 path anchors first named subject; unnamed discovery allowed, missing specific nodes needs_criteria.
 Shared venues/events do not prove collaboration: missing data => insufficient_structured_data.
-relation=null needs unsupported_reason for intent=relation; list/search require null.
+relation=null requires unsupported_reason for intent=relation.
 
 14. TREND / ANOMALY
-Period increase/decrease/change: trend; within-week distribution: aggregate/weekday.
-ONLY trend intent has trend. Build trend FIRST; copy change/measure/window to
+WITHIN a week: aggregate/weekday; BETWEEN periods: trend for increase/decrease/change.
+Build trend FIRST; copy change/measure/window to
 metric.operation/measure/window, all nonnull even blocked. Default change=absolute_change;
 explicit percentages use percentage_change. comparison=previous_period/previous_year.
 Today versus last year: window day, previous_year, temporal today.
@@ -197,8 +199,6 @@ Compare: 2..4 targets; missing => needs_criteria and [], never one; other intent
 
 17. SILENT FINAL CHECK
 Exact original_query? Rank metric/order/limit/group?
-Non-taxonomy intents: taxonomy MUST be null.
-Taxonomy intent: taxonomy MUST be nonnull, group_by=none, metric=null.
 Explain/knowledge data-neutral? Semantic exact population blocked? Distance reference?
 Trend/metric agree? Free currency null/numeric EUR? Clock in temporal, otherwise null?
 Unused fields neutral? Clarification/unsupported consistent? Required operands/edges valid

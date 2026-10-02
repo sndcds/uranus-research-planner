@@ -154,3 +154,53 @@ async def test_original_query_still_rejected_without_repair(settings):
         assert len(calls) == 1
     finally:
         await client.close()
+
+
+@pytest.mark.parametrize("id", ["regressions-091-026", "media-070-004"])
+def test_known_daypart_and_unsupported_record_age_preserve_structural_witness(id):
+    case = CASES[id]
+    witness = example_plan(case)
+    value = witness.model_dump(mode="json")
+    assert normalize(value) == witness
+    if id == "regressions-091-026":
+        assert witness.temporal.period == "none"
+        assert witness.temporal.time_of_day == "morning"
+        from tests.v7_golden import assert_v7_expectations
+
+        with pytest.raises(AssertionError, match="temporal"):
+            assert_v7_expectations(normalize(value | {"temporal": None}), case)
+    else:
+        assert witness.intent == "rank" and witness.entity_type is None
+        assert witness.metric.operation == "value" and witness.metric.field == "created_at"
+        assert witness.unsupported_reason == "unsupported_constraint"
+        assert witness.clarification == "needs_definition" and witness.semantic is None
+        with pytest.raises(ValidationError, match="data_intent_requires_entity"):
+            normalize(value | {"unsupported_reason": None})
+
+
+def test_unsupported_subject_does_not_become_an_entity_to_match_spurious_group():
+    witness = example_plan(CASES["media-070-004"])
+    value = witness.model_dump(mode="json")
+    assert normalize(value | {"group_by": "event"}) == witness
+    assert witness.entity_type is None and witness.unsupported_reason == "unsupported_constraint"
+    with pytest.raises(ValidationError, match="rank_entity_group_mismatch"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(value | {"group_by": "event"}))
+
+
+@pytest.mark.parametrize(
+    "id", ["temporal-050-009", "temporal-065-005", "trends-061-010", "trends-061-011"]
+)
+def test_approved_temporal_profile_defaults_preserve_explicit_choices(id):
+    witness = example_plan(CASES[id])
+    value = witness.model_dump(mode="json")
+    assert normalize(value | {"ordering": None, "limit": None}) == witness
+    explicit = normalize(value | {"ordering": "asc", "limit": 5})
+    assert explicit.ordering == "asc" and explicit.limit == 5
+    assert explicit.intent == "aggregate" and explicit.metric == witness.metric
+
+
+@pytest.mark.parametrize("id", ["taxonomy-048-002", "prices-056-004", "temporal-041-003"])
+def test_temporal_profile_defaults_do_not_spill_into_other_aggregates(id):
+    witness = example_plan(CASES[id])
+    assert normalize(witness.model_dump(mode="json")) == witness
+    assert witness.ordering is witness.limit is None
