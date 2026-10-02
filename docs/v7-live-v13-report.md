@@ -308,3 +308,115 @@ SQL execution, database access, Docker, geocoding or retrieval was performed.
 - `tests/test_v7_live_diagnostics.py`
 - `tests/v7_golden.py`
 - `tests/v7_live_diagnostics.py`
+
+## Narrow blocker follow-up (starting at a917ad6)
+
+This follow-up retains the preceding audit and all previous live outcomes unchanged.
+Starting/current remote PR head was `a917ad6e1aff4ea95b4876c4d3f8df78ad1c5e2e`,
+branch `feat/v7-acceptance-v13`, prompt `research-planner-v13`, clean working tree.
+The prompt, three schema modules, golden loader, v13 tests, live pytest, and committed
+report/results were read before edits. The private candidate-6 reports identified the
+five rejected model objects; the committed results identified the seven valid mismatches.
+
+Only local construction/routing passages changed; the 17-step structure remains. The
+prompt is 13873 characters (previously 13945). No question lookup, new execution ability,
+provider change or retry. **Golden changes: 0. Schema/validator changes: 0.** The corpus,
+comparator, JSON Schema/OpenAPI snapshots and v5/v6 remain unchanged from this PR head.
+
+Two details differ from an assumed diagnosis: combined-060-008 is evidence discovery,
+not exact statistics; its golden requires search with needs_definition. The temporal
+regularity golden retains a blocked occurrence_count/week descriptor; it does not ask
+for metric=null. Both witnesses satisfy the existing contract; no golden change is proposed.
+
+| Case | Exact question | Root cause / local rule |
+| --- | --- | --- |
+| combined-060-008 | Welche Veranstaltungen richten sich an Kinder, finden aber außerhalb der größeren Städte statt? | Evidence discovery was emitted as list+semantic, forbidden even when a separate size definition is missing. Use search with semantic evidence and needs_definition. This question requests no exact statistic; no metric/grouping or insufficient_structured_data should be invented. Exact semantic statistics instead retain intent/metric/grouping and require insufficient_structured_data. |
+| content-072-005 | Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf? | event -> category -> genre contains an illegal category-genre edge. Use the existing legal related genre -> event -> category path, via=[event], with needs_criteria for the unspecified category. |
+| journalism-059-012 | Welche Veranstaltungen verbinden Schleswig-Holstein und Dänemark? | The model invented an event-event self edge and put geographical areas into event-name slots. Retain the golden blocked related event -> venue descriptor, via=[], null names, needs_definition. No geographical node or executable interpretation of connects is invented. |
+| temporal-065-009 | Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig? | The old prompt demanded a null metric for undefined regularity but still encouraged a numeric metric_filter for several. Retain the existing blocked regularity/occurrence_count/week descriptor and overlap=true, needs_definition. Week is a non-executable placeholder. Construct metric first; a null metric must always imply a null metric_filter. |
+| trends-022-001 | Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert? | The model emitted lookback=null with lookback_unit=week, and dropped weekly grouping. Lookback and unit are atomic. Unquantified last weeks remains needs_date with both slots null; trend.window and group_by are week. |
+| knowledge-047-004 | Welches Repo implementiert die semantische Suche? | Project implementation ownership was mistaken for semantic retrieval of cultural records. Project repository/component/service ownership routes to knowledge with exact original query and neutral cultural fields; not a keyword-based general technical Q&A route. |
+| knowledge-026-004 | Welches Repo implementiert die semantische Suche? | Separate corpus occurrence of the same project-repository routing failure. Same project-bound routing rule, preserving the separate golden ID and execution. |
+| regressions-091-010 | Wo finden viele Veranstaltungen statt? | Simple quantity was incorrectly treated as undefined, dropping the occurrence-count metric. Venue utilization ranks occurrences by venue, desc/20; viele alone requires neither definition nor criteria. |
+| regressions-091-011 | Wo ist am meisten los? | The final stored result asked for a definition and dropped the metric; it did not have the earlier limit/date variant. Open Wo venue ranking counts occurrences, desc/20. No requested time means all eligible records, not needs_date. |
+| regressions-091-013 | Welche Orte veranstalten besonders viel? | Venue utilization was treated as undefined and its occurrence metric removed. Rank venue utilization by occurrence_count, not distinct event_count, without clarification for besonders viel. |
+| regressions-091-023 | Wie viele Jazz-Termine gab es im August 2026? | The model treated the complete Jazz-Termine compound as event_type instead of separating genre and occurrence entity. Termine is the occurrence entity, not a taxonomy type; retain genre Jazz, occurrence_count and the exact August 2026 date interval. |
+| regressions-093-001 | Welche Veranstaltungen haben besonders viele Termine? | A simple count ranking of events by dates was treated as undefined and its metric removed. Rank events by occurrence_count, group_by=event, desc/20; besonders viele is quantity, not an undefined anomaly. |
+
+The JSON report's `blocker_followup.audit` preserves expected paths, actual prior plans,
+structured differences and each rationale. In particular regressions-091-023 requires
+filters[0].field=genre/value=Jazz instead of event_type/Jazz-Termine;
+regressions-093-001 requires clarification=none and metric.operation=occurrence_count
+instead of needs_definition with metric=null.
+
+Tests extend the existing v13 test module with canonical-witness and negative-validator
+checks for all twelve blockers, including exact-semantic blocking, legal adjacent edges,
+metric-filter dependency, lookback pairs, neutral knowledge routing, open ranking limits,
+occurrence utilization and taxonomy/occurrence compounds. These offline tests validate
+contracts and acceptance targets, not an assertion that the model understands the prompt.
+
+The live gate sequence is strict: first these twelve, then repeat only if 12/12; core
+only after both pass; 239 only after core passes; 455 only after the specified 239 gates.
+Any failing twelve-case run stops expansion. Results are appended below; historical
+239/455 statistics above are not represented as results of this follow-up.
+
+### Blocker run #1 — STOP, 10/12
+
+Isolated checkout: `/tmp/uranus-v13-blockers-a917ad6`, built from the exact starting PR
+head plus this prompt. The existing runner executed these twelve sequentially with the
+unchanged provider settings. Artifact: `/tmp/v13-blockers.json` (private mode 0600),
+reference date 2026-10-02, model gpt-5.6-terra. Runtime prompt SHA256:
+`2156f60f04854513803272d22f9dda295594095bb3b4972b97266f8fded5ee9a`.
+The archive has no .git directory, so artifact git_commit=null; the base and prompt hash
+identify the tested code. Full sanitized case evidence and artifact hash are appended in
+`blocker_followup.runs`; earlier JSON top-level results remain unchanged historical data.
+
+| Run | Total | Pass | Mismatch | Invalid | Provider error |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Blockers #1 | 12 | 10 | 2 | 0 | 0 |
+
+| Case | Result |
+| --- | --- |
+| combined-060-008 | pass |
+| content-072-005 | pass |
+| journalism-059-012 | pass |
+| knowledge-047-004 | pass |
+| knowledge-026-004 | pass |
+| regressions-091-010 | pass |
+| regressions-091-011 | pass |
+| regressions-091-013 | pass |
+| regressions-091-023 | pass |
+| regressions-093-001 | pass |
+| temporal-065-009 | mismatch |
+| trends-022-001 | mismatch |
+
+All five formerly invalid cases returned valid ResearchQueryPlanV7 objects in this run.
+Three also meet their golden; two remain acceptance blockers:
+
+- **temporal-065-009:** expected regularity/occurrence_count/week plus temporal.overlap=true;
+  actual metric=null and temporal=null. The orphan metric_filter is gone, but the intended
+  descriptor and overlap are still lost. Golden remains unchanged and authoritative.
+- **trends-022-001:** expected group_by=week, actual group_by=none. The atomic lookback
+  construction now validates, but weekly grouping is still lost. Golden remains unchanged.
+
+The two selected Knowledge cases and all five selected hard regression cases pass. This
+is **2/2 selected Knowledge**, not a new 8/8 category result, and **5/5 selected regressions**,
+not a new 77/77 result. Security and the complete supported category were not rerun.
+
+**Stop condition applied:** because run #1 was not 12/12, run #2, Core, 239 and 455 were
+not started. No subsequent prompt tuning, retry or golden change was performed to hide
+this outcome. No claim of stable acceptance or merge readiness. PR #20 remains Draft.
+The other historical mismatches were outside this narrow follow-up and were not retested.
+
+### Follow-up validation and scope
+
+- `uv sync --locked --group dev`: passed.
+- `uv run pytest -q`: **3418 passed, 710 skipped**, including 12 added witness/negative tests.
+- Ruff check, format check (68 files), and mypy (29 source files): passed.
+- OpenAPI export followed by `git diff --exit-code docs/openapi.json`: unchanged.
+- Documentation link check and `git diff --check`: passed.
+- Changed files: `src/research_planner/research_v7_prompts.py`,
+  `tests/test_research_v7_v13.py`, and these two v13 report files only.
+
+No schema, validator, golden, comparator, API, dependency, provider setting, retry/tool/
+fallback, Admin, SQL or retrieval change. No production deployment or merge.

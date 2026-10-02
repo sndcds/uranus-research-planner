@@ -330,3 +330,179 @@ def test_lookback_and_change_operands_cannot_be_partial_even_when_blocked():
     metric.update(operation="absolute_change", measure="event_count", window=None)
     with pytest.raises(ValidationError, match="measure_and_window_required"):
         parse(trend | {"metric": metric})
+
+
+def test_blocker_audience_discovery_and_exact_population_have_distinct_boundaries():
+    case = CASES["combined-060-008"]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "search" and witness.clarification == "needs_definition"
+    assert witness.semantic is not None and witness.unsupported_reason is None
+    assert witness.metric is None and witness.group_by == "none"
+    with pytest.raises(ValidationError, match="semantic_exact_population_forbidden"):
+        parse(witness.model_dump(mode="json") | {"intent": "list"})
+    exact = example_plan(CASES["ranking-039-004"]).model_dump(mode="json")
+    exact.update(semantic=witness.semantic.model_dump(), clarification="needs_definition")
+    with pytest.raises(ValidationError, match="semantic_exact_population_forbidden"):
+        parse(exact)
+    blocked = parse(exact | {"unsupported_reason": "insufficient_structured_data"})
+    assert blocked.intent == "rank" and blocked.group_by == "event"
+    assert blocked.metric.operation == "occurrence_count"
+
+
+@pytest.mark.parametrize(
+    "id,source,target,via,illegal",
+    [
+        (
+            "content-072-005",
+            "genre",
+            "category",
+            ["event"],
+            {"source": "event", "target": "genre", "via": ["category"]},
+        ),
+        (
+            "journalism-059-012",
+            "event",
+            "venue",
+            [],
+            {"source": "event", "target": "event", "via": []},
+        ),
+    ],
+)
+def test_blocker_relations_use_legal_canonical_paths(id, source, target, via, illegal):
+    from research_planner.research_v7_constraints import RELATION_EDGES
+
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    relation = witness.relation
+    assert (relation.operation, relation.source, relation.target, relation.via) == (
+        "related",
+        source,
+        target,
+        via,
+    )
+    assert relation.source_query is None and relation.target_query is None
+    nodes = [relation.source, *relation.via, relation.target]
+    assert all(frozenset((a, b)) in RELATION_EDGES for a, b in zip(nodes, nodes[1:], strict=False))
+    value = witness.model_dump(mode="json")
+    with pytest.raises(ValidationError, match="unknown_relation_edge"):
+        parse(value | {"relation": value["relation"] | illegal})
+
+
+def test_blocker_regular_simultaneity_keeps_descriptor_without_orphan_predicate():
+    case = CASES["temporal-065-009"]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.clarification == "needs_definition"
+    assert (witness.metric.operation, witness.metric.measure, witness.metric.window) == (
+        "regularity",
+        "occurrence_count",
+        "week",
+    )
+    assert witness.temporal.overlap and witness.metric_filter is None
+    value = witness.model_dump(mode="json") | {"metric": None}
+    parse(value)  # Valid blocked representation, but not this unchanged golden target.
+    with pytest.raises(AssertionError, match="metric"):
+        assert_v7_expectations(parse(value), case)
+    with pytest.raises(ValidationError, match="metric_filter_requires_metric"):
+        parse(value | {"metric_filter": {"operator": "gt", "value": 1, "upper": None}})
+
+
+def test_blocker_vague_weeks_never_invent_a_partial_lookback():
+    case = CASES["trends-022-001"]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "trend" and witness.clarification == "needs_date"
+    assert witness.group_by == witness.trend.window == "week"
+    assert witness.temporal is None  # No invented number of weeks in the golden witness.
+    temporal = example_plan(CASES["trends-061-001"]).temporal.model_dump(mode="json")
+    temporal.update(field="start_date", lookback=None, lookback_unit=None)
+    value = witness.model_dump(mode="json")
+    parse(value | {"temporal": temporal})
+    for number, unit in [(None, "week"), (2, None)]:
+        with pytest.raises(ValidationError, match="lookback_requires_unit"):
+            parse(value | {"temporal": temporal | {"lookback": number, "lookback_unit": unit}})
+    parse(value | {"temporal": temporal | {"lookback": 2, "lookback_unit": "week"}})
+
+
+@pytest.mark.parametrize("id", ["knowledge-047-004", "knowledge-026-004"])
+def test_blocker_project_repository_witness_is_neutral_knowledge_not_search(id):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "knowledge" and witness.entity_type is None
+    assert witness.knowledge.query == witness.original_query == case.question
+    value = witness.model_dump(mode="json")
+    assert all(
+        value[field] is None
+        for field in (
+            "metric",
+            "metric_filter",
+            "taxonomy",
+            "temporal",
+            "spatial",
+            "price",
+            "semantic",
+            "relation",
+            "trend",
+            "anomaly",
+            "ordering",
+            "limit",
+        )
+    )
+    assert value["filters"] == value["comparison_targets"] == [] and value["group_by"] == "none"
+    search = parse(
+        value
+        | {
+            "intent": "search",
+            "entity_type": "event",
+            "knowledge": None,
+            "semantic": {"query": case.question, "focus": None},
+        }
+    )
+    with pytest.raises(AssertionError, match="intent"):
+        assert_v7_expectations(search, case)
+
+
+@pytest.mark.parametrize(
+    "id,subject",
+    [
+        ("regressions-091-010", "venue"),
+        ("regressions-091-011", "venue"),
+        ("regressions-091-013", "venue"),
+        ("regressions-093-001", "event"),
+    ],
+)
+def test_blocker_quantity_ranking_uses_occurrences_and_open_plural_limit(id, subject):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "rank" and witness.entity_type == witness.group_by == subject
+    assert witness.metric.operation == "occurrence_count"
+    assert witness.ordering == "desc" and witness.limit == 20
+    assert witness.clarification == "none" and witness.temporal is None
+    assert witness.anomaly is None and witness.semantic is None
+    value = witness.model_dump(mode="json")
+    for update in ({"limit": 1}, {"clarification": "needs_definition"}, {"intent": "aggregate"}):
+        with pytest.raises(AssertionError):
+            assert_v7_expectations(parse(value | update), case)
+
+
+def test_blocker_genre_occurrence_compound_is_not_an_event_type():
+    case = CASES["regressions-091-023"]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "count" and witness.entity_type == "occurrence"
+    assert witness.metric.operation == "occurrence_count"
+    assert [f.model_dump() for f in witness.filters] == [
+        {"field": "genre", "operator": "eq", "value": "Jazz"}
+    ]
+    assert str(witness.temporal.from_date) == "2026-08-01"
+    assert str(witness.temporal.to_date) == "2026-08-31"
+    wrong = parse(
+        witness.model_dump(mode="json")
+        | {"filters": [{"field": "event_type", "operator": "eq", "value": "Jazz-Termine"}]}
+    )
+    with pytest.raises(AssertionError, match="filters.0.field"):
+        assert_v7_expectations(wrong, case)
