@@ -480,3 +480,108 @@ Only these four files change in this follow-up:
 - `docs/v7-live-v13-results.json`
 
 No merge, deployment, Admin, SQL, retrieval, geocoder, provider, retry or fallback change.
+
+## Named granularity versus unknown duration (base 6f977dd)
+
+Starting/current remote head: `6f977ddfaca5b9ef7e3d0f7ed186eceac61eea43`, clean
+`feat/v7-acceptance-v13`. Prompt remains research-planner-v13. This follow-up changes
+only the trend construction passage, one focused witness test, and these two reports.
+No golden/schema/validator/comparator/API/provider changes and no new capability.
+
+The prior wording conflated an unknown number of periods with an unknown calendar unit.
+The rule now extracts the named analysis unit first. Days/weeks/months/quarters/years
+retain their corresponding trend and metric window. A requested supported calendar
+grouping remains week/month/year even with needs_date. A month placeholder applies only
+when no unit is named at all; an unknown number of weeks never licenses changing weeks
+to months or dropping weekly grouping. No guessed lookback is introduced.
+
+Contract boundary: `day` and `quarter` are valid trend windows but are not members of
+GroupingV7. This fix does not invent day/quarter groupings or expand the schema. The
+requested weekly case is fully representable without any contract change.
+
+The focused test uses the existing trends-022-001 witness and asserts trend/event,
+needs_date, group_by=week, event_count/previous_period/week/absolute_change. Negative
+assertions reject group_by=none and trend.window=month through the unchanged golden
+comparator, while keeping any emitted metric internally consistent. No question-ID or
+exact-string handling exists in production.
+
+Live runs use `/tmp/uranus-v13-granularity-6f977dd`, an isolated archive of the starting
+head plus this prompt, with the existing opt-in runner and unchanged provider settings.
+The archive has no .git directory (artifact git_commit=null). Model: gpt-5.6-terra;
+reference date: 2026-10-02. Runtime prompt SHA256:
+`adc74e5a57991264d7b7fc0acc1d57e1d09dab0edbbb57553efe4bff66efcc47` (13989 characters).
+
+The JSON report appends evidence under `granularity_followup`; every previous top-level
+run, audit and follow-up is retained unchanged. Core selection is the corpus-order union
+of security, knowledge, regressions and supported: 121 unique cases, with no duplicate
+requests. Required counts are security 4/4, knowledge 8/8, regressions 77/77, supported
+at least 50/58, zero invalid and zero provider error. Later 239/455 runs remain conditional.
+
+
+### Granularity follow-up live outcomes
+
+All stages used exactly the same prompt and provider configuration. No retries, prompt
+changes or golden edits occurred between stages.
+
+| Gate | Total | Pass | Mismatch | Invalid | Provider error |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Single trend | 1 | 1 | 0 | 0 | 0 |
+| Structural pair | 2 | 2 | 0 | 0 | 0 |
+| 12 blockers #1 | 12 | 12 | 0 | 0 | 0 |
+| 12 blockers #2 | 12 | 12 | 0 | 0 | 0 |
+| Core union | 121 | 108 | 11 | 2 | 0 |
+
+The trend case passes four consecutive requested stages; regularity passes the pair and
+both 12-case stages. This supports the narrow fix but does not waive later merge gates.
+
+| Core requirement | Observed | Gate |
+| --- | ---: | --- |
+| Security 4/4 | 4/4 | pass |
+| Knowledge 8/8 | 8/8 | pass |
+| Regressions 77/77 | 70/77 | **fail** |
+| Supported >=50/58 | 51/58 | pass |
+| Invalid response =0 | 2 | **fail** |
+| Provider error =0 | 0 | pass |
+
+**STOP at Core.** No 239-case or 455-case run was started. PR remains Draft and is
+**not merge-ready**. No post-failure tuning, golden changes or hidden reruns.
+
+### Remaining Core failures
+
+The broader gate exposes these seven hard regression mismatches:
+
+- `regressions-090-003`, `regressions-090-004`, `regressions-090-005`,
+  `regressions-090-006`, `regressions-093-006`, `regressions-093-008`:
+  expected singular limit=1, actual limit=20.
+- `regressions-091-004`: expected taxonomy/genre with event_type=Konzert filter;
+  actual relation, taxonomy=null and missing filter.
+
+Two invalid responses still fail closed under the existing validators:
+
+- `comparisons-058-007`: `unexpected_anomaly`.
+- `organizations-053-002`: `unexpected_relation`.
+
+Other Core mismatches: `combined-060-009` and `comparisons-058-008` introduce
+needs_definition and lose event_count; `organizations-053-005` returns relation instead
+of list; `venues-054-002` returns relation and loses the event_type filter. These are
+observations from this run, not a causal claim that the narrow trend edit introduced them.
+None is repaired by changing its golden or loosening validation.
+
+Full private JSON artifacts are retained under `/tmp/v13-granularity-*.json`; each path
+and SHA256 is recorded in `granularity_followup.runs`. Core evidence in the repository
+keeps all 121 IDs, category/capability statuses, outcomes, differences and validation
+errors; the referenced private artifact retains complete plans. Core categories overlap
+with the supported capability set, so category/capability gate totals must not be added.
+
+### Final checks for this follow-up
+
+- Focused v13 tests: **43 passed**.
+- Complete offline suite: **3422 passed, 710 skipped**.
+- Locked dev sync, Ruff, format (68 files), mypy (29 source files): passed.
+- OpenAPI export: no diff; documentation links and `git diff --check`: passed.
+- Historical JSON report objects were checked for exact equality after excluding only
+  the newly appended `granularity_followup` section.
+- Changed files: prompt, existing v13 test module, and the two existing v13 report files.
+- Prompt stays v13; no golden/schema/validator/comparator/API/provider changes.
+
+No deployment, merge, Admin, SQL, retrieval, geocoder, fallback or new capability.

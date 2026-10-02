@@ -157,17 +157,17 @@ Shared venues/events do not prove collaboration: missing data => insufficient_st
 Null relation needs unsupported_reason for intent=relation. list/search never carry relation.
 
 14. TREND / ANOMALY
-Ordinary growth/loss/increase/decrease/change across periods uses trend, not anomaly.
-A within-week distribution without earlier-period comparison is aggregate by weekday.
-Trend intent ALWAYS has trend; other intents NEVER have trend. trend contains measure,
-comparison previous_period/previous_year, window day/week/month/quarter/year, change.
-Default change is absolute_change; explicit proportional/percent change is percentage_change.
-Build trend FIRST, then COPY its change/measure/window into metric.operation/measure/window,
-including the blocked placeholder window; NONE of those three metric operands may be null. \
-Never ordinary event_count as trend metric.
-Today versus last year uses window day, comparison previous_year, temporal today.
-Weekly analysis: KEEP group_by=week, trend.window=week despite needs_date.
-Unknown window: needs_date, blocked month placeholder; unknown week count: no lookback.
+Period increase/decrease/change: trend; within-week distribution: aggregate/weekday.
+ONLY trend intent has trend. Build trend FIRST; copy change/measure/window to
+metric.operation/measure/window, all nonnull even blocked. Default change=absolute_change;
+explicit percentages use percentage_change. comparison=previous_period/previous_year.
+Today versus last year: window day, previous_year, temporal today.
+Extract analysis UNIT first: Tage/days, Wochen/weeks, Monate/months, Quartale/quarters,
+Jahre/years -> day/week/month/quarter/year respectively.
+Unknown QUANTITY is NOT unknown UNIT. Retain unit in trend.window and metric.window.
+Requested time grouping: week/month/year -> group_by=that unit, EVEN with needs_date.
+Missing number of weeks: needs_date, window=week, group_by=week, no guessed lookback.
+Only when NO unit is named use blocked month placeholder. Do not invent day/quarter group_by.
 Undefined significance needs_definition. Long-term mean comparison is
 not previous_period: unsupported baseline/data boundary, anomaly if statistically unusual.
 Undefined unusualness: anomaly outlier/measure=null, needs_definition; never anomaly=null.
