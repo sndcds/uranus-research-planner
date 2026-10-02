@@ -8,6 +8,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from research_planner.research_v7_schema import ResearchQueryPlanV7
+from tests.v7_comparison import Difference, brief_differences, compare_fields
 
 ROOT = Path(__file__).parent / "fixtures"
 Category = Literal[
@@ -115,13 +116,15 @@ def example_plan(case: GoldenCase) -> ResearchQueryPlanV7:
     )
 
 
+def compare_v7_expectations(actual: ResearchQueryPlanV7, case: GoldenCase) -> list[Difference]:
+    return compare_fields(actual.model_dump(mode="json"), case.question, case.expect, case.forbid)
+
+
 def assert_v7_expectations(actual: ResearchQueryPlanV7, case: GoldenCase) -> None:
-    data = actual.model_dump(mode="json")
-    assert data["original_query"] == case.question, case.id
-    for path, expected in case.expect.items():
-        assert value_at(data, path) == expected, f"{case.id}: {path} differs"
-    for path, forbidden in case.forbid.items():
-        assert value_at(data, path) not in forbidden, f"{case.id}: {path} forbidden"
+    differences = compare_v7_expectations(actual, case)
+    if differences:
+        # Explicit raise avoids pytest rewriting and dumping the full Difference payloads.
+        raise AssertionError(brief_differences(case.id, differences))
 
 
 def load_v7_golden_cases(root: Path = ROOT) -> list[GoldenCase]:
