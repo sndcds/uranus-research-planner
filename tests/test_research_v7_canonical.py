@@ -174,6 +174,10 @@ def test_known_daypart_and_unsupported_record_age_preserve_structural_witness(id
         assert witness.metric.operation == "value" and witness.metric.field == "created_at"
         assert witness.unsupported_reason == "unsupported_constraint"
         assert witness.clarification == "needs_definition" and witness.semantic is None
+        from tests.v7_golden import assert_v7_expectations
+
+        with pytest.raises(AssertionError, match="clarification"):
+            assert_v7_expectations(normalize(value | {"clarification": "none"}), case)
         with pytest.raises(ValidationError, match="data_intent_requires_entity"):
             normalize(value | {"unsupported_reason": None})
 
@@ -204,3 +208,39 @@ def test_temporal_profile_defaults_do_not_spill_into_other_aggregates(id):
     witness = example_plan(CASES[id])
     assert normalize(witness.model_dump(mode="json")) == witness
     assert witness.ordering is witness.limit is None
+
+
+def test_taxonomy_discovery_subject_is_the_event_population():
+    witness = example_plan(CASES["regressions-091-002"])
+    value = witness.model_dump(mode="json")
+    assert witness.intent == "taxonomy" and witness.entity_type == "event"
+    assert normalize(value | {"entity_type": None}) == witness
+    with pytest.raises(ValidationError, match="data_intent_requires_entity"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(value | {"entity_type": None}))
+
+
+@pytest.mark.parametrize(
+    "id,intent,entity,metric",
+    [
+        ("regressions-023-002", "list", "venue", None),
+        ("regressions-091-007", "rank", "event", "event_count"),
+        ("regressions-091-024", "list", "event", None),
+        ("organizations-053-005", "list", "organization", None),
+        ("venues-054-002", "list", "venue", None),
+    ],
+)
+def test_subject_and_eligibility_rules_retain_existing_golden_semantics(id, intent, entity, metric):
+    from tests.v7_golden import assert_v7_expectations
+
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(normalize(witness.model_dump(mode="json")), case)
+    assert witness.intent == intent and witness.entity_type == entity
+    assert (witness.metric.operation if witness.metric else None) == metric
+    assert witness.relation is None
+    if id == "regressions-023-002":
+        assert witness.clarification == "needs_definition" and witness.temporal is None
+    if id == "regressions-091-024":
+        assert witness.unsupported_reason == "unsupported_constraint"
+    if id in {"organizations-053-005", "venues-054-002"}:
+        assert witness.filters[0].field == "event_type"

@@ -845,3 +845,51 @@ c3 passes its three direct cases (image age, morning-only, intra-week distributi
 The full offline suite is **3930 passed, 710 skipped**; the focused canonical/v13 suite
 is **551 passed**. Core is rerun on this exact candidate before another Target run.
 The user decision is resolved; there is no pending fachliche decision at this point.
+
+### c3 Core and c4 corrections
+
+c3 Core returned **115/121 pass, 5 mismatches, 1 invalid, 0 provider errors**:
+security 4/4, knowledge 8/8, regressions 73/77, supported 55/58. CI for `a441682`
+passed. The gate failures are retained in the machine-readable report; no Target/455
+run followed this failed Core result.
+
+The invalid taxonomy inventory had entity=null. Inventory intent already fixes the
+population as event, so c4 adds that deterministic normal form. Prompt corrections
+address normal interpretation errors: an unknown event attribute retains the event
+population, unlike an unsupported subject; new-record discovery remains list rather
+than age ranking; taxonomy frequency defaults to event_count unless dates are explicit;
+taxonomy eligibility of organizers/venues is not a named graph counterpart. These are
+general distinctions, not question or ID routing. New witness tests protect all six
+observed cases and the public validator remains unchanged.
+
+c4 offline: **3936 passed, 710 skipped**; focused **557 passed**. Its direct set returned
+**7/9 pass, 2 mismatches, 0 invalid/provider errors**. The remaining two ordinary model
+errors were an unsupported attribute-value inventory interpreted as semantic event
+search (`regressions-091-024`) and loss of the blocked record-age metric (`media-070-004`).
+All six previously observed Core cases except the attribute inventory passed. c5 tightens
+only the general distinction between requested attribute values and requested event
+evidence, and preservation of a known age descriptor even for unsupported subjects.
+Golden and strict schema remain untouched. Every intermediate result stays recorded.
+
+### c5/c6 narrowing and c7 offline candidate
+
+c5's direct set returned **1/2 pass, 0 mismatches, 1 invalid, 0 provider errors**.
+Attribute inventory passed; the unsupported record-age question combined list with an age
+metric (`unexpected_metric`). c6 moved the existing age-ranking rule into primary intent
+selection. Its direct set returned **1/2 pass, 1 mismatch, 0 invalid/provider errors**:
+the age plan retained the correct rank, metric, ordering, unsupported subject and limit,
+but cleared the independently required `needs_definition`. The other case passed.
+
+c7 clarifies that an unsupported subject/operator does not remove an independently
+undefined field-value cutoff. This affects blocking-state interpretation only; the
+canonicalizer does not infer a clarification from an unsupported reason. A negative
+witness assertion protects the omitted clarification. No Golden, comparator, public
+schema or validator changes were made.
+
+c7 offline validation: **3936 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff,
+documentation links and diff check pass. Live validation has **not started**: SSH to the
+authorized server returns `No route to host`; GitHub API access fails with the same
+network error. This is an infrastructure block, not a live provider result, and is not
+counted as a case or a provider error. c7 has no acceptance claim. PR remains Draft and
+not merge-ready. The next steps remain direct cases, nine-case set, Core, Target239,
+then full455 only after the preceding gates pass. No full455 was run.

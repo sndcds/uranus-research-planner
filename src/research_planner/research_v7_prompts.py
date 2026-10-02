@@ -34,9 +34,8 @@ Keep intended meaning when blocked, never an unfiltered event-list fallback:
 - needs_context: actual prior-result/anaphoric reference (this comparison/analysis/statement,
   that region, defined Kulturbytes coverage). Unnamed comparison cities are needs_criteria.
 Missing location precedes distance;
-Definitions precede selection/date; preserve known constraints. Unsupported reason may coexist
-with clarification; it takes precedence
-but NEVER waives validators.
+Definitions precede selection/date. Unsupported NEVER clears needs_definition for an undefined
+field-value cutoff. Keep both states/known constraints; validators apply.
 insufficient_structured_data: authoritative population/history/provenance/audience/accessibility/
 POI/publication/image-lineage data needed for exact operations is not established.
 unsupported_constraint: the algebra lacks the requested subject/operator/composition (media
@@ -48,20 +47,24 @@ list=records; search=evidence; count=population; aggregate=distribution/scalar s
 rank=ordered subjects; compare=target comparison; taxonomy=dictionary; relation=links;
 trend=period change; anomaly=unusualness; explain=evidence; knowledge=project.
 Quantity (viele/besonders viel/stark vertreten/am meisten los): rank, no clarification.
+New discovery=list/needs_definition. Record-age selection: rank, NOT list;
+value(created_at), old asc/new desc, EVEN if entity unsupported or threshold undefined.
 metric FIRST, metric_filter SECOND; no metric => no metric_filter, even "mehrere".
 Counts per category: aggregate; categories with most: rank. Temporal count profiles:
 aggregate, desc/20 defaults. Other aggregates: order/limit null unless requested.
 Existence: count; new/updated records: list.
-Organizers/venues/events by date/type/price: list, relation=null; implicit links are NOT graph.
+Organizers/venues by date/type/price: list, not relation. Taxonomy filters are NOT graph
+counterparts; implicit organizer-event links do not request edges.
 Where-events discovery: event records, not deictic location.
 
 5. SUBJECT
-Subjects: event=logical event, occurrence=date, venue=place, space=room, organization=organizer,
-municipality, region. Never replace organizers with venues. Images/sources/instruments never become
-event. Attribute inventories outside category/event_type/genre: list/event, taxonomy=null,
-unsupported_constraint even blocked; entity=null. Keep intent/metric.
-Record age: value(created_at) rank, old asc/new desc; vague: needs_definition.
-Taxonomy is not an entity. Count Termine: occurrence; count Veranstaltungen: event.
+event=logical event; occurrence=date; venue=place; space=room; organization=organizer;
+municipality/region. No subject substitution.
+Unsupported subject: entity=null+unsupported_constraint even blocked.
+Unknown event ATTRIBUTE INVENTORY: list/event+unsupported_constraint, semantic=null.
+Attribute-value inventories are NOT event-evidence searches.
+Only category/type/genre inventories use taxonomy; their ranks/discovery use event.
+Count Termine=occurrence, Veranstaltungen=event.
 
 6. METRIC
 Regularity: rank/needs_definition; KEEP metric={operation:regularity,
@@ -69,21 +72,21 @@ measure:occurrence_count,window:week} (blocked week placeholder; stated window w
 Keep subject/group/order/limit; simultaneous: temporal.overlap=true/period=none,
 metric_filter=null. Frequency/regularity: measure AND window.
 Duration=elapsed start/end; event duration=longest complete occurrence. No invented ends.
-Count distinct IDs; event_count per event is meaningless.
+Count distinct IDs; no event_count per event.
 Many dates: rank event/group event, occurrence_count, no clarification. Venue utilization/
 busy places: rank venue/group venue, occurrence_count/desc; limit ONLY by rule 8.
-Explicit distinct events use event_count; distinct_count requires distinct_by.
-Diversity requires an explicit category/genre/event_type/organization/venue dimension and
-means distinct count, never Shannon or subjectively broad offer. Unknown dimension =>
-needs_definition and metric=null, not diversity with distinct_by=null.
+Taxonomy frequency: event_count unless explicitly dates.
+Distinct events: event_count; distinct_count needs distinct_by.
+Diversity counts distinct categories/genres/types/organizations/venues only; no Shannon.
+Unknown dimension: needs_definition + metric=null, not a guessed diversity dimension.
 field_length requires description. value projects start_date/created_at/modified_at/
 latitude/longitude. Westernmost=value(longitude)/asc; northmost=value(latitude)/desc.
-Average/median require numeric fields; average(description) or nested field_length is unsupported.
+Average/median: numeric fields only; nested field_length unsupported.
 Price metrics use min_price/max_price and EUR; non-price metrics have currency=null.
 ratio/percentage need nonrecursive numerator AND denominator. Per-capita=event_count/all
  divided by population/all, with insufficient_structured_data. Percentage only has a free/
 paid event/occurrence subset over the SAME count population/all; all/all is not a percentage.
-Blocked rank: only unknown metric null; keep order/limit.
+Undefined FIELD-value cutoffs: rank/needs_definition, retain metric. Count ranks need no cutoff.
 
 7. GROUPING
 Rank: group_by=subject, including price/text/coordinates. Explicit taxonomy/country/calendar
@@ -116,7 +119,7 @@ object. period=none is ONLY for a real clock/calendar/overlap/multi_day constrai
 Daypart alone (morning/Vormittag, afternoon, evening, night): temporal with
 field=start_date, period=none, time_of_day=that part. No date still retains daypart.
 Use supplied reference_date/timezone. Timing=start_date, creation=created_at,
-change=modified_at. "New" needs_definition, not future/semantic. Past tense=past; present
+change=modified_at. New != future/semantic. Past tense=past; present
 adds no future. Lookback/unit are ATOMIC: both null or both set with past. Vague last weeks:
 needs_date, both null; no invented number. Explicit ranges need both dates including year in order;
 missing year => needs_date, no guessed year or invalid explicit_range object. Before/after local
@@ -151,11 +154,11 @@ genre, space-venue. Check EVERY adjacent pair of [source,*via,target], no self e
 Illegal path: relation=null, unsupported_constraint. Co-occurrence: related genre->category
 via=[event]; missing category needs_criteria. Undefined geographic "connect": related
 event->venue, via=[], queries=null, needs_definition. Areas are not event/venue nodes/names.
-related: source=result subject, target=counterpart, queries on their own nodes.
+related: source=result, target=counterpart; queries stay on their nodes.
 Venues of organizer: venue->organization via event, target_query=organizer.
 shared: same source/target, nonempty via; organizations sharing venues via=[event,venue,event].
 path anchors first named subject; unnamed discovery allowed, missing specific nodes needs_criteria.
-Shared venues/events do not prove collaboration: missing data => insufficient_structured_data.
+Shared venues/events do not prove collaboration: insufficient_structured_data.
 relation=null requires unsupported_reason for intent=relation.
 
 14. TREND / ANOMALY
@@ -202,6 +205,6 @@ Exact original_query? Rank metric/order/limit/group?
 Explain/knowledge data-neutral? Semantic exact population blocked? Distance reference?
 Trend/metric agree? Free currency null/numeric EUR? Clock in temporal, otherwise null?
 Unused fields neutral? Clarification/unsupported consistent? Required operands/edges valid
-EVEN WHEN BLOCKED? If intent=relation AND relation=null, unsupported_reason MUST be nonnull.
-Emit JSON only; no narration, tools or second interpretation.
+EVEN WHEN BLOCKED?
+JSON only; no narration.
 """
