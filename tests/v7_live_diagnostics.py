@@ -20,6 +20,7 @@ from research_planner.config import Settings
 from research_planner.errors import ErrorCode, PlannerError
 from research_planner.json_codec import decode
 from research_planner.model_client import StructuredModelClient
+from research_planner.research_v7_canonical import CanonicalModelOutputV7
 from research_planner.research_v7_prompts import RESEARCH_V7_PROMPT_VERSION
 from research_planner.research_v7_schema import ResearchQueryPlanV7
 from research_planner.schemas import PlanRequest
@@ -298,11 +299,11 @@ def invalid_details(
     if observation.content is not None and (validation is not None or unexpected):
         # Diagnostic-only replay, after the real client already rejected the result. Never repair.
         try:
-            ResearchQueryPlanV7.model_validate_json(observation.content)
+            CanonicalModelOutputV7.model_validate_json(observation.content)
         except ValidationError as error:
             return "pydantic_validation_error", validation_details(error), model_output
         try:
-            ResearchQueryPlanV7.model_validate_json(
+            CanonicalModelOutputV7.model_validate_json(
                 observation.content, context={"original_query": question}
             )
         except ValidationError as error:

@@ -742,3 +742,44 @@ checkout used this exact candidate without changes to the running service.
 
 No deployment or merge. Remaining blocker: genre-ranking subject entity; broader
 acceptance remains unmeasured on this candidate because the first gate failed.
+
+## Deterministic canonicalization follow-up (base 9f055c9)
+
+The scope now explicitly permits autonomous iteration and safe deterministic normal forms.
+The new internal NativeOutput adapter validates every proposal field with the existing
+strict field types and nested validators, normalizes only explicit intent-dependent
+invariants, then applies all unchanged `ResearchQueryPlanV7` cross-field validators.
+`plan_v7` still revalidates the final public plan with exact original-query equality.
+No retry, fallback, tool, second model call or question-dependent routing is added.
+
+Rules: non-taxonomy intents clear taxonomy; taxonomy discovery clears grouping, metric
+and its dependent metric_filter; category/event_type/genre rankings use entity=event;
+non-anomaly and non-trend intents clear their respective unused objects; intents that
+cannot carry relations clear relation. Unknown enums, missing fields, extra properties
+and invalid nested constraints are rejected **before** neutralization. No intent, metric,
+name, clarification or unsupported reason is invented. Existing unsupported states remain.
+
+The proposal model derives its typed fields from the public model to avoid a second
+vocabulary. Tests prove exact NativeOutput schema equality, all 455 Golden witnesses
+unchanged/idempotent, strict rejection boundaries, and single-request integration.
+The live diagnostic replay uses the same adapter to report the actual remaining error,
+rather than reporting a pre-normalization error already resolved by the real client.
+Public API/OpenAPI/schema versions and strict plan validators are unchanged.
+
+### Candidate c1: unchanged prompt plus deterministic adapter
+
+Offline: **3920 passed, 710 skipped**; focused adapter/client suite **947 passed**.
+Ruff, format, mypy, unchanged OpenAPI export, links and diff checks pass.
+
+| Stage | Total | Pass | Mismatch | Invalid | Provider error |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Direct genre rank | 1 | 1 | 0 | 0 | 0 |
+| Previous nine Core fixes | 9 | 9 | 0 | 0 | 0 |
+| Core union | 121 | 119 | 2 | 0 | 0 |
+
+Core gates all pass: security 4/4, knowledge 8/8, regressions 77/77, supported 56/58
+(required >=51/58), invalid=0, provider=0. The two remaining supported mismatches are
+`comparisons-058-008` (quantity ranking interpreted as undefined anomaly) and
+`geography-013-001` (unnecessary needs_location for nondeictic where-events discovery).
+They do not justify altering Golden or inventing semantics in the canonicalizer.
+The unchanged candidate proceeds to the historical 239-case union.
