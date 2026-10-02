@@ -1276,3 +1276,23 @@ Core121 gate is running on identical sources; no broad run is started before thi
 c42 offline: **4016 passed, 710 skipped**. Ruff, format, Mypy, exported OpenAPI
 no-diff, documentation links and whitespace checks all pass. The accepted generic-record
 default changes interpretation documentation only; no Golden case changes in this phase.
+
+c42 Core: **119/121 pass, 1 mismatch, 1 invalid, 0 provider**. Security4/4,
+knowledge8/8, regressions76/77, supported56/58. Type-strength ranking regresses to anomaly;
+a single filtered population count is labeled aggregate with no grouping. c43 clarifies
+both intent distinctions, without changing intent in the canonicalizer or Golden.
+
+c43 direct: **7/8 pass, 1 mismatch, 0 invalid/provider**. Both Core failures pass;
+plain rarity regresses to anomaly after the wording was compressed. c44 retains the
+German quantitative terms and the explicit rare-versus-unusually-rare contrast. No
+canonical intent repair or Golden change is introduced.
+
+c43 offline: **4017 passed, 710 skipped**, all validation gates pass. c44 focused:
+**638 passed**; direct **8/8 pass**, zero mismatch/invalid/provider. Historical nine
+runs next on the unchanged snapshot. Broader Core/Target evidence is still pending.
+
+c44 historical nine: **9/9 pass**, zero mismatch/invalid/provider. Core121 is running
+on identical sources. The prior c42 Core failures remain recorded, not replaced.
+
+c44 offline: **4017 passed, 710 skipped**, Ruff/format/Mypy/OpenAPI no-diff/docs links/
+whitespace gates pass. No new Golden changes, public schema changes or provider changes.
