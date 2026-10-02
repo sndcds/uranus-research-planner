@@ -30,13 +30,13 @@
   "by_capability_status": {
     "knowledge": 8,
     "needs_clarification": 26,
-    "needs_context": 21,
-    "needs_definition": 91,
-    "needs_structured_data": 58,
-    "planned": 154,
+    "needs_context": 19,
+    "needs_definition": 86,
+    "needs_structured_data": 59,
+    "planned": 158,
     "semantic_only": 17,
     "supported": 58,
-    "unsupported": 22
+    "unsupported": 24
   },
   "by_intent": {
     "aggregate": 17,
@@ -46,17 +46,17 @@
     "explain": 18,
     "knowledge": 8,
     "list": 130,
-    "rank": 142,
+    "rank": 143,
     "relation": 22,
     "search": 20,
     "taxonomy": 18,
-    "trend": 12
+    "trend": 11
   },
   "by_entity_type": {
-    "event": 253,
+    "event": 255,
     "municipality": 18,
     "none": 39,
-    "occurrence": 5,
+    "occurrence": 3,
     "organization": 65,
     "region": 22,
     "space": 2,
@@ -64,14 +64,14 @@
   },
   "features": {
     "structured": 395,
-    "spatial": 53,
+    "spatial": 51,
     "semantic": 34,
-    "relation": 21,
-    "trend": 12,
+    "relation": 20,
+    "trend": 11,
     "knowledge": 8,
-    "needs_definition": 91,
-    "needs_structured_data": 58,
-    "needs_context": 21
+    "needs_definition": 86,
+    "needs_structured_data": 59,
+    "needs_context": 19
   },
   "questions_by_capability": {
     "knowledge": [
@@ -376,18 +376,6 @@
       {
         "id": "explain-025-006",
         "question": "Welche Datensätze wurden ausgeschlossen?",
-        "notes": null,
-        "required_data": []
-      },
-      {
-        "id": "explain-025-007",
-        "question": "Wie wurde \"ländlich\" definiert?",
-        "notes": null,
-        "required_data": []
-      },
-      {
-        "id": "explain-025-008",
-        "question": "Wie wurde \"ungewöhnlich\" berechnet?",
         "notes": null,
         "required_data": []
       },
@@ -802,33 +790,9 @@
         "required_data": []
       },
       {
-        "id": "taxonomy-048-004",
-        "question": "Welche Kategorien sind besonders selten?",
-        "notes": "Seltenheitsschwelle fehlt.",
-        "required_data": []
-      },
-      {
         "id": "taxonomy-048-008",
         "question": "Welche Orte haben das breiteste Veranstaltungsangebot?",
         "notes": "Breite benötigt eine explizite Diversitätsdimension.",
-        "required_data": []
-      },
-      {
-        "id": "taxonomy-049-003",
-        "question": "Welche Genres werden nur selten angeboten?",
-        "notes": "Seltenheitsschwelle fehlt.",
-        "required_data": []
-      },
-      {
-        "id": "taxonomy-049-009",
-        "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
-        "notes": "Wenige benötigt eine Schwelle.",
-        "required_data": []
-      },
-      {
-        "id": "taxonomy-011-004",
-        "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
-        "notes": "Begriff/Schwelle ist nicht fachlich definiert.",
         "required_data": []
       },
       {
@@ -936,12 +900,6 @@
         "required_data": [
           "multi_dimension_grouping"
         ]
-      },
-      {
-        "id": "trends-061-012",
-        "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
-        "notes": "Langjähriger Referenzzeitraum und Anomalieverfahren fehlen.",
-        "required_data": []
       },
       {
         "id": "trends-022-003",
@@ -1436,6 +1394,14 @@
         "required_data": [
           "publication_history"
         ]
+      },
+      {
+        "id": "trends-061-012",
+        "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+        "notes": "Langjähriger Referenzzeitraum und Anomalieverfahren fehlen.",
+        "required_data": [
+          "authoritative historical baseline for the specified long-term mean"
+        ]
       }
     ],
     "planned": [
@@ -1530,6 +1496,18 @@
         "required_data": []
       },
       {
+        "id": "explain-025-007",
+        "question": "Wie wurde \"ländlich\" definiert?",
+        "notes": null,
+        "required_data": []
+      },
+      {
+        "id": "explain-025-008",
+        "question": "Wie wurde \"ungewöhnlich\" berechnet?",
+        "notes": null,
+        "required_data": []
+      },
+      {
         "id": "gaps-062-004",
         "question": "Welche Gemeinden haben keine kostenlosen Veranstaltungen?",
         "notes": null,
@@ -1544,12 +1522,6 @@
       {
         "id": "geography-042-001",
         "question": "Welche Organisation ist in den meisten Kommunen aktiv?",
-        "notes": null,
-        "required_data": []
-      },
-      {
-        "id": "geography-042-004",
-        "question": "Welche Orte liegen am dichtesten beieinander?",
         "notes": null,
         "required_data": []
       },
@@ -2238,6 +2210,12 @@
         "required_data": []
       },
       {
+        "id": "taxonomy-048-004",
+        "question": "Welche Kategorien sind besonders selten?",
+        "notes": "Einfache aufsteigende Häufigkeitsrangliste; keine statistische Anomalie.",
+        "required_data": []
+      },
+      {
         "id": "taxonomy-048-009",
         "question": "Welche Veranstalter bieten die meisten Veranstaltungen an?",
         "notes": null,
@@ -2247,6 +2225,12 @@
         "id": "taxonomy-048-010",
         "question": "Welche Veranstalter decken besonders viele unterschiedliche Kategorien ab?",
         "notes": null,
+        "required_data": []
+      },
+      {
+        "id": "taxonomy-049-003",
+        "question": "Welche Genres werden nur selten angeboten?",
+        "notes": "Einfache aufsteigende Häufigkeitsrangliste; keine statistische Anomalie.",
         "required_data": []
       },
       {
@@ -2262,9 +2246,21 @@
         "required_data": []
       },
       {
+        "id": "taxonomy-049-009",
+        "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
+        "notes": "Unterschiedliche Veranstalter zählen und aufsteigend ordnen; keine unbestimmte Schwelle.",
+        "required_data": []
+      },
+      {
         "id": "taxonomy-011-003",
         "question": "Welche Veranstaltungstypen haben die größte Genrevielfalt?",
         "notes": null,
+        "required_data": []
+      },
+      {
+        "id": "taxonomy-011-004",
+        "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
+        "notes": "Unterschiedliche Veranstalter zählen und aufsteigend ordnen; keine unbestimmte Schwelle.",
         "required_data": []
       },
       {
@@ -2348,12 +2344,6 @@
       {
         "id": "venues-054-004",
         "question": "Welche Orte bieten heute mehrere Veranstaltungen an?",
-        "notes": null,
-        "required_data": []
-      },
-      {
-        "id": "venues-054-005",
-        "question": "Welche Veranstaltungsorte liegen besonders dicht beieinander?",
         "notes": null,
         "required_data": []
       },
@@ -2860,6 +2850,12 @@
         ]
       },
       {
+        "id": "geography-042-004",
+        "question": "Welche Orte liegen am dichtesten beieinander?",
+        "notes": null,
+        "required_data": []
+      },
+      {
         "id": "geography-052-004",
         "question": "Welche Veranstalter aus Schleswig-Holstein bieten Veranstaltungen außerhalb des Landes an?",
         "notes": null,
@@ -2978,6 +2974,12 @@
         "required_data": [
           "pairwise_overlap_count"
         ]
+      },
+      {
+        "id": "venues-054-005",
+        "question": "Welche Veranstaltungsorte liegen besonders dicht beieinander?",
+        "notes": null,
+        "required_data": []
       },
       {
         "id": "venues-054-008",

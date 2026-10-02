@@ -192,16 +192,7 @@
       "entity_type": "municipality",
       "clarification": "needs_criteria",
       "unsupported_reason": null,
-      "metric": {
-        "operation": "event_count",
-        "field": null,
-        "distinct_by": null,
-        "numerator": null,
-        "denominator": null,
-        "measure": null,
-        "window": null,
-        "currency": null
-      },
+      "metric": null,
       "group_by": "municipality",
       "comparison_targets": [
         {
@@ -274,6 +265,13 @@
       ],
       "clarification": [
         "none"
+      ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
       ]
     }
   },
@@ -373,16 +371,7 @@
       "entity_type": "municipality",
       "clarification": "needs_definition",
       "unsupported_reason": null,
-      "metric": {
-        "operation": "event_count",
-        "field": null,
-        "distinct_by": null,
-        "numerator": null,
-        "denominator": null,
-        "measure": null,
-        "window": null,
-        "currency": null
-      },
+      "metric": null,
       "group_by": "municipality",
       "semantic": null
     },
@@ -413,16 +402,7 @@
       "entity_type": "region",
       "clarification": "needs_definition",
       "unsupported_reason": null,
-      "metric": {
-        "operation": "event_count",
-        "field": null,
-        "distinct_by": null,
-        "numerator": null,
-        "denominator": null,
-        "measure": null,
-        "window": null,
-        "currency": null
-      },
+      "metric": null,
       "group_by": "region",
       "comparison_targets": [
         {

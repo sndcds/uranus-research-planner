@@ -1,6 +1,6 @@
 # Research Query Language v7
 
-`POST /v7/plan` → `research-query-plan-v7` / `research-planner-v12`.
+`POST /v7/plan` → `research-query-plan-v7` / `research-planner-v13`.
 This is an additive proposal for coordinated Admin integration, not a client migration.
 The integration-fix base is `0396761b8de4791e9808711f32c0ec13925c4e08`.
 The frozen legacy baseline is the accepted PR #16 commit `b6c78636e0674becc12d5f29ffe74dda87dd202d`.
@@ -20,7 +20,7 @@ Legacy source/fixture hashes and every old OpenAPI operation/component are pinne
 `tests/fixtures/v7_legacy_contracts.json`; old fixtures still run normally.
 v5 remains research-query-plan-v5 / research-planner-v10;
 v6 remains research-query-plan-v6 / research-planner-v11.
-v7 uses research-query-plan-v7 / research-planner-v12, without changing its data algebra.
+v7 uses research-query-plan-v7 / research-planner-v13, without changing its data algebra.
 
 The request remains `{query, timezone, language}` with existing defaults/bounds.
 No browser coordinates, result context or executor capabilities are accepted.
@@ -205,7 +205,7 @@ No history is inferred from current rows. Missing time window needs_date.
 
 Anomalies are rare/inactive/outlier. Rare/inactive require explicit numeric criteria;
 outlier and regularity have no mathematical method in this version and remain blocked.
-Unusual events need needs_criteria. Dominance, influence, rurality, surprising diversity,
+Unusual events need needs_definition with anomaly outlier/measure null. Dominance, influence, rurality, surprising diversity,
 network hubs and similar undefined terms need_definition. The model cannot decide these
 subjectively. Source history, long-term baselines and complete populations are separate
 capability dependencies, not model-generated facts.
@@ -242,7 +242,7 @@ An unknown operation never becomes an unfiltered event list.
 | Im Umkreis von 10 km um Flensburg | within_radius/place Flensburg/radius_m 10000 |
 | Was ist in meiner Nähe? | nearby/user_location; needs_location |
 | Welche Kommune hat die meisten Events pro Einwohner? | rank/municipality; ratio(event_count,population); group municipality; structured-data dependency |
-| Welche Veranstaltungen sind ungewöhnlich? | anomaly; needs_criteria; no semantic query |
+| Welche Veranstaltungen sind ungewöhnlich? | anomaly/outlier; needs_definition; no semantic query |
 | Was ist Uranus? | knowledge; no cultural-data constraints |
 
 Full schema: `tests/fixtures/v7_schema.json`; endpoint schema: [OpenAPI](openapi.json).
@@ -294,3 +294,44 @@ RESEARCH_PLANNER_LIVE_TEST=1 uv run pytest -q tests/test_research_v7_live.py -k 
 
 Normal tests make no live provider, database, geocoder or retrieval calls. The live
 acceptance suite has not been run for this change; language accuracy remains unverified.
+
+## v13 canonical interpretation (unchanged algebra and validators)
+
+The [v12 audit](v7-live-audit-v12.md) reviews all 208 mismatches and 69 invalids before
+any prompt/golden change. [v13 acceptance results](v7-live-v13-report.md) distinguish
+prompt effects from the 44 audited fixture corrections. All 455 questions remain.
+
+- Subject selection by most/fewest/multiple/only one is rank; distributions and scalar
+  statistics are aggregate without implicit ordering/limit. Rank groups by its subject,
+  except an explicitly requested taxonomy/calendar dimension. Singular superlative=1,
+  plural/open Wer/Wo=20. Taxonomy ranks use event population even for occurrence_count.
+- Undefined concepts use needs_definition; missing selection parameters use needs_criteria.
+  Missing comparison targets are not anaphoric context. Only actual referents/previous
+  results require needs_context. Unusualness uses a valid blocked outlier object.
+- Canonical related direction is source=requested result, target=referenced counterpart;
+  node queries stay attached to those roles. Legal edges remain undirected. Shared
+  membership uses shared; path is reserved for connection routes. No inverse-comparator
+  shortcut is introduced.
+- Planner extracts unresolved taxonomy surface concepts; Admin owns normalization and
+  authoritative ambiguity. Eighteen golden cases declare exact reviewed name variants
+  solely at their event_type value slot. No fuzzy/substring matching, inferred IDs,
+  other name normalization, role changes, or filter reordering is accepted.
+- Free/paid predicates use null bounds/currency. Numeric price metrics/comparisons use
+  EUR; e.g. cheapest paid has metric.currency=EUR and price.currency=null. The existing
+  API validator still accepts the noncanonical free/paid EUR representation; canonical
+  golden acceptance does not. This PR does not tighten or loosen schema acceptance.
+- Clock before/after uses TemporalV7; taxonomy discovery has no grouping/metric.
+  Explain/knowledge neutralize all data-execution fields. Semantic exact statistics
+  retain their intended intent with insufficient_structured_data.
+- Trends construct metric operation=trend.change with matching measure/window. Unknown
+  windows remain blocked; a required placeholder month is not permission to execute.
+  Long-term mean is not a previous-period comparison. Pairwise venue results are not
+  per-entity nearest_venue distances; unsupported pairwise requests have a null metric.
+
+These are canonical interpretation conventions, not a new executor or schema algebra.
+Older v5/v6 versions and all legacy freeze pins remain untouched.
+
+The clock-schema addendum in the audit repairs the misleading RFC3339 `format: time`
+annotation for v7 local clocks. Generated schemas now advertise an explicit offset-free
+HH:MM:SS[.microseconds] pattern. Native output and API documentation agree with the
+unchanged local-time validators; no timezone or new temporal capability is introduced.

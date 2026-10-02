@@ -287,6 +287,7 @@ async def test_pass_mismatch_provider_error_and_report_counts(
         assert json.loads(first)["cases"][0]["expected"] == {
             "expect": CASE.expect,
             "forbid": CASE.forbid,
+            "resolver_name_variants": CASE.resolver_name_variants,
         }
         assert set(p.name for p in output.parent.iterdir()) == {"report.json"}
     finally:

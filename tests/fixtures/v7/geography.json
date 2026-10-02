@@ -100,32 +100,17 @@
     "id": "geography-042-004",
     "question": "Welche Orte liegen am dichtesten beieinander?",
     "category": "geography",
-    "capability_status": "planned",
+    "capability_status": "unsupported",
     "expect": {
       "intent": "rank",
       "entity_type": "venue",
       "clarification": "none",
-      "unsupported_reason": null,
-      "metric": {
-        "operation": "distance",
-        "field": null,
-        "distinct_by": null,
-        "numerator": null,
-        "denominator": null,
-        "measure": null,
-        "window": null,
-        "currency": null
-      },
+      "unsupported_reason": "unsupported_constraint",
+      "metric": null,
       "group_by": "venue",
       "ordering": "asc",
       "limit": 20,
-      "spatial": {
-        "relation": "nearest",
-        "place_query": null,
-        "area_query": null,
-        "reference": "nearest_venue",
-        "radius_m": null
-      },
+      "spatial": null,
       "semantic": null
     },
     "forbid": {
@@ -138,6 +123,9 @@
       "intent": [
         "list",
         "search"
+      ],
+      "unsupported_reason": [
+        null
       ]
     }
   },
@@ -853,7 +841,7 @@
       },
       "group_by": "event",
       "ordering": "asc",
-      "limit": 1,
+      "limit": 20,
       "spatial": {
         "relation": "nearest",
         "place_query": null,

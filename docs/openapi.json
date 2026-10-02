@@ -1395,7 +1395,7 @@
           },
           "planner_prompt_version": {
             "type": "string",
-            "const": "research-planner-v12",
+            "const": "research-planner-v13",
             "title": "Planner Prompt Version"
           },
           "planner_ms": {
@@ -2616,7 +2616,7 @@
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v12",
+            "const": "research-planner-v13",
             "title": "Prompt Version"
           },
           "model": {
@@ -3741,7 +3741,8 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "time"
+                "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{1,6})?$",
+                "description": "Local wall-clock time without timezone or UTC offset"
               },
               {
                 "type": "null"
@@ -3753,7 +3754,8 @@
             "anyOf": [
               {
                 "type": "string",
-                "format": "time"
+                "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{1,6})?$",
+                "description": "Local wall-clock time without timezone or UTC offset"
               },
               {
                 "type": "null"
@@ -3884,14 +3886,16 @@
           },
           "value": {
             "type": "string",
-            "format": "time",
-            "title": "Value"
+            "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{1,6})?$",
+            "title": "Value",
+            "description": "Local wall-clock time without timezone or UTC offset"
           },
           "upper": {
             "anyOf": [
               {
                 "type": "string",
-                "format": "time"
+                "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]{1,6})?$",
+                "description": "Local wall-clock time without timezone or UTC offset"
               },
               {
                 "type": "null"

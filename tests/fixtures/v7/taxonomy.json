@@ -46,8 +46,8 @@
         "currency": null
       },
       "group_by": "category",
-      "ordering": "desc",
-      "limit": 20,
+      "ordering": null,
+      "limit": null,
       "semantic": null
     },
     "forbid": {
@@ -105,18 +105,27 @@
     "id": "taxonomy-048-004",
     "question": "Welche Kategorien sind besonders selten?",
     "category": "taxonomy",
-    "capability_status": "needs_definition",
+    "capability_status": "planned",
     "expect": {
-      "intent": "anomaly",
+      "intent": "rank",
       "entity_type": "event",
-      "clarification": "needs_definition",
+      "clarification": "none",
       "unsupported_reason": null,
-      "anomaly": {
-        "kind": "rare",
-        "measure": "event_count"
-      },
+      "anomaly": null,
       "group_by": "category",
-      "semantic": null
+      "semantic": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "ordering": "asc",
+      "limit": 20
     },
     "forbid": {
       "semantic": [
@@ -128,12 +137,9 @@
       "intent": [
         "list",
         "search"
-      ],
-      "clarification": [
-        "none"
       ]
     },
-    "notes": "Seltenheitsschwelle fehlt."
+    "notes": "Einfache aufsteigende Häufigkeitsrangliste; keine statistische Anomalie."
   },
   {
     "id": "taxonomy-048-005",
@@ -182,8 +188,8 @@
         "currency": null
       },
       "group_by": "category",
-      "ordering": "desc",
-      "limit": 20,
+      "ordering": null,
+      "limit": null,
       "semantic": null
     },
     "forbid": {
@@ -390,6 +396,13 @@
         "list",
         "search"
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {
@@ -435,24 +448,40 @@
         "list",
         "search"
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {
     "id": "taxonomy-049-003",
     "question": "Welche Genres werden nur selten angeboten?",
     "category": "taxonomy",
-    "capability_status": "needs_definition",
+    "capability_status": "planned",
     "expect": {
-      "intent": "anomaly",
+      "intent": "rank",
       "entity_type": "event",
-      "clarification": "needs_definition",
+      "clarification": "none",
       "unsupported_reason": null,
-      "anomaly": {
-        "kind": "rare",
-        "measure": "event_count"
-      },
+      "anomaly": null,
       "group_by": "genre",
-      "semantic": null
+      "semantic": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "ordering": "asc",
+      "limit": 20
     },
     "forbid": {
       "semantic": [
@@ -464,12 +493,9 @@
       "intent": [
         "list",
         "search"
-      ],
-      "clarification": [
-        "none"
       ]
     },
-    "notes": "Seltenheitsschwelle fehlt."
+    "notes": "Einfache aufsteigende Häufigkeitsrangliste; keine statistische Anomalie."
   },
   {
     "id": "taxonomy-049-004",
@@ -535,6 +561,12 @@
         "list",
         "search"
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Lesung",
+        "Lesungen"
+      ]
     }
   },
   {
@@ -567,6 +599,12 @@
       "intent": [
         "list",
         "search"
+      ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Ausstellung",
+        "Ausstellungen"
       ]
     }
   },
@@ -647,11 +685,11 @@
     "id": "taxonomy-049-009",
     "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
     "category": "taxonomy",
-    "capability_status": "needs_definition",
+    "capability_status": "planned",
     "expect": {
       "intent": "rank",
       "entity_type": "event",
-      "clarification": "needs_definition",
+      "clarification": "none",
       "unsupported_reason": null,
       "metric": {
         "operation": "distinct_count",
@@ -678,12 +716,9 @@
       "intent": [
         "list",
         "search"
-      ],
-      "clarification": [
-        "none"
       ]
     },
-    "notes": "Wenige benötigt eine Schwelle."
+    "notes": "Unterschiedliche Veranstalter zählen und aufsteigend ordnen; keine unbestimmte Schwelle."
   },
   {
     "id": "taxonomy-049-010",
@@ -758,6 +793,13 @@
         "list",
         "search"
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {
@@ -803,6 +845,13 @@
         "list",
         "search"
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {
@@ -847,11 +896,11 @@
     "id": "taxonomy-011-004",
     "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
     "category": "taxonomy",
-    "capability_status": "needs_definition",
+    "capability_status": "planned",
     "expect": {
       "intent": "rank",
       "entity_type": "event",
-      "clarification": "needs_definition",
+      "clarification": "none",
       "unsupported_reason": null,
       "metric": {
         "operation": "distinct_count",
@@ -878,11 +927,8 @@
       "intent": [
         "list",
         "search"
-      ],
-      "clarification": [
-        "none"
       ]
     },
-    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+    "notes": "Unterschiedliche Veranstalter zählen und aufsteigend ordnen; keine unbestimmte Schwelle."
   }
 ]

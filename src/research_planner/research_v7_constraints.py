@@ -10,6 +10,7 @@ from research_planner.research_v7_types import (
     CountV7,
     CurrencyV7,
     DimensionV7,
+    LocalTimeV7,
     NameV7,
     QueryV7,
     TopicV7,
@@ -33,8 +34,8 @@ class TemporalV7(ClosedV7):
     from_date: date | None
     to_date: date | None
     time_of_day: Literal["none", "morning", "afternoon", "evening", "night"]
-    before_time: time | None
-    after_time: time | None
+    before_time: LocalTimeV7 | None
+    after_time: LocalTimeV7 | None
     weekday: (
         Literal["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] | None
     )

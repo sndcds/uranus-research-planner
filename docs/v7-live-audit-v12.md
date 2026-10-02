@@ -3590,3 +3590,24 @@ rank/event/group genre/occurrence_count. This applies the existing audited rule 
 it does not introduce a new rule or equate event_count with occurrence_count. The corpus
 now has 44 reviewed edits; the 208 mismatch classifications are unchanged. The original
 v12 result and the correction's independent scoring effect remain separately reported.
+
+## Contract addendum: local-clock JSON Schema contradiction
+
+The v12 invalid cases `temporal-050-004` and `temporal-050-005` include
+`local_time_required`. The first v13 clock probes continued to emit `18:00:00+02:00`
+and `20:00:00+00:00`, despite explicit offset-free instructions. Inspection of the
+actual schema found `format: time` on TemporalV7 before/after and TimeFilterV7 values.
+[JSON Schema §7.3.1](https://json-schema.org/draft/2020-12/json-schema-validation#name-dates-times-and-duration)
+defines that format through RFC3339 full-time, including an offset. This conflicts
+with the existing v7 local-clock validators. Format enforcement by the provider is
+an inference from the reproducible behavior, not a claim about its implementation.
+
+Decision: replace **only the v7 local-clock JSON Schema annotation** with an explicit
+HH:MM:SS[.microseconds] pattern without offset; retain datetime.time parsing, strict
+models, timezone rejection and all cross-field validators unchanged. No new operation,
+field, bound, executor or timezone capability is added. Schema version stays v7:
+this repairs advertised output representation to match the existing accepted canonical
+wire values. The v7 schema/OpenAPI snapshots are deliberately updated for those four
+clock slots, plus envelope/diagnostic prompt-version literals. Legacy snapshots stay
+unchanged. Offline tests inspect both model_json_schema and the actual NativeOutput
+request, and continue rejecting offsets. No golden clock expectation changes.

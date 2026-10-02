@@ -42,7 +42,7 @@
     "expect": {
       "intent": "relation",
       "entity_type": "event",
-      "clarification": "needs_context",
+      "clarification": "needs_criteria",
       "unsupported_reason": "insufficient_structured_data",
       "relation": {
         "operation": "path",

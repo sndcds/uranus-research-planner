@@ -8,6 +8,7 @@ from pydantic import (
     BaseModel,
     ConfigDict,
     StringConstraints,
+    WithJsonSchema,
     model_validator,
 )
 
@@ -25,6 +26,19 @@ class ClosedV7(BaseModel):
 QueryV7 = Annotated[str, StringConstraints(min_length=1, max_length=2000), AfterValidator(nonblank)]
 NameV7 = Annotated[str, StringConstraints(min_length=1, max_length=160), AfterValidator(nonblank)]
 TopicV7 = Annotated[str, StringConstraints(min_length=1, max_length=500), AfterValidator(nonblank)]
+# JSON Schema's format=time denotes RFC3339 full-time (with an offset), whereas
+# v7 validators require local wall clocks. Describe canonical output accurately;
+# keep datetime.time parsing and every existing validator unchanged.
+LocalTimeV7 = Annotated[
+    time,
+    WithJsonSchema(
+        {
+            "type": "string",
+            "pattern": r"^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]{1,6})?$",
+            "description": "Local wall-clock time without timezone or UTC offset",
+        }
+    ),
+]
 EntityV7 = Literal[
     "event", "occurrence", "venue", "space", "organization", "municipality", "region"
 ]
@@ -297,8 +311,8 @@ class DateFilterV7(ClosedV7):
 class TimeFilterV7(ClosedV7):
     field: Literal["start_time"]
     operator: Literal["eq", "neq", "lt", "lte", "gt", "gte", "between"]
-    value: time
-    upper: time | None
+    value: LocalTimeV7
+    upper: LocalTimeV7 | None
 
     @model_validator(mode="after")
     def interval(self) -> Self:

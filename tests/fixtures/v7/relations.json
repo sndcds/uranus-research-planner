@@ -209,7 +209,7 @@
       "clarification": "none",
       "unsupported_reason": null,
       "relation": {
-        "operation": "path",
+        "operation": "shared",
         "source": "organization",
         "target": "organization",
         "via": [
@@ -386,7 +386,7 @@
       "clarification": "none",
       "unsupported_reason": null,
       "relation": {
-        "operation": "path",
+        "operation": "shared",
         "source": "organization",
         "target": "organization",
         "via": [

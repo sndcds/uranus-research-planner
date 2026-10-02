@@ -101,8 +101,8 @@
         "currency": "EUR"
       },
       "group_by": "none",
-      "ordering": "desc",
-      "limit": 20,
+      "ordering": null,
+      "limit": null,
       "filters": [
         {
           "field": "event_type",
@@ -124,7 +124,14 @@
         "search"
       ]
     },
-    "notes": "Nominale minimale Eintrittspreise in EUR. Unbekannte Preise bleiben unbekannt."
+    "notes": "Nominale minimale Eintrittspreise in EUR. Unbekannte Preise bleiben unbekannt.",
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
+    }
   },
   {
     "id": "prices-056-005",
@@ -793,8 +800,8 @@
         "currency": "EUR"
       },
       "group_by": "none",
-      "ordering": "desc",
-      "limit": 20,
+      "ordering": null,
+      "limit": null,
       "filters": [
         {
           "field": "event_type",
@@ -814,6 +821,13 @@
       "intent": [
         "list",
         "search"
+      ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
       ]
     }
   },

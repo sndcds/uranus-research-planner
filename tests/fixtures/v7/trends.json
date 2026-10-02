@@ -474,20 +474,19 @@
     "id": "trends-061-012",
     "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
     "category": "trends",
-    "capability_status": "needs_definition",
+    "capability_status": "needs_structured_data",
     "expect": {
-      "intent": "trend",
+      "intent": "anomaly",
       "entity_type": "event",
       "clarification": "needs_definition",
-      "unsupported_reason": null,
+      "unsupported_reason": "insufficient_structured_data",
       "group_by": "month",
-      "trend": {
-        "measure": "event_count",
-        "comparison": "previous_period",
-        "window": "month",
-        "change": "absolute_change"
-      },
-      "semantic": null
+      "trend": null,
+      "semantic": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      }
     },
     "forbid": {
       "semantic": [
@@ -502,9 +501,15 @@
       ],
       "clarification": [
         "none"
+      ],
+      "unsupported_reason": [
+        null
       ]
     },
-    "notes": "Langjähriger Referenzzeitraum und Anomalieverfahren fehlen."
+    "notes": "Langjähriger Referenzzeitraum und Anomalieverfahren fehlen.",
+    "required_data": [
+      "authoritative historical baseline for the specified long-term mean"
+    ]
   },
   {
     "id": "trends-022-001",
