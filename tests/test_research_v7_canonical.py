@@ -309,3 +309,91 @@ def test_change_metric_only_belongs_to_trend_and_never_invents_one():
         ResearchQueryPlanV7.model_validate_json(json.dumps(value))
     with pytest.raises(ValidationError, match="measure_and_window_required"):
         normalize(value | {"metric": change | {"window": None}})
+
+
+@pytest.mark.parametrize(
+    "id,update,path",
+    [
+        (
+            "geography-066-009",
+            {"unsupported_reason": "insufficient_structured_data"},
+            "unsupported_reason",
+        ),
+        ("taxonomy-048-007", {"clarification": "needs_definition"}, "clarification"),
+    ],
+)
+def test_undefined_measure_and_missing_selection_are_distinct(id, update, path):
+    from tests.v7_golden import assert_v7_expectations
+
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(normalize(witness.model_dump(mode="json")), case)
+    wrong = normalize(witness.model_dump(mode="json") | update)
+    with pytest.raises(AssertionError, match=path):
+        assert_v7_expectations(wrong, case)
+
+
+def test_blocked_distance_retains_known_reference_concept():
+    from tests.v7_golden import assert_v7_expectations
+
+    case = CASES["geography-066-008"]
+    value = example_plan(case).model_dump(mode="json")
+    assert value["spatial"]["place_query"] == "Zentrum"
+    assert value["clarification"] == "needs_definition"
+    value["spatial"]["place_query"] = None
+    with pytest.raises(AssertionError, match="spatial.place_query"):
+        assert_v7_expectations(normalize(value), case)
+
+
+@pytest.mark.parametrize("source", ["category", "event_type", "genre"])
+@pytest.mark.parametrize("target", ["category", "event_type", "genre"])
+@pytest.mark.parametrize("operation", ["shared", "related"])
+def test_unanchored_taxonomy_cooccurrence_normal_form(source, target, operation):
+    data = example_plan(CASES["taxonomy-049-007"]).model_dump(mode="json")
+    data["relation"].update(source=source, target=target, operation=operation)
+    actual = normalize(data)
+    assert actual.relation.operation == ("shared" if source == target else "related")
+    assert actual.relation.source == source and actual.relation.target == target
+    assert actual.relation.via == ["event"]
+    assert normalize(actual.model_dump(mode="json")) == actual
+
+
+@pytest.mark.parametrize(
+    "update",
+    [
+        {"source_query": "Jazz"},
+        {"via": []},
+        {"source": "organization"},
+        {"operation": "invented"},
+    ],
+)
+def test_relation_normal_form_never_repairs_other_shapes(update):
+    data = example_plan(CASES["content-072-005"]).model_dump(mode="json")
+    data["relation"].update(operation="shared")
+    data["relation"].update(update)
+    with pytest.raises(ValidationError):
+        normalize(data)
+
+
+@pytest.mark.parametrize("entity", [None, "occurrence", "event"])
+def test_taxonomy_cooccurrence_population_follows_declared_event_path(entity):
+    witness = example_plan(CASES["content-072-005"])
+    data = witness.model_dump(mode="json") | {"entity_type": entity}
+    assert normalize(data) == witness
+
+
+def test_unsupported_taxonomy_relation_does_not_acquire_supported_subject():
+    data = example_plan(CASES["content-072-005"]).model_dump(mode="json")
+    data.update(entity_type=None, unsupported_reason="unsupported_constraint")
+    assert normalize(data).entity_type is None
+
+
+def test_frequency_qualified_cooccurrence_requires_no_undefined_method():
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES["taxonomy-049-007"]
+    witness = example_plan(case)
+    assert witness.intent == "relation" and witness.clarification == "none"
+    assert witness.relation.operation == "shared"
+    wrong = normalize(witness.model_dump(mode="json") | {"clarification": "needs_definition"})
+    assert [d.path for d in compare_v7_expectations(wrong, case)] == ["clarification"]

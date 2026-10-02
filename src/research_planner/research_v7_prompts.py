@@ -22,7 +22,8 @@ intent=list, entity_type=null, unsupported_reason=outside_research, clarificatio
 group_by=none, all nested objects null, arrays [], ordering/limit null.
 
 3. ESTABLISH BLOCKING STATE
-Quantity (viele/besonders viel/stark vertreten/am meisten los): rank, no clarification.
+Raw counts (viele/wenige/stark vertreten/am meisten los): rank, no clarification.
+Undefined density: anomaly/outlier/measure=null, needs_definition, not missing data.
 Keep intended meaning when blocked, never an unfiltered event-list fallback:
 - needs_definition: the concept/method itself is undefined (unusual, surprising, dominant,
   influential, rural, big city, broadest offer without a dimension, typical, quiet, regular).
@@ -49,9 +50,9 @@ trend=period change; anomaly=unusualness; explain=evidence; knowledge=project.
 "new/neu" without defined meaning: list/needs_definition, temporal=null.
 Age selection (old/older/oldest/latest): rank/value(created_at), asc/desc, even blocked.
 Bare new/neu remains discovery, not age ordering.
-metric_filter requires metric; build metric FIRST.
-Counts per category: aggregate; categories with most: rank. Temporal count profiles:
-aggregate, desc/20 defaults. Other aggregates: order/limit null unless requested.
+Build metric before metric_filter.
+Counts per category: aggregate; categories with most: rank. Aggregate temporal profiles
+OR frequency-qualified distributions: desc/20, even blocked; otherwise null/null.
 Existence: count, except undefined new-record discovery.
 List organizers/venues satisfying event type/date/price predicates; relation=null.
 Theatre organizers -> list/organization, filter event_type eq Theater.
@@ -60,7 +61,7 @@ Where/wo/hvor events occur ALONE: list/event records with locations; no needs_lo
 
 5. SUBJECT
 event=logical event; occurrence=date; venue=place; space=room; organization=organizer;
-municipality/region. No subject substitution.
+No subject substitution.
 Unsupported subject: entity=null+unsupported_constraint even blocked.
 Unknown event attribute INVENTORY: list/event/unsupported_constraint, semantic=null;
 not evidence search.
@@ -84,15 +85,15 @@ field_length requires description. value projects start_date/created_at/modified
 latitude/longitude. Westernmost=value(longitude)/asc; northmost=value(latitude)/desc.
 Average/median: numeric fields only; nested field_length unsupported.
 Price metrics use min_price/max_price and EUR; non-price metrics have currency=null.
-ratio/percentage need nonrecursive numerator AND denominator. Per-capita=event_count/all
- divided by population/all, with insufficient_structured_data. Percentage only has a free/
-paid event/occurrence subset over the SAME count population/all; all/all is not a percentage.
+ratio/percentage: nonrecursive numerator+denominator.
+Per-capita: event_count/all over population/all, insufficient_structured_data.
+Percentage: free/paid event/occurrence subset over SAME count/all; never all/all.
 Undefined FIELD-value cutoffs: rank/needs_definition, retain metric. Count ranks need no cutoff.
 
 7. GROUPING
 Rank entity group MUST equal entity; taxonomy/country/calendar may differ.
-Multi-dimension distribution: aggregate/unsupported_constraint/needs_criteria; outer group.
-Frequency-qualified multi-distribution: desc/20 even blocked.
+Multi-group distribution: aggregate/unsupported_constraint; needs_criteria to select ONE
+group, NOT needs_definition; outer group. Frequency-qualified: desc/20.
 Other intents without grouping: none.
 Inventory (type-filtered genres): intent=taxonomy, entity=event, taxonomy=dimension;
 group_by=none; metric/ordering/limit/relation=null. Type uses filter, not graph.
@@ -138,11 +139,11 @@ Venue/business names use entity filters; no coordinates/geocoding.
 Radius=within_radius, integer metres 1..500000, place_query for named center (10 km=10000);
 never semantic. Named place and area slots never coexist.
 Near me=nearby/user_location, needs_location, named slots null; no browser coordinates.
-Directions need the given named reference, never a guessed one.
+Directions need the given reference, never guess.
 Borders use reference=border plus jurisdiction in area_query (Dänemark for Danish border).
 Unnamed border => needs_location; undefined near-border distance => needs_definition.
-Distance extrema: spatial.nearest even blocked; radius=null. Generic reference: base noun;
-undefined size qualifier needs_definition. Keep proper names verbatim.
+Distance needs spatial even blocked: nearest/named, radius=null, place_query=base noun
+(city center -> Zentrum); omit undefined size adjectives, keep needs_definition.
 Farthest: desc, NOT within_radius without a number. nearest_venue: nearest OTHER venue.
 Venue pairs: unsupported_constraint, metric=null. Station POIs: insufficient_structured_data.
 Undefined center: needs_definition. Never invent references.
@@ -155,9 +156,9 @@ metric minimum/min_price/currency EUR. No conversion or inferred prices.
 13. RELATIONS
 Legal undirected edges: organization-event, event-occurrence/venue/space/category/event_type/
 genre, space-venue. Check EVERY adjacent pair of [source,*via,target], no self edge.
-Illegal path: relation=null, unsupported_constraint. Taxonomy co-occurrence via=[event]:
-same dimension=shared/source=target; different dimensions=related, metric=null.
-Only unspecified PARTICULAR counterpart needs_criteria; never invent another dimension.
+Illegal path: relation=null, unsupported_constraint. Taxonomy co-occurrence: via=[event],
+metric=null. Equal source/target: shared; DIFFERENT: related, NEVER shared.
+Frequent co-occurrence needs no definition. Only an unspecified counterpart needs_criteria.
 Undefined geographic "connect": related
 event->venue, via=[], queries=null, needs_definition. Areas are not event/venue nodes/names.
 related: source=result, target=counterpart; queries stay on their nodes.
@@ -181,7 +182,7 @@ Unknown week count: needs_date, window=week, group_by=week, no guessed lookback.
 Only when NO unit is named use blocked month placeholder. No day/quarter group_by.
 Undefined unusualness/significance/density/quietness: anomaly/outlier, measure=null,
 needs_definition. Dominance/completeness: no invented method/count.
-Unusual long-term mean deviation: anomaly of event population, group by requested time unit,
+Unusual long-term mean deviation: anomaly/outlier/measure=null, event, requested time group,
 insufficient_structured_data for missing historical baseline; NOT trend/previous_period.
 rare/inactive need threshold/time basis; inactive=no activity. Never invent statistical methods.
 

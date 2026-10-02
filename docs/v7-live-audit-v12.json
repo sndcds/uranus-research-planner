@@ -29463,5 +29463,138 @@
       }
     }
   ],
-  "baseline_corpus_sha256": "1618a6eecc527a5a5538c3ad2f4a81d034f45ee3994210a89672169d2a7a19ec"
+  "baseline_corpus_sha256": "1618a6eecc527a5a5538c3ad2f4a81d034f45ee3994210a89672169d2a7a19ec",
+  "geo_name_addendum": {
+    "decision": "User: Resolver normalisiert Flexion; nur auditierte Geo-Namensvarianten zulassen.",
+    "evidence": "/tmp/v13-canon-c15-direct.json",
+    "evidence_sha256": "ca7211a9ff23a2d5678e24f29dbe91b19bdefbd069d50660f4842d37bd27fb24",
+    "changes": [
+      {
+        "case_id": "combined-060-001",
+        "classification": "GOLDEN_TOO_STRICT",
+        "before": {
+          "id": "combined-060-001",
+          "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+          "category": "combined",
+          "capability_status": "needs_definition",
+          "expect": {
+            "intent": "rank",
+            "entity_type": "region",
+            "clarification": "needs_definition",
+            "unsupported_reason": null,
+            "metric": null,
+            "group_by": "region",
+            "ordering": "desc",
+            "limit": 20,
+            "spatial": {
+              "relation": "inside",
+              "place_query": null,
+              "area_query": "Schleswig-Holstein",
+              "reference": "named",
+              "radius_m": null
+            },
+            "temporal": {
+              "field": "start_date",
+              "period": "today",
+              "from_date": null,
+              "to_date": null,
+              "time_of_day": "none",
+              "before_time": null,
+              "after_time": null,
+              "weekday": null,
+              "calendar_relation": "none",
+              "calendar_area_query": null,
+              "overlap": false,
+              "multi_day": false,
+              "lookback": null,
+              "lookback_unit": null
+            },
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ],
+            "clarification": [
+              "none"
+            ]
+          },
+          "notes": "Vielfältig benötigt eine Diversitätsdimension."
+        },
+        "after": {
+          "id": "combined-060-001",
+          "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+          "category": "combined",
+          "capability_status": "needs_definition",
+          "expect": {
+            "intent": "rank",
+            "entity_type": "region",
+            "clarification": "needs_definition",
+            "unsupported_reason": null,
+            "metric": null,
+            "group_by": "region",
+            "ordering": "desc",
+            "limit": 20,
+            "spatial": {
+              "relation": "inside",
+              "place_query": null,
+              "area_query": "Schleswig-Holstein",
+              "reference": "named",
+              "radius_m": null
+            },
+            "temporal": {
+              "field": "start_date",
+              "period": "today",
+              "from_date": null,
+              "to_date": null,
+              "time_of_day": "none",
+              "before_time": null,
+              "after_time": null,
+              "weekday": null,
+              "calendar_relation": "none",
+              "calendar_area_query": null,
+              "overlap": false,
+              "multi_day": false,
+              "lookback": null,
+              "lookback_unit": null
+            },
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ],
+            "clarification": [
+              "none"
+            ]
+          },
+          "notes": "Vielfältig benötigt eine Diversitätsdimension.",
+          "resolver_name_variants": {
+            "spatial.area_query": [
+              "Schleswig-Holstein",
+              "Schleswig-Holsteins"
+            ]
+          }
+        },
+        "rationales": [
+          "The supplied genitive denotes the same unresolved administrative area; source lookup and inflection normalization belong to the resolver.",
+          "Accept only the two explicitly reviewed strings at spatial.area_query with unchanged relation/reference. No geographic aliases, fuzzy matching, changed roles or forbidden values are accepted."
+        ]
+      }
+    ]
+  }
 }

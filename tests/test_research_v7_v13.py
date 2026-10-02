@@ -71,8 +71,21 @@ def test_audit_covers_all_baseline_failures_and_every_golden_edit():
         for immutable in ("id", "question", "category"):
             assert entry["before"][immutable] == entry["after"][immutable]
     # Corpus before/after fingerprints include even unchanged cases. No unaudited edits.
+    geo_changes = AUDIT["geo_name_addendum"]["changes"]
+    assert [entry["case_id"] for entry in geo_changes] == ["combined-060-001"]
+    for entry in geo_changes:
+        assert entry["classification"] == "GOLDEN_TOO_STRICT" and entry["rationales"]
+        before = GoldenCase.model_validate(entry["before"])
+        after = GoldenCase.model_validate(entry["after"])
+        assert after == CASES[entry["case_id"]]
+        assert before.model_dump(exclude={"resolver_name_variants"}) == after.model_dump(
+            exclude={"resolver_name_variants"}
+        )
+        assert after.resolver_name_variants == {
+            "spatial.area_query": ["Schleswig-Holstein", "Schleswig-Holsteins"]
+        }
     baseline = {c.id: c.model_dump() for c in CASES.values()}
-    for entry in AUDIT["golden_changes"]:
+    for entry in AUDIT["golden_changes"] + geo_changes:
         baseline[entry["case_id"]] = GoldenCase.model_validate(entry["before"]).model_dump()
     digest = hashlib.sha256(
         json.dumps(baseline, sort_keys=True, ensure_ascii=False).encode()
@@ -204,6 +217,61 @@ def test_name_variants_cannot_become_general_expectation_escape_hatch(variants):
     with pytest.raises(ValidationError):
         GoldenCase.model_validate(
             CASES["regressions-074-001"].model_dump() | {"resolver_name_variants": variants}
+        )
+
+
+@pytest.mark.parametrize("name", ["Schleswig-Holstein", "Schleswig-Holsteins"])
+def test_audited_geo_inflection_preserves_actual_and_every_other_constraint(name):
+    case = CASES["combined-060-001"]
+    value = example_plan(case).model_dump(mode="json")
+    value["spatial"]["area_query"] = name
+    actual = parse(value)
+    assert_v7_expectations(actual, case)
+    assert actual.spatial.area_query == name
+    for update in [
+        {"area_query": "Schleswig-Holsteines"},
+        {"area_query": "Hamburg"},
+        {"relation": "outside"},
+    ]:
+        wrong = parse(value | {"spatial": value["spatial"] | update})
+        with pytest.raises(AssertionError):
+            assert_v7_expectations(wrong, case)
+    for spatial in [
+        None,
+        {
+            "relation": "at",
+            "place_query": name,
+            "area_query": None,
+            "reference": "named",
+            "radius_m": None,
+        },
+    ]:
+        with pytest.raises(AssertionError):
+            assert_v7_expectations(parse(value | {"spatial": spatial}), case)
+    forbidden = case.model_copy(deep=True)
+    forbidden.forbid["spatial.area_query"] = [name]
+    assert any(d.kind == "forbidden_value" for d in compare_v7_expectations(actual, forbidden))
+    if name == "Schleswig-Holsteins":
+        unreviewed = case.model_copy(update={"resolver_name_variants": {}})
+        with pytest.raises(AssertionError):
+            assert_v7_expectations(actual, unreviewed)
+
+
+@pytest.mark.parametrize(
+    "variants",
+    [
+        {"spatial.reference": ["named", "border"]},
+        {"spatial.place_query": ["Schleswig-Holstein", "Schleswig-Holsteins"]},
+        {"spatial.area_query": ["Hamburg", "Hamburgs"]},
+        {"spatial.area_query": ["Schleswig-Holstein", "Schleswig-Holstein"]},
+        {"spatial.area_query": ["Schleswig-Holstein", ""]},
+        {"spatial.area_query": ["Schleswig-Holstein", "a", "b", "c", "d"]},
+    ],
+)
+def test_geo_variant_declarations_are_closed_and_reviewed(variants):
+    with pytest.raises(ValidationError):
+        GoldenCase.model_validate(
+            CASES["combined-060-001"].model_dump() | {"resolver_name_variants": variants}
         )
 
 

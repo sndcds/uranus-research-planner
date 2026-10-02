@@ -13501,7 +13501,20 @@
   "canonicalization_followup": {
     "starting_commit": "9f055c927ebb41b2fa97d57ce2cbf6a8ed95d81e",
     "prompt_version": "research-planner-v13",
-    "golden_changes": [],
+    "golden_changes": [
+      {
+        "case_id": "combined-060-001",
+        "classification": "GOLDEN_TOO_STRICT",
+        "field": "resolver_name_variants.spatial.area_query",
+        "before": [],
+        "after": [
+          "Schleswig-Holstein",
+          "Schleswig-Holsteins"
+        ],
+        "audit": "docs/v7-live-audit-v12.json#geo_name_addendum",
+        "user_approved": true
+      }
+    ],
     "public_schema_changes": 0,
     "strict_validator_changes": 0,
     "rules": [
@@ -13513,7 +13526,9 @@
       "intent outside relation/rank/count/aggregate/compare: relation=null",
       "unsupported rank with null entity: neutralize an incompatible entity group; preserve unsupported subject, metric and reason",
       "aggregate temporal count profile: fill missing ordering=desc and limit=20; preserve explicit values",
-      "taxonomy discovery always uses entity_type=event"
+      "taxonomy discovery always uses entity_type=event",
+      "Unanchored taxonomy co-occurrence via exactly one event: shared for equal dimensions, related for different dimensions; preserve all other relation fields and strictly validate every other shape.",
+      "Taxonomy co-occurrence through the declared event path uses entity_type=event unless the subject is explicitly unsupported."
     ],
     "runs": [
       {
@@ -47457,6 +47472,4809 @@
             }
           ]
         }
+      },
+      {
+        "name": "c16_direct",
+        "artifact_path": "/tmp/v13-canon-c16-direct.json",
+        "artifact_sha256": "c0164945a0cc78bf7f4dcf693044f0c3e11fc3fcb5e824438c9340bf8a80ee99",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "4490e9c3c26bbc4c3e0b84f711088fadfcf629284b4530e1bc1138f3f2212b3c",
+          "src/research_planner/research_v7_canonical.py": "2df7c4fdea97fdd1ab66185617e0b5b00721a9b6bbdef9f18d0e8f8267db3b64",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 8,
+          "passed": 5,
+          "failed": 3,
+          "mismatch_count": 1,
+          "invalid_response_count": 2,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "content": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 0,
+              "invalid_response": 1,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 2,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 1,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "taxonomy": {
+              "total": 2,
+              "passed": 1,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_definition": {
+              "total": 5,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 2,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "planned": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "limit": 1,
+            "ordering": 1
+          },
+          "cases": [
+            {
+              "case_id": "combined-060-001",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "region",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": null,
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "spatial.area_query": [
+                    "Schleswig-Holstein",
+                    "Schleswig-Holsteins"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                "intent": "rank",
+                "entity_type": "region",
+                "metric": null,
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [
+                  {
+                    "field": "category",
+                    "operator": "eq",
+                    "value": "Kultur"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 264,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "content-072-005",
+              "category": "content",
+              "capability_status": "needs_definition",
+              "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+              "status": "invalid_response",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "genre",
+                    "target": "category",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": null,
+              "differences": [],
+              "validation_stage": "pydantic_validation_error",
+              "validation_errors": [
+                {
+                  "loc": [
+                    "relation"
+                  ],
+                  "type": "value_error",
+                  "msg": "Value error, shared_requires_same_entity_via_related_entities"
+                }
+              ],
+              "model_output": {
+                "original_query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "shared",
+                  "source": "genre",
+                  "target": "category",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": null
+              },
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": "planner_invalid_response"
+            },
+            {
+              "case_id": "geography-066-008",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+              "status": "invalid_response",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "distance",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "nearest",
+                    "place_query": "Zentrum",
+                    "area_query": null,
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": null,
+              "differences": [],
+              "validation_stage": "pydantic_validation_error",
+              "validation_errors": [
+                {
+                  "loc": [],
+                  "type": "value_error",
+                  "msg": "Value error, distance_requires_spatial_reference"
+                }
+              ],
+              "model_output": {
+                "original_query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "distance",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "finish_reason": "stop",
+              "output_tokens": 153,
+              "safe_error_code": "planner_invalid_response"
+            },
+            {
+              "case_id": "geography-066-009",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                "intent": "anomaly",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "region",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 129,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-023-002",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "question": "Gibt es neue Orte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Gibt es neue Orte?",
+                      "focus": null
+                    }
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Gibt es neue Orte?",
+                "intent": "list",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 114,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-048-007",
+              "category": "taxonomy",
+              "capability_status": "unsupported",
+              "question": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "aggregate",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": "unsupported_constraint",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                "intent": "aggregate",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "region",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [
+                {
+                  "path": "limit",
+                  "expected": 20,
+                  "actual": null,
+                  "kind": "mismatch"
+                },
+                {
+                  "path": "ordering",
+                  "expected": "desc",
+                  "actual": null,
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 157,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-049-007",
+              "category": "taxonomy",
+              "capability_status": "planned",
+              "question": "Welche Genres treten besonders häufig gemeinsam auf?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "shared",
+                    "source": "genre",
+                    "target": "genre",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "shared",
+                  "source": "genre",
+                  "target": "genre",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-061-012",
+              "category": "trends",
+              "capability_status": "needs_structured_data",
+              "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "group_by": "month",
+                  "trend": null,
+                  "semantic": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                "intent": "anomaly",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "month",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 133,
+              "safe_error_code": null
+            }
+          ]
+        }
+      },
+      {
+        "name": "c17_direct",
+        "artifact_path": "/tmp/v13-canon-c17-direct.json",
+        "artifact_sha256": "00c0474baccf9b67abfba976a384142097fa03b44b58b57b8a4b272287dbf513",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "b7a70f383156b71a1e7983d8f977185d8aaf63e29756781528a3d0f3de51a16c",
+          "src/research_planner/research_v7_canonical.py": "2df7c4fdea97fdd1ab66185617e0b5b00721a9b6bbdef9f18d0e8f8267db3b64",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 8,
+          "passed": 6,
+          "failed": 2,
+          "mismatch_count": 2,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "content": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 2,
+              "passed": 1,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "taxonomy": {
+              "total": 2,
+              "passed": 1,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_definition": {
+              "total": 5,
+              "passed": 4,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "planned": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "relation": 1,
+            "relation.operation": 1,
+            "spatial": 1,
+            "spatial.place_query": 1
+          },
+          "cases": [
+            {
+              "case_id": "combined-060-001",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "region",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": null,
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "spatial.area_query": [
+                    "Schleswig-Holstein",
+                    "Schleswig-Holsteins"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                "intent": "rank",
+                "entity_type": "region",
+                "metric": null,
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [
+                  {
+                    "field": "category",
+                    "operator": "eq",
+                    "value": "Kultur"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 229,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "content-072-005",
+              "category": "content",
+              "capability_status": "needs_definition",
+              "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "genre",
+                    "target": "category",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "genre",
+                  "target": "category",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-008",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "distance",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "nearest",
+                    "place_query": "Zentrum",
+                    "area_query": null,
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "distance",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "nearest",
+                  "place_query": "größeren Zentrum",
+                  "area_query": null,
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "spatial.place_query",
+                  "expected": "Zentrum",
+                  "actual": "größeren Zentrum",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 178,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-009",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                "intent": "anomaly",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "region",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 129,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-023-002",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "question": "Gibt es neue Orte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Gibt es neue Orte?",
+                      "focus": null
+                    }
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Gibt es neue Orte?",
+                "intent": "list",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 114,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-048-007",
+              "category": "taxonomy",
+              "capability_status": "unsupported",
+              "question": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "aggregate",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": "unsupported_constraint",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                "intent": "aggregate",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 157,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-049-007",
+              "category": "taxonomy",
+              "capability_status": "planned",
+              "question": "Welche Genres treten besonders häufig gemeinsam auf?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "shared",
+                    "source": "genre",
+                    "target": "genre",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "genre",
+                  "target": "genre",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "relation.operation",
+                  "expected": "shared",
+                  "actual": "related",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 140,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-061-012",
+              "category": "trends",
+              "capability_status": "needs_structured_data",
+              "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "group_by": "month",
+                  "trend": null,
+                  "semantic": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                "intent": "anomaly",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "month",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 133,
+              "safe_error_code": null
+            }
+          ]
+        }
+      },
+      {
+        "name": "c18_direct",
+        "artifact_path": "/tmp/v13-canon-c18-direct.json",
+        "artifact_sha256": "8d1bc4de377960f9d8a328f35ee9a76c2f6978b307977aa6982285b54850497d",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "0cc0896d856c840513e303d48b2cf0189ade04697735b957b7249ff31dc702db",
+          "src/research_planner/research_v7_canonical.py": "dfab93adbbb4646de76e1db37fa4d4f168e60d5a2049f355426d87e9cd21e6be",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 8,
+          "passed": 6,
+          "failed": 2,
+          "mismatch_count": 1,
+          "invalid_response_count": 1,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "content": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 0,
+              "invalid_response": 1,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "taxonomy": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_definition": {
+              "total": 5,
+              "passed": 4,
+              "mismatch": 0,
+              "invalid_response": 1,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "planned": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "anomaly": 1,
+            "anomaly.measure": 1
+          },
+          "cases": [
+            {
+              "case_id": "combined-060-001",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "region",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": null,
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "spatial.area_query": [
+                    "Schleswig-Holstein",
+                    "Schleswig-Holsteins"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                "intent": "rank",
+                "entity_type": "region",
+                "metric": null,
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [
+                  {
+                    "field": "category",
+                    "operator": "eq",
+                    "value": "Kultur"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 264,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "content-072-005",
+              "category": "content",
+              "capability_status": "needs_definition",
+              "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+              "status": "invalid_response",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "genre",
+                    "target": "category",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": null,
+              "differences": [],
+              "validation_stage": "pydantic_validation_error",
+              "validation_errors": [
+                {
+                  "loc": [],
+                  "type": "value_error",
+                  "msg": "Value error, data_intent_requires_entity"
+                }
+              ],
+              "model_output": {
+                "original_query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                "intent": "relation",
+                "entity_type": null,
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "genre",
+                  "target": "category",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": null
+              },
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": "planner_invalid_response"
+            },
+            {
+              "case_id": "geography-066-008",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "distance",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "nearest",
+                    "place_query": "Zentrum",
+                    "area_query": null,
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "distance",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "nearest",
+                  "place_query": "Zentrum",
+                  "area_query": null,
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 176,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-009",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                "intent": "anomaly",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "region",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 129,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-023-002",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "question": "Gibt es neue Orte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Gibt es neue Orte?",
+                      "focus": null
+                    }
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Gibt es neue Orte?",
+                "intent": "list",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 114,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-048-007",
+              "category": "taxonomy",
+              "capability_status": "unsupported",
+              "question": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "aggregate",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": "unsupported_constraint",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                "intent": "aggregate",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 157,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-049-007",
+              "category": "taxonomy",
+              "capability_status": "planned",
+              "question": "Welche Genres treten besonders häufig gemeinsam auf?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "shared",
+                    "source": "genre",
+                    "target": "genre",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "shared",
+                  "source": "genre",
+                  "target": "genre",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-061-012",
+              "category": "trends",
+              "capability_status": "needs_structured_data",
+              "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "group_by": "month",
+                  "trend": null,
+                  "semantic": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                "intent": "anomaly",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "month",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": "event_count"
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [
+                {
+                  "path": "anomaly.measure",
+                  "expected": null,
+                  "actual": "event_count",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 169,
+              "safe_error_code": null
+            }
+          ]
+        }
+      },
+      {
+        "name": "c19_direct",
+        "artifact_path": "/tmp/v13-canon-c19-direct.json",
+        "artifact_sha256": "d5d17b9d792df20f51642d1e6eeb87daf6ddb6873f2750a3c81aba2c5f4a6e0d",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "7fdebf1229b8a6af568e4996c8f8f41ac104a9b4273a77d22ccaf343dc8336f1",
+          "src/research_planner/research_v7_canonical.py": "e5b119e3d8cf68399c9b68ee05065f34b10f5468fdb5796d0dde6ff414f6b2e8",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 8,
+          "passed": 7,
+          "failed": 1,
+          "mismatch_count": 1,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "content": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "taxonomy": {
+              "total": 2,
+              "passed": 1,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_definition": {
+              "total": 5,
+              "passed": 5,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "planned": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "clarification": 1
+          },
+          "cases": [
+            {
+              "case_id": "combined-060-001",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "region",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": null,
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "spatial.area_query": [
+                    "Schleswig-Holstein",
+                    "Schleswig-Holsteins"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                "intent": "rank",
+                "entity_type": "region",
+                "metric": null,
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [
+                  {
+                    "field": "category",
+                    "operator": "eq",
+                    "value": "Kultur"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 229,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "content-072-005",
+              "category": "content",
+              "capability_status": "needs_definition",
+              "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "genre",
+                    "target": "category",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "genre",
+                  "target": "category",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-008",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "distance",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "nearest",
+                    "place_query": "Zentrum",
+                    "area_query": null,
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "distance",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "nearest",
+                  "place_query": "Zentrum",
+                  "area_query": null,
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 176,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-009",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                "intent": "anomaly",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "region",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 129,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-023-002",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "question": "Gibt es neue Orte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Gibt es neue Orte?",
+                      "focus": null
+                    }
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Gibt es neue Orte?",
+                "intent": "list",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 114,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-048-007",
+              "category": "taxonomy",
+              "capability_status": "unsupported",
+              "question": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "aggregate",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": "unsupported_constraint",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                "intent": "aggregate",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 157,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-049-007",
+              "category": "taxonomy",
+              "capability_status": "planned",
+              "question": "Welche Genres treten besonders häufig gemeinsam auf?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "shared",
+                    "source": "genre",
+                    "target": "genre",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "shared",
+                  "source": "genre",
+                  "target": "genre",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "clarification",
+                  "expected": "none",
+                  "actual": "needs_definition",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 141,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-061-012",
+              "category": "trends",
+              "capability_status": "needs_structured_data",
+              "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "group_by": "month",
+                  "trend": null,
+                  "semantic": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                "intent": "anomaly",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "month",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 133,
+              "safe_error_code": null
+            }
+          ]
+        }
+      },
+      {
+        "name": "c20_direct",
+        "artifact_path": "/tmp/v13-canon-c20-direct.json",
+        "artifact_sha256": "980cf2c7b3773041e594b5b395300fcb442f805e14480157faf90ef9388ab780",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "484fb1d4dde20027c01bc3909955d788197194d80d5eeb75c545ad5ae7a99426",
+          "src/research_planner/research_v7_canonical.py": "e5b119e3d8cf68399c9b68ee05065f34b10f5468fdb5796d0dde6ff414f6b2e8",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 8,
+          "passed": 8,
+          "failed": 0,
+          "mismatch_count": 0,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "content": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "geography": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "taxonomy": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "needs_definition": {
+              "total": 5,
+              "passed": 5,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_structured_data": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "planned": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "unsupported": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {},
+          "cases": [
+            {
+              "case_id": "combined-060-001",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "region",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": null,
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Schleswig-Holstein",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "spatial.area_query": [
+                    "Schleswig-Holstein",
+                    "Schleswig-Holsteins"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+                "intent": "rank",
+                "entity_type": "region",
+                "metric": null,
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [
+                  {
+                    "field": "category",
+                    "operator": "eq",
+                    "value": "Kultur"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Schleswig-Holstein",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 229,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "content-072-005",
+              "category": "content",
+              "capability_status": "needs_definition",
+              "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "genre",
+                    "target": "category",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "genre",
+                  "target": "category",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-008",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "distance",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "nearest",
+                    "place_query": "Zentrum",
+                    "area_query": null,
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "distance",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "nearest",
+                  "place_query": "Zentrum",
+                  "area_query": null,
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 176,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "geography-066-009",
+              "category": "geography",
+              "capability_status": "needs_definition",
+              "question": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+                "intent": "anomaly",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "region",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 129,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-023-002",
+              "category": "regressions",
+              "capability_status": "needs_definition",
+              "question": "Gibt es neue Orte?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "venue",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Gibt es neue Orte?",
+                      "focus": null
+                    }
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Gibt es neue Orte?",
+                "intent": "list",
+                "entity_type": "venue",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 114,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-048-007",
+              "category": "taxonomy",
+              "capability_status": "unsupported",
+              "question": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "aggregate",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": "unsupported_constraint",
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "region",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+                "intent": "aggregate",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "region",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": "unsupported_constraint"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 157,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "taxonomy-049-007",
+              "category": "taxonomy",
+              "capability_status": "planned",
+              "question": "Welche Genres treten besonders häufig gemeinsam auf?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "shared",
+                    "source": "genre",
+                    "target": "genre",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten besonders häufig gemeinsam auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "shared",
+                  "source": "genre",
+                  "target": "genre",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 140,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-061-012",
+              "category": "trends",
+              "capability_status": "needs_structured_data",
+              "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "anomaly",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": "insufficient_structured_data",
+                  "group_by": "month",
+                  "trend": null,
+                  "semantic": null,
+                  "anomaly": {
+                    "kind": "outlier",
+                    "measure": null
+                  }
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ],
+                  "unsupported_reason": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+                "intent": "anomaly",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "month",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": {
+                  "kind": "outlier",
+                  "measure": null
+                },
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": "insufficient_structured_data"
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 133,
+              "safe_error_code": null
+            }
+          ]
+        }
+      },
+      {
+        "name": "c20_nine",
+        "artifact_path": "/tmp/v13-canon-c20-nine.json",
+        "artifact_sha256": "4c46bb06b00900641f192d4f77345aa604f87654d34d11d775a66bfbdaa5cd93",
+        "source_sha256": {
+          "src/research_planner/research_v7_prompts.py": "484fb1d4dde20027c01bc3909955d788197194d80d5eeb75c545ad5ae7a99426",
+          "src/research_planner/research_v7_canonical.py": "e5b119e3d8cf68399c9b68ee05065f34b10f5468fdb5796d0dde6ff414f6b2e8",
+          "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+          "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+          "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
+        },
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 9,
+          "passed": 9,
+          "failed": 0,
+          "mismatch_count": 0,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "comparisons": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "organizations": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 7,
+              "passed": 7,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "planned": {
+              "total": 6,
+              "passed": 6,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 3,
+              "passed": 3,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {},
+          "cases": [
+            {
+              "case_id": "comparisons-058-007",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "category",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Flensburg",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "category",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Flensburg",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "organizations-053-002",
+              "category": "organizations",
+              "capability_status": "supported",
+              "question": "Welche Veranstalter bieten heute Veranstaltungen an?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "organization",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+                      "focus": null
+                    }
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+                "intent": "list",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 184,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-003",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welcher Veranstaltungstyp hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event_type",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event_type",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 153,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-004",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welches Genre hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "genre",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welches Genre hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welches Genre hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "genre",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 150,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-005",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welcher Ort hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "venue",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "venue",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welcher Ort hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welcher Ort hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "venue",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "venue",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 150,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welche Organisation hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "organization",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "organization",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Organisation hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Organisation hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 149,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-004",
+              "category": "regressions",
+              "capability_status": "supported",
+              "question": "Welche Genres zum Eventtyp Konzert gibt es?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "taxonomy",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "taxonomy": "genre",
+                  "filters": [
+                    {
+                      "field": "event_type",
+                      "operator": "eq",
+                      "value": "Konzert"
+                    }
+                  ],
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres zum Eventtyp Konzert gibt es?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "filters.0.value": [
+                    "Konzert",
+                    "Konzerte",
+                    "Konzerten"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Genres zum Eventtyp Konzert gibt es?",
+                "intent": "taxonomy",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [
+                  {
+                    "field": "event_type",
+                    "operator": "eq",
+                    "value": "Konzert"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": "genre",
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 132,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-093-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Hvilken begivenhed har færrest datoer?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "asc",
+                  "limit": 1,
+                  "semantic": null,
+                  "filters": []
+                },
+                "forbid": {
+                  "intent": [
+                    "list",
+                    "search",
+                    "aggregate"
+                  ],
+                  "group_by": [
+                    "event_type",
+                    "category",
+                    "genre",
+                    "venue",
+                    "organization"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvilken begivenhed har færrest datoer?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "asc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 154,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-093-008",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Hvilken begivenhedstype har flest datoer?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event_type",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null,
+                  "filters": []
+                },
+                "forbid": {
+                  "intent": [
+                    "list",
+                    "search",
+                    "aggregate"
+                  ],
+                  "group_by": [
+                    "event",
+                    "category",
+                    "genre",
+                    "venue",
+                    "organization"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvilken begivenhedstype har flest datoer?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event_type",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 155,
+              "safe_error_code": null
+            }
+          ]
+        }
       }
     ],
     "merge_ready": false,
@@ -47613,6 +52431,16 @@
         "openapi": "unchanged",
         "docs_links": "passed",
         "diff_check": "passed"
+      },
+      {
+        "candidate": "c20",
+        "pytest": "3980 passed, 710 skipped",
+        "ruff": "pass",
+        "format": "pass",
+        "mypy": "pass",
+        "openapi": "no diff",
+        "doc_links": "pass",
+        "diff_check": "pass"
       }
     ],
     "ci": {
@@ -47646,17 +52474,20 @@
         "field": "spatial.area_query",
         "expected": "Schleswig-Holstein",
         "actual": "Schleswig-Holsteins",
-        "status": "awaiting_user",
-        "question": "Planner grammatical base form or audited Geo resolver surface variants?"
+        "status": "resolved_by_user",
+        "question": "Planner grammatical base form or audited Geo resolver surface variants?",
+        "decision": "Resolver normalizes inflection; only audited Geo-name variants in Golden."
       }
     ],
     "current_candidate": {
-      "name": "c15",
-      "live_status": "direct_four_mismatches_zero_invalid_geo_policy_pending",
+      "name": "c20",
+      "live_status": "direct_8_of_8_nine_9_of_9_core_running",
       "source_sha256": {
-        "src/research_planner/research_v7_prompts.py": "3521d257384d6934c9fa3ea9d309781626c3e776a5f1469f3eea9ba400426de2",
-        "src/research_planner/research_v7_canonical.py": "2df7c4fdea97fdd1ab66185617e0b5b00721a9b6bbdef9f18d0e8f8267db3b64",
-        "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31"
+        "src/research_planner/research_v7_prompts.py": "484fb1d4dde20027c01bc3909955d788197194d80d5eeb75c545ad5ae7a99426",
+        "src/research_planner/research_v7_canonical.py": "e5b119e3d8cf68399c9b68ee05065f34b10f5468fdb5796d0dde6ff414f6b2e8",
+        "src/research_planner/model_client.py": "95096b8bec694662b355a9da949fdfdf344683f73b1602704c23feafd7876d31",
+        "tests/v7_golden.py": "bcb375364bdd0b370cf8c28de7128c44cd955867e4abb675d3ff993f530703a7",
+        "tests/fixtures/v7/combined.json": "6a3566abfde9c465f39b67e0f2d579abcd93ef6657f68bdfe77c0ed394ee5d2a"
       },
       "merge_ready": false
     }

@@ -70,6 +70,19 @@ class GoldenCase(BaseModel):
         if len(self.resolver_name_variants) > 16:
             raise ValueError("too_many_name_variant_slots")
         for path, variants in self.resolver_name_variants.items():
+            if path in {"spatial.area_query", "spatial.place_query"}:
+                spatial = self.expect.get("spatial", self.example.get("spatial"))
+                if (
+                    not isinstance(spatial, dict)
+                    or spatial.get(path.split(".")[1]) not in variants
+                    or not 2 <= len(variants) <= 4
+                    or len(set(variants)) != len(variants)
+                    or any(not v.strip() or len(v) > 160 for v in variants)
+                    or spatial.get("relation") is None
+                    or spatial.get("reference") not in {"named", "border"}
+                ):
+                    raise ValueError("invalid_geo_name_variants")
+                continue
             match = re.fullmatch(r"filters\.(\d+)\.value", path)
             if match is None or not 2 <= len(variants) <= 4:
                 raise ValueError("invalid_name_variant_slot")
@@ -148,6 +161,18 @@ def compare_v7_expectations(actual: ResearchQueryPlanV7, case: GoldenCase) -> li
     # unrelated names, roles, filter order/length, forbidden values or missing paths.
     accepted = set()
     for path, variants in case.resolver_name_variants.items():
+        if path in {"spatial.area_query", "spatial.place_query"}:
+            expected_spatial = case.expect.get("spatial", case.example.get("spatial"))
+            observed_spatial = data["spatial"]
+            if (
+                isinstance(expected_spatial, dict)
+                and observed_spatial is not None
+                and observed_spatial["relation"] == expected_spatial["relation"]
+                and observed_spatial["reference"] == expected_spatial["reference"]
+                and observed_spatial[path.split(".")[1]] in variants
+            ):
+                accepted.add(path)
+            continue
         index = int(path.split(".")[1])
         expected = case.expect.get("filters", case.example.get("filters", []))[index]
         if index < len(data["filters"]):

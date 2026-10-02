@@ -3611,3 +3611,20 @@ wire values. The v7 schema/OpenAPI snapshots are deliberately updated for those 
 clock slots, plus envelope/diagnostic prompt-version literals. Legacy snapshots stay
 unchanged. Offline tests inspect both model_json_schema and the actual NativeOutput
 request, and continue rejecting offsets. No golden clock expectation changes.
+
+## User-approved Geo-name inflection addendum
+
+After the c15 direct run, the user explicitly assigned geographic inflection
+normalization to the resolver. `combined-060-001` is **GOLDEN_TOO_STRICT** only at
+`spatial.area_query`: the canonical expected `Schleswig-Holstein` remains unchanged,
+and the observed genitive `Schleswig-Holsteins` is the sole additional reviewed string.
+Both refer to the same unresolved administrative area in the supplied question.
+
+Before: no Geo-name variants. After: the two strings above are explicitly declared for
+that case/path only. Intent, entity, blocking state, spatial relation/reference, metric,
+time and every other expectation remain identical. No general suffix stripping, fuzzy
+matching, geographic aliases or production normalization is introduced. Actual plans
+retain their model-provided name. Negative tests reject other places, role changes,
+missing slots, forbidden values and unaudited paths. The complete before/after data and
+artifact hash are appended to `geo_name_addendum` in the JSON audit; all original
+208 mismatch classifications, 69 invalid records and 44 initial corrections remain intact.
