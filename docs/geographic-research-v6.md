@@ -3,7 +3,7 @@
 `POST /v6/plan` accepts the same closed query/timezone/language request as v5.
 It is protected by the same Bearer authentication, request-size, JSON, deadline and
 concurrency boundaries. Responses identify `research-query-plan-v6` and
-`research-planner-v9`. Existing `/plan`, `/v4/plan` and `/v5/plan` remain frozen.
+`research-planner-v11`. Existing `/plan`, `/v4/plan` and `/v5/plan` remain frozen.
 
 `GeographicQueryPlan` extends the analytical schema with two required fields:
 

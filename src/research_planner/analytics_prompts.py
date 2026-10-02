@@ -41,6 +41,28 @@ WHO organizes -> group_by=organization: Wer veranstaltet die meisten Veranstaltu
 -> event_count, aggregate, desc, limit20. Never confuse venues and organizations.
 area grouping is unsupported without a defined nonoverlapping geometry level.
 
+EVENT OCCURRENCE RANKINGS (events are NOT event types):
+Welches Event hat die meisten Termine? -> intent=aggregate, entity_type=event,
+metric=occurrence_count, group_by=event, ordering=desc, limit=1, answer_mode=aggregate.
+Welches Event hat die wenigsten Termine? -> same, ordering=asc, limit=1.
+Welche 5 Events haben die meisten Termine? -> same, ordering=desc, limit=5.
+Welche Veranstaltungen haben besonders viele Termine? -> same, ordering=desc, limit=20.
+Which event has the most/fewest dates? / Hvilken begivenhed har flest/færrest datoer?
+-> aggregate/event/occurrence_count, group_by=event, desc/asc, limit=1.
+Which 5 events have the most occurrences? / Hvilke 5 arrangementer har flest datoer?
+-> group_by=event, occurrence_count, desc, limit=5.
+Welcher Veranstaltungstyp hat die meisten Termine? / Welche Event-Typen haben die meisten Termine?
+-> group_by=event_type, occurrence_count, desc, limit=1/20 respectively.
+Welches Genre hat die meisten Termine? -> group_by=genre, occurrence_count, desc, limit=1.
+Welcher Ort hat die meisten Termine? -> group_by=venue, occurrence_count, desc, limit=1.
+Welche Organisation hat die meisten Termine?
+-> group_by=organization, occurrence_count, desc, limit=1.
+Keep semantic_query=null and requires_semantic_relevance=false for these structured rankings.
+Never substitute event_type, category, genre, venue or organization for event, or vice versa.
+The requested grouping/entity dimension must survive exactly. If unrepresentable, mark
+unsupported_constraint; never switch dimensions. event_count grouped by event is meaningless
+and invalid; event grouping supports only occurrence_count and entity_type=event.
+
 GEOGRAPHY:
 area_relation=inside by default. Outside/außerhalb/udenfor -> outside and named area_query.
 Normalize geographic inflection: außerhalb Schleswig-Holsteins -> Schleswig-Holstein.

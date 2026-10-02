@@ -50,7 +50,7 @@ async def test_reviewed_plans_native_schema_and_authenticated_endpoint(settings,
         assert response.status_code == 200, response.text
         assert response.json()["plan"] == case["plan"]
         assert response.json()["schema_version"] == "research-query-plan-v6"
-        assert response.json()["prompt_version"] == "research-planner-v9"
+        assert response.json()["prompt_version"] == "research-planner-v11"
 
 
 def test_prompt_distinguishes_where_from_deictic_and_names():
