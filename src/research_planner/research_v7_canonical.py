@@ -29,6 +29,7 @@ def canonicalize_v7(value: object) -> object:
     if intent != "taxonomy":
         data["taxonomy"] = None
     else:
+        data["entity_type"] = "event"
         data["group_by"] = "none"
         data["metric"] = None
         data["metric_filter"] = None
