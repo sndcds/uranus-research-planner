@@ -248,3 +248,15 @@ def test_subject_and_eligibility_rules_retain_existing_golden_semantics(id, inte
         assert witness.unsupported_reason == "unsupported_constraint"
     if id in {"organizations-053-005", "venues-054-002"}:
         assert witness.filters[0].field == "event_type"
+
+
+def test_where_discovery_does_not_request_user_location():
+    from tests.v7_golden import assert_v7_expectations
+
+    case = CASES["regressions-092-013"]
+    witness = example_plan(case)
+    assert witness.entity_type == "event" and witness.clarification == "none"
+    assert witness.spatial is None
+    assert_v7_expectations(normalize(witness.model_dump(mode="json")), case)
+    with pytest.raises(AssertionError, match="clarification"):
+        assert_v7_expectations(witness.model_copy(update={"clarification": "needs_location"}), case)
