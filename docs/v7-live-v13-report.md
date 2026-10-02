@@ -893,3 +893,45 @@ network error. This is an infrastructure block, not a live provider result, and 
 counted as a case or a provider error. c7 has no acceptance claim. PR remains Draft and
 not merge-ready. The next steps remain direct cases, nine-case set, Core, Target239,
 then full455 only after the preceding gates pass. No full455 was run.
+
+The network interruption resolved before stopping work. Commit `779de44` was pushed;
+c7's direct cases pass **2/2**, with zero mismatch/invalid/provider errors. The nine-case
+gate follows on the same isolated source snapshot. The unavailable-network observation
+above is retained as history, not the current status.
+
+c7 Core returned **116/121 pass, 4 mismatches, 0 invalid, 1 provider error**:
+security 4/4, knowledge 8/8, regressions 74/77, supported 56/58. Three regression
+variations of undefined new-record discovery lost `needs_definition`; organizer eligibility
+by event type was incorrectly interpreted as a graph request. The separate taxonomy case
+returned safe error `planner_unavailable`, with no output to reinterpret. No Target/455
+run followed this failed Core. CI for `779de44` passed.
+
+c8 clarifies undefined new-record discovery and distinguishes filtered record lists from
+requested graph links. No intent/clarification repair was added: these require language
+interpretation, not field-invariant canonicalization. The three new-record witnesses now
+also negatively assert that clearing the clarification fails Golden acceptance.
+
+c8 direct: **5/6 pass, 1 mismatch, 0 invalid/provider errors**. Undefined new-record
+discovery now passes all three variations, as do the unsupported age case and type-filtered
+taxonomy discovery. Organizer-by-type eligibility still emits a relation and omits the
+type predicate. c9 replaces the generic eligibility wording with a short illustrative
+theatre-organizer list/filter example. This is prompt guidance for the general operation,
+not an exact-question lookup or a guessed canonicalizer filter.
+
+c9 direct: **5/6 pass, 1 mismatch, 0 invalid/provider errors**. Organizer eligibility and
+all three new-record variants pass. The age question regressed to list with no metric/order/limit.
+c10 restores the explicit rank-not-list wording for age selection, including unsupported
+subjects and undefined cutoffs; it does not weaken its Golden expectation. c9 offline:
+**3938 passed, 710 skipped**, all quality/schema/documentation gates passed.
+
+c10 offline: **3938 passed, 710 skipped**, focused **559 passed**. Ruff, format, Mypy,
+OpenAPI no-diff, documentation links and diff check pass. No c10 live calls have been
+made. Following the user's cost concern, further provider calls await an explicit cost
+limit. Even a first-pass success through direct6/nine9/Core121/Target239/full455 would
+require 830 more calls; further iteration would add cost. The latest completed direct
+run is still c9 (5/6); latest completed Core is c7 (116/121, zero invalid, one provider
+error). Neither historical success nor local witness validation proves c10 live acceptance.
+PR remains Draft; no merge-ready or full455 stability claim is made.
+
+The user explicitly chose to continue the complete gates despite the estimated remaining
+830-call minimum. c10 direct validation starts; the cost-pause note above is historical.
