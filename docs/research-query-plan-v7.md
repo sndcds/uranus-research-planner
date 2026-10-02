@@ -364,3 +364,16 @@ missing operands still fail. This does not relax the public metric model.
 Ordering is null for intents that forbid it. Change metrics are neutral outside trend;
 the adapter never invents a trend object. Incompatible rank entity/grouping, radius and
 reference choices remain interpretation errors rather than guessed repairs.
+
+Geo-name inflection also belongs to the resolver. Planner may retain the supplied
+grammatical surface form. Golden acceptance permits only individually audited exact
+variants at spatial.area_query/place_query, with unchanged relation/reference; there is
+no global inflection algorithm or alias matching. The first such addendum accepts
+Schleswig-Holsteins alongside Schleswig-Holstein in one declared area-name slot.
+
+For unanchored taxonomy co-occurrence through exactly `[event]`, the canonical relation
+operation is `shared` for equal endpoint dimensions and `related` for different dimensions.
+The internal proposal adapter normalizes only this operation before strict relation validation;
+anchored queries, other paths and other operations are preserved and validated unchanged.
+The same declared taxonomy-event-taxonomy path uses the event population; an explicitly
+unsupported subject is never converted into a supported subject by this rule.

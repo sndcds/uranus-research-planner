@@ -1019,3 +1019,51 @@ in Planner and retain Golden, or audit a narrowly scoped Geo resolver-name equiv
 No Golden/comparator change has been made. Other differences remain ordinary model errors.
 The next candidate's independent density/selection wording is only a local temporary draft;
 no further live run or 455 gate has started pending this policy decision.
+
+### Geo-name decision resolved; c16
+
+The user chose resolver-side inflection normalization. One audited Golden declaration
+now accepts Schleswig-Holsteins alongside Schleswig-Holstein at combined-060-001's
+area_query only. The canonical expectation stays unchanged; all other paths remain strict.
+This is one additional Golden correction, separate from the original 44-case audit.
+The test comparator recognizes only explicitly declared Geo-name slots with unchanged
+relation/reference. Actual outputs are never rewritten and forbidden values still fail.
+
+c16 also distinguishes undefined density from raw quantity ranking, multi-grouping
+selection from concept definition, and preserves a known generic spatial reference while
+blocked. These are prompt changes; strict public schema and validators are unchanged.
+Historical live results have not been recomputed or overwritten under the new expectation.
+
+Offline c16: **3953 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI, links and whitespace checks pass.
+c16 direct: **5/8 pass, 1 mismatch, 2 invalid, 0 provider errors**. Reviewed Geo inflection
+and density pass; remaining constructions are shared across unlike taxonomy nodes, a missing
+blocked distance reference, and omitted ordering/limit on a frequency-qualified distribution.
+c17 tightens these three existing prompt rules, without schema or further Golden changes.
+
+c17 direct: **6/8 pass, 2 mismatches, 0 invalid/provider errors**. Remaining: generic
+reference retains undefined size adjective; same-taxonomy co-occurrence chooses related.
+c18 adds a deterministic operation normal form only for unanchored taxonomy endpoints
+joined via exactly one event: same endpoints shared, different endpoints related. It never
+changes endpoints, queries, path, intent or metric. Other relation shapes still pass the
+unchanged RelationV7 validator; all455 witnesses and both NativeOutput schemas are unchanged.
+The prompt drops undefined size adjectives from a generic reference while retaining its block.
+Focused validation: **596 passed**; Ruff and Mypy pass.
+
+c18 direct: **6/8 pass, 1 mismatch, 1 invalid, 0 provider errors**. The taxonomy relation
+now has legal operation/path but lacks entity_type; historical outlier invents event_count
+as its undefined anomaly measure. c19 derives event population from the already declared
+taxonomy-event-taxonomy path, except explicitly unsupported subjects, and clarifies the
+existing null anomaly measure rule. Focused validation: **600 passed**, Ruff/Mypy pass.
+
+c19 direct: **7/8 pass, 1 mismatch, 0 invalid/provider errors**. Only frequent same-genre
+co-occurrence incorrectly requests a definition. c20 clarifies that structural co-occurrence
+does not require a statistical definition merely because frequency is mentioned. A negative
+Golden witness continues to reject this extra clarification; no acceptance relaxation.
+
+c20 direct: **8/8 pass, 0 mismatch, 0 invalid, 0 provider errors**. The same unchanged
+isolated source snapshot proceeds to the historical nine-case gate and then Core if green.
+No broad acceptance claim is made from this subset.
+
+c20 nine: **9/9 pass, 0 mismatch/invalid/provider errors**. Core121 is running on the
+same snapshot. Offline c20: **3980 passed, 710 skipped**; Ruff, format, Mypy, public
+OpenAPI no-diff, documentation links and whitespace checks pass. PR remains Draft.

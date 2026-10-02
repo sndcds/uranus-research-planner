@@ -6,11 +6,12 @@ from typing import Any
 
 from pydantic import ConfigDict, create_model, model_validator
 
+from research_planner.research_v7_constraints import RelationV7
 from research_planner.research_v7_schema import ResearchQueryPlanV7
 from research_planner.research_v7_types import COUNT_OPERATIONS, ClosedV7, MetricV7
 
 # Reuse field constraints and nested validators without duplicating vocabulary.
-# Metric operand validation has one explicit undefined-descriptor exception below;
+# Metric operands and taxonomy co-occurrence have explicit normal forms below;
 # final plan cross-validation always follows normalization. This is
 # internal only: NativeOutput and OpenAPI still expose ResearchQueryPlanV7's schema.
 # Any is confined to Pydantic's model-construction API, never a plan field.
@@ -25,15 +26,45 @@ _metric_fields: dict[str, Any] = {
 }
 ProposalMetricV7 = create_model("MetricV7", __base__=ClosedV7, **_metric_fields)
 _fields["metric"] = (ProposalMetricV7 | None, deepcopy(ResearchQueryPlanV7.model_fields["metric"]))
+_relation_fields: dict[str, Any] = {
+    name: (field.annotation, deepcopy(field)) for name, field in RelationV7.model_fields.items()
+}
+ProposalRelationV7 = create_model("RelationV7", __base__=ClosedV7, **_relation_fields)
+_fields["relation"] = (
+    ProposalRelationV7 | None,
+    deepcopy(ResearchQueryPlanV7.model_fields["relation"]),
+)
 ProposalV7 = create_model("ProposalV7", __base__=ClosedV7, **_fields)
 
 
 def canonicalize_v7(value: object) -> object:
     # Type-check even neutralized fields: unknown enums, extra properties and
-    # missing fields are rejected. The sole deferred metric rule is explicit below.
+    # missing fields are rejected. Deferred cross-field rules are explicit below.
     proposal = ProposalV7.model_validate_json(json.dumps(value, allow_nan=False))
     data = proposal.model_dump(mode="python")
     intent = data["intent"]
+    relation = data["relation"]
+    if relation is not None:
+        # A single event joins the explicitly supplied taxonomy dimensions.
+        # Same-dimension co-occurrence is shared, cross-dimension is related.
+        # Never alter paths, anchored queries or operations with other semantics.
+        if (
+            intent == "relation"
+            and relation["operation"] in {"related", "shared"}
+            and relation["source"] in {"category", "event_type", "genre"}
+            and relation["target"] in {"category", "event_type", "genre"}
+            and relation["via"] == ["event"]
+            and relation["source_query"] is None
+            and relation["target_query"] is None
+        ):
+            relation["operation"] = (
+                "shared" if relation["source"] == relation["target"] else "related"
+            )
+            # The declared event path supplies the population; taxonomy nodes
+            # are dimensions, not standalone entity types in the public model.
+            if data["unsupported_reason"] != "unsupported_constraint":
+                data["entity_type"] = "event"
+        RelationV7.model_validate_json(json.dumps(relation, allow_nan=False))
     metric = data["metric"]
     if metric is not None:
         if (
