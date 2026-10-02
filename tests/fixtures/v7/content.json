@@ -1,0 +1,485 @@
+[
+  {
+    "id": "content-043-001",
+    "question": "Welches Event hat den längsten Text?",
+    "category": "content",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "field_length",
+        "field": "description",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Event hat den längsten Text?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "content-043-002",
+    "question": "Welche Events haben gar keine Beschreibung?",
+    "category": "content",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "filters": [
+        {
+          "field": "description",
+          "operator": "missing"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events haben gar keine Beschreibung?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "content-043-003",
+    "question": "Welche Veranstaltung nennt Barrierefreiheit?",
+    "category": "content",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "erwähnt Barrierefreiheit",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "content-043-004",
+    "question": "Welche Events sprechen Kinder an?",
+    "category": "content",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für Kinder geeignet",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "content-043-005",
+    "question": "Welche Themen kommen bei Flensburger Veranstaltungen häufig vor?",
+    "category": "content",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": "none",
+      "ordering": "desc",
+      "limit": 20,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Flensburg",
+        "reference": "named",
+        "radius_m": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "häufige Themen",
+        "focus": null
+      }
+    },
+    "notes": "Themen sind keine Kategorien. Gruppierung ist ungeklärt. Dieser Plan darf nicht ausgeführt werden.",
+    "required_data": [
+      "complete_structured_topics"
+    ]
+  },
+  {
+    "id": "content-072-001",
+    "question": "Welche Veranstaltungen ähneln sich thematisch besonders stark?",
+    "category": "content",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "thematisch ähnliche Veranstaltungen",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "content-072-002",
+    "question": "Welche Veranstalter haben ein ähnliches Programm?",
+    "category": "content",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "ähnliches Veranstaltungsprogramm",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "content-072-003",
+    "question": "Welche Veranstaltungsorte haben ein ähnliches Profil?",
+    "category": "content",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "ähnliches Veranstaltungsprofil",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "content-072-004",
+    "question": "Welche Regionen haben ein ähnliches Kulturangebot?",
+    "category": "content",
+    "capability_status": "semantic_only",
+    "expect": {
+      "intent": "search",
+      "entity_type": "region",
+      "clarification": "none",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "ähnliches Kulturangebot",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "content-072-005",
+    "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+    "category": "content",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "related",
+        "source": "genre",
+        "target": "category",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "content-072-006",
+    "question": "Welche Themen tauchen bei kostenlosen Veranstaltungen besonders häufig auf?",
+    "category": "content",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "metric": null,
+      "group_by": "none"
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "unsupported_reason": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "häufige Themen",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "complete_structured_topics"
+    ]
+  },
+  {
+    "id": "content-072-007",
+    "question": "Welche Themen sind bei Familienveranstaltungen besonders häufig?",
+    "category": "content",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": "none"
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "unsupported_reason": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "häufige Themen bei Familienveranstaltungen",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "complete_structured_topics_and_audiences"
+    ]
+  },
+  {
+    "id": "content-072-008",
+    "question": "Welche Themen unterscheiden Stadt und Land besonders stark?",
+    "category": "content",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": "none"
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "Themenunterschiede zwischen Stadt und Land",
+        "focus": null
+      }
+    },
+    "notes": "Stadt/Land ist nicht definiert.",
+    "required_data": [
+      "complete_structured_topics"
+    ]
+  },
+  {
+    "id": "content-072-009",
+    "question": "Welche Themen gewinnen derzeit an Bedeutung?",
+    "category": "content",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "group_by": "none",
+      "trend": null,
+      "metric": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "Themenentwicklung",
+        "focus": null
+      }
+    },
+    "notes": "Thema und Bedeutung benötigen Definitionen.",
+    "required_data": [
+      "complete_structured_topics"
+    ]
+  },
+  {
+    "id": "content-072-010",
+    "question": "Welche Themen kommen in Schleswig-Holstein vor, aber kaum in Dänemark?",
+    "category": "content",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": "none"
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "Themen in Schleswig-Holstein und Dänemark",
+        "focus": null
+      }
+    },
+    "notes": "Kaum benötigt eine Schwelle.",
+    "required_data": [
+      "complete_structured_topics"
+    ]
+  }
+]

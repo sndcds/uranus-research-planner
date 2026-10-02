@@ -1,0 +1,1608 @@
+[
+  {
+    "id": "geography-042-001",
+    "question": "Welche Organisation ist in den meisten Kommunen aktiv?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "municipality",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisation ist in den meisten Kommunen aktiv?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-042-002",
+    "question": "Welche Veranstaltungsorte gibt es in Flensburg?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Flensburg",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte gibt es in Flensburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-042-003",
+    "question": "Welche Veranstaltungen liegen nördlich der Förde?",
+    "category": "geography",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "north_of",
+        "place_query": "Förde",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen liegen nördlich der Förde?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-042-004",
+    "question": "Welche Orte liegen am dichtesten beieinander?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distance",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "asc",
+      "limit": 20,
+      "spatial": {
+        "relation": "nearest",
+        "place_query": null,
+        "area_query": null,
+        "reference": "nearest_venue",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte liegen am dichtesten beieinander?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-042-005",
+    "question": "Welche Kommune hat die meisten Kulturveranstaltungen pro Einwohner?",
+    "category": "geography",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "ratio",
+        "field": null,
+        "distinct_by": null,
+        "numerator": {
+          "operation": "event_count",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "denominator": {
+          "operation": "population",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 1,
+      "filters": [
+        {
+          "field": "category",
+          "operator": "eq",
+          "value": "Kultur"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kommune hat die meisten Kulturveranstaltungen pro Einwohner?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "population"
+    ]
+  },
+  {
+    "id": "geography-051-001",
+    "question": "Welche Veranstaltung liegt geografisch am westlichsten?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "longitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung liegt geografisch am westlichsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-002",
+    "question": "Welche Veranstaltung liegt am nördlichsten?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "latitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung liegt am nördlichsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-003",
+    "question": "Welche Veranstaltung liegt am südlichsten?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "latitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung liegt am südlichsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-004",
+    "question": "Welche Veranstaltung liegt am östlichsten?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "longitude",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltung liegt am östlichsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-005",
+    "question": "Welche Veranstaltungen finden nahe der dänischen Grenze statt?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "near_border",
+        "place_query": null,
+        "area_query": "Dänemark",
+        "reference": "border",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden nahe der dänischen Grenze statt?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-006",
+    "question": "Welche Veranstaltungen finden in Grenznähe statt?",
+    "category": "geography",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "near_border",
+        "place_query": null,
+        "area_query": null,
+        "reference": "border",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden in Grenznähe statt?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-007",
+    "question": "Welche Regionen haben besonders viele Veranstaltungen?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben besonders viele Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-008",
+    "question": "Welche Gemeinden haben besonders wenige Veranstaltungen?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "asc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben besonders wenige Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-009",
+    "question": "Welche Orte haben kein Kulturangebot?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "category",
+          "operator": "eq",
+          "value": "Kultur"
+        }
+      ],
+      "metric_filter": {
+        "operator": "eq",
+        "value": 0.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben kein Kulturangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-051-010",
+    "question": "Welche Veranstaltungsorte liegen außerhalb größerer Städte?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte liegen außerhalb größerer Städte?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Größere Städte benötigen eine Bevölkerungsschwelle und Gebietsdefinition."
+  },
+  {
+    "id": "geography-051-011",
+    "question": "Welche Veranstaltungen gibt es im Umkreis von 10 km um Flensburg?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "within_radius",
+        "place_query": "Flensburg",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": 10000
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen gibt es im Umkreis von 10 km um Flensburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-051-012",
+    "question": "Welche Veranstaltungen gibt es im Umkreis von 20 km um Rendsburg?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "within_radius",
+        "place_query": "Rendsburg",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": 20000
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen gibt es im Umkreis von 20 km um Rendsburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-051-013",
+    "question": "Welche Veranstaltungen finden in ländlichen Gemeinden statt?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden in ländlichen Gemeinden statt?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Ländlich ist nicht definiert."
+  },
+  {
+    "id": "geography-051-014",
+    "question": "Welche Regionen haben ein besonders vielfältiges Kulturangebot?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": null,
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben ein besonders vielfältiges Kulturangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Vielfalt benötigt eine ausdrücklich gewählte Dimension."
+  },
+  {
+    "id": "geography-052-001",
+    "question": "Kennst du Veranstaltungen außerhalb Schleswig-Holsteins?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "outside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Kennst du Veranstaltungen außerhalb Schleswig-Holsteins?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-052-002",
+    "question": "Welche Veranstaltungen finden in Dänemark statt?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Dänemark",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden in Dänemark statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-052-003",
+    "question": "Welche Veranstaltungen finden unmittelbar hinter der Grenze statt?",
+    "category": "geography",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "across_border",
+        "place_query": null,
+        "area_query": null,
+        "reference": "border",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden unmittelbar hinter der Grenze statt?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-052-004",
+    "question": "Welche Veranstalter aus Schleswig-Holstein bieten Veranstaltungen außerhalb des Landes an?",
+    "category": "geography",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "spatial": {
+        "relation": "outside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter aus Schleswig-Holstein bieten Veranstaltungen außerhalb des Landes an?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "separate_organization_origin_and_event_location"
+    ]
+  },
+  {
+    "id": "geography-052-005",
+    "question": "Welche Veranstaltungen liegen außerhalb des definierten Kulturbytes-Gebiets?",
+    "category": "geography",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "outside",
+        "place_query": null,
+        "area_query": "Kulturbytes-Gebiet",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen liegen außerhalb des definierten Kulturbytes-Gebiets?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-052-006",
+    "question": "Welche Veranstaltungen befinden sich geografisch am nächsten zu Schleswig-Holstein?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distance",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "spatial": {
+        "relation": "nearest",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen befinden sich geografisch am nächsten zu Schleswig-Holstein?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "notes": "Benannter Abstand zur Gebietsgeometrie wird im Admin Resolver geklärt."
+  },
+  {
+    "id": "geography-052-007",
+    "question": "Gibt es Veranstaltungen in Hamburg, die thematisch zu einer bestimmten Suche passen?",
+    "category": "geography",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "needs_context",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Hamburg",
+        "reference": "named",
+        "radius_m": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "thematisch passende Veranstaltungen",
+        "focus": null
+      }
+    }
+  },
+  {
+    "id": "geography-052-008",
+    "question": "Gibt es Veranstaltungen in Dänemark, die zu einem bestimmten Genre passen?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Dänemark",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Gibt es Veranstaltungen in Dänemark, die zu einem bestimmten Genre passen?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-066-001",
+    "question": "Welche Veranstaltungen liegen besonders weit vom nächsten Veranstaltungsort entfernt?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distance",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 20,
+      "spatial": {
+        "relation": "nearest",
+        "place_query": null,
+        "area_query": null,
+        "reference": "nearest_venue",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen liegen besonders weit vom nächsten Veranstaltungsort entfernt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "geography-066-002",
+    "question": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "municipality",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben große Entfernungen zwischen ihren Kulturangeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Große Entfernung und Aggregation benötigen Definitionen."
+  },
+  {
+    "id": "geography-066-003",
+    "question": "Welche Regionen haben eine hohe räumliche Konzentration von Veranstaltungen?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben eine hohe räumliche Konzentration von Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Räumliche Konzentrationsmetrik fehlt."
+  },
+  {
+    "id": "geography-066-004",
+    "question": "Welche Regionen haben ein stark verteiltes Kulturangebot?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben ein stark verteiltes Kulturangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Räumliche Verteilung benötigt eine Metrik."
+  },
+  {
+    "id": "geography-066-005",
+    "question": "Welche Veranstaltungen liegen am nächsten an einem Bahnhof?",
+    "category": "geography",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "distance",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 20,
+      "spatial": {
+        "relation": "nearest",
+        "place_query": "Bahnhof",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen liegen am nächsten an einem Bahnhof?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "authoritative_station_poi"
+    ]
+  },
+  {
+    "id": "geography-066-006",
+    "question": "Welche Veranstaltungsorte liegen in fußläufiger Entfernung zueinander?",
+    "category": "geography",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "distance",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "asc",
+      "limit": 20,
+      "spatial": {
+        "relation": "nearest",
+        "place_query": null,
+        "area_query": null,
+        "reference": "nearest_venue",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte liegen in fußläufiger Entfernung zueinander?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Fußläufige Entfernung braucht Schwelle und Routingdefinition.",
+    "required_data": [
+      "pedestrian_network"
+    ]
+  },
+  {
+    "id": "geography-066-007",
+    "question": "Welche Veranstaltungsorte liegen nahe einer Landes- oder Staatsgrenze?",
+    "category": "geography",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "near_border",
+        "place_query": null,
+        "area_query": null,
+        "reference": "border",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte liegen nahe einer Landes- oder Staatsgrenze?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-066-008",
+    "question": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distance",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 20,
+      "spatial": {
+        "relation": "nearest",
+        "place_query": "Zentrum",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen liegen am weitesten von einem größeren Zentrum entfernt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Größeres Zentrum benötigt Definition und Bezugsorte."
+  },
+  {
+    "id": "geography-066-009",
+    "question": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte liegen in Regionen mit besonders geringer Veranstaltungsdichte?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Dichtefläche und Schwelle fehlen."
+  },
+  {
+    "id": "geography-066-010",
+    "question": "Welche Gemeinden haben Kulturangebote in mehreren Ortsteilen?",
+    "category": "geography",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": null,
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben Kulturangebote in mehreren Ortsteilen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "district_dimension"
+    ]
+  },
+  {
+    "id": "geography-013-001",
+    "question": "wo finden Veranstaltungen statt?",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "wo finden Veranstaltungen statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-013-002",
+    "question": "Was ist in meiner Nähe?",
+    "category": "geography",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "nearby",
+        "place_query": null,
+        "area_query": null,
+        "reference": "user_location",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was ist in meiner Nähe?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-014-001",
+    "question": "Welche Veranstaltungen gibt es im Umkreis von 10 km um Flensburg?",
+    "category": "geography",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "within_radius",
+        "place_query": "Flensburg",
+        "area_query": null,
+        "reference": "named",
+        "radius_m": 10000
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen gibt es im Umkreis von 10 km um Flensburg?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-015-001",
+    "question": "nahe der dänischen Grenze",
+    "category": "geography",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "near_border",
+        "place_query": null,
+        "area_query": "Dänemark",
+        "reference": "border",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "nahe der dänischen Grenze",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-015-002",
+    "question": "unmittelbar hinter der Grenze",
+    "category": "geography",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "across_border",
+        "place_query": null,
+        "area_query": null,
+        "reference": "border",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "unmittelbar hinter der Grenze",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "geography-015-003",
+    "question": "außerhalb Schleswig-Holsteins",
+    "category": "geography",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "outside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "außerhalb Schleswig-Holsteins",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "geography-018-001",
+    "question": "Welche Kommune hat die meisten Veranstaltungen pro Einwohner?",
+    "category": "geography",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "ratio",
+        "field": null,
+        "distinct_by": null,
+        "numerator": {
+          "operation": "event_count",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "denominator": {
+          "operation": "population",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kommune hat die meisten Veranstaltungen pro Einwohner?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "population"
+    ]
+  },
+  {
+    "id": "geography-018-002",
+    "question": "Welche Kulturangebote gibt es in Gemeinden mit weniger als 10.000 Einwohnern?",
+    "category": "geography",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "filters": [
+        {
+          "field": "category",
+          "operator": "eq",
+          "value": "Kultur"
+        },
+        {
+          "field": "population",
+          "predicate": {
+            "operator": "lt",
+            "value": 10000.0,
+            "upper": null
+          },
+          "currency": null
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kulturangebote gibt es in Gemeinden mit weniger als 10.000 Einwohnern?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "population",
+      "population"
+    ]
+  }
+]

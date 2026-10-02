@@ -1,0 +1,464 @@
+[
+  {
+    "id": "combined-060-001",
+    "question": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+    "category": "combined",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": null,
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen Schleswig-Holsteins haben heute das vielfältigste Kulturangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Vielfältig benötigt eine Diversitätsdimension."
+  },
+  {
+    "id": "combined-060-002",
+    "question": "Welche Genres werden in Schleswig-Holstein angeboten, aber nicht in Flensburg?",
+    "category": "combined",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "taxonomy": "genre",
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres werden in Schleswig-Holstein angeboten, aber nicht in Flensburg?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "population_set_difference"
+    ]
+  },
+  {
+    "id": "combined-060-003",
+    "question": "Welche Veranstaltungsorte bieten gleichzeitig Kultur-, Bildungs- und Familienangebote?",
+    "category": "combined",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "filters": [
+        {
+          "field": "category",
+          "operator": "eq",
+          "value": "Kultur"
+        },
+        {
+          "field": "category",
+          "operator": "eq",
+          "value": "Bildung"
+        },
+        {
+          "field": "category",
+          "operator": "eq",
+          "value": "Familie"
+        }
+      ],
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte bieten gleichzeitig Kultur-, Bildungs- und Familienangebote?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "separate_related_event_populations"
+    ]
+  },
+  {
+    "id": "combined-060-004",
+    "question": "Welche kostenlosen Veranstaltungen gibt es am kommenden Wochenende?",
+    "category": "combined",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "this_weekend",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche kostenlosen Veranstaltungen gibt es am kommenden Wochenende?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "combined-060-005",
+    "question": "Welche Veranstalter bieten Veranstaltungen an mehreren Orten an?",
+    "category": "combined",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "venue",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "gt",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter bieten Veranstaltungen an mehreren Orten an?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "combined-060-006",
+    "question": "Welche Veranstaltungen finden in unmittelbarer Nähe zur dänischen Grenze statt?",
+    "category": "combined",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "spatial": {
+        "relation": "near_border",
+        "place_query": null,
+        "area_query": "Dänemark",
+        "reference": "border",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden in unmittelbarer Nähe zur dänischen Grenze statt?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "combined-060-007",
+    "question": "Welche Kulturangebote gibt es in Gemeinden mit weniger als 10.000 Einwohnern?",
+    "category": "combined",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "filters": [
+        {
+          "field": "category",
+          "operator": "eq",
+          "value": "Kultur"
+        },
+        {
+          "field": "population",
+          "predicate": {
+            "operator": "lt",
+            "value": 10000.0,
+            "upper": null
+          },
+          "currency": null
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kulturangebote gibt es in Gemeinden mit weniger als 10.000 Einwohnern?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "population",
+      "population"
+    ]
+  },
+  {
+    "id": "combined-060-008",
+    "question": "Welche Veranstaltungen richten sich an Kinder, finden aber außerhalb der größeren Städte statt?",
+    "category": "combined",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "search",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für Kinder geeignet",
+        "focus": null
+      }
+    },
+    "notes": "Größere Städte benötigen eine Definition."
+  },
+  {
+    "id": "combined-060-009",
+    "question": "Welche Veranstaltungsarten sind in Schleswig-Holstein besonders stark vertreten?",
+    "category": "combined",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsarten sind in Schleswig-Holstein besonders stark vertreten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "combined-060-010",
+    "question": "Welche Kategorien oder Genres sind regional auffällig selten?",
+    "category": "combined",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "rare",
+        "measure": "event_count"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien oder Genres sind regional auffällig selten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Dimension, Region und Seltenheitsschwelle fehlen."
+  },
+  {
+    "id": "combined-060-011",
+    "question": "Welche Veranstaltungen finden gleichzeitig statt und konkurrieren damit möglicherweise um dasselbe Publikum?",
+    "category": "combined",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden gleichzeitig statt und konkurrieren damit möglicherweise um dasselbe Publikum?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Publikumsüberschneidung ist keine aus Gleichzeitigkeit ableitbare Konkurrenz. Keine Kausalitätsaussage. Gleichzeitigkeit ist nur ein Teil der Frage."
+  }
+]

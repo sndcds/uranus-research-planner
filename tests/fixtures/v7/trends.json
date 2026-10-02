@@ -1,0 +1,667 @@
+[
+  {
+    "id": "trends-061-001",
+    "question": "Welche Veranstalter sind in den letzten sechs Monaten neu hinzugekommen?",
+    "category": "trends",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "created_at",
+        "period": "past",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": 6,
+        "lookback_unit": "month"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter sind in den letzten sechs Monaten neu hinzugekommen?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "trends-061-002",
+    "question": "Welche Veranstaltungsorte sind in den letzten sechs Monaten neu hinzugekommen?",
+    "category": "trends",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "created_at",
+        "period": "past",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": 6,
+        "lookback_unit": "month"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte sind in den letzten sechs Monaten neu hinzugekommen?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "trends-061-003",
+    "question": "Welche Kategorien wachsen derzeit am stärksten?",
+    "category": "trends",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "event",
+      "clarification": "needs_date",
+      "unsupported_reason": null,
+      "group_by": "category",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "month",
+        "change": "absolute_change"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien wachsen derzeit am stärksten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "trends-061-004",
+    "question": "Welche Genres verlieren im Zeitverlauf an Bedeutung?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "group_by": "genre",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "month",
+        "change": "absolute_change"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres verlieren im Zeitverlauf an Bedeutung?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Bedeutung besitzt keine definierte Metrik."
+  },
+  {
+    "id": "trends-061-005",
+    "question": "Welche Regionen haben heute deutlich mehr Veranstaltungen als im Vorjahr?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "group_by": "region",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_year",
+        "window": "day",
+        "change": "absolute_change"
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben heute deutlich mehr Veranstaltungen als im Vorjahr?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Deutlich benötigt eine Änderungsschwelle."
+  },
+  {
+    "id": "trends-061-006",
+    "question": "Welche Regionen haben heute deutlich weniger Veranstaltungen als im Vorjahr?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "group_by": "region",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_year",
+        "window": "day",
+        "change": "absolute_change"
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben heute deutlich weniger Veranstaltungen als im Vorjahr?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Deutlich benötigt eine Änderungsschwelle."
+  },
+  {
+    "id": "trends-061-007",
+    "question": "Welche Veranstalter haben ihre Aktivität zuletzt stark erhöht?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "group_by": "organization",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "month",
+        "change": "absolute_change"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben ihre Aktivität zuletzt stark erhöht?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Aktivität, Zeitraum und starke Änderung benötigen Definitionen."
+  },
+  {
+    "id": "trends-061-008",
+    "question": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+    "category": "trends",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "inactive",
+        "measure": "event_count"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben seit längerer Zeit keine neuen Veranstaltungen veröffentlicht?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Längere Zeit ist nicht definiert.",
+    "required_data": [
+      "publication_history"
+    ]
+  },
+  {
+    "id": "trends-061-009",
+    "question": "Welche Veranstaltungsorte werden heute seltener genutzt als früher?",
+    "category": "trends",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "venue",
+      "clarification": "needs_date",
+      "unsupported_reason": null,
+      "group_by": "venue",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "day",
+        "change": "absolute_change"
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte werden heute seltener genutzt als früher?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "trends-061-010",
+    "question": "Welche Veranstaltungstypen treten saisonal besonders stark auf?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "month",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen treten saisonal besonders stark auf?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Saison und Stärke benötigen Definitionen.",
+    "required_data": [
+      "multi_dimension_grouping"
+    ]
+  },
+  {
+    "id": "trends-061-011",
+    "question": "Welche Genres sind nur zu bestimmten Jahreszeiten vertreten?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "month",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres sind nur zu bestimmten Jahreszeiten vertreten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Jahreszeitenvergleich und Referenzzeitraum fehlen.",
+    "required_data": [
+      "multi_dimension_grouping"
+    ]
+  },
+  {
+    "id": "trends-061-012",
+    "question": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "group_by": "month",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "month",
+        "change": "absolute_change"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Monate zeigen ungewöhnlich starke Veränderungen gegenüber dem langjährigen Mittel?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Langjähriger Referenzzeitraum und Anomalieverfahren fehlen."
+  },
+  {
+    "id": "trends-022-001",
+    "question": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+    "category": "trends",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "event",
+      "clarification": "needs_date",
+      "unsupported_reason": null,
+      "group_by": "week",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "week",
+        "change": "absolute_change"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "trends-022-002",
+    "question": "Welche Kategorien wachsen derzeit am stärksten?",
+    "category": "trends",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "event",
+      "clarification": "needs_date",
+      "unsupported_reason": null,
+      "group_by": "category",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "month",
+        "change": "absolute_change"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien wachsen derzeit am stärksten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "trends-022-003",
+    "question": "Welche Veranstalter haben ihre Aktivität zuletzt stark erhöht?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "group_by": "organization",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_period",
+        "window": "month",
+        "change": "absolute_change"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben ihre Aktivität zuletzt stark erhöht?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Aktivitätsmaß, Zeitfenster und Änderungsschwelle fehlen."
+  },
+  {
+    "id": "trends-022-004",
+    "question": "Welche Regionen haben heute deutlich mehr Veranstaltungen als im Vorjahr?",
+    "category": "trends",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "trend",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "group_by": "region",
+      "trend": {
+        "measure": "event_count",
+        "comparison": "previous_year",
+        "window": "day",
+        "change": "absolute_change"
+      },
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben heute deutlich mehr Veranstaltungen als im Vorjahr?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Deutliche Änderung benötigt eine Schwelle."
+  }
+]

@@ -1,0 +1,1182 @@
+[
+  {
+    "id": "temporal-041-001",
+    "question": "Was war das erste Event?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "value",
+        "field": "start_date",
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was war das erste Event?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "temporal-041-002",
+    "question": "Welcher Monat hatte die meisten Veranstaltungen?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "month",
+      "ordering": "desc",
+      "limit": 1,
+      "temporal": {
+        "field": "start_date",
+        "period": "past",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welcher Monat hatte die meisten Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "temporal-041-003",
+    "question": "Wann fanden besonders viele Konzerte statt?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "month",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "temporal": {
+        "field": "start_date",
+        "period": "past",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wann fanden besonders viele Konzerte statt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "temporal-041-004",
+    "question": "Welche Organisation veranstaltet am regelmäßigsten?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "regularity",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": "occurrence_count",
+        "window": "week",
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Organisation veranstaltet am regelmäßigsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Regelmäßigkeit benötigt eine definierte Metrik."
+  },
+  {
+    "id": "temporal-041-005",
+    "question": "Welche Events laufen über mehrere Tage?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": true,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Events laufen über mehrere Tage?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-041-006",
+    "question": "Welches Event wurde am häufigsten wiederholt?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 1,
+      "temporal": {
+        "field": "start_date",
+        "period": "past",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welches Event wurde am häufigsten wiederholt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-001",
+    "question": "Welche Veranstaltungen finden heute statt?",
+    "category": "temporal",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "today",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden heute statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-002",
+    "question": "Was findet an diesem Wochenende statt?",
+    "category": "temporal",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "this_weekend",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Was findet an diesem Wochenende statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-003",
+    "question": "Welche Veranstaltungen gibt es morgen Abend?",
+    "category": "temporal",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "tomorrow",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "evening",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen gibt es morgen Abend?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-004",
+    "question": "Welche Veranstaltungen beginnen vor 18 Uhr?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": "18:00:00",
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen beginnen vor 18 Uhr?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-005",
+    "question": "Welche Veranstaltungen finden nach 20 Uhr statt?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": "20:00:00",
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden nach 20 Uhr statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-006",
+    "question": "Welche Veranstaltungen laufen über mehrere Tage?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": true,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen laufen über mehrere Tage?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-007",
+    "question": "Welche Veranstaltungen finden regelmäßig statt?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "regularity",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": "occurrence_count",
+        "window": "week",
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden regelmäßig statt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+  },
+  {
+    "id": "temporal-050-008",
+    "question": "An welchem Wochentag gibt es die meisten Veranstaltungen?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "weekday",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "An welchem Wochentag gibt es die meisten Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-009",
+    "question": "Wie verändert sich das Veranstaltungsangebot über die Woche?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "weekday",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie verändert sich das Veranstaltungsangebot über die Woche?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "notes": "Verteilung innerhalb einer Woche, kein erfundener Vorperiodenvergleich."
+  },
+  {
+    "id": "temporal-050-010",
+    "question": "Welche Veranstaltungen finden gleichzeitig statt?",
+    "category": "temporal",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden gleichzeitig statt?",
+          "focus": null
+        }
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-011",
+    "question": "Welche Veranstaltungen gibt es während der Schulferien?",
+    "category": "temporal",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "school_holiday",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen gibt es während der Schulferien?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-012",
+    "question": "Welche Veranstaltungen finden an Feiertagen statt?",
+    "category": "temporal",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "holiday",
+        "calendar_area_query": null,
+        "overlap": false,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden an Feiertagen statt?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "temporal-050-013",
+    "question": "Welche Veranstaltungen gibt es in einem bestimmten Zeitraum, z. B. vom 1. bis 15. Oktober?",
+    "category": "temporal",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_date",
+      "unsupported_reason": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen gibt es in einem bestimmten Zeitraum, z. B. vom 1. bis 15. Oktober?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "temporal-065-001",
+    "question": "Welche Veranstaltungen überschneiden sich zeitlich und räumlich?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen überschneiden sich zeitlich und räumlich?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Räumliche Überschneidung benötigt eine Distanz-/Ortsdefinition."
+  },
+  {
+    "id": "temporal-065-002",
+    "question": "Welche Veranstaltungen finden zur selben Zeit im selben Stadtteil statt?",
+    "category": "temporal",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden zur selben Zeit im selben Stadtteil statt?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "pairwise_district_membership"
+    ]
+  },
+  {
+    "id": "temporal-065-003",
+    "question": "Welche großen Veranstaltungscluster gibt es an einzelnen Tagen?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche großen Veranstaltungscluster gibt es an einzelnen Tagen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Cluster und Größe benötigen ein Verfahren."
+  },
+  {
+    "id": "temporal-065-004",
+    "question": "Welche Wochentage sind in bestimmten Regionen besonders stark ausgelastet?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "weekday",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Wochentage sind in bestimmten Regionen besonders stark ausgelastet?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Auslastung ist nicht durch eine Anzahl allein definiert."
+  },
+  {
+    "id": "temporal-065-005",
+    "question": "Welche Uhrzeiten sind bei bestimmten Veranstaltungstypen typisch?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "occurrence",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "hour",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Uhrzeiten sind bei bestimmten Veranstaltungstypen typisch?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Typisch und Veranstaltungstyp sind nicht definiert."
+  },
+  {
+    "id": "temporal-065-006",
+    "question": "Welche Veranstaltungen beginnen ungewöhnlich früh?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen beginnen ungewöhnlich früh?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Ungewöhnlich früh benötigt eine Schwelle oder Vergleichspopulation."
+  },
+  {
+    "id": "temporal-065-007",
+    "question": "Welche Veranstaltungen beginnen ungewöhnlich spät?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen beginnen ungewöhnlich spät?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Ungewöhnlich spät benötigt eine Schwelle oder Vergleichspopulation."
+  },
+  {
+    "id": "temporal-065-008",
+    "question": "Welche Veranstaltungsorte haben besonders viele Überschneidungen im Programm?",
+    "category": "temporal",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": null,
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsorte haben besonders viele Überschneidungen im Programm?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "pairwise_overlap_count"
+    ]
+  },
+  {
+    "id": "temporal-065-009",
+    "question": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "regularity",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": "occurrence_count",
+        "window": "week",
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+  },
+  {
+    "id": "temporal-065-010",
+    "question": "Welche Zeiträume sind kulturell besonders ruhig?",
+    "category": "temporal",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "rare",
+        "measure": "event_count"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Zeiträume sind kulturell besonders ruhig?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Zeitfenster und Ruheschwelle fehlen."
+  }
+]

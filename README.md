@@ -123,3 +123,22 @@ requests. The planner receives no coordinates and performs no geocoder calls; Ad
 supplies validated context or asks the user. “Wo finden [heute] Veranstaltungen statt?”
 is a record request and does not require location permission. See
 [the v6 contract](docs/geographic-research-v6.md) for rollout and test limitations.
+
+## Research Query Language v7 (additive proposal)
+
+`POST /v7/plan` introduces `research-query-plan-v7` / `research-planner-v10`: closed
+metrics, typed filters, temporal/spatial/price constraints, relations, trends, explanations
+and knowledge routing. Existing endpoints and clients stay unchanged. See the
+[v7 contract](docs/research-query-plan-v7.md), [Admin handoff](docs/v7-admin-handoff.md),
+[pre-implementation audit](docs/v7-repository-audit.md) and
+[447-question capability report](docs/v7-corpus-report.json).
+The [implementation report](docs/v7-implementation-report.md) records scope and limitations.
+
+```sh
+uv run python -m scripts.report_v7_corpus
+# Optional live language acceptance; requires explicit provider configuration:
+RESEARCH_PLANNER_LIVE_TEST=1 uv run pytest -q tests/test_research_v7_live.py
+```
+
+Ordinary v7 tests use mocked inference. They validate contracts and coverage, not live
+Terra language accuracy or Admin execution. No v7 clients are migrated in this change.

@@ -1,0 +1,430 @@
+[
+  {
+    "id": "gaps-062-001",
+    "question": "Welche Gemeinden haben trotz hoher Einwohnerzahl nur wenige Kulturveranstaltungen?",
+    "category": "gaps",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "municipality",
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben trotz hoher Einwohnerzahl nur wenige Kulturveranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Hohe Einwohnerzahl und wenige benötigen Schwellen.",
+    "required_data": [
+      "population"
+    ]
+  },
+  {
+    "id": "gaps-062-002",
+    "question": "Welche Gemeinden haben gemessen an ihrer Einwohnerzahl besonders viele Veranstaltungen?",
+    "category": "gaps",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "ratio",
+        "field": null,
+        "distinct_by": null,
+        "numerator": {
+          "operation": "event_count",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "denominator": {
+          "operation": "population",
+          "distinct_by": null,
+          "subset": "all"
+        },
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben gemessen an ihrer Einwohnerzahl besonders viele Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "population"
+    ]
+  },
+  {
+    "id": "gaps-062-003",
+    "question": "Welche Gemeinden haben überhaupt keine Veranstaltungen für Kinder?",
+    "category": "gaps",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "eq",
+        "value": 0.0,
+        "upper": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "für Kinder geeignet",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "authoritative_audience_population"
+    ]
+  },
+  {
+    "id": "gaps-062-004",
+    "question": "Welche Gemeinden haben keine kostenlosen Veranstaltungen?",
+    "category": "gaps",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 20,
+      "price": {
+        "mode": "free",
+        "minimum": null,
+        "maximum": null,
+        "currency": null
+      },
+      "metric_filter": {
+        "operator": "eq",
+        "value": 0.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben keine kostenlosen Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "gaps-062-005",
+    "question": "Welche Gemeinden haben keine Konzertangebote?",
+    "category": "gaps",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "metric_filter": {
+        "operator": "eq",
+        "value": 0.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Gemeinden haben keine Konzertangebote?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "gaps-062-006",
+    "question": "Welche Gemeinden haben keine barrierearmen Angebote?",
+    "category": "gaps",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "municipality",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "municipality",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "eq",
+        "value": 0.0,
+        "upper": null
+      }
+    },
+    "forbid": {
+      "semantic": [
+        null
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {
+      "semantic": {
+        "query": "barrierearm",
+        "focus": null
+      }
+    },
+    "required_data": [
+      "authoritative_accessibility_population"
+    ]
+  },
+  {
+    "id": "gaps-062-007",
+    "question": "Welche Kategorien fehlen vollständig in einer Gemeinde?",
+    "category": "gaps",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": "unsupported_constraint",
+      "taxonomy": "category",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien fehlen vollständig in einer Gemeinde?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "unused_taxonomy_complement"
+    ]
+  },
+  {
+    "id": "gaps-062-008",
+    "question": "Welche Genres fehlen vollständig in einer Region?",
+    "category": "gaps",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": "unsupported_constraint",
+      "taxonomy": "genre",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres fehlen vollständig in einer Region?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "unused_taxonomy_complement"
+    ]
+  },
+  {
+    "id": "gaps-062-009",
+    "question": "Wo gibt es erkennbare kulturelle Versorgungslücken?",
+    "category": "gaps",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wo gibt es erkennbare kulturelle Versorgungslücken?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Versorgungslücke und Bezugsangebot sind nicht definiert."
+  },
+  {
+    "id": "gaps-062-010",
+    "question": "Welche ländlichen Gemeinden haben ein überraschend großes Kulturangebot?",
+    "category": "gaps",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "municipality",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche ländlichen Gemeinden haben ein überraschend großes Kulturangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Ländlich und überraschend groß sind nicht definiert."
+  }
+]

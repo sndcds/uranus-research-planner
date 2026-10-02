@@ -1,0 +1,362 @@
+[
+  {
+    "id": "provenance-071-001",
+    "question": "Welche Veranstaltungen wurden von welcher Quelle übernommen?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen wurden von welcher Quelle übernommen?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "event_source_provenance"
+    ]
+  },
+  {
+    "id": "provenance-071-002",
+    "question": "Welche Quellen liefern besonders viele Veranstaltungen?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "none",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quellen liefern besonders viele Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "source_entity_and_provenance"
+    ]
+  },
+  {
+    "id": "provenance-071-003",
+    "question": "Welche Quellen liefern besonders viele unvollständige Datensätze?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": null,
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quellen liefern besonders viele unvollständige Datensätze?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Vollständigkeitskriterien fehlen.",
+    "required_data": [
+      "source_entity_and_provenance"
+    ]
+  },
+  {
+    "id": "provenance-071-004",
+    "question": "Welche Quellen aktualisieren Veranstaltungen besonders häufig?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "frequency",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": "occurrence_count",
+        "window": "month",
+        "currency": null
+      },
+      "group_by": "none",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quellen aktualisieren Veranstaltungen besonders häufig?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "source_change_history"
+    ]
+  },
+  {
+    "id": "provenance-071-005",
+    "question": "Welche Quellen haben besonders viele Dubletten?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": null,
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quellen haben besonders viele Dubletten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Dublettenverfahren fehlt.",
+    "required_data": [
+      "source_entity_and_provenance"
+    ]
+  },
+  {
+    "id": "provenance-071-006",
+    "question": "Welche Quellen liefern besonders viele kurzfristige Veranstaltungen?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": null,
+      "clarification": "needs_definition",
+      "unsupported_reason": "insufficient_structured_data",
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quellen liefern besonders viele kurzfristige Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "notes": "Kurzfristigkeitsschwelle fehlt.",
+    "required_data": [
+      "source_publication_history"
+    ]
+  },
+  {
+    "id": "provenance-071-007",
+    "question": "Welche Regionen werden von einzelnen Quellen besonders stark abgedeckt?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "region",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen werden von einzelnen Quellen besonders stark abgedeckt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "source_coverage_provenance"
+    ]
+  },
+  {
+    "id": "provenance-071-008",
+    "question": "Welche Veranstalter werden nur über eine einzige Datenquelle erfasst?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter werden nur über eine einzige Datenquelle erfasst?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "organization_source_provenance"
+    ]
+  },
+  {
+    "id": "provenance-071-009",
+    "question": "Welche Veranstaltungen haben mehrere unabhängige Quellen?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen haben mehrere unabhängige Quellen?",
+          "focus": null
+        }
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "independent_source_provenance"
+    ]
+  },
+  {
+    "id": "provenance-071-010",
+    "question": "Welche Informationen unterscheiden sich zwischen zwei Quellen zum selben Event?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "list",
+      "entity_type": "event",
+      "clarification": "needs_context",
+      "unsupported_reason": "insufficient_structured_data",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Informationen unterscheiden sich zwischen zwei Quellen zum selben Event?",
+          "focus": null
+        }
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "per_source_field_provenance"
+    ]
+  }
+]

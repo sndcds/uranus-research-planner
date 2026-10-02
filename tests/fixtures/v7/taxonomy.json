@@ -1,0 +1,888 @@
+[
+  {
+    "id": "taxonomy-048-001",
+    "question": "Welche Veranstaltungskategorien gibt es?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "category",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungskategorien gibt es?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-048-002",
+    "question": "Wie viele Veranstaltungen gibt es je Kategorie?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie viele Veranstaltungen gibt es je Kategorie?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-048-003",
+    "question": "Welche Kategorie ist am häufigsten vertreten?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorie ist am häufigsten vertreten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-048-004",
+    "question": "Welche Kategorien sind besonders selten?",
+    "category": "taxonomy",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "rare",
+        "measure": "event_count"
+      },
+      "group_by": "category",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien sind besonders selten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Seltenheitsschwelle fehlt."
+  },
+  {
+    "id": "taxonomy-048-005",
+    "question": "Welche Veranstaltungstypen gibt es?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "event_type",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen gibt es?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-048-006",
+    "question": "Wie verteilt sich das Angebot auf Kultur, Bildung, Sport, Freizeit, Familie und Gesellschaft?",
+    "category": "taxonomy",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "category",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wie verteilt sich das Angebot auf Kultur, Bildung, Sport, Freizeit, Familie und Gesellschaft?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    },
+    "notes": "Alle sechs Namen sind Resolver-Proposals. Teilmengenfilter mit OR ist nicht in v7 enthalten.",
+    "required_data": [
+      "taxonomy_subset_disjunction"
+    ]
+  },
+  {
+    "id": "taxonomy-048-007",
+    "question": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+    "category": "taxonomy",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": "unsupported_constraint",
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "region",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungsarten werden in welcher Region besonders häufig angeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "multi_dimension_grouping"
+    ]
+  },
+  {
+    "id": "taxonomy-048-008",
+    "question": "Welche Orte haben das breiteste Veranstaltungsangebot?",
+    "category": "taxonomy",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": null,
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte haben das breiteste Veranstaltungsangebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Breite benötigt eine explizite Diversitätsdimension."
+  },
+  {
+    "id": "taxonomy-048-009",
+    "question": "Welche Veranstalter bieten die meisten Veranstaltungen an?",
+    "category": "taxonomy",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter bieten die meisten Veranstaltungen an?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-048-010",
+    "question": "Welche Veranstalter decken besonders viele unterschiedliche Kategorien ab?",
+    "category": "taxonomy",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "diversity",
+        "field": null,
+        "distinct_by": "category",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter decken besonders viele unterschiedliche Kategorien ab?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-001",
+    "question": "Welche Genres gibt es beim Veranstaltungstyp Konzert?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es beim Veranstaltungstyp Konzert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-002",
+    "question": "Welche Genres sind bei Konzerten am häufigsten?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres sind bei Konzerten am häufigsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-003",
+    "question": "Welche Genres werden nur selten angeboten?",
+    "category": "taxonomy",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "rare",
+        "measure": "event_count"
+      },
+      "group_by": "genre",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres werden nur selten angeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Seltenheitsschwelle fehlt."
+  },
+  {
+    "id": "taxonomy-049-004",
+    "question": "Welche Genres gibt es beim Theater?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Theater"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es beim Theater?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-005",
+    "question": "Welche Genres gibt es bei Lesungen?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Lesung"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es bei Lesungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-006",
+    "question": "Welche Genres gibt es bei Ausstellungen?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Ausstellung"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es bei Ausstellungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-007",
+    "question": "Welche Genres treten besonders häufig gemeinsam auf?",
+    "category": "taxonomy",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "relation",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "relation": {
+        "operation": "shared",
+        "source": "genre",
+        "target": "genre",
+        "via": [
+          "event"
+        ],
+        "source_query": null,
+        "target_query": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres treten besonders häufig gemeinsam auf?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-008",
+    "question": "Welche Veranstaltungstypen haben die größte Genrevielfalt?",
+    "category": "taxonomy",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "diversity",
+        "field": null,
+        "distinct_by": "genre",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen haben die größte Genrevielfalt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-049-009",
+    "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
+    "category": "taxonomy",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "organization",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "asc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Wenige benötigt eine Schwelle."
+  },
+  {
+    "id": "taxonomy-049-010",
+    "question": "Welche Genres gibt es in Schleswig-Holstein, aber nicht in meiner Region?",
+    "category": "taxonomy",
+    "capability_status": "needs_context",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "needs_context",
+      "unsupported_reason": "unsupported_constraint",
+      "taxonomy": "genre",
+      "spatial": {
+        "relation": "inside",
+        "place_query": null,
+        "area_query": "Schleswig-Holstein",
+        "reference": "named",
+        "radius_m": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es in Schleswig-Holstein, aber nicht in meiner Region?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "population_set_difference"
+    ]
+  },
+  {
+    "id": "taxonomy-011-001",
+    "question": "Welche Genres gibt es beim Veranstaltungstyp Konzert?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "taxonomy": "genre",
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es beim Veranstaltungstyp Konzert?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-011-002",
+    "question": "Welche Genres sind bei Konzerten am häufigsten?",
+    "category": "taxonomy",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "filters": [
+        {
+          "field": "event_type",
+          "operator": "eq",
+          "value": "Konzert"
+        }
+      ],
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres sind bei Konzerten am häufigsten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-011-003",
+    "question": "Welche Veranstaltungstypen haben die größte Genrevielfalt?",
+    "category": "taxonomy",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "diversity",
+        "field": null,
+        "distinct_by": "genre",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen haben die größte Genrevielfalt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "taxonomy-011-004",
+    "question": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
+    "category": "taxonomy",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "organization",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "asc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres werden nur von wenigen Veranstaltern angeboten?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+  }
+]

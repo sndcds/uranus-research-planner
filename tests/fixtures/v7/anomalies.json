@@ -1,0 +1,474 @@
+[
+  {
+    "id": "anomalies-057-001",
+    "question": "Welche Veranstaltungen sind ungewöhnlich?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "anomaly": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen sind ungewöhnlich?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "anomalies-057-002",
+    "question": "Welche Veranstaltungstypen gibt es nur an einem einzigen Ort?",
+    "category": "anomalies",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "distinct_count",
+        "field": null,
+        "distinct_by": "venue",
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "eq",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungstypen gibt es nur an einem einzigen Ort?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "anomalies-057-003",
+    "question": "Welche Genres gibt es nur einmal?",
+    "category": "anomalies",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "genre",
+      "ordering": "desc",
+      "limit": 20,
+      "metric_filter": {
+        "operator": "eq",
+        "value": 1.0,
+        "upper": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Genres gibt es nur einmal?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "anomalies-057-004",
+    "question": "Welche Veranstalter haben besonders ungewöhnliche Kombinationen von Veranstaltungstypen?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben besonders ungewöhnliche Kombinationen von Veranstaltungstypen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+  },
+  {
+    "id": "anomalies-057-005",
+    "question": "Welche Orte bieten überraschend viele unterschiedliche Veranstaltungen?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Orte bieten überraschend viele unterschiedliche Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+  },
+  {
+    "id": "anomalies-057-006",
+    "question": "Wo finden besonders viele Veranstaltungen gleichzeitig statt?",
+    "category": "anomalies",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "venue",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "venue",
+      "ordering": "desc",
+      "limit": 20,
+      "temporal": {
+        "field": "start_date",
+        "period": "none",
+        "from_date": null,
+        "to_date": null,
+        "time_of_day": "none",
+        "before_time": null,
+        "after_time": null,
+        "weekday": null,
+        "calendar_relation": "none",
+        "calendar_area_query": null,
+        "overlap": true,
+        "multi_day": false,
+        "lookback": null,
+        "lookback_unit": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Wo finden besonders viele Veranstaltungen gleichzeitig statt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ]
+    }
+  },
+  {
+    "id": "anomalies-057-007",
+    "question": "Welche Regionen haben ein ungewöhnlich breites Angebot?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "region",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Regionen haben ein ungewöhnlich breites Angebot?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+  },
+  {
+    "id": "anomalies-057-008",
+    "question": "Welche Kategorien fehlen in einer bestimmten Region?",
+    "category": "anomalies",
+    "capability_status": "unsupported",
+    "expect": {
+      "intent": "taxonomy",
+      "entity_type": "event",
+      "clarification": "needs_location",
+      "unsupported_reason": "unsupported_constraint",
+      "taxonomy": "category",
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Kategorien fehlen in einer bestimmten Region?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "required_data": [
+      "unused_taxonomy_complement"
+    ]
+  },
+  {
+    "id": "anomalies-057-009",
+    "question": "Gibt es Orte, an denen seit längerer Zeit keine Veranstaltungen stattfinden?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "venue",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "inactive",
+        "measure": "event_count"
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Gibt es Orte, an denen seit längerer Zeit keine Veranstaltungen stattfinden?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Längere Zeit benötigt ein Zeitfenster."
+  },
+  {
+    "id": "anomalies-057-010",
+    "question": "Welche Veranstalter haben aktuell besonders viele Veranstaltungen?",
+    "category": "anomalies",
+    "capability_status": "needs_clarification",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "organization",
+      "clarification": "needs_date",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "event_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "organization",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter haben aktuell besonders viele Veranstaltungen?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "anomalies-057-011",
+    "question": "Welche Veranstaltungen finden an ungewöhnlichen Wochentagen oder Uhrzeiten statt?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen finden an ungewöhnlichen Wochentagen oder Uhrzeiten statt?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Begriff/Schwelle ist nicht fachlich definiert."
+  },
+  {
+    "id": "anomalies-024-001",
+    "question": "Welche Veranstaltungen sind ungewöhnlich?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "event",
+      "clarification": "needs_criteria",
+      "unsupported_reason": null,
+      "anomaly": null,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstaltungen sind ungewöhnlich?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    }
+  },
+  {
+    "id": "anomalies-024-002",
+    "question": "Welche Veranstalter prägen das Kulturangebot einer Region?",
+    "category": "anomalies",
+    "capability_status": "needs_definition",
+    "expect": {
+      "intent": "anomaly",
+      "entity_type": "organization",
+      "clarification": "needs_definition",
+      "unsupported_reason": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      },
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Veranstalter prägen das Kulturangebot einer Region?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "clarification": [
+        "none"
+      ]
+    },
+    "notes": "Prägen ist nicht definiert."
+  }
+]
