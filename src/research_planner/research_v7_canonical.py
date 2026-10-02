@@ -101,6 +101,8 @@ def canonicalize_v7(value: object) -> object:
         data["metric_filter"] = None
     if intent == "rank" and data["group_by"] in {"category", "event_type", "genre"}:
         data["entity_type"] = "event"
+    if intent != "compare":
+        data["comparison_targets"] = []
     targets = data["comparison_targets"]
     if (
         intent == "compare"

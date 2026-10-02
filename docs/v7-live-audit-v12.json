@@ -29685,6 +29685,24 @@
       "evidence": "/tmp/v13-canon-c35-target239.json",
       "evidence_sha256": "a11420db1f77a7c24a30e41f05d254bf497802832fe33725f230f399b765f581",
       "decision": "Unqualified record questions default to event; explicitly named entity types take precedence. Golden unchanged."
+    },
+    {
+      "case_id": "trends-061-010",
+      "question": "Welche Veranstaltungstypen treten saisonal besonders stark auf?",
+      "classification": "CONTRACT_AMBIGUITY",
+      "status": "pending_user_decision",
+      "expected": {
+        "intent": "aggregate",
+        "entity_type": "event",
+        "metric.operation": "occurrence_count",
+        "group_by": "month",
+        "clarification": "needs_definition",
+        "unsupported_reason": "unsupported_constraint"
+      },
+      "rationale": "No documented seasonal default selects monthly grouping or occurrence rather than event counts. The original audit records the invalid response but does not define this placeholder. A blocked month/occurrence representation needs an explicit product convention.",
+      "golden_changed": false,
+      "evidence": "/tmp/v13-canon-c56-target239.json",
+      "evidence_sha256": "57ed513dc64854765716446b8b54c834fa8ea888d052ba3f088d32b6a197235b"
     }
   ]
 }
