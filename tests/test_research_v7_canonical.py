@@ -420,3 +420,63 @@ def test_singular_taxonomy_noun_preserves_top_one():
     assert witness.limit == 1 and witness.group_by == "category"
     wrong = normalize(witness.model_dump(mode="json") | {"limit": 20})
     assert [d.path for d in compare_v7_expectations(wrong, case)] == ["limit"]
+
+
+@pytest.mark.parametrize(
+    "operation",
+    ["event_count", "occurrence_count", "venue_count", "space_count", "organization_count"],
+)
+def test_direct_count_has_no_nested_frequency_measure_or_window(operation):
+    data = example_plan(CASES["trends-061-008"]).model_dump(mode="json")
+    data["metric"] = example_plan(CASES["comparisons-058-007"]).metric.model_dump(mode="json")
+    data["metric"].update(operation=operation, measure="event_count", window="week")
+    actual = normalize(data)
+    assert actual.metric.operation == operation
+    assert actual.metric.measure is actual.metric.window is None
+    with pytest.raises(ValidationError, match="measure_and_window_required"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(data))
+    data["metric"]["window"] = "century"
+    with pytest.raises(ValidationError):
+        normalize(data)
+
+
+@pytest.mark.parametrize(
+    "id",
+    [
+        "combined-060-010",
+        "geography-066-002",
+        "graph-064-006",
+        "graph-064-007",
+        "graph-064-008",
+        "media-070-004",
+        "quality-068-006",
+        "trends-061-008",
+    ],
+)
+def test_target_boundary_witness_retains_known_semantics(id):
+    from tests.v7_golden import assert_v7_expectations
+
+    case = CASES[id]
+    witness = example_plan(case)
+    assert witness.clarification == "needs_definition"
+    assert witness.semantic is None
+    assert_v7_expectations(normalize(witness.model_dump(mode="json")), case)
+    if witness.intent == "anomaly":
+        assert witness.anomaly is not None
+    elif witness.intent == "relation":
+        assert witness.relation.via == ["event"]
+    elif id == "graph-064-008":
+        assert witness.metric.distinct_by == "region" and witness.metric_filter.value == 1
+
+
+def test_unselected_anomaly_dimension_is_not_an_executor_constraint():
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES["combined-060-010"]
+    witness = example_plan(case)
+    assert witness.clarification == "needs_definition"
+    assert witness.unsupported_reason is None and witness.group_by == "none"
+    wrong = normalize(
+        witness.model_dump(mode="json") | {"unsupported_reason": "unsupported_constraint"}
+    )
+    assert [d.path for d in compare_v7_expectations(wrong, case)] == ["unsupported_reason"]
