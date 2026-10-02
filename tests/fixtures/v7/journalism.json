@@ -204,6 +204,13 @@
           "focus": null
         }
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {

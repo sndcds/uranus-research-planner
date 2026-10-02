@@ -49,6 +49,7 @@ class ValidationDetail(DiagnosticModel):
 class Expectations(DiagnosticModel):
     expect: dict[str, JsonValue]
     forbid: dict[str, list[JsonValue]]
+    resolver_name_variants: dict[str, list[str]] = Field(default_factory=dict)
 
 
 class LiveCaseDiagnostic(DiagnosticModel):
@@ -78,7 +79,8 @@ class Counts(DiagnosticModel):
 
 class LiveReport(DiagnosticModel):
     schema_version: Literal["research-query-plan-v7"]
-    prompt_version: Literal["research-planner-v12"]
+    # Historical reports remain readable; new reports always identify the active prompt.
+    prompt_version: Literal["research-planner-v12", "research-planner-v13"]
     model: str
     reference_date: date
     git_commit: str | None
@@ -351,7 +353,11 @@ class LiveSession:
             capability_status=case.capability_status,
             question=case.question,
             status="pass",
-            expected=Expectations(expect=case.expect, forbid=case.forbid),
+            expected=Expectations(
+                expect=case.expect,
+                forbid=case.forbid,
+                resolver_name_variants=case.resolver_name_variants,
+            ),
             actual=None,
             differences=[],
             validation_stage=None,
@@ -422,7 +428,9 @@ def build_report(
                 paths[".".join(parts[:length])] += 1
     return LiveReport(
         schema_version="research-query-plan-v7",
-        prompt_version=cast(Literal["research-planner-v12"], RESEARCH_V7_PROMPT_VERSION),
+        prompt_version=cast(
+            Literal["research-planner-v12", "research-planner-v13"], RESEARCH_V7_PROMPT_VERSION
+        ),
         model=model,
         reference_date=reference_date,
         git_commit=git_commit,

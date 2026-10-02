@@ -531,16 +531,16 @@
     "id": "explain-025-007",
     "question": "Wie wurde \"ländlich\" definiert?",
     "category": "explain",
-    "capability_status": "needs_context",
+    "capability_status": "planned",
     "expect": {
       "intent": "explain",
       "entity_type": null,
-      "clarification": "needs_context",
+      "clarification": "none",
       "unsupported_reason": null,
       "explain": {
         "target": "definition",
         "term": "ländlich",
-        "context": "previous_result"
+        "context": "definition"
       },
       "semantic": null
     },
@@ -554,9 +554,6 @@
       "intent": [
         "list",
         "search"
-      ],
-      "clarification": [
-        "none"
       ]
     }
   },
@@ -564,16 +561,16 @@
     "id": "explain-025-008",
     "question": "Wie wurde \"ungewöhnlich\" berechnet?",
     "category": "explain",
-    "capability_status": "needs_context",
+    "capability_status": "planned",
     "expect": {
       "intent": "explain",
       "entity_type": null,
-      "clarification": "needs_context",
+      "clarification": "none",
       "unsupported_reason": null,
       "explain": {
         "target": "definition",
         "term": "ungewöhnlich",
-        "context": "previous_result"
+        "context": "definition"
       },
       "semantic": null
     },
@@ -587,9 +584,6 @@
       "intent": [
         "list",
         "search"
-      ],
-      "clarification": [
-        "none"
       ]
     }
   }

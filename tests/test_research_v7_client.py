@@ -41,7 +41,7 @@ async def test_reviewed_v7_model_outputs_and_endpoint(settings, auth, case):
         assert native["strict"] is True
         closed_objects(native["schema"])
         assert set(native["schema"]["properties"]) == set(type(expected).model_fields)
-        assert model.research_v7_agent.name == "research-planner-v12"
+        assert model.research_v7_agent.name == "research-planner-v13"
         assert not model.research_v7_agent.instrument
     finally:
         await model.close()
@@ -63,7 +63,7 @@ async def test_reviewed_v7_model_outputs_and_endpoint(settings, auth, case):
     assert (
         envelope.prompt_version
         == envelope.diagnostics.planner_prompt_version
-        == "research-planner-v12"
+        == "research-planner-v13"
     )
     assert envelope.kind == (
         "unsupported"
@@ -285,7 +285,7 @@ async def test_v5_v6_v7_prompt_versions_are_distinct_on_wire_schema_and_logs(
         case = next(c for c in fixtures if c["query"] == question)
         legacy[version] = model.model_validate_json(json.dumps(case["plan"]))
     plans = legacy | {7: example_plan(next(c for c in CASES if c.id == "ranking-039-004"))}
-    expected = {5: "research-planner-v10", 6: "research-planner-v11", 7: "research-planner-v12"}
+    expected = {5: "research-planner-v10", 6: "research-planner-v11", 7: "research-planner-v13"}
     assert len(set(expected.values())) == 3
     assert RESEARCH_V7_PROMPT_VERSION == expected[7]
     actual_versions = []

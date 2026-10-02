@@ -3,7 +3,7 @@
 Integration-fix base: `0396761b8de4791e9808711f32c0ec13925c4e08`.
 Frozen v5: research-query-plan-v5 / research-planner-v10.
 Frozen v6: research-query-plan-v6 / research-planner-v11.
-Proposed endpoint/schema/prompt: `/v7/plan` / research-query-plan-v7 / research-planner-v12.
+Proposed endpoint/schema/prompt: `/v7/plan` / research-query-plan-v7 / research-planner-v13.
 Keep all existing clients on their existing endpoints until a separately reviewed Admin
 adapter and capability validator are ready. No SQL, migrations, source lookups, indexing,
 UI, deployment or execution implementation is part of this Planner change.

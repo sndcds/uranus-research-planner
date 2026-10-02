@@ -1,0 +1,4704 @@
+{
+  "starting_commit": "2710c57c228bac954ad3acb51a9473ced9119bff",
+  "schema_version": "research-query-plan-v7",
+  "prompt_version": "research-planner-v13",
+  "model": "gpt-5.6-terra",
+  "reference_date": "2026-10-02",
+  "prompt_sha256": "6199a2c5e044b1f9978c997de1150e7a28d0d8e96616114e38d05f3ff5a6c9ee",
+  "selection": "union: categories security/knowledge/regressions/trends/temporal/taxonomy; capabilities supported/needs_definition",
+  "artifacts": [
+    {
+      "path": "/tmp/v13-candidate6-core.json",
+      "sha256": "10fad8009464a94c1845e6018ecf5ef837a95ec3230f0278834af2a8d03d9f9e"
+    },
+    {
+      "path": "/tmp/v13-candidate6-targeted.json",
+      "sha256": "c220ad1984de548b397983de4bceb47ff60bc5adf7c9109edc52bd96b43d85f7"
+    }
+  ],
+  "v12_original_same_selection": {
+    "total": 239,
+    "passed": 99,
+    "mismatch": 103,
+    "invalid_response": 37,
+    "provider_error": 0
+  },
+  "v12_audited_same_selection": {
+    "total": 239,
+    "passed": 104,
+    "mismatch": 98,
+    "invalid_response": 37,
+    "provider_error": 0
+  },
+  "v13_same_selection": {
+    "total": 239,
+    "passed": 152,
+    "mismatch": 82,
+    "invalid_response": 5,
+    "provider_error": 0
+  },
+  "by_category": {
+    "anomalies": {
+      "total": 8,
+      "passed": 6,
+      "mismatch": 2,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "audiences": {
+      "total": 1,
+      "passed": 1,
+      "mismatch": 0,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "combined": {
+      "total": 6,
+      "passed": 1,
+      "mismatch": 4,
+      "invalid_response": 1,
+      "provider_error": 0
+    },
+    "comparisons": {
+      "total": 9,
+      "passed": 4,
+      "mismatch": 5,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "content": {
+      "total": 1,
+      "passed": 0,
+      "mismatch": 0,
+      "invalid_response": 1,
+      "provider_error": 0
+    },
+    "gaps": {
+      "total": 2,
+      "passed": 2,
+      "mismatch": 0,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "geography": {
+      "total": 20,
+      "passed": 15,
+      "mismatch": 5,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "graph": {
+      "total": 6,
+      "passed": 0,
+      "mismatch": 6,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "journalism": {
+      "total": 8,
+      "passed": 4,
+      "mismatch": 3,
+      "invalid_response": 1,
+      "provider_error": 0
+    },
+    "knowledge": {
+      "total": 8,
+      "passed": 6,
+      "mismatch": 2,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "media": {
+      "total": 2,
+      "passed": 0,
+      "mismatch": 2,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "organizations": {
+      "total": 6,
+      "passed": 0,
+      "mismatch": 6,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "prices": {
+      "total": 2,
+      "passed": 0,
+      "mismatch": 2,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "quality": {
+      "total": 7,
+      "passed": 1,
+      "mismatch": 6,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "regressions": {
+      "total": 77,
+      "passed": 72,
+      "mismatch": 5,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "security": {
+      "total": 4,
+      "passed": 4,
+      "mismatch": 0,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "taxonomy": {
+      "total": 24,
+      "passed": 15,
+      "mismatch": 9,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "temporal": {
+      "total": 29,
+      "passed": 14,
+      "mismatch": 14,
+      "invalid_response": 1,
+      "provider_error": 0
+    },
+    "trends": {
+      "total": 16,
+      "passed": 7,
+      "mismatch": 8,
+      "invalid_response": 1,
+      "provider_error": 0
+    },
+    "venues": {
+      "total": 3,
+      "passed": 0,
+      "mismatch": 3,
+      "invalid_response": 0,
+      "provider_error": 0
+    }
+  },
+  "by_capability_status": {
+    "knowledge": {
+      "total": 8,
+      "passed": 6,
+      "mismatch": 2,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "needs_clarification": {
+      "total": 14,
+      "passed": 11,
+      "mismatch": 2,
+      "invalid_response": 1,
+      "provider_error": 0
+    },
+    "needs_context": {
+      "total": 1,
+      "passed": 0,
+      "mismatch": 1,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "needs_definition": {
+      "total": 86,
+      "passed": 32,
+      "mismatch": 50,
+      "invalid_response": 4,
+      "provider_error": 0
+    },
+    "needs_structured_data": {
+      "total": 5,
+      "passed": 3,
+      "mismatch": 2,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "planned": {
+      "total": 58,
+      "passed": 45,
+      "mismatch": 13,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "supported": {
+      "total": 58,
+      "passed": 50,
+      "mismatch": 8,
+      "invalid_response": 0,
+      "provider_error": 0
+    },
+    "unsupported": {
+      "total": 9,
+      "passed": 5,
+      "mismatch": 4,
+      "invalid_response": 0,
+      "provider_error": 0
+    }
+  },
+  "by_difference_root": {
+    "intent": 38,
+    "clarification": 36,
+    "metric": 27,
+    "anomaly": 25,
+    "unsupported_reason": 24,
+    "entity_type": 13,
+    "ordering": 9,
+    "limit": 8,
+    "group_by": 7,
+    "relation": 5,
+    "temporal": 5,
+    "spatial": 4,
+    "filters": 4,
+    "trend": 3,
+    "semantic": 2,
+    "knowledge": 2,
+    "metric_filter": 1
+  },
+  "cases": [
+    {
+      "case_id": "anomalies-057-001",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "anomalies-057-004",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "anomalies-057-005",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "anomalies-057-007",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "anomalies-057-009",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly.measure",
+          "expected": "event_count",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "anomalies-057-011",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "anomalies-024-001",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "anomalies-024-002",
+      "category": "anomalies",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "audiences-055-006",
+      "category": "audiences",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "combined-060-001",
+      "category": "combined",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "spatial.area_query",
+          "expected": "Schleswig-Holstein",
+          "actual": "Schleswig-Holsteins",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "combined-060-006",
+      "category": "combined",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "combined-060-008",
+      "category": "combined",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "invalid_response",
+      "differences": [],
+      "validation_stage": "pydantic_validation_error",
+      "validation_errors": [
+        {
+          "loc": [],
+          "type": "value_error",
+          "msg": "Value error, semantic_exact_population_forbidden"
+        }
+      ]
+    },
+    {
+      "case_id": "combined-060-009",
+      "category": "combined",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "combined-060-010",
+      "category": "combined",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly.measure",
+          "expected": "event_count",
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "combined-060-011",
+      "category": "combined",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": [
+            "none"
+          ],
+          "actual": "none",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "none",
+          "kind": "mismatch"
+        },
+        {
+          "path": "semantic",
+          "expected": null,
+          "actual": {
+            "query": "konkurrieren damit möglicherweise um dasselbe Publikum",
+            "focus": "mögliche Publikumskonkurrenz"
+          },
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "insufficient_structured_data",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-058-001",
+      "category": "comparisons",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_criteria",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "entity_type",
+          "expected": "municipality",
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "group_by",
+          "expected": "municipality",
+          "actual": "none",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-058-002",
+      "category": "comparisons",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-058-004",
+      "category": "comparisons",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-058-005",
+      "category": "comparisons",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": "municipality",
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "group_by",
+          "expected": "municipality",
+          "actual": "none",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-058-006",
+      "category": "comparisons",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": "region",
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "group_by",
+          "expected": "region",
+          "actual": "none",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-058-007",
+      "category": "comparisons",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-058-008",
+      "category": "comparisons",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-019-001",
+      "category": "comparisons",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "comparisons-019-002",
+      "category": "comparisons",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "content-072-005",
+      "category": "content",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "invalid_response",
+      "differences": [],
+      "validation_stage": "pydantic_validation_error",
+      "validation_errors": [
+        {
+          "loc": [
+            "relation"
+          ],
+          "type": "value_error",
+          "msg": "Value error, unknown_relation_edge"
+        }
+      ]
+    },
+    {
+      "case_id": "gaps-062-009",
+      "category": "gaps",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "gaps-062-010",
+      "category": "gaps",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-042-002",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-001",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-002",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-003",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-004",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-005",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-010",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-013",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-051-014",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-052-001",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-052-002",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-052-008",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-066-002",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-066-003",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-066-004",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-066-008",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "distance",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "spatial",
+          "expected": {
+            "relation": "nearest",
+            "place_query": "Zentrum",
+            "area_query": null,
+            "reference": "named",
+            "radius_m": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-066-009",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-013-001",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-015-001",
+      "category": "geography",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "geography-015-003",
+      "category": "geography",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "spatial.area_query",
+          "expected": "Schleswig-Holstein",
+          "actual": "Schleswig-Holsteins",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "graph-046-004",
+      "category": "graph",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "graph-064-005",
+      "category": "graph",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "needs_criteria",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "relation",
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "graph-064-006",
+      "category": "graph",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": [
+            "none"
+          ],
+          "actual": "none",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "none",
+          "kind": "mismatch"
+        },
+        {
+          "path": "relation.operation",
+          "expected": "related",
+          "actual": "shared",
+          "kind": "mismatch"
+        },
+        {
+          "path": "relation.target",
+          "expected": "venue",
+          "actual": "organization",
+          "kind": "mismatch"
+        },
+        {
+          "path": "relation.via.1",
+          "expected": null,
+          "actual": "venue",
+          "kind": "missing"
+        },
+        {
+          "path": "relation.via.2",
+          "expected": null,
+          "actual": "event",
+          "kind": "missing"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "graph-064-007",
+      "category": "graph",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "graph-064-008",
+      "category": "graph",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "distinct_count",
+            "field": null,
+            "distinct_by": "region",
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric_filter",
+          "expected": {
+            "operator": "gt",
+            "value": 1.0,
+            "upper": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "graph-064-010",
+      "category": "graph",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "journalism-059-001",
+      "category": "journalism",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "journalism-059-002",
+      "category": "journalism",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "journalism-059-005",
+      "category": "journalism",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "journalism-059-007",
+      "category": "journalism",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "journalism-059-009",
+      "category": "journalism",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "journalism-059-010",
+      "category": "journalism",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly.kind",
+          "expected": "outlier",
+          "actual": "inactive",
+          "kind": "mismatch"
+        },
+        {
+          "path": "entity_type",
+          "expected": "region",
+          "actual": "event",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "journalism-059-012",
+      "category": "journalism",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "invalid_response",
+      "differences": [],
+      "validation_stage": "pydantic_validation_error",
+      "validation_errors": [
+        {
+          "loc": [
+            "relation"
+          ],
+          "type": "value_error",
+          "msg": "Value error, unknown_relation_edge"
+        }
+      ]
+    },
+    {
+      "case_id": "journalism-059-016",
+      "category": "journalism",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "intent",
+          "expected": "list",
+          "actual": "anomaly",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-047-001",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-047-002",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-047-003",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-047-004",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": null,
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "knowledge",
+          "actual": "search",
+          "kind": "mismatch"
+        },
+        {
+          "path": "knowledge",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-026-001",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-026-002",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-026-003",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "knowledge-026-004",
+      "category": "knowledge",
+      "capability_status": "knowledge",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": null,
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "knowledge",
+          "actual": "search",
+          "kind": "mismatch"
+        },
+        {
+          "path": "knowledge",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "media-070-004",
+      "category": "media",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": null,
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": [
+            "list",
+            "search"
+          ],
+          "actual": "list",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "intent",
+          "expected": "rank",
+          "actual": "list",
+          "kind": "mismatch"
+        },
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "value",
+            "field": "created_at",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "asc",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "media-070-009",
+      "category": "media",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        },
+        {
+          "path": "semantic",
+          "expected": null,
+          "actual": {
+            "query": "besonders vollständige Mediendaten",
+            "focus": "Vollständigkeit von Mediendaten für Veranstalter"
+          },
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "insufficient_structured_data",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "organizations-053-002",
+      "category": "organizations",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "intent",
+          "expected": "list",
+          "actual": "relation",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "organizations-053-005",
+      "category": "organizations",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "filters.0",
+          "expected": {
+            "field": "event_type",
+            "operator": "eq",
+            "value": "Konzert"
+          },
+          "actual": null,
+          "kind": "missing"
+        },
+        {
+          "path": "intent",
+          "expected": "list",
+          "actual": "relation",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "organizations-063-001",
+      "category": "organizations",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "organizations-063-005",
+      "category": "organizations",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "aggregate",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "organizations-063-007",
+      "category": "organizations",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "organizations-063-009",
+      "category": "organizations",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "prices-067-003",
+      "category": "prices",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "clarification",
+          "expected": [
+            "none"
+          ],
+          "actual": "none",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "none",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": [
+            "list",
+            "search"
+          ],
+          "actual": "list",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "list",
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "prices-067-008",
+      "category": "prices",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "needs_criteria",
+          "kind": "mismatch"
+        },
+        {
+          "path": "entity_type",
+          "expected": "municipality",
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "group_by",
+          "expected": "municipality",
+          "actual": "none",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "quality-044-003",
+      "category": "quality",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": [
+            "list",
+            "search"
+          ],
+          "actual": "list",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "list",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "quality-044-005",
+      "category": "quality",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "quality-068-001",
+      "category": "quality",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "field_length",
+            "field": "description",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "quality-068-002",
+      "category": "quality",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "clarification",
+          "expected": [
+            "none"
+          ],
+          "actual": "none",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "none",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": [
+            "list",
+            "search"
+          ],
+          "actual": "list",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "list",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "quality-068-004",
+      "category": "quality",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "field_length",
+            "field": "description",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "quality-068-006",
+      "category": "quality",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "quality-068-010",
+      "category": "quality",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "intent",
+          "expected": "rank",
+          "actual": "anomaly",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "value",
+            "field": "modified_at",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "asc",
+          "actual": "desc",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-074-001",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-074-002",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-074-003",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-074-004",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-074-005",
+      "category": "regressions",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-074-006",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-074-007",
+      "category": "regressions",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-004-001",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-004-002",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-023-001",
+      "category": "regressions",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-023-002",
+      "category": "regressions",
+      "capability_status": "needs_definition",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-001",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-002",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-003",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-004",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-005",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-006",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-007",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-008",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-009",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-010",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-011",
+      "category": "regressions",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-012",
+      "category": "regressions",
+      "capability_status": "needs_structured_data",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-013",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-014",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-015",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-016",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-017",
+      "category": "regressions",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-018",
+      "category": "regressions",
+      "capability_status": "needs_structured_data",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-090-019",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-001",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-002",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-003",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-004",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-005",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-006",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-007",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-008",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-009",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-010",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-011",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-012",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-013",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-014",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-015",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-016",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-017",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-018",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-019",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-020",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-021",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-022",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-023",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "filters.0.field",
+          "expected": "genre",
+          "actual": "event_type",
+          "kind": "mismatch"
+        },
+        {
+          "path": "filters.0.value",
+          "expected": "Jazz",
+          "actual": "Jazz-Termine",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-024",
+      "category": "regressions",
+      "capability_status": "unsupported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-025",
+      "category": "regressions",
+      "capability_status": "needs_structured_data",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-091-026",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-001",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-002",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-003",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-004",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-005",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-006",
+      "category": "regressions",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-007",
+      "category": "regressions",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-008",
+      "category": "regressions",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-009",
+      "category": "regressions",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-010",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-011",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-012",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-092-013",
+      "category": "regressions",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-001",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-002",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-003",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-004",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-005",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-006",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-007",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "regressions-093-008",
+      "category": "regressions",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "security-078-001",
+      "category": "security",
+      "capability_status": "unsupported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "security-078-002",
+      "category": "security",
+      "capability_status": "unsupported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "security-078-003",
+      "category": "security",
+      "capability_status": "unsupported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "security-078-004",
+      "category": "security",
+      "capability_status": "unsupported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-001",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-002",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-003",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-004",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": null,
+          "actual": {
+            "kind": "rare",
+            "measure": null
+          },
+          "kind": "mismatch"
+        },
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "rank",
+          "actual": "anomaly",
+          "kind": "mismatch"
+        },
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "asc",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-005",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-006",
+      "category": "taxonomy",
+      "capability_status": "unsupported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "unsupported_reason",
+          "expected": "unsupported_constraint",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-007",
+      "category": "taxonomy",
+      "capability_status": "unsupported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_criteria",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "desc",
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": "unsupported_constraint",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-008",
+      "category": "taxonomy",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-009",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-048-010",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "metric.operation",
+          "expected": "diversity",
+          "actual": "distinct_count",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-001",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-002",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-003",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-004",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-005",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-006",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-007",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "intent",
+          "expected": "relation",
+          "actual": "aggregate",
+          "kind": "mismatch"
+        },
+        {
+          "path": "relation",
+          "expected": {
+            "operation": "shared",
+            "source": "genre",
+            "target": "genre",
+            "via": [
+              "event"
+            ],
+            "source_query": null,
+            "target_query": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-008",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-009",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_criteria",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric.distinct_by",
+          "expected": "organization",
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric.operation",
+          "expected": "distinct_count",
+          "actual": "organization_count",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-049-010",
+      "category": "taxonomy",
+      "capability_status": "needs_context",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_context",
+          "actual": "needs_location",
+          "kind": "mismatch"
+        },
+        {
+          "path": "spatial",
+          "expected": {
+            "relation": "inside",
+            "place_query": null,
+            "area_query": "Schleswig-Holstein",
+            "reference": "named",
+            "radius_m": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-011-001",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-011-002",
+      "category": "taxonomy",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-011-003",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "taxonomy-011-004",
+      "category": "taxonomy",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "distinct_count",
+            "field": null,
+            "distinct_by": "organization",
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-041-001",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-041-002",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "temporal",
+          "expected": {
+            "field": "start_date",
+            "period": "past",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-041-003",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_criteria",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "entity_type",
+          "expected": "event",
+          "actual": "occurrence",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "aggregate",
+          "actual": "anomaly",
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "temporal",
+          "expected": {
+            "field": "start_date",
+            "period": "past",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-041-004",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "regularity",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "occurrence_count",
+            "window": "week",
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-041-005",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-041-006",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "temporal",
+          "expected": {
+            "field": "start_date",
+            "period": "past",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-001",
+      "category": "temporal",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-002",
+      "category": "temporal",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-003",
+      "category": "temporal",
+      "capability_status": "supported",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-004",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-005",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-006",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-007",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "regularity",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "occurrence_count",
+            "window": "week",
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-008",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-009",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "desc",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-010",
+      "category": "temporal",
+      "capability_status": "planned",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-011",
+      "category": "temporal",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "temporal",
+          "expected": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "school_holiday",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-012",
+      "category": "temporal",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-050-013",
+      "category": "temporal",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-001",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": [
+            "none"
+          ],
+          "actual": "none",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "none",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "list",
+          "actual": "relation",
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": null,
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-002",
+      "category": "temporal",
+      "capability_status": "unsupported",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_criteria",
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": "unsupported_constraint",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-003",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": "event",
+          "actual": "occurrence",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-004",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": "event",
+          "actual": "occurrence",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "rank",
+          "actual": "aggregate",
+          "kind": "mismatch"
+        },
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "desc",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-005",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "entity_type",
+          "expected": "occurrence",
+          "actual": "event",
+          "kind": "mismatch"
+        },
+        {
+          "path": "group_by",
+          "expected": "hour",
+          "actual": "event_type",
+          "kind": "mismatch"
+        },
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "desc",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-006",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-007",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-008",
+      "category": "temporal",
+      "capability_status": "unsupported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "none",
+          "actual": "needs_definition",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "rank",
+          "actual": "anomaly",
+          "kind": "mismatch"
+        },
+        {
+          "path": "temporal",
+          "expected": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": true,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": "unsupported_constraint",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "temporal-065-009",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "invalid_response",
+      "differences": [],
+      "validation_stage": "pydantic_validation_error",
+      "validation_errors": [
+        {
+          "loc": [],
+          "type": "value_error",
+          "msg": "Value error, metric_filter_requires_metric"
+        }
+      ]
+    },
+    {
+      "case_id": "temporal-065-010",
+      "category": "temporal",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly.kind",
+          "expected": "rare",
+          "actual": "inactive",
+          "kind": "mismatch"
+        },
+        {
+          "path": "anomaly.measure",
+          "expected": "event_count",
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "entity_type",
+          "expected": "event",
+          "actual": "occurrence",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-001",
+      "category": "trends",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-002",
+      "category": "trends",
+      "capability_status": "planned",
+      "v12_original_status": "pass",
+      "v12_audited_status": "pass",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-003",
+      "category": "trends",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-004",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "needs_date",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-005",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-006",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-007",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "needs_date",
+          "kind": "mismatch"
+        },
+        {
+          "path": "trend.measure",
+          "expected": "event_count",
+          "actual": "occurrence_count",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-008",
+      "category": "trends",
+      "capability_status": "needs_structured_data",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly.measure",
+          "expected": "event_count",
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "needs_date",
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": "insufficient_structured_data",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-009",
+      "category": "trends",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": [
+            "none"
+          ],
+          "actual": "none",
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_date",
+          "actual": "none",
+          "kind": "mismatch"
+        },
+        {
+          "path": "trend.measure",
+          "expected": "event_count",
+          "actual": "occurrence_count",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-010",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "group_by",
+          "expected": "month",
+          "actual": "event_type",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "aggregate",
+          "actual": "anomaly",
+          "kind": "mismatch"
+        },
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric",
+          "expected": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "desc",
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": "unsupported_constraint",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-011",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "group_by",
+          "expected": "month",
+          "actual": "genre",
+          "kind": "mismatch"
+        },
+        {
+          "path": "limit",
+          "expected": 20,
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "metric.operation",
+          "expected": "event_count",
+          "actual": "occurrence_count",
+          "kind": "mismatch"
+        },
+        {
+          "path": "ordering",
+          "expected": "desc",
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": [
+            null
+          ],
+          "actual": null,
+          "kind": "forbidden_value"
+        },
+        {
+          "path": "unsupported_reason",
+          "expected": "unsupported_constraint",
+          "actual": null,
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-061-012",
+      "category": "trends",
+      "capability_status": "needs_structured_data",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "unsupported_reason",
+          "expected": "insufficient_structured_data",
+          "actual": "unsupported_constraint",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-022-001",
+      "category": "trends",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "invalid_response",
+      "differences": [],
+      "validation_stage": "pydantic_validation_error",
+      "validation_errors": [
+        {
+          "loc": [
+            "temporal"
+          ],
+          "type": "value_error",
+          "msg": "Value error, lookback_requires_unit"
+        }
+      ]
+    },
+    {
+      "case_id": "trends-022-002",
+      "category": "trends",
+      "capability_status": "needs_clarification",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-022-003",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "needs_date",
+          "kind": "mismatch"
+        },
+        {
+          "path": "trend.measure",
+          "expected": "event_count",
+          "actual": "occurrence_count",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "trends-022-004",
+      "category": "trends",
+      "capability_status": "needs_definition",
+      "v12_original_status": "invalid_response",
+      "v12_audited_status": "invalid_response",
+      "status": "pass",
+      "differences": [],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "venues-054-002",
+      "category": "venues",
+      "capability_status": "supported",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "filters.0",
+          "expected": {
+            "field": "event_type",
+            "operator": "eq",
+            "value": "Konzert"
+          },
+          "actual": null,
+          "kind": "missing"
+        },
+        {
+          "path": "intent",
+          "expected": "list",
+          "actual": "relation",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "venues-054-006",
+      "category": "venues",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "anomaly",
+          "expected": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "actual": null,
+          "kind": "mismatch"
+        },
+        {
+          "path": "clarification",
+          "expected": "needs_definition",
+          "actual": "needs_criteria",
+          "kind": "mismatch"
+        },
+        {
+          "path": "intent",
+          "expected": "anomaly",
+          "actual": "rank",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    },
+    {
+      "case_id": "venues-054-010",
+      "category": "venues",
+      "capability_status": "needs_definition",
+      "v12_original_status": "mismatch",
+      "v12_audited_status": "mismatch",
+      "status": "mismatch",
+      "differences": [
+        {
+          "path": "intent",
+          "expected": "list",
+          "actual": "anomaly",
+          "kind": "mismatch"
+        }
+      ],
+      "validation_stage": null,
+      "validation_errors": []
+    }
+  ]
+}

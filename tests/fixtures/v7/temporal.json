@@ -111,9 +111,9 @@
         "window": null,
         "currency": null
       },
-      "group_by": "month",
-      "ordering": "desc",
-      "limit": 20,
+      "group_by": "none",
+      "ordering": null,
+      "limit": null,
       "filters": [
         {
           "field": "event_type",
@@ -152,6 +152,13 @@
       ],
       "clarification": [
         "none"
+      ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
       ]
     }
   },

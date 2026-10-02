@@ -150,6 +150,13 @@
           "focus": null
         }
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {
@@ -291,16 +298,7 @@
       "entity_type": "organization",
       "clarification": "none",
       "unsupported_reason": "insufficient_structured_data",
-      "relation": {
-        "operation": "related",
-        "source": "organization",
-        "target": "organization",
-        "via": [
-          "event"
-        ],
-        "source_query": null,
-        "target_query": null
-      },
+      "relation": null,
       "semantic": null
     },
     "forbid": {
@@ -712,7 +710,7 @@
       "clarification": "needs_definition",
       "unsupported_reason": "insufficient_structured_data",
       "metric": null,
-      "group_by": "none",
+      "group_by": "organization",
       "ordering": "desc",
       "limit": 20,
       "semantic": null

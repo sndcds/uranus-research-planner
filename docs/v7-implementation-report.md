@@ -1,5 +1,7 @@
 # v7 implementation report
 
+Historical report for v12. Current canonical changes and results: [v13 report](v7-live-v13-report.md).
+
 Integration-fix base: `0396761b8de4791e9808711f32c0ec13925c4e08` (freshly fetched main).
 Branch: `fix/v7-post-merge-integration`.
 This repairs the combined PR #16/#17 state; no new Research capability or v7 redesign.

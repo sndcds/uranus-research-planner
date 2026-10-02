@@ -1,5 +1,7 @@
 # v7 live acceptance diagnostics
 
+Historical report for v12. Current canonical changes and results: [v13 report](v7-live-v13-report.md).
+
 Audit base after PR #18: `42320a7e3098a67c9d641c442ea7eb2349f570b8`.
 Branch: `feat/v7-live-diagnostics`. This work observes the existing 455 cases and
 research-query-plan-v7 / research-planner-v12; it does not repair interpretations.

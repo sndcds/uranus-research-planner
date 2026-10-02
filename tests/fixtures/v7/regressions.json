@@ -46,6 +46,13 @@
           "focus": null
         }
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {
@@ -452,7 +459,7 @@
     "capability_status": "planned",
     "expect": {
       "intent": "rank",
-      "entity_type": "occurrence",
+      "entity_type": "event",
       "clarification": "none",
       "unsupported_reason": null,
       "metric": {
@@ -490,7 +497,7 @@
     "capability_status": "planned",
     "expect": {
       "intent": "rank",
-      "entity_type": "occurrence",
+      "entity_type": "event",
       "clarification": "none",
       "unsupported_reason": null,
       "metric": {
@@ -1132,6 +1139,13 @@
         "list",
         "search"
       ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
+      ]
     }
   },
   {
@@ -1164,6 +1178,13 @@
       "intent": [
         "list",
         "search"
+      ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
       ]
     }
   },
@@ -1819,6 +1840,13 @@
       "intent": [
         "list",
         "search"
+      ]
+    },
+    "resolver_name_variants": {
+      "filters.0.value": [
+        "Konzert",
+        "Konzerte",
+        "Konzerten"
       ]
     }
   },

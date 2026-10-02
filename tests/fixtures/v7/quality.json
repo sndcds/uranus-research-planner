@@ -119,24 +119,19 @@
     "category": "quality",
     "capability_status": "needs_definition",
     "expect": {
-      "intent": "rank",
+      "intent": "anomaly",
       "entity_type": "event",
       "clarification": "needs_definition",
       "unsupported_reason": null,
-      "metric": {
-        "operation": "field_length",
-        "field": "description",
-        "distinct_by": null,
-        "numerator": null,
-        "denominator": null,
-        "measure": null,
-        "window": null,
-        "currency": null
-      },
-      "group_by": "event",
-      "ordering": "desc",
-      "limit": 20,
-      "semantic": null
+      "metric": null,
+      "group_by": "none",
+      "ordering": null,
+      "limit": null,
+      "semantic": null,
+      "anomaly": {
+        "kind": "outlier",
+        "measure": null
+      }
     },
     "forbid": {
       "semantic": [
@@ -983,8 +978,8 @@
       "unsupported_reason": "insufficient_structured_data",
       "metric": null,
       "group_by": "none",
-      "ordering": "desc",
-      "limit": 20,
+      "ordering": null,
+      "limit": null,
       "semantic": null
     },
     "forbid": {
