@@ -348,7 +348,7 @@ reserved for anomaly/trend are null for other intents; relation is null for inte
 cannot carry it. All unchanged public plan cross-field validators then run, followed by
 original-query equality at the client/API boundary. Unknown enums, extra fields and invalid
 nested objects are rejected even if otherwise neutralized, except the explicit
-undefined-diversity descriptor described below.
+metric and taxonomy co-occurrence normal forms described below.
 
 This adapter neither guesses intent nor invents operands, filters, names, clarifications
 or capabilities. It preserves the declared unsupported state. The public JSON schema and
@@ -357,8 +357,8 @@ NativeOutput schema are unchanged. There is still one model call and no repair/r
 An explicitly `needs_definition` rank carrying only `metric.operation=diversity` with
 all operands null and no metric_filter has the existing neutral form metric=null. Its
 proposal metric reuses the exact closed field schema; no dimension or method is inferred.
-Every other metric passes the unchanged operand validator before normalization, and all
-final plans pass it again. Unknown fields/enums, unblocked missing dimensions and other
+Apart from the direct-count normal form below, other metrics pass the unchanged operand
+validator before normalization, and all final plans pass it again. Unknown fields/enums, unblocked missing dimensions and other
 missing operands still fail. This does not relax the public metric model.
 
 Ordering is null for intents that forbid it. Change metrics are neutral outside trend;
@@ -381,3 +381,17 @@ unsupported subject is never converted into a supported subject by this rule.
 Direct count operations already declare their complete measure; nested `measure` and
 `window` are neutralized to null in proposals. Other operands and all final metrics still
 undergo strict validation. Frequency, regularity and change metrics retain their windows.
+
+For compare plans with at least two explicit homogeneous venue/organization/municipality/
+region targets, their kind is the canonical subject/entity grouping when grouping is absent
+or already matches. Explicit other groups and unsupported subjects are preserved. This
+normal form never invents a measure, target, name or clarification state.
+
+Unqualified “Datensätze” / “records” use the **event** population by default.
+An explicitly named entity takes precedence. This user-approved interpretation default
+adds no entity type and does not resolve an undefined age threshold: stale-update ranking
+retains `value(modified_at)` and `needs_definition`; creation age uses `created_at`.
+
+Direct count operations have no field projection. The internal canonicalizer neutralizes
+a known but inapplicable `metric.field`, just as it neutralizes nested measure/window;
+the declared count operation remains authoritative. Unknown fields still fail validation.

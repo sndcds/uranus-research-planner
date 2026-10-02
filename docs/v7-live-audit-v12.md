@@ -3637,3 +3637,18 @@ policy this is **GOLDEN_TOO_STRICT**. The same two names are now explicitly decl
 for this case only; outside/named and every other expectation remain unchanged.
 The JSON addendum records exact before/after and the c32 Core artifact hash. This is
 the second Geo addendum, separate from the original44; no blanket alias normalization.
+
+### Pending population-default decision (c35 Target)
+
+`quality-068-010`: “Welche Datensätze wurden besonders lange nicht aktualisiert?”
+Golden selects event/event grouping. The contract defines seven entities but no default
+for unqualified records; the question could refer to several populations. **CONTRACT_AMBIGUITY**
+for this population choice; the original recency/intent audit remains unchanged.
+The user is asked to explicitly choose event-default versus clarification of record type.
+No Golden/schema change has been made, and the canonicalizer does not infer an entity
+from absent semantics. Evidence and alternatives are recorded in the JSON addendum.
+
+The user resolved this population ambiguity: **keep Golden and document event as the
+unqualified-record default**. Explicit entity names take precedence. The fixture remains
+unchanged; c38 documents the interpretation default and distinguishes `modified_at`
+(stale updates) from `created_at` (creation age). No schema/validator or comparator change.

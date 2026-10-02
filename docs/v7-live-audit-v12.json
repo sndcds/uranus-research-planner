@@ -29668,5 +29668,23 @@
         ]
       }
     ]
-  }
+  },
+  "pending_contract_decisions": [
+    {
+      "case_id": "quality-068-010",
+      "question": "Welche Datensätze wurden besonders lange nicht aktualisiert?",
+      "classification": "CONTRACT_AMBIGUITY",
+      "status": "resolved_by_user",
+      "expected_entity_type": "event",
+      "rationale": "The contract defines seven entity types but no default for unqualified Datensätze/records. Events, venues and organizations are equally possible populations; choosing event requires an explicit product default, not model repair. The earlier audit covered recency/intent, not this population default.",
+      "options": [
+        "Document event as the default and retain Golden",
+        "Clarify record type and separately audit its closed-plan representation"
+      ],
+      "golden_changed": false,
+      "evidence": "/tmp/v13-canon-c35-target239.json",
+      "evidence_sha256": "a11420db1f77a7c24a30e41f05d254bf497802832fe33725f230f399b765f581",
+      "decision": "Unqualified record questions default to event; explicitly named entity types take precedence. Golden unchanged."
+    }
+  ]
 }
