@@ -1147,3 +1147,24 @@ The same isolated source snapshot now runs Core121.
 
 Offline c30: **3997 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff, docs
 links and whitespace gates pass. All historical run entries remain unchanged.
+
+c30 Core: **117/121 pass, 1 mismatch, 3 invalid, 0 provider errors**. Security4/4,
+knowledge8/8, regressions73/77, supported57/58. Three exact accessibility counts incorrectly
+route to search while retaining count metrics; geographic existence routes to list.
+c31 restores explicit quantitative-intent precedence over semantic evidence and existence
+count routing. Four strict regression witnesses added; focused **622 passed**.
+Direct selection now covers these four plus the prior eight Target boundaries and the
+category-count regression (13 cases), to test the rule groups together.
+
+c31 direct: **12/13 pass, 1 mismatch, 0 invalid/provider errors**. All quantitative
+accessibility/existence regressions now pass; category strength still becomes anomaly.
+Offline **4001 passed, 710 skipped**, all gates pass. c32 explicitly distinguishes
+emphatic ordinary quantity (besonders) from an anomaly request, preserving the undefined
+quality/dispersion precedence. Focused: **622 passed**.
+
+c32 direct: **13/13 pass, 0 mismatch/invalid/provider errors**. The unchanged snapshot
+proceeds to the historical nine-case gate before Core.
+
+c32 historical nine: **9/9 pass**, zero mismatch/invalid/provider errors. Core121 is
+running on the same sources. Offline c32: **4001 passed, 710 skipped**; Ruff, format,
+Mypy, OpenAPI no-diff, docs links and whitespace checks pass.

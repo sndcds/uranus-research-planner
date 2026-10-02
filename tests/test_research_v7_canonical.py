@@ -480,3 +480,25 @@ def test_unselected_anomaly_dimension_is_not_an_executor_constraint():
         witness.model_dump(mode="json") | {"unsupported_reason": "unsupported_constraint"}
     )
     assert [d.path for d in compare_v7_expectations(wrong, case)] == ["unsupported_reason"]
+
+
+@pytest.mark.parametrize(
+    "id",
+    [
+        "regressions-090-012",
+        "regressions-090-018",
+        "regressions-091-021",
+        "regressions-091-025",
+    ],
+)
+def test_quantification_keeps_count_even_when_evidence_or_geography_is_needed(id):
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES[id]
+    witness = example_plan(case)
+    assert witness.intent == "count" and witness.metric.operation == "event_count"
+    data = witness.model_dump(mode="json")
+    with pytest.raises(ValidationError, match="unexpected_metric"):
+        normalize(data | {"intent": "list"})
+    wrong = normalize(data | {"intent": "list", "metric": None})
+    assert {"intent", "metric"} <= {d.path for d in compare_v7_expectations(wrong, case)}
