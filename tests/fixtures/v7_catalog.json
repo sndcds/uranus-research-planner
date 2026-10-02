@@ -2710,6 +2710,54 @@
       "question": "Hvor finder arrangementer sted?",
       "category": "regressions",
       "section": 92
+    },
+    {
+      "id": "regressions-093-001",
+      "question": "Welche Veranstaltungen haben besonders viele Termine?",
+      "category": "regressions",
+      "section": 93
+    },
+    {
+      "id": "regressions-093-002",
+      "question": "Welche Event-Typen haben die meisten Termine?",
+      "category": "regressions",
+      "section": 93
+    },
+    {
+      "id": "regressions-093-003",
+      "question": "Which event has the fewest dates?",
+      "category": "regressions",
+      "section": 93
+    },
+    {
+      "id": "regressions-093-004",
+      "question": "Which 5 events have the most occurrences?",
+      "category": "regressions",
+      "section": 93
+    },
+    {
+      "id": "regressions-093-005",
+      "question": "Which event type has the most occurrences?",
+      "category": "regressions",
+      "section": 93
+    },
+    {
+      "id": "regressions-093-006",
+      "question": "Hvilken begivenhed har færrest datoer?",
+      "category": "regressions",
+      "section": 93
+    },
+    {
+      "id": "regressions-093-007",
+      "question": "Hvilke 5 arrangementer har flest datoer?",
+      "category": "regressions",
+      "section": 93
+    },
+    {
+      "id": "regressions-093-008",
+      "question": "Hvilken begivenhedstype har flest datoer?",
+      "category": "regressions",
+      "section": 93
     }
   ]
 }

@@ -382,7 +382,7 @@ def create_app(
             return PlanResponseV7(
                 kind=kind,
                 schema_version="research-query-plan-v7",
-                prompt_version="research-planner-v10",
+                prompt_version="research-planner-v12",
                 model=settings.model,
                 plan=proposal,
                 reference_date=reference_date,
@@ -391,7 +391,7 @@ def create_app(
                     request_id=request_id,
                     planner_intent=proposal.intent,
                     planner_model=settings.model,
-                    planner_prompt_version="research-planner-v10",
+                    planner_prompt_version="research-planner-v12",
                     planner_ms=planner_ms,
                     total_ms=round((perf_counter() - started) * 1000, 2),
                 ),
@@ -406,7 +406,7 @@ def create_app(
             log_plan(
                 request_id=request_id,
                 model=settings.model,
-                prompt_version="research-planner-v10",
+                prompt_version="research-planner-v12",
                 intent=intent,
                 planner_ms=planner_ms,
                 total_ms=round((perf_counter() - started) * 1000, 2),

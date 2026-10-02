@@ -1395,7 +1395,7 @@
           },
           "planner_prompt_version": {
             "type": "string",
-            "const": "research-planner-v10",
+            "const": "research-planner-v12",
             "title": "Planner Prompt Version"
           },
           "planner_ms": {
@@ -2616,7 +2616,7 @@
           },
           "prompt_version": {
             "type": "string",
-            "const": "research-planner-v10",
+            "const": "research-planner-v12",
             "title": "Prompt Version"
           },
           "model": {

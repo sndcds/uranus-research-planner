@@ -301,7 +301,7 @@ class DiagnosticsV7(ClosedV7):
     request_id: str = Field(pattern=r"^[a-f0-9]{32}$")
     planner_intent: IntentV7
     planner_model: NameV7
-    planner_prompt_version: Literal["research-planner-v10"]
+    planner_prompt_version: Literal["research-planner-v12"]
     planner_ms: float = Field(ge=0)
     total_ms: float = Field(ge=0)
 
@@ -309,7 +309,7 @@ class DiagnosticsV7(ClosedV7):
 class PlanResponseV7(ClosedV7):
     kind: Literal["plan", "needs_clarification", "unsupported"]
     schema_version: Literal["research-query-plan-v7"]
-    prompt_version: Literal["research-planner-v10"]
+    prompt_version: Literal["research-planner-v12"]
     model: NameV7
     plan: ResearchQueryPlanV7
     reference_date: date

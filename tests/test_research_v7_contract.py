@@ -424,3 +424,31 @@ def test_meaningless_temporal_object_is_rejected():
     value["temporal"]["period"] = "none"
     with pytest.raises(ValidationError, match="unused_temporal_must_be_null"):
         ResearchQueryPlanV7.model_validate_json(json.dumps(value))
+
+
+@pytest.mark.parametrize("version,fixture", [(5, "analytics.json"), (6, "geography.json")])
+def test_post_merge_event_grouping_and_complete_legacy_coverage(version, fixture):
+    from research_planner.analytics_schema import AnalyticalQueryPlan
+    from research_planner.geography_schema import GeographicQueryPlan
+
+    model = AnalyticalQueryPlan if version == 5 else GeographicQueryPlan
+    assert "event" in model.model_json_schema()["properties"]["group_by"]["enum"]
+    legacy_cases = json.loads(Path("tests/fixtures", fixture).read_text())
+    golden_by_question = {}
+    for case in CASES.values():
+        golden_by_question.setdefault(case.question, []).append(case)
+    assert all(case["query"] in golden_by_question for case in legacy_cases)
+    event_rankings = [c for c in legacy_cases if c["plan"]["group_by"] == "event"]
+    assert any(c["query"] == "Welches Event hat die meisten Termine?" for c in event_rankings)
+    for case in event_rankings:
+        legacy = model.model_validate_json(json.dumps(case["plan"]))
+        assert legacy.intent == "aggregate" and legacy.metric == "occurrence_count"
+        for wrong_metric in ("event_count", "venue_count", "organization_count", "none"):
+            with pytest.raises(ValidationError):
+                model.model_validate_json(json.dumps(case["plan"] | {"metric": wrong_metric}))
+        for golden in golden_by_question[case["query"]]:
+            plan = example_plan(golden)
+            assert plan.intent == "rank" and plan.entity_type == "event"
+            assert plan.metric.operation == "occurrence_count" and plan.group_by == "event"
+            assert plan.ordering == legacy.ordering and plan.limit == legacy.limit
+            assert plan.filters == [] and plan.semantic is None

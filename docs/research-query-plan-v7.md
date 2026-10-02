@@ -1,8 +1,9 @@
 # Research Query Language v7
 
-`POST /v7/plan` → `research-query-plan-v7` / `research-planner-v10`.
+`POST /v7/plan` → `research-query-plan-v7` / `research-planner-v12`.
 This is an additive proposal for coordinated Admin integration, not a client migration.
-The audit base is `e73358cc7ceec06f0edeb7d486ba75608c30f92a`.
+The integration-fix base is `0396761b8de4791e9808711f32c0ec13925c4e08`.
+The frozen legacy baseline is the accepted PR #16 commit `b6c78636e0674becc12d5f29ffe74dda87dd202d`.
 
 ## Boundary and compatibility
 
@@ -17,7 +18,9 @@ Names are resolver proposals, never invented IDs. No counts are calculated here.
 behavior. v7 uses independent classes, not inheritance from analytical/geographic plans.
 Legacy source/fixture hashes and every old OpenAPI operation/component are pinned in
 `tests/fixtures/v7_legacy_contracts.json`; old fixtures still run normally.
-v5 remains schema v5 / prompt v8; v6 remains schema v6 / prompt v9.
+v5 remains research-query-plan-v5 / research-planner-v10;
+v6 remains research-query-plan-v6 / research-planner-v11.
+v7 uses research-query-plan-v7 / research-planner-v12, without changing its data algebra.
 
 The request remains `{query, timezone, language}` with existing defaults/bounds.
 No browser coordinates, result context or executor capabilities are accepted.
@@ -248,11 +251,12 @@ Admin work and known unsupported compositions: [handoff](v7-admin-handoff.md).
 
 ## Executable acceptance specification
 
-447 question occurrences in 25 files retain every supplied catalog question and variation,
+455 question occurrences in 25 files retain every supplied catalog question and variation,
 including intentional repeats in different sections, DE/EN/DA regressions, security and
 all old analytical/geographic fixture questions. No duplicates were removed.
 IDs encode category/source section/ordinal; sections 90–92 are added multilingual/legacy
-regressions. A separate manifest pins question text, category, ID and source section.
+regressions. Section 93 adds the eight missing PR #16 variants (447 + 8 = 455); the
+other nine analytics additions and the geography addition were already covered. A separate manifest pins question text, category, ID and source section.
 Tests reject missing/unreferenced files, unknown statuses/categories and duplicate IDs.
 
 Capabilities are **test metadata**, never prompt routing:

@@ -41,6 +41,7 @@ async def test_reviewed_v7_model_outputs_and_endpoint(settings, auth, case):
         assert native["strict"] is True
         closed_objects(native["schema"])
         assert set(native["schema"]["properties"]) == set(type(expected).model_fields)
+        assert model.research_v7_agent.name == "research-planner-v12"
         assert not model.research_v7_agent.instrument
     finally:
         await model.close()
@@ -62,7 +63,7 @@ async def test_reviewed_v7_model_outputs_and_endpoint(settings, auth, case):
     assert (
         envelope.prompt_version
         == envelope.diagnostics.planner_prompt_version
-        == "research-planner-v10"
+        == "research-planner-v12"
     )
     assert envelope.kind == (
         "unsupported"
@@ -262,3 +263,64 @@ def test_prompt_is_algebra_not_a_fixture_lookup_or_catalog():
     assert sum(c.question in RESEARCH_V7_PROMPT for c in CASES) < 10
     assert "answer_mode" in RESEARCH_V7_PROMPT
     assert "unsupported_constraint" in RESEARCH_V7_PROMPT
+
+
+async def test_v5_v6_v7_prompt_versions_are_distinct_on_wire_schema_and_logs(
+    settings, auth, caplog
+):
+    from pathlib import Path
+
+    from research_planner.analytics_schema import AnalyticalQueryPlan
+    from research_planner.geography_schema import GeographicQueryPlan
+    from research_planner.research_v7_prompts import RESEARCH_V7_PROMPT_VERSION
+
+    caplog.set_level(logging.INFO, logger="research_planner.metrics")
+    question = "Welches Event hat die meisten Termine?"
+    legacy = {}
+    for version, filename, model in [
+        (5, "analytics.json", AnalyticalQueryPlan),
+        (6, "geography.json", GeographicQueryPlan),
+    ]:
+        fixtures = json.loads(await asyncio.to_thread(Path("tests/fixtures", filename).read_text))
+        case = next(c for c in fixtures if c["query"] == question)
+        legacy[version] = model.model_validate_json(json.dumps(case["plan"]))
+    plans = legacy | {7: example_plan(next(c for c in CASES if c.id == "ranking-039-004"))}
+    expected = {5: "research-planner-v10", 6: "research-planner-v11", 7: "research-planner-v12"}
+    assert len(set(expected.values())) == 3
+    assert RESEARCH_V7_PROMPT_VERSION == expected[7]
+    actual_versions = []
+    for version, plan in plans.items():
+        provider = FakePlanner()
+
+        async def answer(request, reference, result=plan):
+            return result
+
+        setattr(provider, f"plan_v{version}", answer)
+        app = create_app(settings, provider)
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=app), base_url="http://test"
+        ) as api:
+            response = await api.post(f"/v{version}/plan", headers=auth, json={"query": question})
+        assert response.status_code == 200
+        body = response.json()
+        assert body["schema_version"] == f"research-query-plan-v{version}"
+        assert (
+            body["prompt_version"]
+            == body["diagnostics"]["planner_prompt_version"]
+            == expected[version]
+        )
+        actual_versions.append(body["prompt_version"])
+        spec = app.openapi()
+        response_schema = spec["paths"][f"/v{version}/plan"]["post"]["responses"]["200"]["content"][
+            "application/json"
+        ]["schema"]
+        for alternative in response_schema.get("oneOf", [response_schema]):
+            envelope = spec["components"]["schemas"][alternative["$ref"].split("/")[-1]]
+            assert envelope["properties"]["prompt_version"]["const"] == expected[version]
+            assert (
+                envelope["properties"]["schema_version"]["const"]
+                == f"research-query-plan-v{version}"
+            )
+    assert len(set(actual_versions)) == 3
+    logged = [json.loads(r.message) for r in caplog.records if r.name == "research_planner.metrics"]
+    assert [r["planner_prompt_version"] for r in logged] == list(expected.values())
