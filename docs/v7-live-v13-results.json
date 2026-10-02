@@ -13134,5 +13134,368 @@
       "docs_links": "passed",
       "diff_check": "passed"
     }
+  },
+  "taxonomy_separation_followup": {
+    "starting_commit": "4ff8811319f876bd6285b87c6bd6040cc46d2c56",
+    "prompt_version": "research-planner-v13",
+    "prompt_sha256": "b776518b7bdd22715adbd4202a7e01d42ef6a0fc7ce72586cc827e4c74c87056",
+    "prompt_characters": 13997,
+    "golden_changes": 0,
+    "schema_changes": 0,
+    "validator_changes": 0,
+    "comparator_changes": 0,
+    "api_changes": 0,
+    "provider_changes": 0,
+    "rule": "taxonomy is nonnull only for intent=taxonomy; ranking carries category/event_type/genre solely in group_by. Type-filtered inventory remains taxonomy plus name filter. Final self-check enforces both branches.",
+    "selected_cases": [
+      "comparisons-058-007",
+      "regressions-090-003",
+      "regressions-090-004"
+    ],
+    "runs": [
+      {
+        "name": "three_first",
+        "artifact_path": "/tmp/v13-taxonomy-three-first.json",
+        "artifact_sha256": "b4401759a97d30396a76cdc0b7e8b92aab0e28ac0c2d830262ef23ddb0ec9f35",
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 3,
+          "passed": 2,
+          "failed": 1,
+          "mismatch_count": 1,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "comparisons": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 2,
+              "passed": 1,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "planned": {
+              "total": 2,
+              "passed": 1,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "entity_type": 1
+          },
+          "cases": [
+            {
+              "case_id": "comparisons-058-007",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "category",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Flensburg",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "category",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Flensburg",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-003",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welcher Veranstaltungstyp hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event_type",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event_type",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 153,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-004",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welches Genre hat die meisten Termine?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "genre",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welches Genre hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welches Genre hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "occurrence",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "genre",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "entity_type",
+                  "expected": "event",
+                  "actual": "occurrence",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 151,
+              "safe_error_code": null
+            }
+          ]
+        }
+      }
+    ],
+    "gates": {
+      "three_first": "failed",
+      "three_second": "not_run_three_first_failed",
+      "nine": "not_run_three_first_failed",
+      "core": "not_run_three_first_failed",
+      "target_239": "not_run_three_first_failed",
+      "full_455": "not_run_three_first_failed"
+    },
+    "merge_ready": false,
+    "validation": {
+      "pytest": "3446 passed, 710 skipped",
+      "focused_v13": "67 passed",
+      "ruff": "passed",
+      "format": "passed (68 files)",
+      "mypy": "passed (29 source files)",
+      "openapi_diff": "unchanged",
+      "docs_links": "passed",
+      "diff_check": "passed",
+      "development_note": "An intermediate prompt exceeded the existing length limit and failed two tests. Redundant taxonomy guidance was shortened; the full suite passed on the final 13997-character prompt."
+    },
+    "stop_reason": "three_first"
   }
 }

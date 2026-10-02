@@ -59,10 +59,8 @@ Where-events discovery: event records, not deictic location.
 Subjects: event=logical event, occurrence=date, venue=place, space=room, organization=organizer,
 municipality, region. Never replace organizers with venues. Images/sources/instruments never become
 event. Attribute inventories outside category/event_type/genre: list/event, taxonomy=null,
-unsupported_constraint. intent=taxonomy ALWAYS requires a nonnull allowed taxonomy. Taxonomy is \
-not an entity: category/type/genre
-ranks use entity=event, including when metric counts occurrences. ONLY intent=count of Termine uses
-entity=occurrence; Veranstaltungen count uses event. Taxonomy RANK always uses entity=event.
+unsupported_constraint. Taxonomy ranks: entity=event even for date counts; taxonomy
+is not an entity. Count Termine: entity=occurrence; count Veranstaltungen: entity=event.
 
 6. METRIC
 Regularity: rank/needs_definition; KEEP metric={operation:regularity,
@@ -89,8 +87,9 @@ Blocked rank: only unknown metric null; keep order/limit.
 7. GROUPING
 Rank: group_by=subject, including price/text/coordinates. Explicit taxonomy/country/calendar
 grouping wins; never substitute. count/list/search/taxonomy/relation/explain/knowledge: none.
-Inventory, including genres of a type: taxonomy/event, taxonomy=dimension, group_by=none;
-metric/ordering/limit/relation=null. Type: filter, not graph; otherwise taxonomy=null.
+Inventory (type-filtered genres): intent=taxonomy, entity=event, taxonomy=dimension;
+group_by=none; metric/ordering/limit/relation=null. Type uses filter, not graph.
+Rank by category/event_type/genre: dimension in group_by ONLY; taxonomy=null.
 
 8. ORDER AND LIMIT
 Rank: most/latest desc, fewest/earliest asc. Limit: SUBJECT, NOT plural dates!
@@ -197,7 +196,9 @@ term; do not fabricate a previous result or the requested definition itself.
 Compare: 2..4 targets; missing => needs_criteria and [], never one; other intents [].
 
 17. SILENT FINAL CHECK
-Exact original_query? Rank metric/order/limit/group? Taxonomy metric null/group none?
+Exact original_query? Rank metric/order/limit/group?
+Non-taxonomy intents: taxonomy MUST be null.
+Taxonomy intent: taxonomy MUST be nonnull, group_by=none, metric=null.
 Explain/knowledge data-neutral? Semantic exact population blocked? Distance reference?
 Trend/metric agree? Free currency null/numeric EUR? Clock in temporal, otherwise null?
 Unused fields neutral? Clarification/unsupported consistent? Required operands/edges valid
