@@ -1067,3 +1067,13 @@ No broad acceptance claim is made from this subset.
 c20 nine: **9/9 pass, 0 mismatch/invalid/provider errors**. Core121 is running on the
 same snapshot. Offline c20: **3980 passed, 710 skipped**; Ruff, format, Mypy, public
 OpenAPI no-diff, documentation links and whitespace checks pass. PR remains Draft.
+
+c20 Core: **118/121 pass, 3 mismatches, 0 invalid/provider errors**. Security4/4,
+knowledge8/8, regressions75/77, supported57/58. Two venue-activity questions choose distinct
+event count rather than occurrence count; singular category ranking chooses limit20.
+CI for 4fab402 passed. c21 clarifies the venue-activity/count distinction and includes
+category among singular subjects. No deterministic metric/limit guessing or Golden change.
+
+c21 direct: **3/3 pass**; nine: **9/9 pass**, both zero mismatch/invalid/provider errors.
+Offline: **3983 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff, doc links
+and whitespace checks pass. Full Core121 is running on these unchanged sources.
