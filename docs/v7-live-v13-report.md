@@ -1375,3 +1375,25 @@ settings remain unchanged in version/scope; this round only clarifies interpreta
 
 c54 offline: **4020 passed, 710 skipped**. Ruff, format, Mypy, OpenAPI no-diff,
 docs-link and whitespace gates pass. The full455 gate is still pending, not claimed stable.
+
+c54 Core: **118/121 pass, 3 mismatch, 0 invalid/provider**. Security4/4, knowledge8/8,
+regressions75/77, supported57/58. Type-frequency subject selection becomes aggregate,
+southernmost latitude uses descending order, and unordered category counts gain ranking
+defaults. c55 distinguishes subject selection from tables and specifies both coordinate
+axis directions. Shortened section labels keep the same17-step structure within the
+existing prompt-size guard; no guard, schema or Golden changes.
+
+c55 direct: **2/3 pass, 1 mismatch, 0 invalid/provider**. South/latitude direction and
+unordered category table pass; most-frequent subject selection remains aggregate. c56
+adds the general German subject-selection form to the existing rank definition, without
+an exact question or ID branch and without deterministic intent guessing.
+
+c55 offline: **4020 passed, 710 skipped**, all required checks pass. c56 focused:
+**641 passed**; direct **3/3 pass**, zero mismatch/invalid/provider. Historical nine
+runs next on the unchanged candidate. No existing failed run is removed.
+
+c56 historical nine: **9/9 pass**, zero mismatch/invalid/provider. Core121 is running
+on identical sources. No canonicalization, schema, validator or Golden change in c55/c56.
+
+c56 offline: **4020 passed, 710 skipped**. Ruff, format, Mypy, OpenAPI no-diff,
+docs links and whitespace gates pass. The candidate remains Draft pending wider live gates.
