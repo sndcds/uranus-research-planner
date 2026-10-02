@@ -1495,6 +1495,12 @@
           "focus": null
         }
       ]
+    },
+    "resolver_name_variants": {
+      "spatial.area_query": [
+        "Schleswig-Holstein",
+        "Schleswig-Holsteins"
+      ]
     }
   },
   {

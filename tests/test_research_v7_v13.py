@@ -72,7 +72,7 @@ def test_audit_covers_all_baseline_failures_and_every_golden_edit():
             assert entry["before"][immutable] == entry["after"][immutable]
     # Corpus before/after fingerprints include even unchanged cases. No unaudited edits.
     geo_changes = AUDIT["geo_name_addendum"]["changes"]
-    assert [entry["case_id"] for entry in geo_changes] == ["combined-060-001"]
+    assert [entry["case_id"] for entry in geo_changes] == ["combined-060-001", "geography-015-003"]
     for entry in geo_changes:
         assert entry["classification"] == "GOLDEN_TOO_STRICT" and entry["rationales"]
         before = GoldenCase.model_validate(entry["before"])
@@ -220,9 +220,10 @@ def test_name_variants_cannot_become_general_expectation_escape_hatch(variants):
         )
 
 
+@pytest.mark.parametrize("id", ["combined-060-001", "geography-015-003"])
 @pytest.mark.parametrize("name", ["Schleswig-Holstein", "Schleswig-Holsteins"])
-def test_audited_geo_inflection_preserves_actual_and_every_other_constraint(name):
-    case = CASES["combined-060-001"]
+def test_audited_geo_inflection_preserves_actual_and_every_other_constraint(id, name):
+    case = CASES[id]
     value = example_plan(case).model_dump(mode="json")
     value["spatial"]["area_query"] = name
     actual = parse(value)
@@ -231,7 +232,7 @@ def test_audited_geo_inflection_preserves_actual_and_every_other_constraint(name
     for update in [
         {"area_query": "Schleswig-Holsteines"},
         {"area_query": "Hamburg"},
-        {"relation": "outside"},
+        {"relation": "outside" if value["spatial"]["relation"] == "inside" else "inside"},
     ]:
         wrong = parse(value | {"spatial": value["spatial"] | update})
         with pytest.raises(AssertionError):

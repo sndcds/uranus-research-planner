@@ -1168,3 +1168,25 @@ proceeds to the historical nine-case gate before Core.
 c32 historical nine: **9/9 pass**, zero mismatch/invalid/provider errors. Core121 is
 running on the same sources. Offline c32: **4001 passed, 710 skipped**; Ruff, format,
 Mypy, OpenAPI no-diff, docs links and whitespace checks pass.
+
+c32 Core: **119/121 pass, 2 mismatches, 0 invalid/provider errors**. Security4/4,
+knowledge8/8, regressions76/77, supported57/58. Geo genitive appears in geography-015-003;
+under the user-approved resolver policy this second case receives its own audited exact
+name pair (all other expectations unchanged). Instrument inventory routes to search.
+c33 moves the existing non-taxonomy inventory boundary directly before semantic routing.
+Focused audit/contract/corpus validation: **1397 passed**. The direct set adds both cases
+to the previous13; all historical scores retain their original acceptance semantics.
+
+c33 direct: **14/15 pass, 1 mismatch, 0 invalid/provider errors**. Only non-taxonomy
+instrument inventory still routes to evidence search. The second audited Geo inflection
+passes. Offline **4003 passed, 710 skipped**, all gates pass. c34 adds a short illustrative
+attribute noun to the existing inventory boundary; no question string/ID routing.
+Focused: **624 passed**.
+
+c34 direct: **15/15 pass, 0 mismatch/invalid/provider errors**. The unchanged snapshot
+proceeds through historical nine, then Core if green.
+
+c34 historical nine: **9/9 pass**, zero mismatch/invalid/provider errors. Core121 is
+running. Offline **4003 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff,
+docs links and whitespace gates pass. The original44 audited corrections plus two
+individually audited Geo inflection declarations are the full Golden-change scope.

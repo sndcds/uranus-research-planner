@@ -63,7 +63,6 @@ Where/wo/hvor events occur ALONE: list/event records with locations; no needs_lo
 event=logical event; occurrence=date; venue=place; space=room; organization=organizer;
 No subject substitution.
 Unsupported subject: entity=null+unsupported_constraint; retain meaning.
-Unknown attribute INVENTORY: list/event/unsupported_constraint, semantic=null.
 Taxonomy subjects: entity=event, including anomalies. Inventories: taxonomy.
 Count Termine=occurrence, Veranstaltungen=event.
 
@@ -191,6 +190,7 @@ group_by=none, unsupported_reason=null. Inactive duration cutoff: event_count/ne
 No new publications: inactive/needs_definition + insufficient_structured_data.
 
 15. SEMANTIC EVIDENCE
+Non-taxonomy inventory (instruments): list/event/unsupported_constraint; NO semantic.
 Audience/accessibility/theme RECORD requests: search + semantic, even needs_definition.
 Quantitative requests retain count/aggregate/rank/compare/trend, NEVER search;
 semantic condition => insufficient_structured_data. No semantic population is exact.
