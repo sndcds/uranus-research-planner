@@ -260,3 +260,52 @@ def test_where_discovery_does_not_request_user_location():
     assert_v7_expectations(normalize(witness.model_dump(mode="json")), case)
     with pytest.raises(AssertionError, match="clarification"):
         assert_v7_expectations(witness.model_copy(update={"clarification": "needs_location"}), case)
+
+
+def test_explicitly_undefined_diversity_has_no_guessed_dimension():
+    witness = example_plan(CASES["combined-060-001"])
+    empty = {name: None for name in CASES["regressions-090-004"].expect["metric"]}
+    empty["operation"] = "diversity"
+    value = witness.model_dump(mode="json") | {"metric": empty}
+    assert normalize(value) == witness
+    with pytest.raises(ValidationError, match="distinct_dimension_required"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(value))
+    for update in [{"clarification": "none"}, {"clarification": "needs_criteria"}]:
+        with pytest.raises(ValidationError, match="distinct_dimension_required"):
+            normalize(value | update)
+    for update in [
+        {"operation": "distinct_count"},
+        {"field": "description"},
+        {"window": "week"},
+    ]:
+        with pytest.raises(ValidationError, match="distinct_dimension_required"):
+            normalize(value | {"metric": empty | update})
+    for update in [{"field": "sql"}, {"invented": True}]:
+        with pytest.raises(ValidationError):
+            normalize(value | {"metric": empty | update})
+
+
+def test_relation_order_is_neutral_but_known_count_is_preserved():
+    witness = example_plan(CASES["taxonomy-049-007"])
+    value = witness.model_dump(mode="json")
+    count = example_plan(CASES["regressions-090-004"]).metric.model_dump(mode="json")
+    actual = normalize(value | {"metric": count, "ordering": "desc", "limit": 20})
+    assert actual.ordering is None and actual.metric.operation == "occurrence_count"
+    assert actual.relation == witness.relation
+    with pytest.raises(ValidationError, match="unexpected_ordering"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(value | {"ordering": "desc"}))
+
+
+def test_change_metric_only_belongs_to_trend_and_never_invents_one():
+    witness = example_plan(CASES["trends-061-012"])
+    change = example_plan(CASES["regressions-090-004"]).metric.model_dump(mode="json") | {
+        "operation": "absolute_change",
+        "measure": "event_count",
+        "window": "month",
+    }
+    value = witness.model_dump(mode="json") | {"metric": change}
+    assert normalize(value) == witness
+    with pytest.raises(ValidationError, match="change_requires_trend"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(value))
+    with pytest.raises(ValidationError, match="measure_and_window_required"):
+        normalize(value | {"metric": change | {"window": None}})

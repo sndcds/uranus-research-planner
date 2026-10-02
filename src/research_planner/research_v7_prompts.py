@@ -47,9 +47,9 @@ list=records; search=evidence; count=population; aggregate=distribution/scalar s
 rank=ordered subjects; compare=target comparison; taxonomy=dictionary; relation=links;
 trend=period change; anomaly=unusualness; explain=evidence; knowledge=project.
 "new/neu" without defined meaning: list/needs_definition, temporal=null.
-Record age/alt: rank NOT list, value(created_at), old asc/new desc;
-also for unsupported subjects/undefined cutoffs.
-metric FIRST, metric_filter SECOND; no metric => no metric_filter, even "mehrere".
+Age selection (old/older/oldest/latest): rank/value(created_at), asc/desc, even blocked.
+Bare new/neu remains discovery, not age ordering.
+metric_filter requires metric; build metric FIRST.
 Counts per category: aggregate; categories with most: rank. Temporal count profiles:
 aggregate, desc/20 defaults. Other aggregates: order/limit null unless requested.
 Existence: count, except undefined new-record discovery.
@@ -62,16 +62,16 @@ Where/wo/hvor events occur ALONE: list/event records with locations; no needs_lo
 event=logical event; occurrence=date; venue=place; space=room; organization=organizer;
 municipality/region. No subject substitution.
 Unsupported subject: entity=null+unsupported_constraint even blocked.
-Unknown event ATTRIBUTE INVENTORY: list/event+unsupported_constraint, semantic=null.
-Attribute inventories are not evidence searches.
-Only category/type/genre inventories use taxonomy; their ranks/discovery use event.
+Unknown event attribute INVENTORY: list/event/unsupported_constraint, semantic=null;
+not evidence search.
+Only category/type/genre inventories use taxonomy.
 Count Termine=occurrence, Veranstaltungen=event.
 
 6. METRIC
-Regularity: rank/needs_definition; KEEP metric={operation:regularity,
-measure:occurrence_count,window:week} (blocked week placeholder; stated window wins).
-Keep subject/group/order/limit; simultaneous: temporal.overlap=true/period=none,
-metric_filter=null. Frequency/regularity: measure AND window.
+Regularity: rank/needs_definition; metric=regularity/occurrence_count/week
+(blocked placeholder; stated window wins).
+Keep subject/group/order/limit; simultaneous: overlap=true/period=none; metric_filter=null.
+Frequency/regularity: measure AND window.
 Duration=elapsed start/end; event duration=longest complete occurrence. No invented ends.
 Count distinct IDs; no event_count per event.
 Many dates: rank event/group event, occurrence_count, no clarification. Venue utilization/
@@ -90,8 +90,10 @@ paid event/occurrence subset over the SAME count population/all; all/all is not 
 Undefined FIELD-value cutoffs: rank/needs_definition, retain metric. Count ranks need no cutoff.
 
 7. GROUPING
-Rank: group_by=subject, including price/text/coordinates. Explicit taxonomy/country/calendar
-grouping wins; never substitute. count/list/search/taxonomy/relation/explain/knowledge: none.
+Rank entity group MUST equal entity; taxonomy/country/calendar may differ.
+Multi-dimension distribution: aggregate/unsupported_constraint/needs_criteria; outer group.
+Frequency-qualified multi-distribution: desc/20 even blocked.
+Other intents without grouping: none.
 Inventory (type-filtered genres): intent=taxonomy, entity=event, taxonomy=dimension;
 group_by=none; metric/ordering/limit/relation=null. Type uses filter, not graph.
 
@@ -139,10 +141,11 @@ Near me=nearby/user_location, needs_location, named slots null; no browser coord
 Directions need the given named reference, never a guessed one.
 Borders use reference=border plus jurisdiction in area_query (Dänemark for Danish border).
 Unnamed border => needs_location; undefined near-border distance => needs_definition.
-Distance requires spatial even when blocked. Nearest named area=nearest/named, not
-near_border membership. nearest_venue means each subject's nearest other venue, not pair
-results. Closest/walkable venue pairs: unsupported_constraint, metric=null. Station POIs:
-insufficient_structured_data. Undefined center: needs_definition. Never invent references.
+Distance extrema: spatial.nearest even blocked; radius=null. Generic reference: base noun;
+undefined size qualifier needs_definition. Keep proper names verbatim.
+Farthest: desc, NOT within_radius without a number. nearest_venue: nearest OTHER venue.
+Venue pairs: unsupported_constraint, metric=null. Station POIs: insufficient_structured_data.
+Undefined center: needs_definition. Never invent references.
 
 12. PRICE
 Price free/paid: minimum/maximum/currency=null. Numeric less_than/greater_than/between:
@@ -152,8 +155,10 @@ metric minimum/min_price/currency EUR. No conversion or inferred prices.
 13. RELATIONS
 Legal undirected edges: organization-event, event-occurrence/venue/space/category/event_type/
 genre, space-venue. Check EVERY adjacent pair of [source,*via,target], no self edge.
-Illegal path: relation=null, unsupported_constraint. Co-occurrence: related genre->category
-via=[event]; missing category needs_criteria. Undefined geographic "connect": related
+Illegal path: relation=null, unsupported_constraint. Taxonomy co-occurrence via=[event]:
+same dimension=shared/source=target; different dimensions=related, metric=null.
+Only unspecified PARTICULAR counterpart needs_criteria; never invent another dimension.
+Undefined geographic "connect": related
 event->venue, via=[], queries=null, needs_definition. Areas are not event/venue nodes/names.
 related: source=result, target=counterpart; queries stay on their nodes.
 Venues of organizer: venue->organization via event, target_query=organizer.
@@ -166,20 +171,19 @@ relation=null requires unsupported_reason for intent=relation.
 WITHIN a week: aggregate/weekday; BETWEEN periods: trend for increase/decrease/change.
 Build trend FIRST; copy change/measure/window to
 metric.operation/measure/window, all nonnull even blocked. Default change=absolute_change;
-explicit percentages use percentage_change. comparison=previous_period/previous_year.
+Percentages: percentage_change; comparison=previous_period/previous_year.
 Today versus last year: window day, previous_year, temporal today.
 Extract analysis UNIT first: Tage/days, Wochen/weeks, Monate/months, Quartale/quarters,
 Jahre/years -> day/week/month/quarter/year respectively.
 Unknown QUANTITY != unknown UNIT. Keep trend.window/metric.window.
-Time grouping: week/month/year -> group_by=that unit, EVEN with needs_date.
-Missing number of weeks: needs_date, window=week, group_by=week, no guessed lookback.
+Time grouping week/month/year persists even with needs_date.
+Unknown week count: needs_date, window=week, group_by=week, no guessed lookback.
 Only when NO unit is named use blocked month placeholder. No day/quarter group_by.
-Undefined significance needs_definition. Long-term mean comparison is
-not previous_period: unsupported baseline/data boundary, anomaly if statistically unusual.
-Undefined unusualness: intent=anomaly, anomaly outlier/measure=null, needs_definition.
-rare/inactive need explicit
-threshold/time basis; inactive means no activity, not merely few events. Unknown quietness,
-dominance, density or completeness must not invent a statistical method/count measure.
+Undefined unusualness/significance/density/quietness: anomaly/outlier, measure=null,
+needs_definition. Dominance/completeness: no invented method/count.
+Unusual long-term mean deviation: anomaly of event population, group by requested time unit,
+insufficient_structured_data for missing historical baseline; NOT trend/previous_period.
+rare/inactive need threshold/time basis; inactive=no activity. Never invent statistical methods.
 
 15. SEMANTIC EVIDENCE
 Audience/accessibility/theme evidence discovery: search, not list, even with needs_definition;
@@ -202,9 +206,8 @@ term; do not fabricate a previous result or the requested definition itself.
 Compare: 2..4 targets; missing => needs_criteria and [], never one; other intents [].
 
 17. SILENT FINAL CHECK
-Exact original_query? Rank metric/order/limit/group?
-Explain/knowledge data-neutral? Semantic exact population blocked? Distance reference?
-Trend/metric agree? Free currency null/numeric EUR? Clock in temporal, otherwise null?
-Unused fields neutral? Clarification/unsupported consistent? Operands/edges valid EVEN WHEN BLOCKED?
-JSON only; no narration.
+Exact input? Rank metric/order/limit/group? Valid operands/edges even blocked?
+Explain/knowledge neutral? Semantic population blocked? Spatial reference/radius valid?
+Trend consistent? Free currency null? Local clock temporal? Unused fields neutral?
+Blocks consistent? JSON only.
 """

@@ -7,25 +7,54 @@ from typing import Any
 from pydantic import ConfigDict, create_model, model_validator
 
 from research_planner.research_v7_schema import ResearchQueryPlanV7
-from research_planner.research_v7_types import COUNT_OPERATIONS, ClosedV7
+from research_planner.research_v7_types import COUNT_OPERATIONS, ClosedV7, MetricV7
 
-# Reuse every field constraint and nested validator, without duplicating vocabulary
-# or invoking the final plan's cross-field validator before normalization. This is
+# Reuse field constraints and nested validators without duplicating vocabulary.
+# Metric operand validation has one explicit undefined-descriptor exception below;
+# final plan cross-validation always follows normalization. This is
 # internal only: NativeOutput and OpenAPI still expose ResearchQueryPlanV7's schema.
 # Any is confined to Pydantic's model-construction API, never a plan field.
 _fields: dict[str, Any] = {
     name: (field.annotation, deepcopy(field))
     for name, field in ResearchQueryPlanV7.model_fields.items()
 }
+# Only an explicitly undefined, operand-free diversity descriptor has a neutral
+# form before metric cross-validation. Keep every metric field/type constraint.
+_metric_fields: dict[str, Any] = {
+    name: (field.annotation, deepcopy(field)) for name, field in MetricV7.model_fields.items()
+}
+ProposalMetricV7 = create_model("MetricV7", __base__=ClosedV7, **_metric_fields)
+_fields["metric"] = (ProposalMetricV7 | None, deepcopy(ResearchQueryPlanV7.model_fields["metric"]))
 ProposalV7 = create_model("ProposalV7", __base__=ClosedV7, **_fields)
 
 
 def canonicalize_v7(value: object) -> object:
-    # Check even fields that will be neutralized. Unknown enums, extra properties,
-    # malformed nested constraints and missing fields must never be hidden.
+    # Type-check even neutralized fields: unknown enums, extra properties and
+    # missing fields are rejected. The sole deferred metric rule is explicit below.
     proposal = ProposalV7.model_validate_json(json.dumps(value, allow_nan=False))
     data = proposal.model_dump(mode="python")
     intent = data["intent"]
+    metric = data["metric"]
+    if metric is not None:
+        if (
+            intent == "rank"
+            and data["clarification"] == "needs_definition"
+            and metric["operation"] == "diversity"
+            and all(value is None for key, value in metric.items() if key != "operation")
+            and data["metric_filter"] is None
+        ):
+            # No dimension/method was declared. Preserve the block, never guess one.
+            data["metric"] = None
+        else:
+            # Every other metric must pass the unchanged public operand validator,
+            # including fields that a later intent normal form would neutralize.
+            MetricV7.model_validate_json(json.dumps(metric, allow_nan=False))
+    if intent not in {"rank", "aggregate", "trend", "taxonomy", "anomaly"}:
+        data["ordering"] = None
+    if intent != "trend" and metric is not None:
+        if metric["operation"] in {"absolute_change", "percentage_change"}:
+            data["metric"] = None
+            data["metric_filter"] = None
     if intent != "taxonomy":
         data["taxonomy"] = None
     else:

@@ -347,8 +347,20 @@ and metric_filter; taxonomy-dimensional rank uses entity=event independently of 
 reserved for anomaly/trend are null for other intents; relation is null for intents that
 cannot carry it. All unchanged public plan cross-field validators then run, followed by
 original-query equality at the client/API boundary. Unknown enums, extra fields and invalid
-nested objects are rejected even if the field would otherwise be neutralized.
+nested objects are rejected even if otherwise neutralized, except the explicit
+undefined-diversity descriptor described below.
 
 This adapter neither guesses intent nor invents operands, filters, names, clarifications
 or capabilities. It preserves the declared unsupported state. The public JSON schema and
 NativeOutput schema are unchanged. There is still one model call and no repair/retry loop.
+
+An explicitly `needs_definition` rank carrying only `metric.operation=diversity` with
+all operands null and no metric_filter has the existing neutral form metric=null. Its
+proposal metric reuses the exact closed field schema; no dimension or method is inferred.
+Every other metric passes the unchanged operand validator before normalization, and all
+final plans pass it again. Unknown fields/enums, unblocked missing dimensions and other
+missing operands still fail. This does not relax the public metric model.
+
+Ordering is null for intents that forbid it. Change metrics are neutral outside trend;
+the adapter never invents a trend object. Incompatible rank entity/grouping, radius and
+reference choices remain interpretation errors rather than guessed repairs.
