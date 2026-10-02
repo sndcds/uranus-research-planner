@@ -783,3 +783,65 @@ Core gates all pass: security 4/4, knowledge 8/8, regressions 77/77, supported 5
 `geography-013-001` (unnecessary needs_location for nondeictic where-events discovery).
 They do not justify altering Golden or inventing semantics in the canonicalizer.
 The unchanged candidate proceeds to the historical 239-case union.
+
+### c1 Target: remaining clusters and independent c2 work
+
+The 239-case run returned **167 pass, 71 mismatch, 1 invalid, 0 provider errors**.
+Security remains 4/4, knowledge 8/8, supported 57/58; regressions are 76/77.
+The full 455 run is not authorized by these gate results yet.
+
+The only invalid (`media-070-004`) selected semantic search for an unsupported image
+subject with entity=null but no unsupported reason. The hard regression
+(`regressions-091-026`) dropped an explicit morning constraint. These are normal
+interpretation errors: c2 clarifies daypart-without-date preservation and unsupported
+record subjects/age. No missing semantic information is guessed by the canonicalizer.
+Redundant prompt instructions for already deterministic normal forms were removed;
+there is no question/ID lookup. Prompt remains v13 and below the existing length bound.
+
+Broader differences cluster around undefined evaluative concepts versus quantity ranking,
+comparison subject/group preservation, temporal descriptors under clarification, and
+unsupported composition boundaries. Difference-path totals overlap: intent 38,
+clarification 33, anomaly 25, unsupported_reason 20, metric 18, grouping 14. These are
+not 71 unrelated special cases and will not become per-question production rules.
+
+### Actual fachliche decision: distribution defaults
+
+`temporal-050-009`, “Wie verändert sich das Veranstaltungsangebot über die Woche?”,
+has Golden intent=aggregate/group_by=weekday **ordering=desc, limit=20**.
+The documented v13 rule in [the contract guide](research-query-plan-v7.md#v13-canonical-interpretation-unchanged-algebra-and-validators)
+says distributions and scalar statistics are aggregate **without implicit ordering/limit**;
+the production prompt likewise says null unless requested. The question does not request
+a ranking or a result limit. Both forms are schema-valid, but the two acceptance rules
+conflict. Canonicalization cannot make both authoritative at once.
+
+A decision was requested: retain the documented null/null default and audit-correct
+Golden, or explicitly define a distribution ordering/limit default and retain Golden.
+**No automatic Golden change and no guessed exception.** The independent daypart/media
+fixes proceed while this decision remains open. This is distinct from normal model errors.
+
+### Decision resolved; c3 normal forms
+
+The user chose to retain Golden and explicitly define the distribution defaults.
+Temporal frequency profiles grouped by hour/weekday/week/month/year with a count metric
+therefore default to ordering=desc, limit=20. Explicit order/limit values win. Ordinary
+category tables, unresolved grouping and scalar aggregates keep their existing null
+defaults. This defines presentation, not a new intent or a new metric. The guide and prompt
+now agree. All Golden cases remain unchanged; no metric or intent is synthesized.
+
+The c2 direct run was **1/2 pass, 0 mismatches, 1 invalid, 0 provider errors**: morning
+preservation passed; unsupported image-age rank now retained its known descriptor but
+emitted group_by=event with entity=null (`rank_entity_group_mismatch`). c3 neutralizes
+such an incompatible entity group only for an explicitly unsupported null-entity rank.
+It never changes the unsupported subject into an event or removes the unsupported reason.
+Strict public validation continues to reject the unnormalized proposal.
+
+Tests cover all temporal-profile witnesses, preservation of explicit asc/5 choices,
+non-interference with category/scalar/unresolved aggregates and the unsupported-subject
+normal form. The independent c2 offline phase had 3922 passed, 710 skipped. No hidden
+live retries or discarded runs occurred.
+
+c3 passes its three direct cases (image age, morning-only, intra-week distribution)
+**3/3**, then the historical Core-fix set **9/9**, with no invalid/provider errors.
+The full offline suite is **3930 passed, 710 skipped**; the focused canonical/v13 suite
+is **551 passed**. Core is rerun on this exact candidate before another Target run.
+The user decision is resolved; there is no pending fachliche decision at this point.

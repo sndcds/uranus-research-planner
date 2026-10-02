@@ -302,7 +302,9 @@ any prompt/golden change. [v13 acceptance results](v7-live-v13-report.md) distin
 prompt effects from the 44 audited fixture corrections. All 455 questions remain.
 
 - Subject selection by most/fewest/multiple/only one is rank; distributions and scalar
-  statistics are aggregate without implicit ordering/limit. Rank groups by its subject,
+  statistics are aggregate. Temporal count profiles (hour/weekday/week/month/year) default
+  to descending count and limit 20; explicit ordering/limit takes precedence. Other
+  distributions and scalar statistics have no implicit ordering/limit. Rank groups by its subject,
   except an explicitly requested taxonomy/calendar dimension. Singular superlative=1,
   plural/open Wer/Wo=20. Taxonomy ranks use event population even for occurrence_count.
 - Undefined concepts use needs_definition; missing selection parameters use needs_criteria.

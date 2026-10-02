@@ -7,7 +7,7 @@ from typing import Any
 from pydantic import ConfigDict, create_model, model_validator
 
 from research_planner.research_v7_schema import ResearchQueryPlanV7
-from research_planner.research_v7_types import ClosedV7
+from research_planner.research_v7_types import COUNT_OPERATIONS, ClosedV7
 
 # Reuse every field constraint and nested validator, without duplicating vocabulary
 # or invoking the final plan's cross-field validator before normalization. This is
@@ -34,6 +34,28 @@ def canonicalize_v7(value: object) -> object:
         data["metric_filter"] = None
     if intent == "rank" and data["group_by"] in {"category", "event_type", "genre"}:
         data["entity_type"] = "event"
+    # An explicitly unsupported subject must never become a supported entity just
+    # to satisfy an invented entity grouping. Keep the unsupported subject/metric.
+    if (
+        intent == "rank"
+        and data["entity_type"] is None
+        and data["unsupported_reason"] == "unsupported_constraint"
+        and data["group_by"]
+        in {"event", "occurrence", "venue", "space", "organization", "municipality", "region"}
+    ):
+        data["group_by"] = "none"
+    # Approved temporal-frequency presentation default; never infer intent/metric
+    # or replace explicitly supplied ordering/limit. Scalar/category tables differ.
+    if (
+        intent == "aggregate"
+        and data["group_by"] in {"hour", "weekday", "week", "month", "year"}
+        and data["metric"] is not None
+        and data["metric"]["operation"] in COUNT_OPERATIONS
+    ):
+        if data["ordering"] is None:
+            data["ordering"] = "desc"
+        if data["limit"] is None:
+            data["limit"] = 20
     if intent != "anomaly":
         data["anomaly"] = None
     if intent != "trend":
