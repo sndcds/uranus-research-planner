@@ -47,13 +47,13 @@ max-minus-min, share of biggest organizer). Do not substitute a supported dimens
 list=records; search=evidence; count=population; aggregate=distribution/scalar statistic;
 rank=ordered subjects; compare=target comparison; taxonomy=dictionary; relation=links;
 trend=period change; anomaly=unusualness; explain=evidence; knowledge=project.
-Quantity selection: rank, not anomaly/clarification for "viele/besonders viel/am meisten los".
-Metric FIRST, metric_filter SECOND: metric=null REQUIRES metric_filter=null even for "mehrere".
-True unusualness remains anomaly.
-Count per category=aggregate; categories with most=rank. Distributions: ordering/limit null
-unless requested. Existence uses count; recency discovery (new/updated records) uses list.
-Simple records eligible by taxonomy/price/today use list, not relation/aggregate. Where-events
-discovery returns event records; where alone is not deictic.
+Quantity (viele/besonders viel/stark vertreten/am meisten los): rank, no clarification.
+metric FIRST, metric_filter SECOND; no metric => no metric_filter, even "mehrere".
+anomaly=null unless intent=anomaly.
+Counts per category: aggregate; categories with most: rank. Distribution: order/limit null
+unless requested. Existence: count; new/updated records: list.
+Organizers/venues/events by date/type/price: list, relation=null; implicit links are NOT graph.
+Where-events discovery: event records, not deictic location.
 
 5. SUBJECT
 Subjects: event=logical event, occurrence=date, venue=place, space=room, organization=organizer,
@@ -72,7 +72,7 @@ metric_filter=null. Frequency/regularity: measure AND window.
 Duration=elapsed start/end; event duration=longest complete occurrence. No invented ends.
 Count distinct IDs; event_count per event is meaningless.
 Many dates: rank event/group event, occurrence_count, no clarification. Venue utilization/
-busy places: rank venue/group venue, occurrence_count, desc/20, no invented clarification.
+busy places: rank venue/group venue, occurrence_count/desc; limit ONLY by rule 8.
 Explicit distinct events use event_count; distinct_count requires distinct_by.
 Diversity requires an explicit category/genre/event_type/organization/venue dimension and
 means distinct count, never Shannon or subjectively broad offer. Unknown dimension =>
@@ -87,16 +87,17 @@ paid event/occurrence subset over the SAME count population/all; all/all is not 
 Blocked rank: only unknown metric null; keep order/limit.
 
 7. GROUPING
-For rank over a supported entity E, group_by=E, including price/text/coordinate extrema.
-For explicit category/event_type/genre/country/calendar grouping use that exact dimension;
-never silently replace it. count/list/search/taxonomy/relation/explain/knowledge use none.
-Taxonomy discovery: intent=taxonomy, entity=event, taxonomy=requested dimension,
-metric=null, group_by=none. taxonomy is null for EVERY other intent.
+Rank: group_by=subject, including price/text/coordinates. Explicit taxonomy/country/calendar
+grouping wins; never substitute. count/list/search/taxonomy/relation/explain/knowledge: none.
+Inventory, including genres of a type: taxonomy/event, taxonomy=dimension, group_by=none;
+metric/ordering/limit/relation=null. Type: filter, not graph; otherwise taxonomy=null.
 
 8. ORDER AND LIMIT
-Rank: most/largest/latest desc, fewest/smallest/earliest asc. Singular superlative 1;
-plural/open Wer/Wo 20 even "am meisten". No period: all eligible records, temporal=null.
-Top N: 1..20. Valid metric thresholds: several >1, one =1, none =0; desc unless least/rare.
+Rank: most/latest desc, fewest/earliest asc. Limit: SUBJECT, NOT plural dates!
+Singular Event/Veranstaltung/Organisation/Ort/Genre/Typ, Danish Hvilken/Hvilket: 1.
+Plural Veranstaltungen/Orte/Veranstalter, Hvilke, open Wer/Wo: 20 even "am meisten".
+"Welche" is NOT necessarily plural. Explicit N (1..20) wins. No period: temporal=null.
+Thresholds: several >1, one =1, none =0; desc unless least/rare.
 
 9. STRUCTURED FILTERS
 Filters are typed AND predicates. Missing/present is structured, never semantic.
@@ -154,7 +155,7 @@ Venues of organizer: venue->organization via event, target_query=organizer.
 shared: same source/target, nonempty via; organizations sharing venues via=[event,venue,event].
 path anchors first named subject; unnamed discovery allowed, missing specific nodes needs_criteria.
 Shared venues/events do not prove collaboration: missing data => insufficient_structured_data.
-Null relation needs unsupported_reason for intent=relation. list/search never carry relation.
+relation=null needs unsupported_reason for intent=relation; list/search require null.
 
 14. TREND / ANOMALY
 Period increase/decrease/change: trend; within-week distribution: aggregate/weekday.
@@ -170,7 +171,7 @@ Missing number of weeks: needs_date, window=week, group_by=week, no guessed look
 Only when NO unit is named use blocked month placeholder. Do not invent day/quarter group_by.
 Undefined significance needs_definition. Long-term mean comparison is
 not previous_period: unsupported baseline/data boundary, anomaly if statistically unusual.
-Undefined unusualness: anomaly outlier/measure=null, needs_definition; never anomaly=null.
+Undefined unusualness: intent=anomaly, anomaly outlier/measure=null, needs_definition.
 rare/inactive need explicit
 threshold/time basis; inactive means no activity, not merely few events. Unknown quietness,
 dominance, density or completeness must not invent a statistical method/count measure.

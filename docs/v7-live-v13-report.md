@@ -585,3 +585,93 @@ with the supported capability set, so category/capability gate totals must not b
 - Prompt stays v13; no golden/schema/validator/comparator/API/provider changes.
 
 No deployment, merge, Admin, SQL, retrieval, geocoder, fallback or new capability.
+
+## Core-error follow-up (base 214f22d)
+
+This narrow follow-up starts at `214f22d17852131a4f8e15eb80912d7ba326e637` on
+`feat/v7-acceptance-v13`. The fetched PR head matches. Prompt remains v13.
+The baseline is the **latest** `granularity_followup` Core run: 108/121 passed,
+11 mismatches, 2 invalid responses, no provider errors. Its private artifact hash
+was verified against the committed evidence before selecting any cases.
+
+### Nine-case audit and rule changes
+
+Complete question, expected fields, actual validated plan (or invalid model output),
+differences and rationale are appended under `core_error_followup.audit` in the
+[JSON results](v7-live-v13-results.json). No historical run is replaced.
+
+| Case | Question | Observed failure | Classification / correction |
+| --- | --- | --- | --- |
+| comparisons-058-007 | Welche Kategorien sind in Flensburg besonders stark vertreten? | rank with metric=null, needs_definition and outlier anomaly; `unexpected_anomaly` | Quantity ranking retains event_count. Anomaly is null outside anomaly intent. |
+| organizations-053-002 | Welche Veranstalter bieten heute Veranstaltungen an? | list/organization/today with organization-event relation; `unexpected_relation` | Date/type/price eligibility does not itself request a graph; list has relation=null. |
+| regressions-090-003 | Welcher Veranstaltungstyp hat die meisten Termine? | limit=20 instead of 1; all other expected paths match | singular-limit |
+| regressions-090-004 | Welches Genre hat die meisten Termine? | limit=20 instead of 1; all other expected paths match | singular-limit |
+| regressions-090-005 | Welcher Ort hat die meisten Termine? | limit=20 instead of 1; all other expected paths match | singular-limit |
+| regressions-090-006 | Welche Organisation hat die meisten Termine? | limit=20 instead of 1; all other expected paths match | singular-limit |
+| regressions-091-004 | Welche Genres zum Eventtyp Konzert gibt es? | intent=relation instead of taxonomy, taxonomy=null instead of genre, type filter missing | taxonomy-discovery, including inventories restricted by event type |
+| regressions-093-006 | Hvilken begivenhed har færrest datoer? | limit=20 instead of 1; all other expected paths match | singular-limit |
+| regressions-093-008 | Hvilken begivenhedstype har flest datoer? | limit=20 instead of 1; all other expected paths match | singular-limit |
+
+The seven regressions classify as **6 singular-limit, 1 taxonomy-discovery, 0 other**.
+The unconditional venue-utilization `desc/20` instruction conflicted with the singular
+rule. Limit now follows the grammatical subject noun, not the plural counted objects;
+German feminine singular and Danish singular are explicit. Plural/open Wer/Wo stays 20;
+an explicit N takes precedence. Type-restricted genre discovery remains a taxonomy
+inventory with a filter, not a graph traversal. No exact-question routing was added.
+
+The new offline witnesses cover these nine failures plus plural/open contrasts, pure
+category/type/genre discovery and compare/list anomaly rejection. They verify strict
+Golden and validator rejection of counterexamples; they do not simulate language-model
+interpretation. There are **19 new tests**, all 62 focused v13 tests pass.
+Golden, schema, validators, comparator, API and provider changes: **0**.
+
+### Live gate result — stopped at the first nine cases
+
+| Gate | Total | Pass | Mismatch | Invalid | Provider error |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Nine Core cases #1 | 9 | 6 | 0 | 3 | 0 |
+| Nine Core cases #2 | — | — | — | — | — |
+| Core / 239 / 455 | — | — | — | — | — |
+
+**STOP: first nine-case gate failed. PR stays Draft; not merge-ready.**
+No second run, broader run, post-failure prompt tuning, retry or fallback occurred.
+This candidate has no new security/knowledge/full-regression/supported-set measurement;
+the historical Core figures above must not be presented as its results.
+
+Six cases pass: `organizations-053-002`, `regressions-090-005`,
+`regressions-090-006`, `regressions-091-004`, `regressions-093-006`,
+`regressions-093-008`.
+
+Three cases now fail strict validation with **unexpected_taxonomy**:
+
+- `comparisons-058-007`: rank/event_count/category, anomaly=null and clarification=none,
+  but also taxonomy=category.
+- `regressions-090-003`: rank/occurrence_count/event_type and limit=1,
+  but also taxonomy=event_type.
+- `regressions-090-004`: rank/occurrence_count/genre and limit=1,
+  but also taxonomy=genre.
+
+These are invalid outputs, not accepted plans. Their intended quantity/limit fields
+no longer show the previous failure, but a ranking must express its taxonomy dimension
+only through group_by, with taxonomy=null. The existing validator correctly rejects all
+three. The new wording has not established stable separation of taxonomy discovery
+from taxonomy grouping; one stochastic run does not identify a unique causal sentence.
+No result was repaired after generation or counted as passed because selected fields
+looked correct.
+
+The complete safe nine-case report is appended in the JSON results, with private artifact
+`/tmp/v13-corefix-nine-first.json` and its SHA256. The isolated server checkout contains
+base 214f22d plus the exact recorded prompt; the running service was not modified.
+
+### Validation and remaining limitations
+
+- Focused v13 tests: **62 passed**; full offline suite: **3441 passed, 710 skipped**.
+- Ruff, format (68 files), mypy (29 source files): passed.
+- OpenAPI export: unchanged; local documentation links and `git diff --check`: passed.
+- Historical JSON objects remain exactly unchanged; this follow-up is appended only.
+- Four files changed: prompt, focused v13 tests, and these two existing report files.
+- Prompt remains v13. Golden/schema/validator/comparator/API/provider changes remain zero.
+- Offline witnesses establish contract expectations, not successful live interpretation.
+  The merge gates are unmet; no acceptance stability or merge readiness is claimed.
+
+No deployment, merge, Admin, SQL, retrieval, geocoder or new capability.
