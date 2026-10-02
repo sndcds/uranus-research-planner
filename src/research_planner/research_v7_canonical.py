@@ -136,6 +136,16 @@ def canonicalize_v7(value: object) -> object:
             data["ordering"] = "desc"
         if data["limit"] is None:
             data["limit"] = 20
+    if (
+        intent == "rank"
+        and data["clarification"] == "needs_definition"
+        and data["metric"] is not None
+        and data["metric"]["operation"] == "regularity"
+        and data["ordering"] is None
+    ):
+        # The documented blocked regularity descriptor defaults to descending.
+        # Preserve explicit direction and never invent its metric/window/limit.
+        data["ordering"] = "desc"
     if intent != "anomaly":
         data["anomaly"] = None
     if intent != "trend":

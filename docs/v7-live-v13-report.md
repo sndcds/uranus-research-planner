@@ -1296,3 +1296,34 @@ on identical sources. The prior c42 Core failures remain recorded, not replaced.
 
 c44 offline: **4017 passed, 710 skipped**, Ruff/format/Mypy/OpenAPI no-diff/docs links/
 whitespace gates pass. No new Golden changes, public schema changes or provider changes.
+
+c44 Core: **121/121 pass**, zero mismatch/invalid/provider errors. Security4/4,
+knowledge8/8, regressions77/77, supported58/58. Target239 now runs on the identical
+production snapshot. Full455 remains gated on its result.
+
+c44 Target239: **190 pass, 45 mismatch, 4 invalid, 0 provider**. Security4/4,
+knowledge8/8, regressions76/77, supported58/58. Invalids: a missing price bound despite
+a duplicate numeric filter, time-distribution question misread as event ranking, and two
+blocked regularity plans with missing ordering. Full455 remains blocked. c45 clarifies
+price bounds/time-group selection and applies the documented descending default only to
+blocked regularity with absent direction; explicit direction and missing operands remain
+untouched. Public validation stays strict and Golden unchanged.
+
+c45 direct: **11/12 pass, 1 mismatch, 0 invalid/provider**. All four preceding invalids
+are now valid. The time-group question still substitutes occurrences for logical typed
+events and loses past tense. c46 reinforces population independence from time grouping
+and preservation of known tense even when the grouping unit needs clarification.
+
+c46 direct: **11/12 pass, 1 mismatch, 0 invalid/provider**. Population and grouping
+now match; only past tense is dropped. c47 clarifies that past-tense verbs themselves
+are temporal constraints, including blocked plans, resolving the ambiguity with the
+existing instruction to omit temporal when no constraint is present.
+
+c45 offline: **4019 passed, 710 skipped**; c46 offline: **4020 passed, 710 skipped**;
+all required validation gates passed for both. c47 focused: **641 passed**.
+c47 direct: **12/12 pass**, zero mismatch/invalid/provider. The historical nine gate
+runs on the same unchanged sources. No Golden change was needed for these temporal rules.
+
+c47 nine: **9/9 pass**, zero mismatch/invalid/provider. Core121 is running on the same
+snapshot. Offline **4020 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff,
+docs links and whitespace checks all pass. Full455 has still not run.

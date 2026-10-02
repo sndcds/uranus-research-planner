@@ -395,3 +395,8 @@ retains `value(modified_at)` and `needs_definition`; creation age uses `created_
 Direct count operations have no field projection. The internal canonicalizer neutralizes
 a known but inapplicable `metric.field`, just as it neutralizes nested measure/window;
 the declared count operation remains authoritative. Unknown fields still fail validation.
+
+A blocked regularity ranking defaults to descending order when direction is omitted.
+The canonicalizer fills only that missing direction; explicit ascending order remains,
+and no metric, window, subject or result limit is inferred. Clarification keeps the
+known ranking structure. Other rank operations still require a supplied direction.
