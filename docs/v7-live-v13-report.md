@@ -240,8 +240,9 @@ claims or newly enabled execution capabilities.
 Final complete suite: **3406 passed, 710 skipped**. No local live tests were enabled.
 `uv sync --locked --group dev`, Ruff check, Ruff format check (68 files), mypy
 (29 source files), OpenAPI generation, local documentation links, and `git diff --check`
-passed. Generated OpenAPI equality is checked again after committing its intentional
-version/local-clock annotation update.
+passed. After committing the intentional version/local-clock annotation update,
+`uv run python scripts/export_openapi.py` followed by
+`git diff --exit-code docs/openapi.json` also passed with no diff.
 
 The 27 new test instances cover audit completeness and unaudited-edit detection, strict
 canonical comparisons, narrowly scoped resolver variants, exact security input with one
