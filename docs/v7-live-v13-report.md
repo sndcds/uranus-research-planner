@@ -1204,3 +1204,75 @@ next on the same snapshot.
 c35 nine: **9/9 pass**, zero mismatch/invalid/provider errors. Core121 runs on the
 same snapshot. Offline: **4004 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI
 no-diff, docs links and whitespace gates pass.
+
+c35 Core: **120/121 pass, 0 mismatch, 0 invalid, 1 provider error**. The one error is
+planner_unavailable on regressions-092-005. Security4/4, knowledge8/8, regressions76/77
+(one provider error), supported57/58. This does not meet the zero-provider gate. A separate
+one-case availability check and then a fresh full Core run use the same unchanged candidate;
+no model retry/fallback/configuration changes are introduced. CI for 4b43b3f passed.
+Inactive c1–c34 virtual environments were removed to reclaim temporary RAM; source snapshots,
+lockfiles and every report remain available, and the active c35 checkout is unchanged.
+
+c35 availability check: **1/1 pass**. Fresh complete Core: **121/121 pass**,
+security4/4, knowledge8/8, regressions77/77, supported58/58, zero mismatch/invalid/provider.
+This is a new full run, not a replacement or patch-up of the earlier provider-failed result.
+Target239 now runs on identical sources, with the same one-request provider settings.
+
+c35 Target239: **188 pass, 46 mismatches, 5 invalid, 0 provider errors**. Core groups
+remain perfect: security4/4, knowledge8/8, regressions77/77, supported58/58. Invalids concern
+a metric-free unblocked comparison, unqualified record population, plain rarity as anomaly,
+extra frequency on co-occurrence, and malformed clock-frequency metric. Full455 is blocked.
+
+The generic-record case exposes an undocumented event default and awaits a user decision;
+Golden is unchanged. c36 independently clarifies the other four constructions. Explicit
+homogeneous comparison targets now supply only their subject/entity grouping normal form;
+missing metrics/targets/clarification are never inferred, explicit other groups remain.
+Focused witnesses **631 passed**, including all455 unchanged/idempotent plans.
+
+c36 independent: **2/4 pass, 1 mismatch, 1 invalid, 0 provider errors**. Comparison
+and co-occurrence pass; plain rarity is mislabeled anomaly, and typical clock profile
+requests criteria rather than its undefined definition. Offline **4010 passed, 710 skipped**,
+all gates pass. c37 clarifies these two distinctions; focused **631 passed**.
+The generic-record population decision remains pending and its fixture unchanged.
+
+c37 independent: **4/4 pass**, zero mismatch/invalid/provider errors. Offline:
+**4010 passed, 710 skipped**, all validation gates pass. The user resolved the generic
+record population ambiguity in favor of an explicit event default, retaining Golden.
+c38 adds that default and the creation-versus-update recency distinction; explicit
+entity names still win. Historical runs and fixtures remain unchanged.
+
+c38 direct: **4/5 pass, 1 mismatch, 0 invalid/provider**. The approved event default
+is respected; stale updates still choose anomaly rather than recency ranking. c39 makes
+that existing metadata-age distinction explicit, without changing Golden or validators.
+
+c39 direct: **4/5 pass, 1 mismatch, 0 invalid/provider**. Stale records now pass.
+The remaining typical-clock case switches from needs_definition to needs_criteria;
+c40 states explicitly that the undefined meaning of typical takes precedence even when
+the event type is unspecified. No fixture or contract changes.
+
+c40 direct: **4/5 pass, 0 mismatch, 1 invalid, 0 provider**. The clock profile now
+has the correct intent/block/group, but redundantly attaches start_time to occurrence_count.
+c41 extends the existing direct-count normal form to its inapplicable field projection.
+All field enums are checked first; unknown fields still fail, and the public validator
+continues rejecting count+field. No intent, count operation or missing semantics is inferred.
+
+c41 direct: **5/5 pass**, zero mismatch/invalid/provider errors. Focused witnesses:
+**637 passed**. The same frozen production snapshot proceeds to historical nine and,
+if green, the complete Core. The record-default decision is resolved; Golden unchanged.
+
+c41 nine: **8/9 pass, 1 mismatch, 0 invalid/provider**. Ordinary category strength
+with “besonders” regresses to anomaly. c42 restores the explicit intensifier distinction
+in the quantity-ranking rule; undefined quality/dispersion still takes priority. Core
+has not started on this candidate. No Golden changes.
+
+c41 offline: **4016 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff,
+docs links and diff checks pass. c42 direct: **6/6 pass**, zero mismatch/invalid/provider;
+the same sources proceed to historical nine. No current-phase Golden/schema/validator/
+provider changes. Every historical report remains unchanged.
+
+c42 historical nine: **9/9 pass**, zero mismatch/invalid/provider errors. The full
+Core121 gate is running on identical sources; no broad run is started before this gate.
+
+c42 offline: **4016 passed, 710 skipped**. Ruff, format, Mypy, exported OpenAPI
+no-diff, documentation links and whitespace checks all pass. The accepted generic-record
+default changes interpretation documentation only; no Golden case changes in this phase.

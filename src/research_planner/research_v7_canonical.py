@@ -68,8 +68,9 @@ def canonicalize_v7(value: object) -> object:
     metric = data["metric"]
     if metric is not None:
         if metric["operation"] in COUNT_OPERATIONS:
-            # Direct counts have no nested measure or frequency window. Their
+            # Direct counts have no projected field, nested measure or frequency window. Their
             # population is already completely specified by the count operation.
+            metric["field"] = None
             metric["measure"] = None
             metric["window"] = None
         if (
@@ -100,6 +101,19 @@ def canonicalize_v7(value: object) -> object:
         data["metric_filter"] = None
     if intent == "rank" and data["group_by"] in {"category", "event_type", "genre"}:
         data["entity_type"] = "event"
+    targets = data["comparison_targets"]
+    if (
+        intent == "compare"
+        and len(targets) >= 2
+        and len({target["kind"] for target in targets}) == 1
+        and targets[0]["kind"] in {"venue", "organization", "municipality", "region"}
+        and data["group_by"] in {"none", targets[0]["kind"]}
+        and data["unsupported_reason"] != "unsupported_constraint"
+    ):
+        # Explicit homogeneous targets define the comparison subject, not its
+        # measure. Never fill missing targets, metrics or clarification states.
+        data["entity_type"] = targets[0]["kind"]
+        data["group_by"] = targets[0]["kind"]
     # An explicitly unsupported subject must never become a supported entity just
     # to satisfy an invented entity grouping. Keep the unsupported subject/metric.
     if (

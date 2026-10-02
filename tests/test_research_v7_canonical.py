@@ -519,3 +519,65 @@ def test_public_place_reference_cannot_be_substituted_with_a_venue_filter():
         }
     )
     assert "spatial" in {d.path for d in compare_v7_expectations(wrong, case)}
+
+
+@pytest.mark.parametrize(
+    "id", ["comparisons-045-001", "comparisons-058-001", "comparisons-058-006"]
+)
+def test_explicit_homogeneous_comparison_targets_define_subject_not_measure(id):
+    witness = example_plan(CASES[id])
+    data = witness.model_dump(mode="json") | {"entity_type": "event", "group_by": "none"}
+    assert normalize(data) == witness
+    assert normalize(data).comparison_targets == witness.comparison_targets
+    missing = data | {"comparison_targets": [], "clarification": "needs_criteria"}
+    actual = normalize(missing)
+    assert actual.entity_type == "event" and actual.group_by == "none"
+    unsupported = data | {"entity_type": None, "unsupported_reason": "unsupported_constraint"}
+    assert normalize(unsupported).entity_type is None
+    different = normalize(data | {"group_by": "category"})
+    assert different.entity_type == "event" and different.group_by == "category"
+
+
+@pytest.mark.parametrize("id", ["taxonomy-049-003", "taxonomy-049-007", "temporal-065-005"])
+def test_quantity_cooccurrence_and_clock_profile_witnesses_remain_distinct(id):
+    from tests.v7_golden import assert_v7_expectations
+
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(normalize(witness.model_dump(mode="json")), case)
+    if witness.intent == "rank":
+        assert witness.anomaly is None and witness.ordering == "asc"
+    elif witness.intent == "relation":
+        assert witness.metric is None
+    else:
+        assert witness.metric.operation == "occurrence_count" and witness.group_by == "hour"
+
+
+def test_unqualified_stale_records_keep_event_default_and_modified_time():
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES["quality-068-010"]
+    witness = example_plan(case)
+    assert witness.entity_type == witness.group_by == "event"
+    assert witness.intent == "rank" and witness.clarification == "needs_definition"
+    assert witness.metric.operation == "value" and witness.metric.field == "modified_at"
+    assert not compare_v7_expectations(normalize(witness.model_dump(mode="json")), case)
+    data = witness.model_dump(mode="json")
+    data["metric"]["field"] = "created_at"
+    assert "metric.field" in {d.path for d in compare_v7_expectations(normalize(data), case)}
+
+
+@pytest.mark.parametrize(
+    "operation",
+    ["event_count", "occurrence_count", "venue_count", "space_count", "organization_count"],
+)
+def test_direct_count_neutralizes_unused_projection_but_rejects_unknown_field(operation):
+    data = example_plan(CASES["temporal-065-005"]).model_dump(mode="json")
+    data["metric"].update(operation=operation, field="start_time")
+    with pytest.raises(ValidationError, match="metric_field_required_or_unexpected"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(data))
+    assert normalize(data).metric.field is None
+    assert normalize(data).metric.operation == operation
+    data["metric"]["field"] = "arbitrary_column"
+    with pytest.raises(ValidationError):
+        normalize(data)
