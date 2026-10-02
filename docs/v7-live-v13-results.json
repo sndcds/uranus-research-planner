@@ -4700,5 +4700,2202 @@
       "validation_stage": null,
       "validation_errors": []
     }
-  ]
+  ],
+  "blocker_followup": {
+    "starting_commit": "a917ad6e1aff4ea95b4876c4d3f8df78ad1c5e2e",
+    "prompt_version": "research-planner-v13",
+    "prompt_sha256": "2156f60f04854513803272d22f9dda295594095bb3b4972b97266f8fded5ee9a",
+    "golden_changes": 0,
+    "schema_changes": 0,
+    "audit": [
+      {
+        "case_id": "combined-060-008",
+        "question": "Welche Veranstaltungen richten sich an Kinder, finden aber außerhalb der größeren Städte statt?",
+        "expect": {
+          "intent": "search",
+          "entity_type": "event",
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "forbid": {
+          "semantic": [
+            null
+          ],
+          "clarification": [
+            "none"
+          ]
+        },
+        "previous_status": "invalid_response",
+        "previous_actual": {
+          "original_query": "Welche Veranstaltungen richten sich an Kinder, finden aber außerhalb der größeren Städte statt?",
+          "intent": "list",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": {
+            "query": "richten sich an Kinder",
+            "focus": "Kinder"
+          },
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "previous_differences": [],
+        "previous_validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, semantic_exact_population_forbidden"
+          }
+        ],
+        "root_cause": "Evidence discovery was emitted as list+semantic, forbidden even when a separate size definition is missing.",
+        "rule_change": "Use search with semantic evidence and needs_definition. This question requests no exact statistic; no metric/grouping or insufficient_structured_data should be invented. Exact semantic statistics instead retain intent/metric/grouping and require insufficient_structured_data."
+      },
+      {
+        "case_id": "content-072-005",
+        "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+        "expect": {
+          "intent": "relation",
+          "entity_type": "event",
+          "clarification": "needs_criteria",
+          "unsupported_reason": null,
+          "relation": {
+            "operation": "related",
+            "source": "genre",
+            "target": "category",
+            "via": [
+              "event"
+            ],
+            "source_query": null,
+            "target_query": null
+          },
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ],
+          "clarification": [
+            "none"
+          ]
+        },
+        "previous_status": "invalid_response",
+        "previous_actual": {
+          "original_query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+          "intent": "relation",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "related",
+            "source": "event",
+            "target": "genre",
+            "via": [
+              "category"
+            ],
+            "source_query": null,
+            "target_query": null
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_criteria",
+          "unsupported_reason": null
+        },
+        "previous_differences": [],
+        "previous_validation_errors": [
+          {
+            "loc": [
+              "relation"
+            ],
+            "type": "value_error",
+            "msg": "Value error, unknown_relation_edge"
+          }
+        ],
+        "root_cause": "event -> category -> genre contains an illegal category-genre edge.",
+        "rule_change": "Use the existing legal related genre -> event -> category path, via=[event], with needs_criteria for the unspecified category."
+      },
+      {
+        "case_id": "journalism-059-012",
+        "question": "Welche Veranstaltungen verbinden Schleswig-Holstein und Dänemark?",
+        "expect": {
+          "intent": "relation",
+          "entity_type": "event",
+          "clarification": "needs_definition",
+          "unsupported_reason": null,
+          "relation": {
+            "operation": "related",
+            "source": "event",
+            "target": "venue",
+            "via": [],
+            "source_query": null,
+            "target_query": null
+          },
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Welche Veranstaltungen verbinden Schleswig-Holstein und Dänemark?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ],
+          "clarification": [
+            "none"
+          ]
+        },
+        "previous_status": "invalid_response",
+        "previous_actual": {
+          "original_query": "Welche Veranstaltungen verbinden Schleswig-Holstein und Dänemark?",
+          "intent": "relation",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "path",
+            "source": "event",
+            "target": "event",
+            "via": [],
+            "source_query": "Schleswig-Holstein",
+            "target_query": "Dänemark"
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_criteria",
+          "unsupported_reason": null
+        },
+        "previous_differences": [],
+        "previous_validation_errors": [
+          {
+            "loc": [
+              "relation"
+            ],
+            "type": "value_error",
+            "msg": "Value error, unknown_relation_edge"
+          }
+        ],
+        "root_cause": "The model invented an event-event self edge and put geographical areas into event-name slots.",
+        "rule_change": "Retain the golden blocked related event -> venue descriptor, via=[], null names, needs_definition. No geographical node or executable interpretation of connects is invented."
+      },
+      {
+        "case_id": "temporal-065-009",
+        "question": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+        "expect": {
+          "intent": "rank",
+          "entity_type": "organization",
+          "clarification": "needs_definition",
+          "unsupported_reason": null,
+          "metric": {
+            "operation": "regularity",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "occurrence_count",
+            "window": "week",
+            "currency": null
+          },
+          "group_by": "organization",
+          "ordering": "desc",
+          "limit": 20,
+          "temporal": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": true,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ],
+          "clarification": [
+            "none"
+          ]
+        },
+        "previous_status": "invalid_response",
+        "previous_actual": {
+          "original_query": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+          "intent": "rank",
+          "entity_type": "organization",
+          "metric": null,
+          "group_by": "organization",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": {
+            "operator": "gt",
+            "value": 1,
+            "upper": null
+          },
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "previous_differences": [],
+        "previous_validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, metric_filter_requires_metric"
+          }
+        ],
+        "root_cause": "The old prompt demanded a null metric for undefined regularity but still encouraged a numeric metric_filter for several.",
+        "rule_change": "Retain the existing blocked regularity/occurrence_count/week descriptor and overlap=true, needs_definition. Week is a non-executable placeholder. Construct metric first; a null metric must always imply a null metric_filter."
+      },
+      {
+        "case_id": "trends-022-001",
+        "question": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+        "expect": {
+          "intent": "trend",
+          "entity_type": "event",
+          "clarification": "needs_date",
+          "unsupported_reason": null,
+          "group_by": "week",
+          "trend": {
+            "measure": "event_count",
+            "comparison": "previous_period",
+            "window": "week",
+            "change": "absolute_change"
+          },
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ],
+          "clarification": [
+            "none"
+          ]
+        },
+        "previous_status": "invalid_response",
+        "previous_actual": {
+          "original_query": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+          "intent": "trend",
+          "entity_type": "event",
+          "metric": {
+            "operation": "absolute_change",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "event_count",
+            "window": "week",
+            "currency": null
+          },
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "past",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": "week"
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": {
+            "measure": "event_count",
+            "comparison": "previous_period",
+            "window": "week",
+            "change": "absolute_change"
+          },
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_date",
+          "unsupported_reason": null
+        },
+        "previous_differences": [],
+        "previous_validation_errors": [
+          {
+            "loc": [
+              "temporal"
+            ],
+            "type": "value_error",
+            "msg": "Value error, lookback_requires_unit"
+          }
+        ],
+        "root_cause": "The model emitted lookback=null with lookback_unit=week, and dropped weekly grouping.",
+        "rule_change": "Lookback and unit are atomic. Unquantified last weeks remains needs_date with both slots null; trend.window and group_by are week."
+      },
+      {
+        "case_id": "knowledge-047-004",
+        "question": "Welches Repo implementiert die semantische Suche?",
+        "expect": {
+          "intent": "knowledge",
+          "entity_type": null,
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Welches Repo implementiert die semantische Suche?",
+              "focus": null
+            }
+          ],
+          "knowledge": [
+            null
+          ]
+        },
+        "previous_status": "mismatch",
+        "previous_actual": {
+          "original_query": "Welches Repo implementiert die semantische Suche?",
+          "intent": "search",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": {
+            "query": "semantische Suche",
+            "focus": "implementiert"
+          },
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "previous_differences": [
+          {
+            "path": "entity_type",
+            "expected": null,
+            "actual": "event",
+            "kind": "mismatch"
+          },
+          {
+            "path": "intent",
+            "expected": "knowledge",
+            "actual": "search",
+            "kind": "mismatch"
+          },
+          {
+            "path": "knowledge",
+            "expected": [
+              null
+            ],
+            "actual": null,
+            "kind": "forbidden_value"
+          }
+        ],
+        "previous_validation_errors": [],
+        "root_cause": "Project implementation ownership was mistaken for semantic retrieval of cultural records.",
+        "rule_change": "Project repository/component/service ownership routes to knowledge with exact original query and neutral cultural fields; not a keyword-based general technical Q&A route."
+      },
+      {
+        "case_id": "knowledge-026-004",
+        "question": "Welches Repo implementiert die semantische Suche?",
+        "expect": {
+          "intent": "knowledge",
+          "entity_type": null,
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Welches Repo implementiert die semantische Suche?",
+              "focus": null
+            }
+          ],
+          "knowledge": [
+            null
+          ]
+        },
+        "previous_status": "mismatch",
+        "previous_actual": {
+          "original_query": "Welches Repo implementiert die semantische Suche?",
+          "intent": "search",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": {
+            "query": "semantische Suche",
+            "focus": "implementiert"
+          },
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "previous_differences": [
+          {
+            "path": "entity_type",
+            "expected": null,
+            "actual": "event",
+            "kind": "mismatch"
+          },
+          {
+            "path": "intent",
+            "expected": "knowledge",
+            "actual": "search",
+            "kind": "mismatch"
+          },
+          {
+            "path": "knowledge",
+            "expected": [
+              null
+            ],
+            "actual": null,
+            "kind": "forbidden_value"
+          }
+        ],
+        "previous_validation_errors": [],
+        "root_cause": "Separate corpus occurrence of the same project-repository routing failure.",
+        "rule_change": "Same project-bound routing rule, preserving the separate golden ID and execution."
+      },
+      {
+        "case_id": "regressions-091-010",
+        "question": "Wo finden viele Veranstaltungen statt?",
+        "expect": {
+          "intent": "rank",
+          "entity_type": "venue",
+          "clarification": "none",
+          "unsupported_reason": null,
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "venue",
+          "ordering": "desc",
+          "limit": 20,
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Wo finden viele Veranstaltungen statt?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ]
+        },
+        "previous_status": "mismatch",
+        "previous_actual": {
+          "original_query": "Wo finden viele Veranstaltungen statt?",
+          "intent": "rank",
+          "entity_type": "venue",
+          "metric": null,
+          "group_by": "venue",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "previous_differences": [
+          {
+            "path": "clarification",
+            "expected": "none",
+            "actual": "needs_definition",
+            "kind": "mismatch"
+          },
+          {
+            "path": "metric",
+            "expected": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "actual": null,
+            "kind": "mismatch"
+          }
+        ],
+        "previous_validation_errors": [],
+        "root_cause": "Simple quantity was incorrectly treated as undefined, dropping the occurrence-count metric.",
+        "rule_change": "Venue utilization ranks occurrences by venue, desc/20; viele alone requires neither definition nor criteria."
+      },
+      {
+        "case_id": "regressions-091-011",
+        "question": "Wo ist am meisten los?",
+        "expect": {
+          "intent": "rank",
+          "entity_type": "venue",
+          "clarification": "none",
+          "unsupported_reason": null,
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "venue",
+          "ordering": "desc",
+          "limit": 20,
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Wo ist am meisten los?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ]
+        },
+        "previous_status": "mismatch",
+        "previous_actual": {
+          "original_query": "Wo ist am meisten los?",
+          "intent": "rank",
+          "entity_type": "venue",
+          "metric": null,
+          "group_by": "venue",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "previous_differences": [
+          {
+            "path": "clarification",
+            "expected": "none",
+            "actual": "needs_definition",
+            "kind": "mismatch"
+          },
+          {
+            "path": "metric",
+            "expected": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "actual": null,
+            "kind": "mismatch"
+          }
+        ],
+        "previous_validation_errors": [],
+        "root_cause": "The final stored result asked for a definition and dropped the metric; it did not have the earlier limit/date variant.",
+        "rule_change": "Open Wo venue ranking counts occurrences, desc/20. No requested time means all eligible records, not needs_date."
+      },
+      {
+        "case_id": "regressions-091-013",
+        "question": "Welche Orte veranstalten besonders viel?",
+        "expect": {
+          "intent": "rank",
+          "entity_type": "venue",
+          "clarification": "none",
+          "unsupported_reason": null,
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "venue",
+          "ordering": "desc",
+          "limit": 20,
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Welche Orte veranstalten besonders viel?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ]
+        },
+        "previous_status": "mismatch",
+        "previous_actual": {
+          "original_query": "Welche Orte veranstalten besonders viel?",
+          "intent": "rank",
+          "entity_type": "venue",
+          "metric": null,
+          "group_by": "venue",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "previous_differences": [
+          {
+            "path": "clarification",
+            "expected": "none",
+            "actual": "needs_definition",
+            "kind": "mismatch"
+          },
+          {
+            "path": "metric",
+            "expected": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "actual": null,
+            "kind": "mismatch"
+          }
+        ],
+        "previous_validation_errors": [],
+        "root_cause": "Venue utilization was treated as undefined and its occurrence metric removed.",
+        "rule_change": "Rank venue utilization by occurrence_count, not distinct event_count, without clarification for besonders viel."
+      },
+      {
+        "case_id": "regressions-091-023",
+        "question": "Wie viele Jazz-Termine gab es im August 2026?",
+        "expect": {
+          "intent": "count",
+          "entity_type": "occurrence",
+          "clarification": "none",
+          "unsupported_reason": null,
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "filters": [
+            {
+              "field": "genre",
+              "operator": "eq",
+              "value": "Jazz"
+            }
+          ],
+          "temporal": {
+            "field": "start_date",
+            "period": "explicit_range",
+            "from_date": "2026-08-01",
+            "to_date": "2026-08-31",
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "semantic": null
+        },
+        "forbid": {
+          "semantic": [
+            {
+              "query": "Wie viele Jazz-Termine gab es im August 2026?",
+              "focus": null
+            }
+          ],
+          "intent": [
+            "list",
+            "search"
+          ]
+        },
+        "previous_status": "mismatch",
+        "previous_actual": {
+          "original_query": "Wie viele Jazz-Termine gab es im August 2026?",
+          "intent": "count",
+          "entity_type": "occurrence",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [
+            {
+              "field": "event_type",
+              "operator": "eq",
+              "value": "Jazz-Termine"
+            }
+          ],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "explicit_range",
+            "from_date": "2026-08-01",
+            "to_date": "2026-08-31",
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "previous_differences": [
+          {
+            "path": "filters.0.field",
+            "expected": "genre",
+            "actual": "event_type",
+            "kind": "mismatch"
+          },
+          {
+            "path": "filters.0.value",
+            "expected": "Jazz",
+            "actual": "Jazz-Termine",
+            "kind": "mismatch"
+          }
+        ],
+        "previous_validation_errors": [],
+        "root_cause": "The model treated the complete Jazz-Termine compound as event_type instead of separating genre and occurrence entity.",
+        "rule_change": "Termine is the occurrence entity, not a taxonomy type; retain genre Jazz, occurrence_count and the exact August 2026 date interval."
+      },
+      {
+        "case_id": "regressions-093-001",
+        "question": "Welche Veranstaltungen haben besonders viele Termine?",
+        "expect": {
+          "intent": "rank",
+          "entity_type": "event",
+          "clarification": "none",
+          "unsupported_reason": null,
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "event",
+          "ordering": "desc",
+          "limit": 20,
+          "semantic": null,
+          "filters": []
+        },
+        "forbid": {
+          "intent": [
+            "list",
+            "search",
+            "aggregate"
+          ],
+          "group_by": [
+            "event_type",
+            "category",
+            "genre",
+            "venue",
+            "organization"
+          ]
+        },
+        "previous_status": "mismatch",
+        "previous_actual": {
+          "original_query": "Welche Veranstaltungen haben besonders viele Termine?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "event",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "previous_differences": [
+          {
+            "path": "clarification",
+            "expected": "none",
+            "actual": "needs_definition",
+            "kind": "mismatch"
+          },
+          {
+            "path": "metric",
+            "expected": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "actual": null,
+            "kind": "mismatch"
+          }
+        ],
+        "previous_validation_errors": [],
+        "root_cause": "A simple count ranking of events by dates was treated as undefined and its metric removed.",
+        "rule_change": "Rank events by occurrence_count, group_by=event, desc/20; besonders viele is quantity, not an undefined anomaly."
+      }
+    ],
+    "runs": [
+      {
+        "name": "blocker_run_1",
+        "artifact_path": "/tmp/v13-blockers.json",
+        "artifact_sha256": "a94655dc6f36f25f444696818e95ea4d2ae254f73a11196484542e1bca62bc46",
+        "prompt_sha256": "2156f60f04854513803272d22f9dda295594095bb3b4972b97266f8fded5ee9a",
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 12,
+          "passed": 10,
+          "failed": 2,
+          "mismatch_count": 2,
+          "invalid_response_count": 0,
+          "provider_error_count": 0,
+          "by_category": {
+            "combined": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "content": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "journalism": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "knowledge": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 5,
+              "passed": 5,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "temporal": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "trends": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "knowledge": {
+              "total": 2,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_clarification": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "needs_definition": {
+              "total": 4,
+              "passed": 3,
+              "mismatch": 1,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "planned": {
+              "total": 4,
+              "passed": 4,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {
+            "group_by": 1,
+            "metric": 1,
+            "temporal": 1
+          },
+          "cases": [
+            {
+              "case_id": "combined-060-008",
+              "category": "combined",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungen richten sich an Kinder, finden aber außerhalb der größeren Städte statt?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "search",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null
+                },
+                "forbid": {
+                  "semantic": [
+                    null
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungen richten sich an Kinder, finden aber außerhalb der größeren Städte statt?",
+                "intent": "search",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": {
+                  "query": "richten sich an Kinder",
+                  "focus": "Kinder"
+                },
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 133,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "content-072-005",
+              "category": "content",
+              "capability_status": "needs_definition",
+              "question": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "needs_criteria",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "genre",
+                    "target": "category",
+                    "via": [
+                      "event"
+                    ],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Genres treten häufig gemeinsam mit bestimmten Kategorien auf?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "genre",
+                  "target": "category",
+                  "via": [
+                    "event"
+                  ],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_criteria",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 144,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "journalism-059-012",
+              "category": "journalism",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstaltungen verbinden Schleswig-Holstein und Dänemark?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "relation",
+                  "entity_type": "event",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "relation": {
+                    "operation": "related",
+                    "source": "event",
+                    "target": "venue",
+                    "via": [],
+                    "source_query": null,
+                    "target_query": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstaltungen verbinden Schleswig-Holstein und Dänemark?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungen verbinden Schleswig-Holstein und Dänemark?",
+                "intent": "relation",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": {
+                  "operation": "related",
+                  "source": "event",
+                  "target": "venue",
+                  "via": [],
+                  "source_query": null,
+                  "target_query": null
+                },
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 141,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "knowledge-047-004",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "question": "Welches Repo implementiert die semantische Suche?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "knowledge",
+                  "entity_type": null,
+                  "clarification": "none",
+                  "unsupported_reason": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welches Repo implementiert die semantische Suche?",
+                      "focus": null
+                    }
+                  ],
+                  "knowledge": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welches Repo implementiert die semantische Suche?",
+                "intent": "knowledge",
+                "entity_type": null,
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": {
+                  "query": "Welches Repo implementiert die semantische Suche?"
+                },
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 130,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "knowledge-026-004",
+              "category": "knowledge",
+              "capability_status": "knowledge",
+              "question": "Welches Repo implementiert die semantische Suche?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "knowledge",
+                  "entity_type": null,
+                  "clarification": "none",
+                  "unsupported_reason": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welches Repo implementiert die semantische Suche?",
+                      "focus": null
+                    }
+                  ],
+                  "knowledge": [
+                    null
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welches Repo implementiert die semantische Suche?",
+                "intent": "knowledge",
+                "entity_type": null,
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": {
+                  "query": "Welches Repo implementiert die semantische Suche?"
+                },
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 130,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-010",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Wo finden viele Veranstaltungen statt?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "venue",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "venue",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Wo finden viele Veranstaltungen statt?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Wo finden viele Veranstaltungen statt?",
+                "intent": "rank",
+                "entity_type": "venue",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "venue",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 148,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-011",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Wo ist am meisten los?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "venue",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "venue",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Wo ist am meisten los?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Wo ist am meisten los?",
+                "intent": "rank",
+                "entity_type": "venue",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "venue",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 148,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-013",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welche Orte veranstalten besonders viel?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "venue",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "venue",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Orte veranstalten besonders viel?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Orte veranstalten besonders viel?",
+                "intent": "rank",
+                "entity_type": "venue",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "venue",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 149,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-023",
+              "category": "regressions",
+              "capability_status": "supported",
+              "question": "Wie viele Jazz-Termine gab es im August 2026?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "count",
+                  "entity_type": "occurrence",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "filters": [
+                    {
+                      "field": "genre",
+                      "operator": "eq",
+                      "value": "Jazz"
+                    }
+                  ],
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "explicit_range",
+                    "from_date": "2026-08-01",
+                    "to_date": "2026-08-31",
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Wie viele Jazz-Termine gab es im August 2026?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Wie viele Jazz-Termine gab es im August 2026?",
+                "intent": "count",
+                "entity_type": "occurrence",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [
+                  {
+                    "field": "genre",
+                    "operator": "eq",
+                    "value": "Jazz"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "explicit_range",
+                  "from_date": "2026-08-01",
+                  "to_date": "2026-08-31",
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 249,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-093-001",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welche Veranstaltungen haben besonders viele Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "semantic": null,
+                  "filters": []
+                },
+                "forbid": {
+                  "intent": [
+                    "list",
+                    "search",
+                    "aggregate"
+                  ],
+                  "group_by": [
+                    "event_type",
+                    "category",
+                    "genre",
+                    "venue",
+                    "organization"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstaltungen haben besonders viele Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 149,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "temporal-065-009",
+              "category": "temporal",
+              "capability_status": "needs_definition",
+              "question": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "organization",
+                  "clarification": "needs_definition",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "regularity",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": "occurrence_count",
+                    "window": "week",
+                    "currency": null
+                  },
+                  "group_by": "organization",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "none",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": true,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter planen regelmäßig mehrere Veranstaltungen gleichzeitig?",
+                "intent": "rank",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "organization",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_definition",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "metric",
+                  "expected": {
+                    "operation": "regularity",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": "occurrence_count",
+                    "window": "week",
+                    "currency": null
+                  },
+                  "actual": null,
+                  "kind": "mismatch"
+                },
+                {
+                  "path": "temporal",
+                  "expected": {
+                    "field": "start_date",
+                    "period": "none",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": true,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "actual": null,
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 117,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "trends-022-001",
+              "category": "trends",
+              "capability_status": "needs_clarification",
+              "question": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+              "status": "mismatch",
+              "expected": {
+                "expect": {
+                  "intent": "trend",
+                  "entity_type": "event",
+                  "clarification": "needs_date",
+                  "unsupported_reason": null,
+                  "group_by": "week",
+                  "trend": {
+                    "measure": "event_count",
+                    "comparison": "previous_period",
+                    "window": "week",
+                    "change": "absolute_change"
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ],
+                  "clarification": [
+                    "none"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Was hat sich beim Veranstaltungsangebot in den letzten Wochen verändert?",
+                "intent": "trend",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "absolute_change",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": "event_count",
+                  "window": "week",
+                  "currency": null
+                },
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": {
+                  "measure": "event_count",
+                  "comparison": "previous_period",
+                  "window": "week",
+                  "change": "absolute_change"
+                },
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "needs_date",
+                "unsupported_reason": null
+              },
+              "differences": [
+                {
+                  "path": "group_by",
+                  "expected": "week",
+                  "actual": "none",
+                  "kind": "mismatch"
+                }
+              ],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": null
+            }
+          ]
+        }
+      }
+    ],
+    "gates": {
+      "blocker_run_1": "failed_10_of_12",
+      "blocker_run_2": "not_run_first_gate_failed",
+      "core": "not_run_first_gate_failed",
+      "target_239": "not_run_first_gate_failed",
+      "full_455": "not_run_first_gate_failed",
+      "merge_ready": false
+    },
+    "validation": {
+      "pytest": "3418 passed, 710 skipped",
+      "ruff": "passed",
+      "format": "passed (68 files)",
+      "mypy": "passed (29 source files)",
+      "openapi_diff": "unchanged",
+      "docs_links": "passed",
+      "diff_check": "passed"
+    },
+    "changed_files": [
+      "src/research_planner/research_v7_prompts.py",
+      "tests/test_research_v7_v13.py",
+      "docs/v7-live-v13-report.md",
+      "docs/v7-live-v13-results.json"
+    ]
+  }
 }
