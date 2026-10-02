@@ -22,8 +22,8 @@ group_by=none, all nested objects null, arrays [], ordering/limit null.
 3. ESTABLISH BLOCKING STATE
 Unvollständig/große Entfernungen zwischen Angeboten are undefined
 quality/dispersion labels: anomaly/outlier, metric/measure=null, needs_definition.
-Quantity words NEVER override an undefined quality/dispersion property: keep anomaly.
-Raw counts (viele/wenige/stark vertreten): rank, clarification=none.
+Undefined quality/dispersion outranks quantity words: anomaly.
+Viele/wenige/stark vertreten, even besonders: rank/clarification=none, NOT anomaly.
 - needs_definition: the concept/method itself is undefined (unusual, surprising, dominant,
   influential, rural, big city, broadest offer without a dimension, typical, quiet, regular).
 - needs_criteria: a known operation lacks a selection parameter, such as a particular type,
@@ -53,10 +53,10 @@ Bare new/neu remains discovery, not age ordering.
 Build metric before metric_filter.
 Defined counts: aggregate per category, rank for most. Aggregate temporal profiles
 OR frequency-qualified distributions: desc/20, even blocked; otherwise null/null.
-Existence: count, except undefined new-record discovery.
+Existence (Gibt es/Are there/Er der): count, except undefined new-record discovery.
 List organizers/venues satisfying event type/date/price predicates; relation=null.
-Theatre organizers -> list/organization, filter event_type eq Theater.
-Graph requests links/paths or named entities, not types.
+Type-filtered organizers: list, not graph.
+Graph: links/paths/named entities, not types.
 Where/wo/hvor events occur ALONE: list/event records with locations; no needs_location.
 
 5. SUBJECT
@@ -64,7 +64,7 @@ event=logical event; occurrence=date; venue=place; space=room; organization=orga
 No subject substitution.
 Unsupported subject: entity=null+unsupported_constraint; retain meaning.
 Unknown attribute INVENTORY: list/event/unsupported_constraint, semantic=null.
-Taxonomy subjects use entity=event, including anomalies; only inventories use taxonomy.
+Taxonomy subjects: entity=event, including anomalies. Inventories: taxonomy.
 Count Termine=occurrence, Veranstaltungen=event.
 
 6. METRIC
@@ -73,7 +73,7 @@ Regularity: rank/needs_definition; metric=regularity/occurrence_count/week
 Keep subject/group/order/limit; simultaneous: overlap=true/period=none; metric_filter=null.
 Frequency/regularity: measure AND window.
 Duration=elapsed start/end; event duration=longest complete occurrence. No invented ends.
-Count distinct IDs; no event_count per event.
+Distinct IDs; no event_count per event.
 Many dates: rank event/group event, occurrence_count, no clarification. Venue activity:
 rank venue/group venue, occurrence_count/desc; event_count ONLY for explicit distinct events.
 Taxonomy frequency: event_count unless explicitly dates.
@@ -163,7 +163,7 @@ queries=null, needs_definition. Never area/self edges.
 related: source=result, target=counterpart; queries stay on their nodes.
 Venues of organizer: venue->organization via event, target_query=organizer.
 shared: same source/target, nonempty via; organizations sharing venues via=[event,venue,event].
-path anchors first named subject; unnamed discovery allowed, missing specific nodes needs_criteria.
+path anchors first named subject; missing specific nodes: needs_criteria.
 Shared venues/events do not prove collaboration: insufficient_structured_data.
 Overregional: rank organization/distinct_count(region), metric_filter=gt1, desc/20,
 needs_definition;
@@ -191,10 +191,11 @@ group_by=none, unsupported_reason=null. Inactive duration cutoff: event_count/ne
 No new publications: inactive/needs_definition + insufficient_structured_data.
 
 15. SEMANTIC EVIDENCE
-Audience/accessibility/theme evidence discovery: search, not list, even with needs_definition;
-keep semantic=query/focus and clarification, no invented insufficient_structured_data.
-Semantic with ANY intent!=search: insufficient_structured_data, even blocked.
-Keep intended intent/metric/group. Blocked search needs semantic. No generated keywords/results
+Audience/accessibility/theme RECORD requests: search + semantic, even needs_definition.
+Quantitative requests retain count/aggregate/rank/compare/trend, NEVER search;
+semantic condition => insufficient_structured_data. No semantic population is exact.
+Semantic + intent!=search: insufficient_structured_data, even blocked.
+Keep intent/metric/group. Blocked search needs semantic; no generated keywords/results
 or proof of absence from evidence.
 
 16. NEUTRALIZE
