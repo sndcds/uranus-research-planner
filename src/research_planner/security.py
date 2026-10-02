@@ -46,6 +46,7 @@ class RequestBoundary:
             "/v5/plan",
             "/v6/plan",
             "/v7/plan",
+            "/v8/plan",
             "/v9/plan",
             "/ready",
         }:
@@ -65,7 +66,7 @@ class RequestBoundary:
             return
         if (
             scope["path"]
-            not in {"/plan", "/v4/plan", "/v5/plan", "/v6/plan", "/v7/plan", "/v9/plan"}
+            not in {"/plan", "/v4/plan", "/v5/plan", "/v6/plan", "/v7/plan", "/v8/plan", "/v9/plan"}
             or scope["method"] != "POST"
         ):
             await self.app(scope, receive, safe_send)

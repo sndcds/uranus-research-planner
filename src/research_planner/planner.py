@@ -8,6 +8,7 @@ from research_planner.domain_schema import DomainProposal
 from research_planner.errors import PlannerError
 from research_planner.geography_schema import GeographicQueryPlan
 from research_planner.research_v7_schema import ResearchQueryPlanV7
+from research_planner.research_v8_schema import ResearchQueryPlanV8
 from research_planner.research_v9_schema import ResearchQueryPlanV9
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 
@@ -22,6 +23,8 @@ class ResearchPlanner(Protocol):
     async def plan_v6(self, request: PlanRequest, reference_date: date) -> GeographicQueryPlan: ...
 
     async def plan_v7(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV7: ...
+
+    async def plan_v8(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV8: ...
 
     async def plan_v9(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV9: ...
 
@@ -44,6 +47,9 @@ class UnavailablePlanner:
         raise PlannerError("planner_unavailable")
 
     async def plan_v7(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV7:
+        raise PlannerError("planner_unavailable")
+
+    async def plan_v8(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV8:
         raise PlannerError("planner_unavailable")
 
     async def plan_v9(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV9:

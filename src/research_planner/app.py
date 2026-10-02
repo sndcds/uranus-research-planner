@@ -38,6 +38,7 @@ from research_planner.model_client import StructuredModelClient
 from research_planner.planner import ResearchPlanner, UnavailablePlanner
 from research_planner.prompts import RESEARCH_PLANNER_PROMPT_VERSION
 from research_planner.research_v7_schema import DiagnosticsV7, PlanResponseV7, ResearchQueryPlanV7
+from research_planner.research_v8_schema import DiagnosticsV8, PlanResponseV8, ResearchQueryPlanV8
 from research_planner.research_v9_schema import DiagnosticsV9, PlanResponseV9, ResearchQueryPlanV9
 from research_planner.schemas import (
     ClarificationResponse,
@@ -413,6 +414,75 @@ def create_app(
                 total_ms=round((perf_counter() - started) * 1000, 2),
                 error_type=error_type,
             )
+
+    @app.post(
+        "/v8/plan",
+        response_model=PlanResponseV8,
+        dependencies=[Depends(service_auth)],
+        responses={code: {"model": ErrorResponse} for code in (401, 413, 422, 502, 503)},
+    )
+    async def research_plan_v8(request: PlanRequest) -> PlanResponseV8:
+        started = perf_counter()
+        request_id = uuid4().hex
+        intent = None
+        error_type = "none"
+        planner_ms = 0.0
+        try:
+            reference_date = now().astimezone(ZoneInfo(request.timezone)).date()
+            async with inference_slot():
+                model_started = perf_counter()
+                try:
+                    proposal = await provider.plan_v8(request, reference_date)
+                finally:
+                    planner_ms = round((perf_counter() - model_started) * 1000, 2)
+            try:
+                proposal = ResearchQueryPlanV8.model_validate_json(
+                    proposal.model_dump_json(), context={"original_query": request.query}
+                )
+            except (ValueError, TypeError, AttributeError):
+                raise PlannerError("planner_invalid_response", 502) from None
+            intent = proposal.intent
+            kind: Literal["plan", "needs_clarification", "unsupported"] = (
+                "unsupported"
+                if proposal.unsupported_reason is not None
+                else "needs_clarification"
+                if proposal.clarification != "none"
+                else "plan"
+            )
+            return PlanResponseV8(
+                kind=kind,
+                schema_version="research-query-plan-v8",
+                prompt_version="research-planner-v14",
+                model=settings.model,
+                plan=proposal,
+                reference_date=reference_date,
+                timezone=request.timezone,
+                diagnostics=DiagnosticsV8(
+                    request_id=request_id,
+                    planner_intent=proposal.intent,
+                    planner_model=settings.model,
+                    planner_prompt_version="research-planner-v14",
+                    planner_ms=planner_ms,
+                    total_ms=round((perf_counter() - started) * 1000, 2),
+                ),
+            )
+        except TimeoutError:
+            error_type = "planner_unavailable"
+            raise PlannerError("planner_unavailable") from None
+        except PlannerError as exc:
+            error_type = exc.code
+            raise
+        finally:
+            log_plan(
+                request_id=request_id,
+                model=settings.model,
+                prompt_version="research-planner-v14",
+                intent=intent,
+                planner_ms=planner_ms,
+                total_ms=round((perf_counter() - started) * 1000, 2),
+                error_type=error_type,
+            )
+
 
     @app.post(
         "/v9/plan",
