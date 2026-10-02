@@ -142,3 +142,7 @@ RESEARCH_PLANNER_LIVE_TEST=1 uv run pytest -q tests/test_research_v7_live.py
 
 Ordinary v7 tests use mocked inference. They validate contracts and coverage, not live
 Terra language accuracy or Admin execution. No v7 clients are migrated in this change.
+
+For explicit live acceptance reporting and safe invalid-output diagnosis, see
+[v7 live diagnostics](docs/v7-live-diagnostics.md). The runner uses the unchanged golden
+corpus; ordinary tests and the production service do not activate live diagnostics.
