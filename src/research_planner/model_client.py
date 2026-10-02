@@ -24,7 +24,7 @@ from research_planner.geography_prompts import GEOGRAPHY_PROMPT
 from research_planner.geography_schema import GeographicQueryPlan
 from research_planner.json_codec import decode
 from research_planner.prompts import SYSTEM_PROMPT
-from research_planner.research_v7_prompts import RESEARCH_V7_PROMPT
+from research_planner.research_v7_prompts import RESEARCH_V7_PROMPT, RESEARCH_V7_PROMPT_VERSION
 from research_planner.research_v7_schema import ResearchQueryPlanV7
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 from research_planner.transport import BoundedModelTransport
@@ -122,6 +122,7 @@ class StructuredModelClient:
             domain_model,
             output_type=NativeOutput(ResearchQueryPlanV7, strict=True),
             system_prompt=RESEARCH_V7_PROMPT,
+            name=RESEARCH_V7_PROMPT_VERSION,
             retries=0,
             model_settings=model_settings,
         )

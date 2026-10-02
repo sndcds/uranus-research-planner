@@ -126,12 +126,12 @@ is a record request and does not require location permission. See
 
 ## Research Query Language v7 (additive proposal)
 
-`POST /v7/plan` introduces `research-query-plan-v7` / `research-planner-v10`: closed
+`POST /v7/plan` introduces `research-query-plan-v7` / `research-planner-v12`: closed
 metrics, typed filters, temporal/spatial/price constraints, relations, trends, explanations
 and knowledge routing. Existing endpoints and clients stay unchanged. See the
 [v7 contract](docs/research-query-plan-v7.md), [Admin handoff](docs/v7-admin-handoff.md),
 [pre-implementation audit](docs/v7-repository-audit.md) and
-[447-question capability report](docs/v7-corpus-report.json).
+[455-question capability report](docs/v7-corpus-report.json).
 The [implementation report](docs/v7-implementation-report.md) records scope and limitations.
 
 ```sh

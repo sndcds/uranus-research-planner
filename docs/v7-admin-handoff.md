@@ -1,7 +1,9 @@
 # v7 Admin handoff (no Admin implementation in this PR)
 
-Planner base: `e73358cc7ceec06f0edeb7d486ba75608c30f92a`.
-Proposed endpoint/schema/prompt: `/v7/plan` / research-query-plan-v7 / research-planner-v10.
+Integration-fix base: `0396761b8de4791e9808711f32c0ec13925c4e08`.
+Frozen v5: research-query-plan-v5 / research-planner-v10.
+Frozen v6: research-query-plan-v6 / research-planner-v11.
+Proposed endpoint/schema/prompt: `/v7/plan` / research-query-plan-v7 / research-planner-v12.
 Keep all existing clients on their existing endpoints until a separately reviewed Admin
 adapter and capability validator are ready. No SQL, migrations, source lookups, indexing,
 UI, deployment or execution implementation is part of this Planner change.

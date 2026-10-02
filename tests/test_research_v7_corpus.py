@@ -46,7 +46,9 @@ def test_every_question_has_valid_witness_and_expectations(case):
 
 def test_manifest_covers_every_supplied_catalog_section_and_preserves_variations():
     manifest = json.loads(Path("tests/fixtures/v7_catalog.json").read_text())
-    assert len(CASES) == 447  # Reviewed question occurrences; do not silently shrink the corpus.
+    # PR #16 added 17 analytics questions; 9 were already covered, 8 were missing.
+    # Its one geography addition was already covered. No existing cases were removed.
+    assert len(CASES) == 455  # 447 + regressions-093-001 through regressions-093-008.
     sections = {c["section"] for c in manifest["cases"]}
     assert set(range(39, 75)) <= sections
     assert {
@@ -71,6 +73,7 @@ def test_manifest_covers_every_supplied_catalog_section_and_preserves_variations
         90,
         91,
         92,
+        93,
     } <= sections
     questions = [c.question for c in CASES]
     assert questions.count("Welche Veranstaltungen sind kostenlos?") >= 4
@@ -137,7 +140,7 @@ def test_report_is_derived_and_contains_each_capability_question():
     from scripts.report_v7_corpus import report
 
     result = report()
-    assert result["total_questions"] == 447
-    assert sum(result["by_capability_status"].values()) == 447
-    assert sum(result["by_intent"].values()) == 447
+    assert result["total_questions"] == 455
+    assert sum(result["by_capability_status"].values()) == 455
+    assert sum(result["by_intent"].values()) == 455
     assert result == json.loads(Path("docs/v7-corpus-report.json").read_text())

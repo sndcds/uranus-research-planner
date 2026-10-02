@@ -1,14 +1,16 @@
-# Research v7: audit and design before implementation
+# Research v7: initial audit and post-merge baseline
 
-Base: freshly fetched `main`, `e73358cc7ceec06f0edeb7d486ba75608c30f92a`.
-Branch: `feat/research-query-language-v7`. The previous event-ranking PR is not
-on this base and is deliberately not incorporated.
+Original pre-implementation audit base: `e73358cc7ceec06f0edeb7d486ba75608c30f92a`.
+Original branch: `feat/research-query-language-v7`. PR #16 was absent from that base.
+The integration fix starts at `0396761b8de4791e9808711f32c0ec13925c4e08` and preserves PR #16.
+The updated frozen baseline is documented below; the original base is historical.
 
 ## Frozen contracts
 
 `/plan` (schema v3 / prompt v7), `/v4/plan` (domain proposal and its own versioning),
-`/v5/plan` (schema v5 / prompt v8), and `/v6/plan` (schema v6 / prompt v9) retain
-all current behavior, types, prompts and fixtures. In particular v6 inherits v5;
+`/v5/plan` (schema v5 / prompt v10), and `/v6/plan` (schema v6 / prompt v11) retain
+their accepted post-PR-#16 behavior, types, prompts and fixtures.
+V7 keeps schema v7 and now has the distinct prompt research-planner-v12. In particular v6 inherits v5;
 changing that base would silently change both contracts. v7 will not inherit them.
 The old analytical language veto remains confined to its old endpoints.
 
@@ -71,3 +73,45 @@ history, provenance, POIs, demographic data and authoritative accessibility sema
 are explicitly classified. Regularity/outlier methods and evaluative words are not
 silently defined. Corpus capability metadata is test/developer data, not a production
 routing table or a substitute for Admin capability validation.
+
+## Reviewed post-merge legacy snapshot
+
+PR #16 is commit `b6c78636e0674becc12d5f29ffe74dda87dd202d`; the combined main is
+`0396761b8de4791e9808711f32c0ec13925c4e08`. Before any edits, every pinned file was
+compared byte-for-byte at the old baseline, PR #16, and combined main. Every old hash
+matched the original baseline, and every current file matched PR #16 exactly.
+The PR #16 diff was reviewed: event grouping, occurrence-count-only validation,
+language/guard rules, v5/v6 version bumps and regression fixtures are legitimate.
+Only the six changed file hashes below were replaced; the other twelve were retained.
+
+| Pinned file | Review outcome |
+| --- | --- |
+| src/research_planner/analytics_schema.py | Updated: event grouping validation and prompt v10 |
+| src/research_planner/analytics_prompts.py | Updated: event occurrence ranking semantics |
+| src/research_planner/analytics_guard.py | Updated: requested grouping veto |
+| src/research_planner/geography_schema.py | Updated: inherited event grouping and prompt v11 |
+| src/research_planner/geography_prompts.py | Unchanged file/hash; imports the updated analytical prompt |
+| src/research_planner/schemas.py | Unchanged |
+| src/research_planner/prompts.py | Unchanged |
+| src/research_planner/domain_schema.py | Unchanged |
+| src/research_planner/domain_prompts.py | Unchanged |
+| src/research_planner/domain_planner.py | Unchanged |
+| src/research_planner/config.py | Unchanged |
+| src/research_planner/endpoints.py | Unchanged |
+| src/research_planner/transport.py | Unchanged |
+| tests/fixtures/analytics.json | Updated: 17 ranking/contrast language variants |
+| tests/fixtures/domain_output_schema.json | Unchanged |
+| tests/fixtures/domain_queries.json | Unchanged |
+| tests/fixtures/geography.json | Updated: exact event occurrence ranking regression |
+| tests/fixtures/queries.json | Unchanged |
+
+All six pinned OpenAPI paths are unchanged. Eight component hashes changed exactly
+as in PR #16: AnalyticalClarification, AnalyticalDiagnostics, AnalyticalQueryPlan,
+AnalyticalResponse, GeographicClarification, GeographicDiagnostics, GeographicQueryPlan,
+GeographicResponse. Their differences are event grouping enums and prompt v10/v11.
+All other twelve pinned components are unchanged. No v7 component was added to the
+legacy freeze. The separate v7 schema snapshot remains byte-identical: it describes
+the plan algebra, not envelope/diagnostics prompt versions.
+
+The snapshot now names PR #16 as its baseline. The freeze test itself remains strict;
+this is an audited re-pin, not automatic acceptance of future drift.

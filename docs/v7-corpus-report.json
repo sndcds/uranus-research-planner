@@ -1,5 +1,5 @@
 {
-  "total_questions": 447,
+  "total_questions": 455,
   "by_category": {
     "accessibility": 2,
     "anomalies": 13,
@@ -19,7 +19,7 @@
     "provenance": 10,
     "quality": 31,
     "ranking": 8,
-    "regressions": 69,
+    "regressions": 77,
     "relations": 11,
     "security": 4,
     "taxonomy": 24,
@@ -33,7 +33,7 @@
     "needs_context": 21,
     "needs_definition": 91,
     "needs_structured_data": 58,
-    "planned": 146,
+    "planned": 154,
     "semantic_only": 17,
     "supported": 58,
     "unsupported": 22
@@ -46,14 +46,14 @@
     "explain": 18,
     "knowledge": 8,
     "list": 130,
-    "rank": 134,
+    "rank": 142,
     "relation": 22,
     "search": 20,
     "taxonomy": 18,
     "trend": 12
   },
   "by_entity_type": {
-    "event": 245,
+    "event": 253,
     "municipality": 18,
     "none": 39,
     "occurrence": 5,
@@ -63,7 +63,7 @@
     "venue": 51
   },
   "features": {
-    "structured": 387,
+    "structured": 395,
     "spatial": 53,
     "semantic": 34,
     "relation": 21,
@@ -2121,6 +2121,54 @@
         "id": "regressions-091-026",
         "question": "Veranstaltungen am Vormittag",
         "notes": null,
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-001",
+        "question": "Welche Veranstaltungen haben besonders viele Termine?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-002",
+        "question": "Welche Event-Typen haben die meisten Termine?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-003",
+        "question": "Which event has the fewest dates?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-004",
+        "question": "Which 5 events have the most occurrences?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-005",
+        "question": "Which event type has the most occurrences?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-006",
+        "question": "Hvilken begivenhed har færrest datoer?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-007",
+        "question": "Hvilke 5 arrangementer har flest datoer?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
+        "required_data": []
+      },
+      {
+        "id": "regressions-093-008",
+        "question": "Hvilken begivenhedstype har flest datoer?",
+        "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank.",
         "required_data": []
       },
       {

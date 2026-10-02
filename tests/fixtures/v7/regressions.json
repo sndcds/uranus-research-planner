@@ -2398,5 +2398,341 @@
         }
       ]
     }
+  },
+  {
+    "id": "regressions-093-001",
+    "question": "Welche Veranstaltungen haben besonders viele Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event_type",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
+  },
+  {
+    "id": "regressions-093-002",
+    "question": "Welche Event-Typen haben die meisten Termine?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
+  },
+  {
+    "id": "regressions-093-003",
+    "question": "Which event has the fewest dates?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event_type",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
+  },
+  {
+    "id": "regressions-093-004",
+    "question": "Which 5 events have the most occurrences?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 5,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event_type",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
+  },
+  {
+    "id": "regressions-093-005",
+    "question": "Which event type has the most occurrences?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
+  },
+  {
+    "id": "regressions-093-006",
+    "question": "Hvilken begivenhed har færrest datoer?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "asc",
+      "limit": 1,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event_type",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
+  },
+  {
+    "id": "regressions-093-007",
+    "question": "Hvilke 5 arrangementer har flest datoer?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event",
+      "ordering": "desc",
+      "limit": 5,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event_type",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
+  },
+  {
+    "id": "regressions-093-008",
+    "question": "Hvilken begivenhedstype har flest datoer?",
+    "category": "regressions",
+    "capability_status": "planned",
+    "expect": {
+      "intent": "rank",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "operation": "occurrence_count",
+        "field": null,
+        "distinct_by": null,
+        "numerator": null,
+        "denominator": null,
+        "measure": null,
+        "window": null,
+        "currency": null
+      },
+      "group_by": "event_type",
+      "ordering": "desc",
+      "limit": 1,
+      "semantic": null,
+      "filters": []
+    },
+    "forbid": {
+      "intent": [
+        "list",
+        "search",
+        "aggregate"
+      ],
+      "group_by": [
+        "event",
+        "category",
+        "genre",
+        "venue",
+        "organization"
+      ]
+    },
+    "notes": "PR #16 legacy regression; v7 keeps the requested dimension and uses intent=rank."
   }
 ]
