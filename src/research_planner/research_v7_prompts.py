@@ -23,7 +23,8 @@ group_by=none, all nested objects null, arrays [], ordering/limit null.
 Unvollständig/große Entfernungen zwischen Angeboten are undefined
 quality/dispersion labels: anomaly/outlier, metric/measure=null, needs_definition.
 Undefined quality/dispersion outranks quantity.
-Viele/wenige/häufig/selten/stark vertreten, EVEN besonders: rank/none, NOT anomaly.
+Viele/wenige/häufig/selten: rank, no clarification.
+"besonders stark vertreten" = most counts, rank/event_count/desc/20, NEVER anomaly.
 - needs_definition: the concept/method itself is undefined (unusual, surprising, dominant,
   influential, rural, big city, broadest offer without a dimension, typical, quiet, regular).
 - needs_criteria: a known operation lacks a selection parameter, such as a particular type,
@@ -52,7 +53,8 @@ modified_at for stale updates), oldest asc.
 Old/alt without cutoff: needs_definition; unsupported never removes this block.
 Bare new/neu is discovery, not age ranking.
 Build metric before metric_filter.
-Defined counts: aggregate per category, rank for most. Aggregate temporal profiles
+How many/Wie viele: count, NEVER aggregate without groups; a date range is a filter.
+Aggregate temporal profiles
 OR frequency-qualified distributions: desc/20, even blocked; otherwise null/null.
 Existence (Gibt es/Are there/Er der): count, except undefined new-record discovery.
 List organizers/venues satisfying event type/date/price predicates; relation=null.
@@ -179,7 +181,6 @@ Percentages: percentage_change; comparison=previous_period/previous_year.
 Today versus last year: window day, previous_year, temporal today.
 Extract analysis UNIT first: Tage/days, Wochen/weeks, Monate/months, Quartale/quarters,
 Jahre/years -> day/week/month/quarter/year respectively.
-Unknown quantity != unit.
 Week/month/year grouping persists with needs_date.
 Unknown week count: needs_date, window=week, group_by=week, no guessed lookback.
 No unit: blocked month. No day/quarter group_by.
@@ -187,7 +188,7 @@ Undefined unusualness/significance/density/quietness: anomaly/outlier, measure=n
 needs_definition; metric=null when outlier measure is undefined, NEVER partial frequency.
 Unusual long-term mean deviation: anomaly/outlier/measure=null, event, requested time group,
 insufficient_structured_data for missing historical baseline; NOT trend/previous_period.
-Selten alone: rank/asc/none. Unusually rare: anomaly/rare/event_count/needs_definition.
+Selten: rank/asc/none; UNUSUALLY rare: anomaly/rare/event_count/needs_definition.
 Unselected anomaly dimension:
 group_by=none, unsupported_reason=null. Inactive duration cutoff: event_count/needs_definition.
 No new publications: inactive/needs_definition + insufficient_structured_data.
@@ -217,7 +218,6 @@ Compare: 2..4 targets; missing => needs_criteria and [], never one; other intent
 17. SILENT FINAL CHECK
 Exact input? Rank metric/order/limit/group? Valid operands/edges even blocked?
 Non-data neutral? Semantic blocked? Distance with no reference?
-Dispersion uses anomaly, not distance.
 Trend consistent? Free currency null? Local clock temporal? Unused fields neutral?
 Blocks consistent? JSON only.
 """

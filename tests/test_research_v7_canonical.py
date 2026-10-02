@@ -581,3 +581,13 @@ def test_direct_count_neutralizes_unused_projection_but_rejects_unknown_field(op
     data["metric"]["field"] = "arbitrary_column"
     with pytest.raises(ValidationError):
         normalize(data)
+
+
+def test_filtered_scalar_count_cannot_be_repaired_by_guessing_intent():
+    witness = example_plan(CASES["regressions-091-022"])
+    assert witness.intent == "count" and witness.group_by == "none"
+    assert witness.metric.operation == "event_count"
+    assert witness.temporal.period == "explicit_range"
+    data = witness.model_dump(mode="json") | {"intent": "aggregate"}
+    with pytest.raises(ValidationError, match="aggregate_requires_metric_and_group"):
+        normalize(data)
