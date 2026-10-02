@@ -335,3 +335,18 @@ The clock-schema addendum in the audit repairs the misleading RFC3339 `format: t
 annotation for v7 local clocks. Generated schemas now advertise an explicit offset-free
 HH:MM:SS[.microseconds] pattern. Native output and API documentation agree with the
 unchanged local-time validators; no timezone or new temporal capability is introduced.
+
+### Internal proposal canonicalization
+
+The v13 NativeOutput adapter validates a closed proposal using the exact public field
+constraints and nested validators before applying deterministic normal forms. Non-taxonomy
+intents clear taxonomy; taxonomy discovery clears grouping, metric and metric_filter;
+taxonomy-dimensional rank uses entity=event independently of its count metric. Objects
+reserved for anomaly/trend are null for other intents; relation is null for intents that
+cannot carry it. All unchanged public plan cross-field validators then run, followed by
+original-query equality at the client/API boundary. Unknown enums, extra fields and invalid
+nested objects are rejected even if the field would otherwise be neutralized.
+
+This adapter neither guesses intent nor invents operands, filters, names, clarifications
+or capabilities. It preserves the declared unsupported state. The public JSON schema and
+NativeOutput schema are unchanged. There is still one model call and no repair/retry loop.
