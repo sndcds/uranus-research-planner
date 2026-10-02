@@ -1077,3 +1077,73 @@ category among singular subjects. No deterministic metric/limit guessing or Gold
 c21 direct: **3/3 pass**; nine: **9/9 pass**, both zero mismatch/invalid/provider errors.
 Offline: **3983 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff, doc links
 and whitespace checks pass. Full Core121 is running on these unchanged sources.
+
+c21 Core: **121/121 pass**, security4/4, knowledge8/8, regressions77/77, supported58/58;
+zero mismatch/invalid/provider errors. CI for f932d2d passed. The full historical239 Target
+selection is now running on the same snapshot; no full455 has started yet.
+
+c21 Target239: **179 pass, 52 mismatches, 8 invalid, 0 provider errors**. All Core
+groups remain perfect: security4/4, knowledge8/8, regressions77/77, supported58/58.
+Invalid clusters: taxonomy anomaly missing event subject; undefined spatial dispersion as
+reference-free distance rank; synthetic geographic graph edge; local/overregional semantics
+as exact semantic lists; unsupported media age with list+metric; undefined completeness
+as incomplete frequency metric; direct event count with redundant nested measure.
+c22 makes these existing interpretation boundaries explicit. Direct-count proposals now
+neutralize only measure/window (forbidden for direct counts), retaining operation and other
+operands before strict metric validation. No guessed intent/metric or Golden change.
+Full455 remains gated by the failed Target invalid count.
+
+c22 direct: **4/8 pass, 2 mismatches, 2 invalid, 0 provider errors**. Geo connectivity,
+local/overregional routing and publication-history boundary now pass. Undefined dispersion
+and completeness still become incomplete rank metrics; unusual rarity chooses generic outlier,
+and unsupported media age loses its independent definition block. Offline **3996 passed,
+710 skipped**, all quality/OpenAPI/doc gates pass. c23 clarifies these existing precedence
+rules; focused witnesses **617 passed**. No new normalizer or Golden change in c23.
+
+c23 direct: **4/8 pass, 2 mismatches, 2 invalid, 0 provider errors**. The same four
+boundaries remain unstable: rare taxonomy disjunction is treated as an unsupported
+multigroup query; undefined dispersion/completeness invent distance/frequency; unsupported
+media age drops needs_definition. c24 clarifies property-before-quantity precedence and
+keeps an undefined anomaly dimension unselected. Existing focused witnesses: **617 passed**.
+
+c24 direct: **7/8 pass, 1 mismatch, 0 invalid/provider errors**. The only residual
+difference is unsupported_constraint on the undefined rarity question with alternative
+taxonomy dimensions. c25 clarifies that an unselected anomaly dimension remains neutral
+with needs_definition; it is not yet an unsupported executable multi-group request.
+
+c25 direct: **6/8 pass, 1 mismatch, 1 invalid, 0 provider errors**. Rarity now passes;
+dispersion again becomes a reference-free distance rank, and inactive publication history
+uses needs_date instead of its undefined duration threshold. c26 makes these existing
+distinctions explicit, including the final silent consistency check. Focused: **618 passed**.
+
+c26 direct: **4/8 pass, 2 mismatches, 2 invalid, 0 provider errors**. The instability
+remains in rarity/multigroup precedence, spatial dispersion, completeness and inactivity
+thresholds. Offline c25/c26: **3997 passed, 710 skipped**; all quality/OpenAPI/docs gates pass.
+c27 makes undefined-property precedence explicit over later quantity and multigroup rules,
+and narrows the field-cutoff exception to actual text-length/price/record-age fields.
+No new question examples, Golden changes or validator changes. Focused: **618 passed**.
+
+c27 direct: **6/8 pass, 0 mismatches, 2 invalid, 0 provider errors**. Undefined quality
+is now correctly anomaly, but a partial frequency metric remains attached; unsupported
+media rank loses metric/order/limit. Offline **3997 passed, 710 skipped**, all gates pass.
+c28 clarifies unused metric neutralization for undefined outliers and preserves known
+rank structure despite unsupported subject. No deterministic inference of absent semantics.
+Focused witnesses: **618 passed**.
+
+c28 direct: **6/8 pass, 2 mismatches, 0 invalid/provider errors**. The remaining
+outputs omit overregional metric_filter>1 and request needs_date for undefined inactivity.
+c29 binds those existing rules to their explicit output slots, without inferred-code repair.
+Focused witnesses: **618 passed**.
+
+c29 direct: **8/8 pass, 0 mismatch/invalid/provider errors**. Historical nine then
+**8/9 pass, 1 mismatch, 0 invalid/provider errors**: category strength becomes an undefined
+anomaly. c30 restores explicit raw-frequency vocabulary so the undefined-property precedence
+does not capture ordinary counts. Direct verification includes the previous eight plus this
+Core failure; no broad gate starts until they pass together.
+
+c30 direct (eight Target boundaries plus the regressed category count): **9/9 pass**.
+Historical nine: **9/9 pass**. Both have zero mismatches/invalid/provider errors.
+The same isolated source snapshot now runs Core121.
+
+Offline c30: **3997 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff, docs
+links and whitespace gates pass. All historical run entries remain unchanged.

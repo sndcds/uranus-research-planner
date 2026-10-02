@@ -377,3 +377,7 @@ The internal proposal adapter normalizes only this operation before strict relat
 anchored queries, other paths and other operations are preserved and validated unchanged.
 The same declared taxonomy-event-taxonomy path uses the event population; an explicitly
 unsupported subject is never converted into a supported subject by this rule.
+
+Direct count operations already declare their complete measure; nested `measure` and
+`window` are neutralized to null in proposals. Other operands and all final metrics still
+undergo strict validation. Frequency, regularity and change metrics retain their windows.

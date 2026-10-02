@@ -67,6 +67,11 @@ def canonicalize_v7(value: object) -> object:
         RelationV7.model_validate_json(json.dumps(relation, allow_nan=False))
     metric = data["metric"]
     if metric is not None:
+        if metric["operation"] in COUNT_OPERATIONS:
+            # Direct counts have no nested measure or frequency window. Their
+            # population is already completely specified by the count operation.
+            metric["measure"] = None
+            metric["window"] = None
         if (
             intent == "rank"
             and data["clarification"] == "needs_definition"
