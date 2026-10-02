@@ -75,8 +75,8 @@ Keep subject/group/order/limit; simultaneous: overlap=true/period=none; metric_f
 Frequency/regularity: measure AND window.
 Duration=elapsed start/end; event duration=longest complete occurrence. No invented ends.
 Count distinct IDs; no event_count per event.
-Many dates: rank event/group event, occurrence_count, no clarification. Venue utilization/
-busy places: rank venue/group venue, occurrence_count/desc; limit ONLY by rule 8.
+Many dates: rank event/group event, occurrence_count, no clarification. Venue activity:
+rank venue/group venue, occurrence_count/desc; event_count ONLY for explicit distinct events.
 Taxonomy frequency: event_count unless explicitly dates.
 Distinct events: event_count; distinct_count needs distinct_by.
 Diversity counts distinct categories/genres/types/organizations/venues only; no Shannon.
@@ -100,7 +100,7 @@ group_by=none; metric/ordering/limit/relation=null. Type uses filter, not graph.
 
 8. ORDER AND LIMIT
 Rank: most/latest desc, fewest/earliest asc. Limit: SUBJECT, NOT plural dates!
-Singular Event/Veranstaltung/Organisation/Ort/Genre/Typ, Danish Hvilken/Hvilket: 1.
+Singular Event/Veranstaltung/Organisation/Ort/Kategorie/Genre/Typ, Hvilken/Hvilket: 1.
 Plural Veranstaltungen/Orte/Veranstalter, Hvilke, open Wer/Wo: 20 even "am meisten".
 "Welche" is NOT necessarily plural. Explicit N (1..20) wins. No period: temporal=null.
 Thresholds: several >1, one =1, none =0; desc unless least/rare.

@@ -397,3 +397,26 @@ def test_frequency_qualified_cooccurrence_requires_no_undefined_method():
     assert witness.relation.operation == "shared"
     wrong = normalize(witness.model_dump(mode="json") | {"clarification": "needs_definition"})
     assert [d.path for d in compare_v7_expectations(wrong, case)] == ["clarification"]
+
+
+@pytest.mark.parametrize("id", ["regressions-091-010", "regressions-091-013"])
+def test_venue_activity_rejects_distinct_event_count_substitution(id):
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES[id]
+    witness = example_plan(case)
+    data = witness.model_dump(mode="json")
+    assert witness.entity_type == "venue" and witness.group_by == "venue"
+    assert witness.metric.operation == "occurrence_count"
+    data["metric"]["operation"] = "event_count"
+    assert [d.path for d in compare_v7_expectations(normalize(data), case)] == ["metric.operation"]
+
+
+def test_singular_taxonomy_noun_preserves_top_one():
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES["taxonomy-048-003"]
+    witness = example_plan(case)
+    assert witness.limit == 1 and witness.group_by == "category"
+    wrong = normalize(witness.model_dump(mode="json") | {"limit": 20})
+    assert [d.path for d in compare_v7_expectations(wrong, case)] == ["limit"]
