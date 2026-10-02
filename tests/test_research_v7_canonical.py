@@ -591,3 +591,30 @@ def test_filtered_scalar_count_cannot_be_repaired_by_guessing_intent():
     data = witness.model_dump(mode="json") | {"intent": "aggregate"}
     with pytest.raises(ValidationError, match="aggregate_requires_metric_and_group"):
         normalize(data)
+
+
+@pytest.mark.parametrize("id", ["temporal-050-007", "temporal-065-009"])
+def test_blocked_regularity_defaults_only_missing_order(id):
+    witness = example_plan(CASES[id])
+    data = witness.model_dump(mode="json") | {"ordering": None}
+    assert normalize(data) == witness
+    assert normalize(data | {"ordering": "asc"}).ordering == "asc"
+    with pytest.raises(ValidationError, match="rank_requires_metric_order_and_limit"):
+        normalize(data | {"limit": None})
+    with pytest.raises(ValidationError, match="rank_requires_metric_order_and_limit"):
+        ResearchQueryPlanV7.model_validate_json(json.dumps(data))
+
+
+def test_unknown_time_group_preserves_event_population_and_past_constraint():
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES["temporal-041-003"]
+    witness = example_plan(case)
+    assert witness.intent == "aggregate" and witness.clarification == "needs_criteria"
+    assert witness.entity_type == "event" and witness.metric.operation == "event_count"
+    assert witness.group_by == "none" and witness.temporal.period == "past"
+    data = witness.model_dump(mode="json")
+    data.update(entity_type="occurrence", temporal=None)
+    data["metric"]["operation"] = "occurrence_count"
+    paths = {d.path for d in compare_v7_expectations(normalize(data), case)}
+    assert {"entity_type", "metric.operation", "temporal"} <= paths
