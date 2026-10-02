@@ -6,6 +6,7 @@ from typing import Protocol
 from research_planner.analytics_schema import AnalyticalQueryPlan
 from research_planner.domain_schema import DomainProposal
 from research_planner.errors import PlannerError
+from research_planner.geography_schema import GeographicQueryPlan
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 
 
@@ -15,6 +16,8 @@ class ResearchPlanner(Protocol):
     async def plan_v4(self, request: PlanRequest) -> DomainProposal: ...
 
     async def plan_v5(self, request: PlanRequest, reference_date: date) -> AnalyticalQueryPlan: ...
+
+    async def plan_v6(self, request: PlanRequest, reference_date: date) -> GeographicQueryPlan: ...
 
     async def ready(self) -> bool: ...
 
@@ -29,6 +32,9 @@ class UnavailablePlanner:
         raise PlannerError("planner_unavailable")
 
     async def plan_v5(self, request: PlanRequest, reference_date: date) -> AnalyticalQueryPlan:
+        raise PlannerError("planner_unavailable")
+
+    async def plan_v6(self, request: PlanRequest, reference_date: date) -> GeographicQueryPlan:
         raise PlannerError("planner_unavailable")
 
     async def ready(self) -> bool:

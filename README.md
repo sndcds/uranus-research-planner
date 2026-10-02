@@ -115,3 +115,11 @@ model-backed interpreter using the configured provider and strict schema. See
 See [v5/v8 analytical planning and coordinated activation](docs/analytical-research-v5.md) for taxonomy,
 exact rankings, spatial predicates and time windows. Legacy v3/v7 and unified v4
 remain available; activate the new path only after both components are installed.
+
+Geographic Research is available through the coordinated `/v6/plan` contract
+(`research-query-plan-v6`, prompt `research-planner-v9`). It adds `place_query` for
+streets/squares/local places and `location_relation=nearby` for deictic user-location
+requests. The planner receives no coordinates and performs no geocoder calls; Admin
+supplies validated context or asks the user. “Wo finden [heute] Veranstaltungen statt?”
+is a record request and does not require location permission. See
+[the v6 contract](docs/geographic-research-v6.md) for rollout and test limitations.

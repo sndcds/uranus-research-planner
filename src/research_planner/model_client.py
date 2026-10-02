@@ -20,6 +20,8 @@ from research_planner.config import Settings
 from research_planner.domain_prompts import DOMAIN_SYSTEM_PROMPT
 from research_planner.domain_schema import DomainProposal
 from research_planner.errors import PlannerError
+from research_planner.geography_prompts import GEOGRAPHY_PROMPT
+from research_planner.geography_schema import GeographicQueryPlan
 from research_planner.json_codec import decode
 from research_planner.prompts import SYSTEM_PROMPT
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
@@ -105,6 +107,20 @@ class StructuredModelClient:
             model_settings=model_settings,
         )
         self.analytics_agent.instrument = False
+        self.geography_agent: Agent[None, GeographicQueryPlan] = Agent(
+            domain_model,
+            output_type=NativeOutput(GeographicQueryPlan, strict=True),
+            system_prompt=GEOGRAPHY_PROMPT,
+            retries=0,
+            model_settings=model_settings,
+        )
+        self.geography_agent.instrument = False
+
+    async def plan_v6(self, request: PlanRequest, reference_date: date) -> GeographicQueryPlan:
+        return await self._infer(
+            self.geography_agent,
+            {**request.model_dump(mode="json"), "reference_date": reference_date.isoformat()},
+        )
 
     async def plan_v5(self, request: PlanRequest, reference_date: date) -> AnalyticalQueryPlan:
         return await self._infer(
