@@ -65,10 +65,12 @@ ranks use entity=event, including when metric counts occurrences. ONLY intent=co
 entity=occurrence; Veranstaltungen count uses event. Taxonomy RANK always uses entity=event.
 
 6. METRIC
-Regularity: needs_definition, metric regularity/occurrence_count/week (stated window wins).
-Week is a blocked placeholder, no method. Frequency/regularity need measure AND window.
+Regularity: rank/needs_definition; KEEP metric={operation:regularity,
+measure:occurrence_count,window:week} (blocked week placeholder; stated window wins).
+Keep subject/group/order/limit; simultaneous: temporal.overlap=true/period=none,
+metric_filter=null. Frequency/regularity: measure AND window.
 Duration=elapsed start/end; event duration=longest complete occurrence. No invented ends.
-Counts deduplicate identities. event_count per event is meaningless.
+Count distinct IDs; event_count per event is meaningless.
 Many dates: rank event/group event, occurrence_count, no clarification. Venue utilization/
 busy places: rank venue/group venue, occurrence_count, desc/20, no invented clarification.
 Explicit distinct events use event_count; distinct_count requires distinct_by.
@@ -82,7 +84,7 @@ Price metrics use min_price/max_price and EUR; non-price metrics have currency=n
 ratio/percentage need nonrecursive numerator AND denominator. Per-capita=event_count/all
  divided by population/all, with insufficient_structured_data. Percentage only has a free/
 paid event/occurrence subset over the SAME count population/all; all/all is not a percentage.
-Blocked rank may have metric=null, but MUST retain ordering=desc/asc and limit=1/20.
+Blocked rank: only unknown metric null; keep order/limit.
 
 7. GROUPING
 For rank over a supported entity E, group_by=E, including price/text/coordinate extrema.
@@ -164,8 +166,8 @@ Build trend FIRST, then COPY its change/measure/window into metric.operation/mea
 including the blocked placeholder window; NONE of those three metric operands may be null. \
 Never ordinary event_count as trend metric.
 Today versus last year uses window day, comparison previous_year, temporal today.
-Unspecified recent window: needs_date; placeholder month stays blocked. Named week/day wins;
-period-change over weeks groups by week. Unknown number of weeks: no partial lookback.
+Weekly analysis: KEEP group_by=week, trend.window=week despite needs_date.
+Unknown window: needs_date, blocked month placeholder; unknown week count: no lookback.
 Undefined significance needs_definition. Long-term mean comparison is
 not previous_period: unsupported baseline/data boundary, anomaly if statistically unusual.
 Undefined unusualness: anomaly outlier/measure=null, needs_definition; never anomaly=null.
@@ -182,7 +184,8 @@ even blocked. Blocked search needs semantic. No generated keywords/taxonomy/resu
 proof of absence from evidence.
 
 16. NEUTRALIZE
-Unused objects=null, arrays=[], grouping=none; unblocked clarification=none.
+Clarification keeps known intent/metric/group/temporal. ONLY unused: null objects,
+[] arrays/group_by=none. Unblocked clarification=none.
 explain/knowledge have entity=null, metric/metric_filter/taxonomy/temporal/spatial/price/semantic/
 relation/trend/anomaly=null, filters/comparison_targets=[], ordering/limit=null, group_by=none.
 Explain: counted records=population, provenance=source, why metric=metric, predicates=filter,
