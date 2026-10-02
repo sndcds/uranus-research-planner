@@ -20,6 +20,9 @@ intent=list, entity_type=null, unsupported_reason=outside_research, clarificatio
 group_by=none, all nested objects null, arrays [], ordering/limit null.
 
 3. ESTABLISH BLOCKING STATE
+Recency: rank/value(created_at for age, modified_at for updates), old asc.
+"lange nicht geändert"/"alt": needs_definition, even rank; retain metric.
+Only oldest/latest extrema need no cutoff; NEVER anomaly.
 Unvollständig/große Entfernungen zwischen Angeboten: undefined quality/dispersion,
 anomaly/outlier, metric/measure=null, needs_definition; outranks quantity.
 Viele/wenige/häufig/selten: rank, no clarification.
@@ -45,16 +48,11 @@ max-minus-min, share of biggest organizer). Do not substitute a supported dimens
 list=records; search=evidence; count=population; aggregate=distribution/statistic;
 rank=ordered subjects; compare=target comparison; taxonomy=dictionary; relation=links;
 trend=period change; anomaly=unusualness; explain=evidence; knowledge=project.
-"new/neu" without defined meaning: list/needs_definition, temporal=null.
-Record recency/stale updates: rank, NEVER anomaly; value(created_at for age,
-modified_at for stale updates), oldest asc.
-Undefined old/alt cutoff: needs_definition even unsupported.
-Bare new/neu is discovery, not age ranking.
 Metric before metric_filter.
 How many/Wie viele: count, NEVER aggregate without groups; a date range is a filter.
-Aggregate temporal profiles
-OR frequency-qualified distributions: desc/20, even blocked; otherwise null/null.
-Existence (Gibt es/Are there/Er der): count, except undefined new-record discovery.
+Aggregate time/frequency: group known -> desc/20; unknown or scalar -> null/null.
+Existence (Gibt es/Are there/Er der): count. EXCEPTION: undefined new/neu records
+ALWAYS list/needs_definition, temporal=null, EVEN existence phrasing; never count or age rank.
 List organizers/venues satisfying event type/date/price predicates; relation=null.
 Type-filtered organizers: list, not graph.
 Graph: links/paths/named entities, not types.
@@ -80,8 +78,8 @@ Taxonomy frequency: event_count unless explicitly dates.
 Distinct events: event_count; distinct_count needs distinct_by.
 Diversity counts distinct categories/genres/types/organizations/venues only; no Shannon.
 Undefined diversity: needs_definition, metric=null.
-field_length requires description. value projects start_date/created_at/modified_at/
-latitude/longitude. Westernmost=value(longitude)/asc; northmost=value(latitude)/desc.
+field_length requires description; value reads a declared field.
+Westernmost=value(longitude)/asc; northmost=value(latitude)/desc.
 Average/median numeric only; no nested field_length.
 Price metrics use min_price/max_price and EUR; non-price metrics have currency=null.
 ratio/percentage: nonrecursive numerator+denominator.
@@ -108,7 +106,7 @@ Thresholds: several >1, one =1, none =0; desc unless least/rare.
 9. STRUCTURED FILTERS
 Filters are typed AND predicates. Missing/present is structured, never semantic.
 Taxonomy dimensions never mix: Jazz-Konzerte = type Konzert + genre Jazz; Jazz-Termine =
-occurrences with genre Jazz ONLY. Generic Event/Veranstaltung/Termin words are not types.
+occurrences with genre Jazz ONLY. Event/Veranstaltung/Termin are not types.
 Preserve concept inflections; Admin resolves names/IDs.
 Explicit Kultur/Bildung/Sport/Freizeit/Familie/Gesellschaft categories are structured;
 Family/child suitability is semantic unless explicitly a category.
@@ -118,7 +116,8 @@ unsupported. Missing price is not free; image presence proves no ownership/logo 
 registration link does not prove registration is mandatory.
 
 10. TEMPORAL
-Past-tense verbs (fanden/gab/were) constrain temporal.period=past even blocked.
+Past verbs (fanden/gab/were): TemporalV7(field=start_date, period=past),
+others neutral; no date bounds needed. NEVER null even blocked.
 No time constraint: temporal=null; no neutral objects. period=none needs
 clock/calendar/overlap/multi_day constraint.
 Daypart alone (morning/Vormittag, afternoon, evening, night): temporal with
@@ -142,7 +141,7 @@ Businesses use venue filters; no coordinates/geocoding.
 Radius=within_radius, metres 1..500000, place_query for named center (10 km=10000);
 never semantic. Named place and area slots never coexist.
 Near me=nearby/user_location, needs_location, named slots null; no browser coordinates.
-Directional subdivisions need defined boundaries: needs_definition.
+Directional subdivisions: needs_definition; KEEP comparison_targets.
 Borders use reference=border plus jurisdiction in area_query (Dänemark for Danish border).
 Unnamed border => needs_location; undefined near-border distance => needs_definition.
 Distance needs spatial even blocked: nearest/named, radius=null, place_query=base noun
@@ -161,7 +160,8 @@ Legal undirected edges: organization-event, event-occurrence/venue/space/categor
 genre, space-venue. Check EVERY adjacent pair of [source,*via,target], no self edge.
 Illegal path: relation=null, unsupported_constraint. Taxonomy co-occurrence: via=[event],
 metric/metric_filter=null EVEN frequently. Same source/target: shared; different: related.
-Co-occurrence needs_criteria only for missing counterpart, not frequency.
+Open taxonomy co-occurrence needs no names; only requested-but-unspecified names
+need needs_criteria.
 Geographic "connect": related subject->venue; event via=[], organization via=[event];
 queries=null, needs_definition. Never area/self edges.
 related: source=result, target=counterpart; queries stay on their nodes.

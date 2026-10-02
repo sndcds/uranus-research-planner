@@ -1327,3 +1327,51 @@ runs on the same unchanged sources. No Golden change was needed for these tempor
 c47 nine: **9/9 pass**, zero mismatch/invalid/provider. Core121 is running on the same
 snapshot. Offline **4020 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff,
 docs links and whitespace checks all pass. Full455 has still not run.
+
+c47 Core: **120/121 pass, 1 mismatch, 0 invalid/provider**. Security4/4, knowledge8/8,
+regressions76/77, supported58/58. Undefined new-venue discovery is mislabeled count despite
+its blocking state. c48 states the existing new-record exception directly beside the
+existence rule; no deterministic intent substitution or Golden change is introduced.
+
+c48 direct: **12/13 pass, 1 mismatch, 0 invalid/provider**. New-place discovery passes;
+stale record metadata regresses to anomaly. c49 moves the existing recency rule before
+generic blocking-state decisions and explicitly distinguishes metadata staleness from
+inactive event activity. The user-approved event default and Golden remain unchanged.
+
+c49 direct: **11/13 pass, 2 mismatch, 0 invalid/provider**. Stale metadata is correctly
+ranked but loses its undefined cutoff; the time-group question again loses past. c50
+keeps the cutoff block beside the recency construction and spells out the existing
+past-period descriptor without requiring concrete date bounds. No schema/Golden changes.
+
+c50 direct: **12/13 pass, 1 mismatch, 0 invalid/provider**. Time grouping now passes;
+stale metadata loses only needs_definition. c51 distinguishes vague age qualifiers
+(alt/lange) from ordinary quantity ranking, preserving the existing definition boundary.
+
+c51 single recency case: **0/1 pass, 1 mismatch, 0 invalid/provider**. The sole
+remaining difference is still the definition boundary. c52 contrasts qualitative
+metadata age with explicit oldest/latest extrema using short concept examples rather
+than a corpus question or lookup. No broader live run was launched for c51.
+
+c52 recency single: **1/1 pass**; c52 direct: **11/13 pass, 2 mismatch, 0 invalid/provider**.
+The two differences are an unnecessary criterion request for open genre co-occurrence and
+a descending/20 default before a time-group dimension is selected. c53 scopes distribution
+defaults to known groups and distinguishes open taxonomy membership from explicitly
+requested but unspecified names. No clarification state is removed by canonicalization.
+
+c53 direct: **12/13 pass, 1 mismatch, 0 invalid/provider**. All preceding temporal and
+recency cases pass; the directional-region comparison drops its explicitly named targets
+because their boundaries need definition. c54 retains named comparison targets alongside
+that definition block. The canonicalizer still does not invent missing target names.
+
+c48/c49/c50/c51/c52/c53 offline runs each completed **4020 passed, 710 skipped**;
+Ruff, format, Mypy, OpenAPI no-diff, docs links and whitespace gates passed for each.
+c54 focused **641 passed**; direct **13/13 pass**, zero mismatch/invalid/provider.
+Historical nine runs next. All failures and the earlier single-case pass remain separately
+recorded; no selective replacement of runs.
+
+c54 historical nine: **9/9 pass**, zero mismatch/invalid/provider errors. Core121
+runs on identical sources. Prompt v13, all455 fixtures, public validators and provider
+settings remain unchanged in version/scope; this round only clarifies interpretation.
+
+c54 offline: **4020 passed, 710 skipped**. Ruff, format, Mypy, OpenAPI no-diff,
+docs-link and whitespace gates pass. The full455 gate is still pending, not claimed stable.
