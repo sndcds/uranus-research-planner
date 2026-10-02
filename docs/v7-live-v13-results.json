@@ -11390,5 +11390,1749 @@
       "diff_check": "passed"
     },
     "stop_reason": "core"
+  },
+  "core_error_followup": {
+    "starting_commit": "214f22d17852131a4f8e15eb80912d7ba326e637",
+    "prompt_version": "research-planner-v13",
+    "prompt_sha256": "00eba3a068686b00cd71f513534d9c237b180c2f37bcba241684f151e6a78bf9",
+    "prompt_characters": 13998,
+    "golden_changes": 0,
+    "schema_changes": 0,
+    "validator_changes": 0,
+    "comparator_changes": 0,
+    "api_changes": 0,
+    "provider_changes": 0,
+    "baseline_artifact_path": "/tmp/v13-granularity-core.json",
+    "baseline_artifact_sha256": "dd271f4c2ea494a905960b3d4851e2469e3e0e0a6a3d6fc8f14f454f23f8180b",
+    "audit": [
+      {
+        "case_id": "comparisons-058-007",
+        "category": "comparisons",
+        "capability_status": "supported",
+        "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+        "status": "invalid_response",
+        "expected": {
+          "expect": {
+            "intent": "rank",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "metric": {
+              "operation": "event_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "group_by": "category",
+            "ordering": "desc",
+            "limit": 20,
+            "spatial": {
+              "relation": "inside",
+              "place_query": null,
+              "area_query": "Flensburg",
+              "reference": "named",
+              "radius_m": null
+            },
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": null,
+        "differences": [],
+        "validation_stage": "pydantic_validation_error",
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, unexpected_anomaly"
+          }
+        ],
+        "model_output": {
+          "original_query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "category",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": {
+            "relation": "inside",
+            "place_query": null,
+            "area_query": "Flensburg",
+            "radius_m": null,
+            "reference": "named"
+          },
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "finish_reason": "stop",
+        "output_tokens": 148,
+        "safe_error_code": "planner_invalid_response",
+        "classification": "intent-object-neutrality",
+        "rationale": "Quantity wording was interpreted as undefined unusualness: rank retained but metric dropped, needs_definition and anomaly added; anomaly is forbidden outside intent=anomaly.",
+        "rule_change": "Quantity rank retains count metric; anomaly=null for every other intent."
+      },
+      {
+        "case_id": "organizations-053-002",
+        "category": "organizations",
+        "capability_status": "supported",
+        "question": "Welche Veranstalter bieten heute Veranstaltungen an?",
+        "status": "invalid_response",
+        "expected": {
+          "expect": {
+            "intent": "list",
+            "entity_type": "organization",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "temporal": {
+              "field": "start_date",
+              "period": "today",
+              "from_date": null,
+              "to_date": null,
+              "time_of_day": "none",
+              "before_time": null,
+              "after_time": null,
+              "weekday": null,
+              "calendar_relation": "none",
+              "calendar_area_query": null,
+              "overlap": false,
+              "multi_day": false,
+              "lookback": null,
+              "lookback_unit": null
+            },
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+                "focus": null
+              }
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": null,
+        "differences": [],
+        "validation_stage": "pydantic_validation_error",
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, unexpected_relation"
+          }
+        ],
+        "model_output": {
+          "original_query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+          "intent": "list",
+          "entity_type": "organization",
+          "metric": null,
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "today",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "related",
+            "source": "organization",
+            "target": "event",
+            "via": [],
+            "source_query": null,
+            "target_query": null
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "finish_reason": "stop",
+        "output_tokens": 207,
+        "safe_error_code": "planner_invalid_response",
+        "classification": "intent-object-neutrality",
+        "rationale": "List of organizations eligible today was decorated with organization-event relation, forbidden on list intent.",
+        "rule_change": "Implicit eligibility links by date/type/price are not explicit graph requests; list carries relation=null."
+      },
+      {
+        "case_id": "regressions-090-003",
+        "category": "regressions",
+        "capability_status": "planned",
+        "question": "Welcher Veranstaltungstyp hat die meisten Termine?",
+        "status": "mismatch",
+        "expected": {
+          "expect": {
+            "intent": "rank",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "metric": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "group_by": "event_type",
+            "ordering": "desc",
+            "limit": 1,
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": {
+          "original_query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "event_type",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "differences": [
+          {
+            "path": "limit",
+            "expected": 1,
+            "actual": 20,
+            "kind": "mismatch"
+          }
+        ],
+        "validation_stage": null,
+        "validation_errors": [],
+        "model_output": null,
+        "finish_reason": "stop",
+        "output_tokens": 153,
+        "safe_error_code": null,
+        "classification": "singular-limit",
+        "rationale": "Singular subject was given limit=20, despite otherwise matching expectation. Existing busy-place desc/20 rule conflicted with singular limit; measured plural dates must not determine subject cardinality.",
+        "rule_change": "Determine limit from grammatical subject noun, including feminine German and Danish singular; explicit N wins, plural/open Wer/Wo defaults to20."
+      },
+      {
+        "case_id": "regressions-090-004",
+        "category": "regressions",
+        "capability_status": "planned",
+        "question": "Welches Genre hat die meisten Termine?",
+        "status": "mismatch",
+        "expected": {
+          "expect": {
+            "intent": "rank",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "metric": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "group_by": "genre",
+            "ordering": "desc",
+            "limit": 1,
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welches Genre hat die meisten Termine?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": {
+          "original_query": "Welches Genre hat die meisten Termine?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "genre",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "differences": [
+          {
+            "path": "limit",
+            "expected": 1,
+            "actual": 20,
+            "kind": "mismatch"
+          }
+        ],
+        "validation_stage": null,
+        "validation_errors": [],
+        "model_output": null,
+        "finish_reason": "stop",
+        "output_tokens": 150,
+        "safe_error_code": null,
+        "classification": "singular-limit",
+        "rationale": "Singular subject was given limit=20, despite otherwise matching expectation. Existing busy-place desc/20 rule conflicted with singular limit; measured plural dates must not determine subject cardinality.",
+        "rule_change": "Determine limit from grammatical subject noun, including feminine German and Danish singular; explicit N wins, plural/open Wer/Wo defaults to20."
+      },
+      {
+        "case_id": "regressions-090-005",
+        "category": "regressions",
+        "capability_status": "planned",
+        "question": "Welcher Ort hat die meisten Termine?",
+        "status": "mismatch",
+        "expected": {
+          "expect": {
+            "intent": "rank",
+            "entity_type": "venue",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "metric": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "group_by": "venue",
+            "ordering": "desc",
+            "limit": 1,
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welcher Ort hat die meisten Termine?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": {
+          "original_query": "Welcher Ort hat die meisten Termine?",
+          "intent": "rank",
+          "entity_type": "venue",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "venue",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "differences": [
+          {
+            "path": "limit",
+            "expected": 1,
+            "actual": 20,
+            "kind": "mismatch"
+          }
+        ],
+        "validation_stage": null,
+        "validation_errors": [],
+        "model_output": null,
+        "finish_reason": "stop",
+        "output_tokens": 150,
+        "safe_error_code": null,
+        "classification": "singular-limit",
+        "rationale": "Singular subject was given limit=20, despite otherwise matching expectation. Existing busy-place desc/20 rule conflicted with singular limit; measured plural dates must not determine subject cardinality.",
+        "rule_change": "Determine limit from grammatical subject noun, including feminine German and Danish singular; explicit N wins, plural/open Wer/Wo defaults to20."
+      },
+      {
+        "case_id": "regressions-090-006",
+        "category": "regressions",
+        "capability_status": "planned",
+        "question": "Welche Organisation hat die meisten Termine?",
+        "status": "mismatch",
+        "expected": {
+          "expect": {
+            "intent": "rank",
+            "entity_type": "organization",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "metric": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "group_by": "organization",
+            "ordering": "desc",
+            "limit": 1,
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welche Organisation hat die meisten Termine?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": {
+          "original_query": "Welche Organisation hat die meisten Termine?",
+          "intent": "rank",
+          "entity_type": "organization",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "organization",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "differences": [
+          {
+            "path": "limit",
+            "expected": 1,
+            "actual": 20,
+            "kind": "mismatch"
+          }
+        ],
+        "validation_stage": null,
+        "validation_errors": [],
+        "model_output": null,
+        "finish_reason": "stop",
+        "output_tokens": 149,
+        "safe_error_code": null,
+        "classification": "singular-limit",
+        "rationale": "Singular subject was given limit=20, despite otherwise matching expectation. Existing busy-place desc/20 rule conflicted with singular limit; measured plural dates must not determine subject cardinality.",
+        "rule_change": "Determine limit from grammatical subject noun, including feminine German and Danish singular; explicit N wins, plural/open Wer/Wo defaults to20."
+      },
+      {
+        "case_id": "regressions-091-004",
+        "category": "regressions",
+        "capability_status": "supported",
+        "question": "Welche Genres zum Eventtyp Konzert gibt es?",
+        "status": "mismatch",
+        "expected": {
+          "expect": {
+            "intent": "taxonomy",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "taxonomy": "genre",
+            "filters": [
+              {
+                "field": "event_type",
+                "operator": "eq",
+                "value": "Konzert"
+              }
+            ],
+            "semantic": null
+          },
+          "forbid": {
+            "semantic": [
+              {
+                "query": "Welche Genres zum Eventtyp Konzert gibt es?",
+                "focus": null
+              }
+            ],
+            "intent": [
+              "list",
+              "search"
+            ]
+          },
+          "resolver_name_variants": {
+            "filters.0.value": [
+              "Konzert",
+              "Konzerte",
+              "Konzerten"
+            ]
+          }
+        },
+        "actual": {
+          "original_query": "Welche Genres zum Eventtyp Konzert gibt es?",
+          "intent": "relation",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": "none",
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "related",
+            "source": "event_type",
+            "target": "genre",
+            "via": [
+              "event"
+            ],
+            "source_query": "Konzert",
+            "target_query": null
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "differences": [
+          {
+            "path": "filters.0",
+            "expected": {
+              "field": "event_type",
+              "operator": "eq",
+              "value": "Konzert"
+            },
+            "actual": null,
+            "kind": "missing"
+          },
+          {
+            "path": "intent",
+            "expected": "taxonomy",
+            "actual": "relation",
+            "kind": "mismatch"
+          },
+          {
+            "path": "taxonomy",
+            "expected": "genre",
+            "actual": null,
+            "kind": "mismatch"
+          }
+        ],
+        "validation_stage": null,
+        "validation_errors": [],
+        "model_output": null,
+        "finish_reason": "stop",
+        "output_tokens": 144,
+        "safe_error_code": null,
+        "classification": "taxonomy-discovery",
+        "rationale": "Type-restricted genre inventory became a graph relation and lost taxonomy and filter.",
+        "rule_change": "Taxonomy discovery remains taxonomy/event with dimension and type filter, neutral metric/group/order/limit/relation."
+      },
+      {
+        "case_id": "regressions-093-006",
+        "category": "regressions",
+        "capability_status": "planned",
+        "question": "Hvilken begivenhed har færrest datoer?",
+        "status": "mismatch",
+        "expected": {
+          "expect": {
+            "intent": "rank",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "metric": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "group_by": "event",
+            "ordering": "asc",
+            "limit": 1,
+            "semantic": null,
+            "filters": []
+          },
+          "forbid": {
+            "intent": [
+              "list",
+              "search",
+              "aggregate"
+            ],
+            "group_by": [
+              "event_type",
+              "category",
+              "genre",
+              "venue",
+              "organization"
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": {
+          "original_query": "Hvilken begivenhed har færrest datoer?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "event",
+          "ordering": "asc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "differences": [
+          {
+            "path": "limit",
+            "expected": 1,
+            "actual": 20,
+            "kind": "mismatch"
+          }
+        ],
+        "validation_stage": null,
+        "validation_errors": [],
+        "model_output": null,
+        "finish_reason": "stop",
+        "output_tokens": 154,
+        "safe_error_code": null,
+        "classification": "singular-limit",
+        "rationale": "Singular subject was given limit=20, despite otherwise matching expectation. Existing busy-place desc/20 rule conflicted with singular limit; measured plural dates must not determine subject cardinality.",
+        "rule_change": "Determine limit from grammatical subject noun, including feminine German and Danish singular; explicit N wins, plural/open Wer/Wo defaults to20."
+      },
+      {
+        "case_id": "regressions-093-008",
+        "category": "regressions",
+        "capability_status": "planned",
+        "question": "Hvilken begivenhedstype har flest datoer?",
+        "status": "mismatch",
+        "expected": {
+          "expect": {
+            "intent": "rank",
+            "entity_type": "event",
+            "clarification": "none",
+            "unsupported_reason": null,
+            "metric": {
+              "operation": "occurrence_count",
+              "field": null,
+              "distinct_by": null,
+              "numerator": null,
+              "denominator": null,
+              "measure": null,
+              "window": null,
+              "currency": null
+            },
+            "group_by": "event_type",
+            "ordering": "desc",
+            "limit": 1,
+            "semantic": null,
+            "filters": []
+          },
+          "forbid": {
+            "intent": [
+              "list",
+              "search",
+              "aggregate"
+            ],
+            "group_by": [
+              "event",
+              "category",
+              "genre",
+              "venue",
+              "organization"
+            ]
+          },
+          "resolver_name_variants": {}
+        },
+        "actual": {
+          "original_query": "Hvilken begivenhedstype har flest datoer?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": "event_type",
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "differences": [
+          {
+            "path": "limit",
+            "expected": 1,
+            "actual": 20,
+            "kind": "mismatch"
+          }
+        ],
+        "validation_stage": null,
+        "validation_errors": [],
+        "model_output": null,
+        "finish_reason": "stop",
+        "output_tokens": 155,
+        "safe_error_code": null,
+        "classification": "singular-limit",
+        "rationale": "Singular subject was given limit=20, despite otherwise matching expectation. Existing busy-place desc/20 rule conflicted with singular limit; measured plural dates must not determine subject cardinality.",
+        "rule_change": "Determine limit from grammatical subject noun, including feminine German and Danish singular; explicit N wins, plural/open Wer/Wo defaults to20."
+      }
+    ],
+    "runs": [
+      {
+        "name": "nine_first",
+        "artifact_path": "/tmp/v13-corefix-nine-first.json",
+        "artifact_sha256": "08348b2dc5dfdb033ed8deb3aa25e375550ab5fb839dacadfcc51001675a877b",
+        "report": {
+          "schema_version": "research-query-plan-v7",
+          "prompt_version": "research-planner-v13",
+          "model": "gpt-5.6-terra",
+          "reference_date": "2026-10-02",
+          "git_commit": null,
+          "debug_enabled": true,
+          "total": 9,
+          "passed": 6,
+          "failed": 3,
+          "mismatch_count": 0,
+          "invalid_response_count": 3,
+          "provider_error_count": 0,
+          "by_category": {
+            "comparisons": {
+              "total": 1,
+              "passed": 0,
+              "mismatch": 0,
+              "invalid_response": 1,
+              "provider_error": 0
+            },
+            "organizations": {
+              "total": 1,
+              "passed": 1,
+              "mismatch": 0,
+              "invalid_response": 0,
+              "provider_error": 0
+            },
+            "regressions": {
+              "total": 7,
+              "passed": 5,
+              "mismatch": 0,
+              "invalid_response": 2,
+              "provider_error": 0
+            }
+          },
+          "by_capability_status": {
+            "planned": {
+              "total": 6,
+              "passed": 4,
+              "mismatch": 0,
+              "invalid_response": 2,
+              "provider_error": 0
+            },
+            "supported": {
+              "total": 3,
+              "passed": 2,
+              "mismatch": 0,
+              "invalid_response": 1,
+              "provider_error": 0
+            }
+          },
+          "by_difference_path": {},
+          "cases": [
+            {
+              "case_id": "comparisons-058-007",
+              "category": "comparisons",
+              "capability_status": "supported",
+              "question": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+              "status": "invalid_response",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "event_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "category",
+                  "ordering": "desc",
+                  "limit": 20,
+                  "spatial": {
+                    "relation": "inside",
+                    "place_query": null,
+                    "area_query": "Flensburg",
+                    "reference": "named",
+                    "radius_m": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": null,
+              "differences": [],
+              "validation_stage": "pydantic_validation_error",
+              "validation_errors": [
+                {
+                  "loc": [],
+                  "type": "value_error",
+                  "msg": "Value error, unexpected_taxonomy"
+                }
+              ],
+              "model_output": {
+                "original_query": "Welche Kategorien sind in Flensburg besonders stark vertreten?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "event_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "category",
+                "ordering": "desc",
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": "category",
+                "temporal": null,
+                "spatial": {
+                  "relation": "inside",
+                  "place_query": null,
+                  "area_query": "Flensburg",
+                  "radius_m": null,
+                  "reference": "named"
+                },
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "finish_reason": "stop",
+              "output_tokens": 174,
+              "safe_error_code": "planner_invalid_response"
+            },
+            {
+              "case_id": "organizations-053-002",
+              "category": "organizations",
+              "capability_status": "supported",
+              "question": "Welche Veranstalter bieten heute Veranstaltungen an?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "list",
+                  "entity_type": "organization",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "temporal": {
+                    "field": "start_date",
+                    "period": "today",
+                    "from_date": null,
+                    "to_date": null,
+                    "time_of_day": "none",
+                    "before_time": null,
+                    "after_time": null,
+                    "weekday": null,
+                    "calendar_relation": "none",
+                    "calendar_area_query": null,
+                    "overlap": false,
+                    "multi_day": false,
+                    "lookback": null,
+                    "lookback_unit": null
+                  },
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+                      "focus": null
+                    }
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Veranstalter bieten heute Veranstaltungen an?",
+                "intent": "list",
+                "entity_type": "organization",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": 20,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": {
+                  "field": "start_date",
+                  "period": "today",
+                  "from_date": null,
+                  "to_date": null,
+                  "time_of_day": "none",
+                  "before_time": null,
+                  "after_time": null,
+                  "weekday": null,
+                  "calendar_relation": "none",
+                  "calendar_area_query": null,
+                  "overlap": false,
+                  "multi_day": false,
+                  "lookback": null,
+                  "lookback_unit": null
+                },
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 184,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-003",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welcher Veranstaltungstyp hat die meisten Termine?",
+              "status": "invalid_response",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event_type",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": null,
+              "differences": [],
+              "validation_stage": "pydantic_validation_error",
+              "validation_errors": [
+                {
+                  "loc": [],
+                  "type": "value_error",
+                  "msg": "Value error, unexpected_taxonomy"
+                }
+              ],
+              "model_output": {
+                "original_query": "Welcher Veranstaltungstyp hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event_type",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": "event_type",
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "finish_reason": "stop",
+              "output_tokens": 154,
+              "safe_error_code": "planner_invalid_response"
+            },
+            {
+              "case_id": "regressions-090-004",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welches Genre hat die meisten Termine?",
+              "status": "invalid_response",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "genre",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welches Genre hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": null,
+              "differences": [],
+              "validation_stage": "pydantic_validation_error",
+              "validation_errors": [
+                {
+                  "loc": [],
+                  "type": "value_error",
+                  "msg": "Value error, unexpected_taxonomy"
+                }
+              ],
+              "model_output": {
+                "original_query": "Welches Genre hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "genre",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": "genre",
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "finish_reason": "stop",
+              "output_tokens": 150,
+              "safe_error_code": "planner_invalid_response"
+            },
+            {
+              "case_id": "regressions-090-005",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welcher Ort hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "venue",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "venue",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welcher Ort hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welcher Ort hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "venue",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "venue",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 150,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-090-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Welche Organisation hat die meisten Termine?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "organization",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "organization",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Organisation hat die meisten Termine?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Welche Organisation hat die meisten Termine?",
+                "intent": "rank",
+                "entity_type": "organization",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "organization",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 149,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-091-004",
+              "category": "regressions",
+              "capability_status": "supported",
+              "question": "Welche Genres zum Eventtyp Konzert gibt es?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "taxonomy",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "taxonomy": "genre",
+                  "filters": [
+                    {
+                      "field": "event_type",
+                      "operator": "eq",
+                      "value": "Konzert"
+                    }
+                  ],
+                  "semantic": null
+                },
+                "forbid": {
+                  "semantic": [
+                    {
+                      "query": "Welche Genres zum Eventtyp Konzert gibt es?",
+                      "focus": null
+                    }
+                  ],
+                  "intent": [
+                    "list",
+                    "search"
+                  ]
+                },
+                "resolver_name_variants": {
+                  "filters.0.value": [
+                    "Konzert",
+                    "Konzerte",
+                    "Konzerten"
+                  ]
+                }
+              },
+              "actual": {
+                "original_query": "Welche Genres zum Eventtyp Konzert gibt es?",
+                "intent": "taxonomy",
+                "entity_type": "event",
+                "metric": null,
+                "group_by": "none",
+                "ordering": null,
+                "limit": null,
+                "filters": [
+                  {
+                    "field": "event_type",
+                    "operator": "eq",
+                    "value": "Konzert"
+                  }
+                ],
+                "metric_filter": null,
+                "taxonomy": "genre",
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 132,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-093-006",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Hvilken begivenhed har færrest datoer?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event",
+                  "ordering": "asc",
+                  "limit": 1,
+                  "semantic": null,
+                  "filters": []
+                },
+                "forbid": {
+                  "intent": [
+                    "list",
+                    "search",
+                    "aggregate"
+                  ],
+                  "group_by": [
+                    "event_type",
+                    "category",
+                    "genre",
+                    "venue",
+                    "organization"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvilken begivenhed har færrest datoer?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event",
+                "ordering": "asc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 154,
+              "safe_error_code": null
+            },
+            {
+              "case_id": "regressions-093-008",
+              "category": "regressions",
+              "capability_status": "planned",
+              "question": "Hvilken begivenhedstype har flest datoer?",
+              "status": "pass",
+              "expected": {
+                "expect": {
+                  "intent": "rank",
+                  "entity_type": "event",
+                  "clarification": "none",
+                  "unsupported_reason": null,
+                  "metric": {
+                    "operation": "occurrence_count",
+                    "field": null,
+                    "distinct_by": null,
+                    "numerator": null,
+                    "denominator": null,
+                    "measure": null,
+                    "window": null,
+                    "currency": null
+                  },
+                  "group_by": "event_type",
+                  "ordering": "desc",
+                  "limit": 1,
+                  "semantic": null,
+                  "filters": []
+                },
+                "forbid": {
+                  "intent": [
+                    "list",
+                    "search",
+                    "aggregate"
+                  ],
+                  "group_by": [
+                    "event",
+                    "category",
+                    "genre",
+                    "venue",
+                    "organization"
+                  ]
+                },
+                "resolver_name_variants": {}
+              },
+              "actual": {
+                "original_query": "Hvilken begivenhedstype har flest datoer?",
+                "intent": "rank",
+                "entity_type": "event",
+                "metric": {
+                  "operation": "occurrence_count",
+                  "field": null,
+                  "distinct_by": null,
+                  "numerator": null,
+                  "denominator": null,
+                  "measure": null,
+                  "window": null,
+                  "currency": null
+                },
+                "group_by": "event_type",
+                "ordering": "desc",
+                "limit": 1,
+                "filters": [],
+                "metric_filter": null,
+                "taxonomy": null,
+                "temporal": null,
+                "spatial": null,
+                "price": null,
+                "semantic": null,
+                "relation": null,
+                "trend": null,
+                "anomaly": null,
+                "explain": null,
+                "knowledge": null,
+                "comparison_targets": [],
+                "clarification": "none",
+                "unsupported_reason": null
+              },
+              "differences": [],
+              "validation_stage": null,
+              "validation_errors": [],
+              "model_output": null,
+              "finish_reason": "stop",
+              "output_tokens": 155,
+              "safe_error_code": null
+            }
+          ]
+        }
+      }
+    ],
+    "gates": {
+      "nine_first": "failed",
+      "nine_second": "not_run_nine_first_failed",
+      "core": "not_run_nine_first_failed",
+      "target_239": "not_run_nine_first_failed",
+      "full_455": "not_run_nine_first_failed"
+    },
+    "merge_ready": false,
+    "stop_reason": "nine_first: three unexpected_taxonomy validation errors; no retuning or additional live calls",
+    "validation": {
+      "pytest": "3441 passed, 710 skipped",
+      "focused_v13": "62 passed",
+      "ruff": "passed",
+      "format": "passed (68 files)",
+      "mypy": "passed (29 source files)",
+      "openapi_diff": "unchanged",
+      "docs_links": "passed",
+      "diff_check": "passed"
+    }
   }
 }

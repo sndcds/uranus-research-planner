@@ -554,3 +554,110 @@ def test_blocker_genre_occurrence_compound_is_not_an_event_type():
     )
     with pytest.raises(AssertionError, match="filters.0.field"):
         assert_v7_expectations(wrong, case)
+
+
+@pytest.mark.parametrize(
+    "id",
+    ["comparisons-058-007", "comparisons-058-001", "organizations-053-002"],
+)
+def test_core_non_anomaly_intents_reject_anomaly_decoration(id):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent in {"rank", "compare", "list"} and witness.anomaly is None
+    with pytest.raises(ValidationError, match="unexpected_anomaly"):
+        parse(witness.model_dump(mode="json") | {"anomaly": {"kind": "outlier", "measure": None}})
+
+
+def test_core_eligible_organization_list_is_not_a_graph_query():
+    case = CASES["organizations-053-002"]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "list" and witness.entity_type == "organization"
+    assert witness.temporal.period == "today" and witness.relation is None
+    with pytest.raises(ValidationError, match="unexpected_relation"):
+        parse(
+            witness.model_dump(mode="json")
+            | {
+                "relation": {
+                    "operation": "related",
+                    "source": "organization",
+                    "target": "event",
+                    "via": [],
+                    "source_query": None,
+                    "target_query": None,
+                }
+            }
+        )
+
+
+@pytest.mark.parametrize(
+    "id,limit",
+    [
+        ("regressions-090-003", 1),
+        ("regressions-090-004", 1),
+        ("regressions-090-005", 1),
+        ("regressions-090-006", 1),
+        ("regressions-093-006", 1),
+        ("regressions-093-008", 1),
+        ("prices-056-005", 1),  # Welche Veranstaltung: feminine singular.
+        ("regressions-093-001", 20),  # Welche Veranstaltungen: plural subject.
+        ("regressions-091-013", 20),  # Welche Orte: plural subject.
+        ("regressions-090-019", 20),  # Wer: open ranking.
+        ("regressions-091-011", 20),  # Wo: open ranking.
+    ],
+)
+def test_core_rank_limit_follows_subject_not_plural_counted_objects(id, limit):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "rank" and witness.limit == limit
+    # The schema permits either bounded limit; acceptance must still reject the
+    # grammatical misinterpretation, without changing the fixtures or comparator.
+    wrong = parse(witness.model_dump(mode="json") | {"limit": 20 if limit == 1 else 1})
+    assert [d.path for d in compare_v7_expectations(wrong, case)] == ["limit"]
+    with pytest.raises(AssertionError, match="limit"):
+        assert_v7_expectations(wrong, case)
+
+
+@pytest.mark.parametrize(
+    "id,dimension",
+    [
+        ("regressions-091-004", "genre"),
+        ("regressions-074-002", "genre"),
+        ("taxonomy-048-001", "category"),
+        ("taxonomy-048-005", "event_type"),
+    ],
+)
+def test_core_taxonomy_inventory_including_type_restriction_stays_discovery(id, dimension):
+    case = CASES[id]
+    witness = example_plan(case)
+    assert_v7_expectations(witness, case)
+    assert witness.intent == "taxonomy" and witness.entity_type == "event"
+    assert witness.taxonomy == dimension and witness.group_by == "none"
+    assert witness.metric is witness.ordering is witness.limit is witness.relation is None
+    if id == "regressions-091-004":
+        assert [f.model_dump() for f in witness.filters] == [
+            {"field": "event_type", "operator": "eq", "value": "Konzert"}
+        ]
+        wrong = parse(
+            witness.model_dump(mode="json")
+            | {
+                "intent": "relation",
+                "taxonomy": None,
+                "filters": [],
+                "relation": {
+                    "operation": "related",
+                    "source": "event_type",
+                    "target": "genre",
+                    "via": ["event"],
+                    "source_query": "Konzert",
+                    "target_query": None,
+                },
+            }
+        )
+        assert {d.path for d in compare_v7_expectations(wrong, case)} == {
+            "intent",
+            "taxonomy",
+            "filters.0",
+        }
