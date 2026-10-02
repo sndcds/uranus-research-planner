@@ -935,3 +935,34 @@ PR remains Draft; no merge-ready or full455 stability claim is made.
 
 The user explicitly chose to continue the complete gates despite the estimated remaining
 830-call minimum. c10 direct validation starts; the cost-pause note above is historical.
+
+c10 direct passes **6/6**, then the historical Core-fix set **9/9**, both with zero
+mismatch/invalid/provider errors. The tested code is committed as `9fcd497`; Core runs
+on the same unchanged source snapshot.
+
+c10 Core: **118/121 pass, 3 mismatches, 0 invalid/provider errors**. Security 4/4,
+knowledge 8/8, supported 55/58 satisfy their gates; regressions are 76/77. The only hard
+regression is Danish location discovery incorrectly requesting user location. The two
+non-regression mismatches are an unnecessary quantity-definition clarification and
+ordering/limit on an ordinary category distribution. They are retained as failures; no
+Golden or comparator correction is made. CI for `9fcd497` passed.
+
+c11 clarifies that a where/wo/hvor question asking where events occur is not itself a
+request for user location. The direct set covers DE/EN/DA plus a real near-me contrast.
+Offline: **3939 passed, 710 skipped**; focused **560 passed**. No strict schema changes.
+
+c11 direct returned **1/6 pass, 5 mismatches, 0 invalid/provider errors**. The near-me
+contrast passes; all five ordinary where-discovery variants wrongly switch entity to
+venue. The wording "asks for locations" removed the earlier explicit event-record
+subject. c12 restores `list/event records with locations` while retaining the no-location-
+clarification distinction. This is a correction to the prompt, not a Golden reinterpretation.
+
+c12 direct passes **6/6** across DE/EN/DA and the near-me contrast. Its nine-case gate
+returns **8/9 pass, 1 mismatch, 0 invalid/provider errors**: the category quantity rank
+adds an unnecessary `needs_definition`. The existing quantity-before-anomaly rule was
+located after the blocking-state decision. c13 moves that unchanged rule to the start
+of blocking-state construction; no added case-specific exception or inferred clarification.
+
+c13 direct passes **1/1**, then **9/9** in the historical Core-fix set, with zero
+mismatch/invalid/provider errors. Core follows on the same sources. Offline:
+**3939 passed, 710 skipped**; all quality, schema and documentation checks pass.

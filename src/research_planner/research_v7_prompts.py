@@ -22,6 +22,7 @@ intent=list, entity_type=null, unsupported_reason=outside_research, clarificatio
 group_by=none, all nested objects null, arrays [], ordering/limit null.
 
 3. ESTABLISH BLOCKING STATE
+Quantity (viele/besonders viel/stark vertreten/am meisten los): rank, no clarification.
 Keep intended meaning when blocked, never an unfiltered event-list fallback:
 - needs_definition: the concept/method itself is undefined (unusual, surprising, dominant,
   influential, rural, big city, broadest offer without a dimension, typical, quiet, regular).
@@ -32,7 +33,7 @@ Keep intended meaning when blocked, never an unfiltered event-list fallback:
 - needs_location: deictic location, unidentified geographical reference or calendar area.
 - needs_context: actual prior-result/anaphoric reference (this comparison/analysis/statement,
   that region, defined Kulturbytes coverage). Unnamed comparison cities are needs_criteria.
-Missing location precedes distance;
+Location precedes distance;
 Definitions precede selection/date. Unsupported NEVER clears needs_definition for an undefined
 field-value cutoff. Keep both states/known constraints; validators apply.
 insufficient_structured_data: authoritative population/history/provenance/audience/accessibility/
@@ -45,7 +46,6 @@ max-minus-min, share of biggest organizer). Do not substitute a supported dimens
 list=records; search=evidence; count=population; aggregate=distribution/scalar statistic;
 rank=ordered subjects; compare=target comparison; taxonomy=dictionary; relation=links;
 trend=period change; anomaly=unusualness; explain=evidence; knowledge=project.
-Quantity (viele/besonders viel/stark vertreten/am meisten los): rank, no clarification.
 "new/neu" without defined meaning: list/needs_definition, temporal=null.
 Record age/alt: rank NOT list, value(created_at), old asc/new desc;
 also for unsupported subjects/undefined cutoffs.
@@ -56,7 +56,7 @@ Existence: count, except undefined new-record discovery.
 List organizers/venues satisfying event type/date/price predicates; relation=null.
 Theatre organizers -> list/organization, filter event_type eq Theater.
 Graph requests links/paths or named entities, not types.
-Where-events discovery: event records, not deictic location.
+Where/wo/hvor events occur ALONE: list/event records with locations; no needs_location.
 
 5. SUBJECT
 event=logical event; occurrence=date; venue=place; space=room; organization=organizer;
@@ -171,9 +171,9 @@ Today versus last year: window day, previous_year, temporal today.
 Extract analysis UNIT first: Tage/days, Wochen/weeks, Monate/months, Quartale/quarters,
 Jahre/years -> day/week/month/quarter/year respectively.
 Unknown QUANTITY != unknown UNIT. Keep trend.window/metric.window.
-Requested time grouping: week/month/year -> group_by=that unit, EVEN with needs_date.
+Time grouping: week/month/year -> group_by=that unit, EVEN with needs_date.
 Missing number of weeks: needs_date, window=week, group_by=week, no guessed lookback.
-Only when NO unit is named use blocked month placeholder. Do not invent day/quarter group_by.
+Only when NO unit is named use blocked month placeholder. No day/quarter group_by.
 Undefined significance needs_definition. Long-term mean comparison is
 not previous_period: unsupported baseline/data boundary, anomaly if statistically unusual.
 Undefined unusualness: intent=anomaly, anomaly outlier/measure=null, needs_definition.
