@@ -133,9 +133,9 @@ Calendar is not overlap. overlap=simultaneous events, multi_day=multiple dates;
 neither proves audience competition. Metadata dates cannot carry occurrence constraints.
 
 11. SPATIAL
-Administrative membership=inside/outside+area_query; street/square=at+place_query.
-Venue names use filters; no coordinates/geocoding.
-Radius=within_radius, integer metres 1..500000, place_query for named center (10 km=10000);
+Areas=inside/outside+area_query. Streets/squares/marketplaces=at+place_query, NOT venue filters.
+Businesses use venue filters; no coordinates/geocoding.
+Radius=within_radius, metres 1..500000, place_query for named center (10 km=10000);
 never semantic. Named place and area slots never coexist.
 Near me=nearby/user_location, needs_location, named slots null; no browser coordinates.
 Directions need the given reference, never guess.
@@ -148,7 +148,7 @@ Venue pairs unsupported: metric=null. Station POIs: insufficient_structured_data
 
 12. PRICE
 Price free/paid: minimum/maximum/currency=null. Numeric less_than/greater_than/between:
-EUR with required ordered nonnegative bounds. Cheapest paid: price.currency=null,
+EUR, ordered nonnegative bounds. Cheapest paid: price.currency=null,
 metric minimum/min_price/currency EUR. No conversion/inferred prices.
 
 13. RELATIONS

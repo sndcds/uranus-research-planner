@@ -1190,3 +1190,17 @@ c34 historical nine: **9/9 pass**, zero mismatch/invalid/provider errors. Core12
 running. Offline **4003 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI no-diff,
 docs links and whitespace gates pass. The original44 audited corrections plus two
 individually audited Geo inflection declarations are the full Golden-change scope.
+
+c34 Core: **120/121 pass, 1 mismatch, 0 invalid/provider errors**. Security4/4,
+knowledge8/8, regressions76/77, supported57/58. The sole failure treats a public market
+square as a venue filter instead of named spatial reference. CI for 8cb5331 passed.
+c35 clarifies public streets/squares/marketplaces versus businesses; a negative witness
+rejects resolver-slot substitution. Focused **625 passed**. Direct selection adds this
+case to the preceding15; no name-based production routing.
+
+c35 direct: **16/16 pass, 0 mismatch/invalid/provider errors**. Historical nine runs
+next on the same snapshot.
+
+c35 nine: **9/9 pass**, zero mismatch/invalid/provider errors. Core121 runs on the
+same snapshot. Offline: **4004 passed, 710 skipped**; Ruff, format, Mypy, OpenAPI
+no-diff, docs links and whitespace gates pass.

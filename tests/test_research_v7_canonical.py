@@ -502,3 +502,20 @@ def test_quantification_keeps_count_even_when_evidence_or_geography_is_needed(id
         normalize(data | {"intent": "list"})
     wrong = normalize(data | {"intent": "list", "metric": None})
     assert {"intent", "metric"} <= {d.path for d in compare_v7_expectations(wrong, case)}
+
+
+def test_public_place_reference_cannot_be_substituted_with_a_venue_filter():
+    from tests.v7_golden import compare_v7_expectations
+
+    case = CASES["regressions-092-002"]
+    witness = example_plan(case)
+    assert witness.spatial.relation == "at" and witness.spatial.reference == "named"
+    data = witness.model_dump(mode="json")
+    wrong = normalize(
+        data
+        | {
+            "spatial": None,
+            "filters": [{"field": "venue", "operator": "eq", "value": witness.spatial.place_query}],
+        }
+    )
+    assert "spatial" in {d.path for d in compare_v7_expectations(wrong, case)}
