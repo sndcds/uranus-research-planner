@@ -22,6 +22,7 @@ from tests.v9_golden import compare_v9_expectations, example_plan, load_v9_golde
 
 CASES = load_v9_golden_cases()
 SEASONAL = next(c for c in CASES if c.id == "trends-061-010")
+APPROVED_OVERRIDES = {"trends-061-010", "provenance-071-004"}
 
 
 @pytest.mark.parametrize("case", CASES, ids=lambda c: c.id)
@@ -36,10 +37,13 @@ def test_migrated_witnesses(case):
 
 def test_only_product_decision_changes_golden_semantics():
     legacy = load_v7_golden_cases()
+    assert set(json.loads(Path("tests/fixtures/v9_overrides.json").read_text())) == (
+        APPROVED_OVERRIDES
+    )
     assert len(CASES) == len(legacy) == 455
     for old, new in zip(legacy, CASES, strict=True):
         assert old.id == new.id and old.question == new.question
-        if old.id == SEASONAL.id:
+        if old.id in APPROVED_OVERRIDES:
             continue
         data = old.model_dump()
         for part in ("expect", "example"):

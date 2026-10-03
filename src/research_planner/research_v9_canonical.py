@@ -6,7 +6,7 @@ from typing import Any
 
 from pydantic import ConfigDict, create_model, model_validator
 
-from research_planner.research_v9_constraints import RelationV9
+from research_planner.research_v9_constraints import RelationV9, TemporalV9
 from research_planner.research_v9_schema import ResearchQueryPlanV9
 from research_planner.research_v9_types import COUNT_OPERATIONS, ClosedV9, MetricV9
 
@@ -34,6 +34,14 @@ _fields["relation"] = (
     ProposalRelationV9 | None,
     deepcopy(ResearchQueryPlanV9.model_fields["relation"]),
 )
+_temporal_fields: dict[str, Any] = {
+    name: (field.annotation, deepcopy(field)) for name, field in TemporalV9.model_fields.items()
+}
+ProposalTemporalV9 = create_model("TemporalV9", __base__=ClosedV9, **_temporal_fields)
+_fields["temporal"] = (
+    ProposalTemporalV9 | None,
+    deepcopy(ResearchQueryPlanV9.model_fields["temporal"]),
+)
 ProposalV9 = create_model("ProposalV9", __base__=ClosedV9, **_fields)
 
 
@@ -45,6 +53,27 @@ def canonicalize_v9(value: object) -> object:
     if len(data["group_by"]) != len(set(data["group_by"])):
         raise ValueError("duplicate_grouping_dimensions")
     intent = data["intent"]
+    temporal = data["temporal"]
+    if temporal is not None:
+        # Only a completely empty occurrence-time descriptor under an explicit
+        # date block is redundant. Metadata fields, partial dates/lookbacks and
+        # every actual constraint retain their meaning and strict validation.
+        empty = {
+            "field": "start_date",
+            "period": "none",
+            "time_of_day": "none",
+            "calendar_relation": "none",
+            "overlap": False,
+            "multi_day": False,
+        }
+        if data["clarification"] == "needs_date" and all(
+            value == empty.get(key) for key, value in temporal.items()
+        ):
+            data["temporal"] = None
+        else:
+            TemporalV9.model_validate_json(
+                json.dumps(proposal.model_dump(mode="json")["temporal"], allow_nan=False)
+            )
     relation = data["relation"]
     if relation is not None:
         # A single event joins the explicitly supplied taxonomy dimensions.
@@ -76,7 +105,7 @@ def canonicalize_v9(value: object) -> object:
             metric["measure"] = None
             metric["window"] = None
         if (
-            intent == "rank"
+            intent in {"rank", "compare"}
             and data["clarification"] == "needs_definition"
             and metric["operation"] == "diversity"
             and all(value is None for key, value in metric.items() if key != "operation")
@@ -88,6 +117,20 @@ def canonicalize_v9(value: object) -> object:
             # Every other metric must pass the unchanged public operand validator,
             # including fields that a later intent normal form would neutralize.
             MetricV9.model_validate_json(json.dumps(metric, allow_nan=False))
+            if (
+                intent in {"list", "search"}
+                and not data["group_by"]
+                and data["metric_filter"] is None
+                and data["ordering"] is None
+                and data["relation"] is None
+                and data["trend"] is None
+                and data["anomaly"] is None
+                and metric["operation"] in COUNT_OPERATIONS | {"value"}
+            ):
+                # A validated record-selection proposal declares no quantitative
+                # operation consuming this scalar. Conflicting rank/group/filter
+                # semantics are not repaired or discarded here.
+                data["metric"] = None
     if intent not in {"rank", "aggregate", "trend", "taxonomy", "anomaly"}:
         data["ordering"] = None
     if intent != "trend" and metric is not None:

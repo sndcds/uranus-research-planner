@@ -196,3 +196,40 @@ links and git diff --check passed. The proposed blocked metric=null representati
 also validates without schema changes; this check does not approve changing Golden.
 No new prompt/canonicalization regression tests were added because no implementation
 change was made before the explicit contract-decision stop.
+
+
+## Approved provenance decision and stabilization candidate
+
+The user approved the audit recommendation: provenance-071-004 now has metric=null
+in a **v9-only override**, retaining rank, entity=null, desc/20, clarification=none,
+and insufficient_structured_data. V7 is untouched. This is the second enumerated
+semantic override alongside the seasonal event_type × month product decision.
+Historical reports and the pre-decision audit above remain unchanged.
+
+The candidate addresses all six audited classes with general rules: record selection
+has no metric; undefined/unrepresentable measures stay null; subject ranking differs
+from relation discovery; chronological extrema use a date value; real temporal
+constraints differ from a neutral placeholder; shared paths traverse legal edges to
+and from the shared object. Frequency operands must be complete, never invented.
+Publication lead-time does not reuse duration, metadata or regularity metrics.
+Organization event cardinality is explicitly separated from venue-use occurrences,
+addressing both duplicate-language regression cases without ID/string routing.
+
+Canonicalization is restricted to unused valid count/value metrics on unambiguous
+list/search proposals, entirely neutral start_date objects under needs_date, and the
+existing operand-free undefined-diversity rule extended from rank to compare.
+All nested fields remain closed and typed before normalization; the public validators
+and native schema are unchanged. Illegal paths and incomplete frequency metrics fail.
+Prompt v15 remains the candidate version and is no longer than the reviewed prompt.
+New offline witnesses exercise both accepted normal forms and rejected ambiguity.
+Live results will be appended with exact candidate and selection; none are claimed yet.
+
+Candidate offline validation: **4539 passed, 710 skipped**; focused v9 **513 passed**.
+Ruff, formatting, mypy, OpenAPI reproduction, docs links and diff checks passed.
+The initial reverse-order focused invocation exposed the existing import-sensitive
+Literal enum ordering in the schema snapshot; repository collection order and the
+full suite pass without re-pinning or changing any public schema. No failure was skipped.
+Runtime prompt: 15445 characters, SHA256
+`840289d0da9120991760176f31ec668769bb2ed75d478f200aaa321a8ee7d599`.
+The focused selection contains 42 cases: all14 invalids, both regressions, seasonal,
+security4, knowledge8 and 13 previously passing controls across intent/metric families.
