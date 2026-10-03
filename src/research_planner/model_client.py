@@ -33,6 +33,8 @@ from research_planner.research_v8_schema import ResearchQueryPlanV8
 from research_planner.research_v9_canonical import CanonicalModelOutputV9
 from research_planner.research_v9_prompts import RESEARCH_V9_PROMPT, RESEARCH_V9_PROMPT_VERSION
 from research_planner.research_v9_schema import ResearchQueryPlanV9
+from research_planner.research_v10_prompts import RESEARCH_V10_PROMPT, RESEARCH_V10_PROMPT_VERSION
+from research_planner.research_v10_schema import ResearchQueryPlanV10
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 from research_planner.transport import BoundedModelTransport
 
@@ -154,6 +156,15 @@ class StructuredModelClient:
             model_settings=model_settings,
         )
         self.research_v9_agent.instrument = False
+        self.research_v10_agent: Agent[None, ResearchQueryPlanV10] = Agent(
+            domain_model,
+            output_type=NativeOutput(ResearchQueryPlanV10, strict=True),
+            system_prompt=RESEARCH_V10_PROMPT,
+            name=RESEARCH_V10_PROMPT_VERSION,
+            retries=0,
+            model_settings=model_settings,
+        )
+        self.research_v10_agent.instrument = False
 
     async def plan_v8(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV8:
         output = await self._infer(
@@ -174,6 +185,18 @@ class StructuredModelClient:
         )
         try:
             return ResearchQueryPlanV9.model_validate_json(
+                output.model_dump_json(), context={"original_query": request.query}
+            )
+        except (ValueError, TypeError, AttributeError):
+            raise PlannerError("planner_invalid_response", 502) from None
+
+    async def plan_v10(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV10:
+        output = await self._infer(
+            self.research_v10_agent,
+            {**request.model_dump(mode="json"), "reference_date": reference_date.isoformat()},
+        )
+        try:
+            return ResearchQueryPlanV10.model_validate_json(
                 output.model_dump_json(), context={"original_query": request.query}
             )
         except (ValueError, TypeError, AttributeError):
