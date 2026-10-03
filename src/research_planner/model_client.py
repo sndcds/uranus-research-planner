@@ -27,6 +27,9 @@ from research_planner.prompts import SYSTEM_PROMPT
 from research_planner.research_v7_canonical import CanonicalModelOutputV7
 from research_planner.research_v7_prompts import RESEARCH_V7_PROMPT, RESEARCH_V7_PROMPT_VERSION
 from research_planner.research_v7_schema import ResearchQueryPlanV7
+from research_planner.research_v9_canonical import CanonicalModelOutputV9
+from research_planner.research_v9_prompts import RESEARCH_V9_PROMPT, RESEARCH_V9_PROMPT_VERSION
+from research_planner.research_v9_schema import ResearchQueryPlanV9
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 from research_planner.transport import BoundedModelTransport
 
@@ -128,6 +131,28 @@ class StructuredModelClient:
             model_settings=model_settings,
         )
         self.research_v7_agent.instrument = False
+
+        self.research_v9_agent: Agent[None, ResearchQueryPlanV9] = Agent(
+            domain_model,
+            output_type=NativeOutput(CanonicalModelOutputV9, strict=True),
+            system_prompt=RESEARCH_V9_PROMPT,
+            name=RESEARCH_V9_PROMPT_VERSION,
+            retries=0,
+            model_settings=model_settings,
+        )
+        self.research_v9_agent.instrument = False
+
+    async def plan_v9(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV9:
+        output = await self._infer(
+            self.research_v9_agent,
+            {**request.model_dump(mode="json"), "reference_date": reference_date.isoformat()},
+        )
+        try:
+            return ResearchQueryPlanV9.model_validate_json(
+                output.model_dump_json(), context={"original_query": request.query}
+            )
+        except (ValueError, TypeError, AttributeError):
+            raise PlannerError("planner_invalid_response", 502) from None
 
     async def plan_v7(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV7:
         output = await self._infer(
