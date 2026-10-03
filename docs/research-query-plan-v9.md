@@ -43,10 +43,27 @@ version. It reuses `research_sql(occurrences=True)` and the administrative
 selection CTE for polygon membership. Occurrence counts use DISTINCT date UUID
 within each cell to remove join duplication; they never count distinct events.
 
-The only semantic Golden change is the explicit product decision for
-`trends-061-010`. `tests/fixtures/v9_overrides.json` records the executable two-axis
-expectation. All other 454 cases are mechanically projected from v7 with scalar
-normalization only; a test proves that no other expectation changed.
+Exactly two semantic Golden changes are explicitly approved in
+`tests/fixtures/v9_overrides.json`:
+
+- `trends-061-010`: executable event_type × month occurrence-count distribution.
+- `provenance-071-004`: source update-action frequency has no measure in the closed
+  algebra. Preserve blocked rank, unknown source entity, desc/20,
+  clarification=none and insufficient_structured_data; metric=null. Occurrences,
+  events and modified_at observations are not update actions. Never invent a window.
+
+All other 453 cases are mechanical scalar-to-array projections; the migration test
+pins this exact override set. The v7 corpus and public contract remain frozen.
+Blocking never changes an existing metric's documented meaning. An unrepresentable
+quantitative concept keeps its known structure with a null metric, not a substitute.
+
+The internal proposal adapter may neutralize a valid unused count/value metric for
+list/search only when no grouping, metric filter, ordering, relation, trend or anomaly
+consumes it. A completely neutral start_date temporal object under needs_date becomes
+null. Every other temporal object must pass the unchanged public nested validator.
+Operand-free undefined diversity can be neutralized for rank or compare; declared
+operands are never discarded. Unknown enums, extras and malformed shapes still fail.
+No intent, measure, window, date field or relation path is guessed by normalization.
 
 Opt-in acceptance uses `scripts.run_v9_live_acceptance`, the same one-request
 client and safe diagnostic conventions as v7. No production response/log receives

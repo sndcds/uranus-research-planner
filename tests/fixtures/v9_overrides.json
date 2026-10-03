@@ -33,5 +33,43 @@
     "required_data": [
       "multi_dimension_grouping"
     ]
+  },
+  "provenance-071-004": {
+    "id": "provenance-071-004",
+    "question": "Welche Quellen aktualisieren Veranstaltungen besonders häufig?",
+    "category": "provenance",
+    "capability_status": "needs_structured_data",
+    "expect": {
+      "intent": "rank",
+      "entity_type": null,
+      "clarification": "none",
+      "unsupported_reason": "insufficient_structured_data",
+      "metric": null,
+      "group_by": [],
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null
+    },
+    "forbid": {
+      "semantic": [
+        {
+          "query": "Welche Quellen aktualisieren Veranstaltungen besonders häufig?",
+          "focus": null
+        }
+      ],
+      "intent": [
+        "list",
+        "search"
+      ],
+      "unsupported_reason": [
+        null
+      ]
+    },
+    "example": {},
+    "required_data": [
+      "source_change_history"
+    ],
+    "resolver_name_variants": {},
+    "notes": "Explicit product decision: source update actions have no measure in the closed algebra. Preserve blocked ranking; no event/occurrence count or invented frequency window as a substitute."
   }
 }
