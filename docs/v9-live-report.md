@@ -127,3 +127,72 @@ Admin CI backend/PostgreSQL tests, lint and typecheck passed after the alias fix
 its final frontend rerun was still in progress. The initial frontend CI and local
 frontend gates passed; the follow-up changes only backend SQL aliases and tests.
 No CI completion was awaited.
+
+
+## Invalid-output audit at reviewed head c58ddce
+
+This audit precedes implementation. Reviewed head:
+`c58ddcea9506205ae3da45fee50a155bd3436371`; recorded implementation remains
+`6bf6f1580f45a4155a2009bacb59b33176053468`. No new candidate or live gate exists.
+All historical runs above and in the JSON remain unchanged.
+
+Every recorded invalid proposal was replayed through the current canonical output
+adapter: **14/14 reproduce the exact recorded validation errors**. All 14 corresponding
+Golden structural witnesses validate. Schema validity alone does not establish semantic
+correctness. The JSON audit includes each question, full emitted proposal, validation
+errors, full expected witness, cluster and proposed treatment.
+
+| Cluster | Cases | Finding and prospective treatment |
+| --- | --- | --- |
+| A — spurious metric on record selection | combined-060-011, temporal-065-002 | Count attached to search/list. Narrow typed metric neutralization may be safe without metric_filter; prompt must preserve overlap and distinguish undefined competition from unsupported district pairing. |
+| B — metric concept/operand mismatch | comparisons-045-004 | Diversity has no declared dimension. Never substitute genre/category for themes; preserve missing comparison criteria and data boundary. |
+| B — unsupported publication lead-time | quality-069-007, quality-069-008, quality-069-009 | Creation metadata is incorrectly attached to duration/regularity. Prompt should preserve blocked anomaly with no fabricated metric. |
+| B — redundant operand on valid duration | ranking-039-005 | Duration(start_date) must use implicit occurrence start/end with field=null. This is representable and must not be treated like publication lead-time. |
+| B — provenance metric conflict | provenance-071-004 | Both actual and expected metrics substitute a different population for update actions. Product decision required; no automatic repair. |
+| C — ranking intent/subject | graph-064-004, organizations-063-003 | Actual intent is relation, not rank. Keep venue as ranked subject and distinct organizations as metric; no deterministic intent guessing. |
+| C — chronological extremum | temporal-041-001 | Event cardinality substitutes for value(start_date). Interpretation must supply the chronological field, not infer it from a count proposal. |
+| D — empty temporal object | anomalies-057-010 | Explicit needs_date plus entirely neutral temporal object. Exact typed empty-object normalization may be safe; real temporal constraints must remain. |
+| E — illegal shared path | graph-064-002 | Actual via=[event,occurrence,space] contains illegal edges. Prompt must construct the legal return path; arbitrary path repair is unsafe. |
+| F — partial frequency | media-070-008 | Neither measure nor window supplied for unsupported image-source population. Do not guess operands. |
+
+The two regression mismatches are `regressions-090-019` and
+`regressions-091-009`. Both ask “Wer veranstaltet die meisten Veranstaltungen?”
+and differ only in `metric.operation`: expected event_count, actual occurrence_count.
+This is an event-cardinality versus venue-utilization interpretation error, distinct
+from the invalid-output clusters. The venue-use occurrence default must not spill into
+organization rankings of explicitly requested logical events. No Golden correction is
+justified for these two cases.
+
+### Stop: provenance Golden requires a product decision
+
+`provenance-071-004` asks “Welche Quellen aktualisieren Veranstaltungen besonders häufig?”
+Golden requires `frequency`, `measure=occurrence_count`, `window=month`, with
+`insufficient_structured_data`. The recorded proposal instead emits
+`regularity`, `field=modified_at`, `measure=event_count`, `window=week`; it correctly fails
+strict validation. Neither representation measures source update actions.
+
+The [metric contract](research-query-plan-v7.md) defines frequency as a count measure per
+named calendar window. The retained [v9 semantics](research-query-plan-v9.md) count
+occurrence/date UUIDs, not updates. No documented provenance rule makes month a default
+or occurrence_count an update-action measure. The closed algebra has no update-action
+measure. A blocked plan may omit an unrepresentable metric; blocking does not redefine
+the meaning of an existing metric.
+
+Recommended decision: retain rank, unknown source entity, missing structured data and
+known ordering/limit, but require metric=null. This would need an explicitly audited
+v9-only Golden correction; v7 must remain frozen. Alternatively, product must explicitly
+define a non-executable placeholder policy and its semantics before requiring this
+otherwise unrelated metric. **Neither option has been applied.**
+
+Per the requested stop condition, implementation and live tuning stop at this conflict.
+Prompt, canonicalizer, public validators, schema, Golden expectations, API/provider and
+Admin are unchanged. No live calls were made, no candidate was frozen, and the prior
+Core121/Target239/Full455 scores are historical evidence only. PR remains Draft and
+**not merge-ready**. No deployment or merge.
+
+Audit validation: full offline suite **4494 passed, 710 skipped**; focused v9 suite
+**468 passed**. Ruff, formatting, mypy, OpenAPI reproduction (no diff), local docs
+links and git diff --check passed. The proposed blocked metric=null representation
+also validates without schema changes; this check does not approve changing Golden.
+No new prompt/canonicalization regression tests were added because no implementation
+change was made before the explicit contract-decision stop.
