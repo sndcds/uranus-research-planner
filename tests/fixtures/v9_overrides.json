@@ -1,0 +1,37 @@
+{
+  "trends-061-010": {
+    "id": "trends-061-010",
+    "question": "Welche Veranstaltungstypen treten saisonal besonders stark auf?",
+    "category": "trends",
+    "capability_status": "supported",
+    "expect": {
+      "intent": "aggregate",
+      "entity_type": "event",
+      "clarification": "none",
+      "unsupported_reason": null,
+      "metric": {
+        "field": null,
+        "distinct_by": null,
+        "measure": null,
+        "window": null,
+        "numerator": null,
+        "denominator": null,
+        "currency": null,
+        "operation": "occurrence_count"
+      },
+      "group_by": [
+        "event_type",
+        "month"
+      ],
+      "ordering": "desc",
+      "limit": 20,
+      "semantic": null,
+      "trend": null
+    },
+    "forbid": {},
+    "notes": "Explicit product decision: seasonal occurrence-count distribution by event type and calendar month; global cell ranking.",
+    "required_data": [
+      "multi_dimension_grouping"
+    ]
+  }
+}

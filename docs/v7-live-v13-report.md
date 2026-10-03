@@ -1456,3 +1456,13 @@ was changed in this continuation. Full455 has **not** run; PR remains Draft, **n
 c62 final offline validation: **4026 passed, 710 skipped**. Ruff, format, Mypy,
 OpenAPI export/no-diff, documentation links and git diff --check all pass. This validates
 the closed contract and deterministic normalization; it does not claim live acceptance.
+
+## Additive multidimensional grouping decision
+
+The product decision for `trends-061-010` is implemented in a new v9 wire
+contract, not by altering the public v7 schema or its historical expectations.
+V8/prompt v14 is reserved by administrative geography; v9 uses prompt v15.
+See [ordered grouping](research-query-plan-v9.md). The v9 corpus projects the
+455 existing questions with a single audited semantic override for event_type ×
+month. Historical v7 live runs above remain unchanged. New acceptance runs will
+identify the frozen v9 implementation commit explicitly.
