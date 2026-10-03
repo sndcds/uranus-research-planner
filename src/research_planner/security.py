@@ -49,6 +49,7 @@ class RequestBoundary:
             "/v8/plan",
             "/v9/plan",
             "/v10/plan",
+            "/v11/plan",
             "/ready",
         }:
             await self.app(scope, receive, safe_send)
@@ -76,6 +77,7 @@ class RequestBoundary:
                 "/v8/plan",
                 "/v9/plan",
                 "/v10/plan",
+                "/v11/plan",
             }
             or scope["method"] != "POST"
         ):

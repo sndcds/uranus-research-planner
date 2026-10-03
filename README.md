@@ -153,3 +153,6 @@ corpus; ordinary tests and the production service do not activate live diagnosti
 audience search interpretation. Existing v7/v13, v8/v14 and v9/v15 remain unchanged.
 See [contract audit and rollout](docs/recurring-calendar.md); activation requires
 coordinated Admin support and model acceptance.
+
+See [additive v11 conversation context](docs/conversation.md) for bounded semantic
+follow-ups and the coordinated Admin rollout. Existing contracts remain unchanged.

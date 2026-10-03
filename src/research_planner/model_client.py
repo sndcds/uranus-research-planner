@@ -17,6 +17,7 @@ from pydantic_ai.usage import UsageLimits
 from research_planner.analytics_prompts import ANALYTICS_PROMPT
 from research_planner.analytics_schema import AnalyticalQueryPlan
 from research_planner.config import Settings
+from research_planner.conversation_request import ConversationPlanRequest
 from research_planner.domain_prompts import DOMAIN_SYSTEM_PROMPT
 from research_planner.domain_schema import DomainProposal
 from research_planner.errors import PlannerError
@@ -35,6 +36,8 @@ from research_planner.research_v9_prompts import RESEARCH_V9_PROMPT, RESEARCH_V9
 from research_planner.research_v9_schema import ResearchQueryPlanV9
 from research_planner.research_v10_prompts import RESEARCH_V10_PROMPT, RESEARCH_V10_PROMPT_VERSION
 from research_planner.research_v10_schema import ResearchQueryPlanV10
+from research_planner.research_v11_prompts import RESEARCH_V11_PROMPT, RESEARCH_V11_PROMPT_VERSION
+from research_planner.research_v11_schema import ResearchQueryPlanV11
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 from research_planner.transport import BoundedModelTransport
 
@@ -166,6 +169,16 @@ class StructuredModelClient:
         )
         self.research_v10_agent.instrument = False
 
+        self.research_v11_agent: Agent[None, ResearchQueryPlanV11] = Agent(
+            domain_model,
+            output_type=NativeOutput(ResearchQueryPlanV11, strict=True),
+            system_prompt=RESEARCH_V11_PROMPT,
+            name=RESEARCH_V11_PROMPT_VERSION,
+            retries=0,
+            model_settings=model_settings,
+        )
+        self.research_v11_agent.instrument = False
+
     async def plan_v8(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV8:
         output = await self._infer(
             self.research_v8_agent,
@@ -197,6 +210,20 @@ class StructuredModelClient:
         )
         try:
             return ResearchQueryPlanV10.model_validate_json(
+                output.model_dump_json(), context={"original_query": request.query}
+            )
+        except (ValueError, TypeError, AttributeError):
+            raise PlannerError("planner_invalid_response", 502) from None
+
+    async def plan_v11(
+        self, request: ConversationPlanRequest, reference_date: date
+    ) -> ResearchQueryPlanV11:
+        output = await self._infer(
+            self.research_v11_agent,
+            {**request.model_dump(mode="json"), "reference_date": reference_date.isoformat()},
+        )
+        try:
+            return ResearchQueryPlanV11.model_validate_json(
                 output.model_dump_json(), context={"original_query": request.query}
             )
         except (ValueError, TypeError, AttributeError):
