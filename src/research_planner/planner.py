@@ -4,6 +4,7 @@ from datetime import date
 from typing import Protocol
 
 from research_planner.analytics_schema import AnalyticalQueryPlan
+from research_planner.conversation_request import ConversationPlanRequest
 from research_planner.domain_schema import DomainProposal
 from research_planner.errors import PlannerError
 from research_planner.geography_schema import GeographicQueryPlan
@@ -11,6 +12,7 @@ from research_planner.research_v7_schema import ResearchQueryPlanV7
 from research_planner.research_v8_schema import ResearchQueryPlanV8
 from research_planner.research_v9_schema import ResearchQueryPlanV9
 from research_planner.research_v10_schema import ResearchQueryPlanV10
+from research_planner.research_v11_schema import ResearchQueryPlanV11
 from research_planner.schemas import PlanRequest, ResearchQueryPlan
 
 
@@ -30,6 +32,10 @@ class ResearchPlanner(Protocol):
     async def plan_v10(
         self, request: PlanRequest, reference_date: date
     ) -> ResearchQueryPlanV10: ...
+
+    async def plan_v11(
+        self, request: ConversationPlanRequest, reference_date: date
+    ) -> ResearchQueryPlanV11: ...
 
     async def plan_v9(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV9: ...
 
@@ -58,6 +64,11 @@ class UnavailablePlanner:
         raise PlannerError("planner_unavailable")
 
     async def plan_v10(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV10:
+        raise PlannerError("planner_unavailable")
+
+    async def plan_v11(
+        self, request: ConversationPlanRequest, reference_date: date
+    ) -> ResearchQueryPlanV11:
         raise PlannerError("planner_unavailable")
 
     async def plan_v9(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV9:
