@@ -156,3 +156,7 @@ coordinated Admin support and model acceptance.
 
 See [additive v11 conversation context](docs/conversation.md) for bounded semantic
 follow-ups and the coordinated Admin rollout. Existing contracts remain unchanged.
+
+`POST /v12/plan` combines the modern grouping, calendar and conversation contracts
+with administrative level expectations and bounded AND geography. See the
+[v12 contract and rollout](docs/research-query-plan-v12.md).
