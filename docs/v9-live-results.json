@@ -69903,5 +69903,1305 @@
         }
       ]
     }
+  },
+  "invalid_output_audit_c58ddce": {
+    "reviewed_head": "c58ddcea9506205ae3da45fee50a155bd3436371",
+    "recorded_candidate": "6bf6f1580f45a4155a2009bacb59b33176053468",
+    "prompt_sha256": "406fd91bdda89bb63a7ef0b7d61ef1f5b77b26d049876b4ad8a84709e0c18372",
+    "schema_version": "research-query-plan-v9",
+    "status": "stopped_for_contract_decision_before_implementation",
+    "invalid_occurrences": [
+      {
+        "case_id": "combined-060-011",
+        "gate": "target239",
+        "question": "Welche Veranstaltungen finden gleichzeitig statt und konkurrieren damit möglicherweise um dasselbe Publikum?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstaltungen finden gleichzeitig statt und konkurrieren damit möglicherweise um dasselbe Publikum?",
+          "intent": "search",
+          "entity_type": "event",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [],
+          "ordering": null,
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": true,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": {
+            "query": "konkurrieren damit möglicherweise um dasselbe Publikum",
+            "focus": "Publikumskonkurrenz"
+          },
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": "insufficient_structured_data"
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, unexpected_metric"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstaltungen finden gleichzeitig statt und konkurrieren damit möglicherweise um dasselbe Publikum?",
+          "intent": "list",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": true,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "cluster": "A",
+        "proposed_action": "prompt_and_narrow_canonicalization",
+        "rationale": "Search plus occurrence_count invents a quantitative operation. Canonicalization can neutralize only a fully typed, valid unused metric without metric_filter; audience competition still needs semantic interpretation, not intent repair."
+      },
+      {
+        "case_id": "temporal-065-002",
+        "gate": "target239",
+        "question": "Welche Veranstaltungen finden zur selben Zeit im selben Stadtteil statt?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstaltungen finden zur selben Zeit im selben Stadtteil statt?",
+          "intent": "list",
+          "entity_type": "event",
+          "metric": {
+            "operation": "occurrence_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [],
+          "ordering": null,
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": true,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_criteria",
+          "unsupported_reason": "unsupported_constraint"
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, unexpected_metric"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstaltungen finden zur selben Zeit im selben Stadtteil statt?",
+          "intent": "list",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": true,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": "unsupported_constraint"
+        },
+        "cluster": "A",
+        "proposed_action": "prompt_and_narrow_canonicalization",
+        "rationale": "List with a count metric. Preserve overlap and unsupported pairwise membership; never convert records to aggregate. Missing district selection is not the unsupported pairwise operation."
+      },
+      {
+        "case_id": "anomalies-057-010",
+        "gate": "full455",
+        "question": "Welche Veranstalter haben aktuell besonders viele Veranstaltungen?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstalter haben aktuell besonders viele Veranstaltungen?",
+          "intent": "rank",
+          "entity_type": "organization",
+          "metric": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "organization"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "none",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_date",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [
+              "temporal"
+            ],
+            "type": "value_error",
+            "msg": "Value error, unused_temporal_must_be_null"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstalter haben aktuell besonders viele Veranstaltungen?",
+          "intent": "rank",
+          "entity_type": "organization",
+          "metric": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "organization"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_date",
+          "unsupported_reason": null
+        },
+        "cluster": "D",
+        "proposed_action": "narrow_canonicalization",
+        "rationale": "Every temporal constraint is neutral and needs_date is explicit. A closed typed proposal may neutralize precisely this empty object, then strictly revalidate all other temporal objects."
+      },
+      {
+        "case_id": "comparisons-045-004",
+        "gate": "full455",
+        "question": "Welcher Ort hat die größere Themenvielfalt?",
+        "emitted_proposal": {
+          "original_query": "Welcher Ort hat die größere Themenvielfalt?",
+          "intent": "compare",
+          "entity_type": "venue",
+          "metric": {
+            "operation": "diversity",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, distinct_dimension_required"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welcher Ort hat die größere Themenvielfalt?",
+          "intent": "compare",
+          "entity_type": "venue",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_criteria",
+          "unsupported_reason": "insufficient_structured_data"
+        },
+        "cluster": "B",
+        "proposed_action": "prompt_and_narrow_canonicalization",
+        "rationale": "Operand-free diversity supplies no dimension. Never infer genre/category from themes; preserve comparison, absent targets and structured-data boundary. Narrow undefined-descriptor neutralization must not remove declared operands."
+      },
+      {
+        "case_id": "graph-064-002",
+        "gate": "full455",
+        "question": "Welche Veranstalter nutzen dieselben Räume?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstalter nutzen dieselben Räume?",
+          "intent": "relation",
+          "entity_type": "organization",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "shared",
+            "source": "organization",
+            "target": "organization",
+            "via": [
+              "event",
+              "occurrence",
+              "space"
+            ],
+            "source_query": null,
+            "target_query": null
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, unknown_relation_edge"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstalter nutzen dieselben Räume?",
+          "intent": "relation",
+          "entity_type": "organization",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "shared",
+            "source": "organization",
+            "target": "organization",
+            "via": [
+              "event",
+              "space",
+              "event"
+            ],
+            "source_query": null,
+            "target_query": null
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "cluster": "E",
+        "proposed_action": "prompt",
+        "rationale": "Actual via=[event,occurrence,space] has illegal occurrence-space and space-organization edges. Do not infer replacement paths from this ambiguous graph. Shared membership must explicitly traverse legal edges in both directions."
+      },
+      {
+        "case_id": "graph-064-004",
+        "gate": "full455",
+        "question": "Welche Veranstaltungsorte verbinden besonders viele Organisationen miteinander?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstaltungsorte verbinden besonders viele Organisationen miteinander?",
+          "intent": "relation",
+          "entity_type": "venue",
+          "metric": {
+            "operation": "distinct_count",
+            "field": null,
+            "distinct_by": "organization",
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "venue"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "distinct_count",
+            "source": "venue",
+            "target": "organization",
+            "via": [
+              "event"
+            ],
+            "source_query": null,
+            "target_query": null
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, unexpected_grouping"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstaltungsorte verbinden besonders viele Organisationen miteinander?",
+          "intent": "rank",
+          "entity_type": "venue",
+          "metric": {
+            "operation": "distinct_count",
+            "field": null,
+            "distinct_by": "organization",
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "venue"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "cluster": "C",
+        "proposed_action": "prompt",
+        "rationale": "Actual intent=relation despite metric distinct_count(organization) and venue grouping. Requested quantitative subject selection is rank; deterministic intent guessing is not authorized."
+      },
+      {
+        "case_id": "media-070-008",
+        "gate": "full455",
+        "question": "Welche Bildquellen werden am häufigsten verwendet?",
+        "emitted_proposal": {
+          "original_query": "Welche Bildquellen werden am häufigsten verwendet?",
+          "intent": "rank",
+          "entity_type": null,
+          "metric": {
+            "operation": "frequency",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": "unsupported_constraint"
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, measure_and_window_required"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Bildquellen werden am häufigsten verwendet?",
+          "intent": "list",
+          "entity_type": null,
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": "insufficient_structured_data"
+        },
+        "cluster": "F",
+        "proposed_action": "prompt",
+        "rationale": "Frequency has neither measure nor window; source/media population cannot be represented. Do not invent operands or turn media sources into events. Golden uses a blocked list with missing-data reason."
+      },
+      {
+        "case_id": "organizations-063-003",
+        "gate": "full455",
+        "question": "Welche Veranstaltungsorte werden von nur einem Veranstalter genutzt?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstaltungsorte werden von nur einem Veranstalter genutzt?",
+          "intent": "relation",
+          "entity_type": "venue",
+          "metric": {
+            "operation": "organization_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "venue"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": {
+            "operator": "eq",
+            "value": 1,
+            "upper": null
+          },
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": {
+            "operation": "distinct_count",
+            "source": "venue",
+            "target": "organization",
+            "via": [
+              "event"
+            ],
+            "source_query": null,
+            "target_query": null
+          },
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, unexpected_grouping"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstaltungsorte werden von nur einem Veranstalter genutzt?",
+          "intent": "rank",
+          "entity_type": "venue",
+          "metric": {
+            "operation": "distinct_count",
+            "field": null,
+            "distinct_by": "organization",
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "venue"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": {
+            "operator": "eq",
+            "value": 1.0,
+            "upper": null
+          },
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "cluster": "C",
+        "proposed_action": "prompt",
+        "rationale": "Actual intent=relation and organization_count with venue grouping. Subject selection by a distinct-counterpart threshold is rank venue/distinct_count organization; retain eq 1."
+      },
+      {
+        "case_id": "provenance-071-004",
+        "gate": "full455",
+        "question": "Welche Quellen aktualisieren Veranstaltungen besonders häufig?",
+        "emitted_proposal": {
+          "original_query": "Welche Quellen aktualisieren Veranstaltungen besonders häufig?",
+          "intent": "rank",
+          "entity_type": null,
+          "metric": {
+            "operation": "regularity",
+            "field": "modified_at",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "event_count",
+            "window": "week",
+            "currency": null
+          },
+          "group_by": [],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": "unsupported_constraint"
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, metric_field_required_or_unexpected"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Quellen aktualisieren Veranstaltungen besonders häufig?",
+          "intent": "rank",
+          "entity_type": null,
+          "metric": {
+            "operation": "frequency",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "occurrence_count",
+            "window": "month",
+            "currency": null
+          },
+          "group_by": [],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": "insufficient_structured_data"
+        },
+        "cluster": "B",
+        "proposed_action": "product_decision_required",
+        "rationale": "Actual regularity(modified_at,event_count,week) is invalid and semantically substitutes metadata for update history. Golden frequency(occurrence_count,month) instead counts event dates per month, not source update actions; no month was requested or documented as a provenance default. Do not invent operands to satisfy Golden."
+      },
+      {
+        "case_id": "quality-069-007",
+        "gate": "full455",
+        "question": "Welche Veranstaltungen wurden erst sehr kurzfristig veröffentlicht?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstaltungen wurden erst sehr kurzfristig veröffentlicht?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "duration",
+            "field": "created_at",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "event"
+          ],
+          "ordering": "asc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": {
+            "field": "start_date",
+            "period": "past",
+            "from_date": null,
+            "to_date": null,
+            "time_of_day": "none",
+            "before_time": null,
+            "after_time": null,
+            "weekday": null,
+            "calendar_relation": "none",
+            "calendar_area_query": null,
+            "overlap": false,
+            "multi_day": false,
+            "lookback": null,
+            "lookback_unit": null
+          },
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, metric_field_required_or_unexpected"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstaltungen wurden erst sehr kurzfristig veröffentlicht?",
+          "intent": "anomaly",
+          "entity_type": "event",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": "insufficient_structured_data"
+        },
+        "cluster": "B",
+        "proposed_action": "prompt",
+        "rationale": "Duration(created_at) cannot represent publication lead-time. Duration is occurrence start/end, not record creation-to-publication/start. Preserve undefined anomaly and missing authoritative publication history; no fake metric."
+      },
+      {
+        "case_id": "quality-069-008",
+        "gate": "full455",
+        "question": "Welche Veranstalter veröffentlichen besonders früh im Voraus?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstalter veröffentlichen besonders früh im Voraus?",
+          "intent": "rank",
+          "entity_type": "organization",
+          "metric": {
+            "operation": "regularity",
+            "field": "created_at",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "event_count",
+            "window": "month",
+            "currency": null
+          },
+          "group_by": [
+            "organization"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, metric_field_required_or_unexpected"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstalter veröffentlichen besonders früh im Voraus?",
+          "intent": "anomaly",
+          "entity_type": "organization",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": "insufficient_structured_data"
+        },
+        "cluster": "B",
+        "proposed_action": "prompt",
+        "rationale": "Regularity(created_at,event_count,month) substitutes publication lead-time with a forbidden field/frequency measure. Use the established blocked anomaly boundary, never arbitrary frequency operands."
+      },
+      {
+        "case_id": "quality-069-009",
+        "gate": "full455",
+        "question": "Welche Veranstalter veröffentlichen besonders kurzfristig?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstalter veröffentlichen besonders kurzfristig?",
+          "intent": "rank",
+          "entity_type": "organization",
+          "metric": {
+            "operation": "regularity",
+            "field": "created_at",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": "event_count",
+            "window": "week",
+            "currency": null
+          },
+          "group_by": [
+            "organization"
+          ],
+          "ordering": "desc",
+          "limit": 20,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, metric_field_required_or_unexpected"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstalter veröffentlichen besonders kurzfristig?",
+          "intent": "anomaly",
+          "entity_type": "organization",
+          "metric": null,
+          "group_by": [],
+          "ordering": null,
+          "limit": null,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": {
+            "kind": "outlier",
+            "measure": null
+          },
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "needs_definition",
+          "unsupported_reason": "insufficient_structured_data"
+        },
+        "cluster": "B",
+        "proposed_action": "prompt",
+        "rationale": "Regularity(created_at,event_count,week) has the same unsupported publication-lead-time substitution as quality-069-008."
+      },
+      {
+        "case_id": "ranking-039-005",
+        "gate": "full455",
+        "question": "Welche Veranstaltung dauert am längsten?",
+        "emitted_proposal": {
+          "original_query": "Welche Veranstaltung dauert am längsten?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "duration",
+            "field": "start_date",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "event"
+          ],
+          "ordering": "desc",
+          "limit": 1,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, metric_field_required_or_unexpected"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Welche Veranstaltung dauert am längsten?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "duration",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "event"
+          ],
+          "ordering": "desc",
+          "limit": 1,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "cluster": "B",
+        "proposed_action": "prompt",
+        "rationale": "Duration is representable, unlike publication lead-time; its implicit start/end pair requires field=null. Actual redundant start_date is forbidden. Do not null the whole valid duration concept or conflate it with unsupported duration(created_at)."
+      },
+      {
+        "case_id": "temporal-041-001",
+        "gate": "full455",
+        "question": "Was war das erste Event?",
+        "emitted_proposal": {
+          "original_query": "Was war das erste Event?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "event_count",
+            "field": null,
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "event"
+          ],
+          "ordering": "asc",
+          "limit": 1,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "validation_errors": [
+          {
+            "loc": [],
+            "type": "value_error",
+            "msg": "Value error, event_count_per_event_is_meaningless"
+          }
+        ],
+        "expected_structural_witness": {
+          "original_query": "Was war das erste Event?",
+          "intent": "rank",
+          "entity_type": "event",
+          "metric": {
+            "operation": "value",
+            "field": "start_date",
+            "distinct_by": null,
+            "numerator": null,
+            "denominator": null,
+            "measure": null,
+            "window": null,
+            "currency": null
+          },
+          "group_by": [
+            "event"
+          ],
+          "ordering": "asc",
+          "limit": 1,
+          "filters": [],
+          "metric_filter": null,
+          "taxonomy": null,
+          "temporal": null,
+          "spatial": null,
+          "price": null,
+          "semantic": null,
+          "relation": null,
+          "trend": null,
+          "anomaly": null,
+          "explain": null,
+          "knowledge": null,
+          "comparison_targets": [],
+          "clarification": "none",
+          "unsupported_reason": null
+        },
+        "cluster": "C",
+        "proposed_action": "prompt",
+        "rationale": "First is a chronological scalar extremum, not event cardinality. Cannot infer start_date from an event_count proposal alone; interpretation must supply value(start_date), event grouping, asc/1."
+      }
+    ],
+    "regression_mismatches": [
+      {
+        "case_id": "regressions-090-019",
+        "question": "Wer veranstaltet die meisten Veranstaltungen?",
+        "differences": [
+          {
+            "path": "metric.operation",
+            "expected": "event_count",
+            "actual": "occurrence_count",
+            "kind": "mismatch"
+          }
+        ],
+        "diagnosis": "Event cardinality confused with venue utilization. Explicit logical events hosted by organizations use event_count; venue-use occurrence default does not apply. Interpret in prompt, never replace a count operation by canonicalization."
+      },
+      {
+        "case_id": "regressions-091-009",
+        "question": "Wer veranstaltet die meisten Veranstaltungen?",
+        "differences": [
+          {
+            "path": "metric.operation",
+            "expected": "event_count",
+            "actual": "occurrence_count",
+            "kind": "mismatch"
+          }
+        ],
+        "diagnosis": "Event cardinality confused with venue utilization. Explicit logical events hosted by organizations use event_count; venue-use occurrence default does not apply. Interpret in prompt, never replace a count operation by canonicalization."
+      }
+    ],
+    "decision_required": {
+      "case_id": "provenance-071-004",
+      "recommendation": "Keep rank/entity_type=null/insufficient_structured_data/order/limit; metric=null instead of an unrelated occurrence frequency. Any Golden correction requires explicit approval and an audited v9-only override; v7 stays frozen.",
+      "contract_evidence": [
+        "docs/research-query-plan-v7.md: Metrics and grouping defines occurrence_count as authoritative occurrence identities and frequency as count per named window.",
+        "docs/research-query-plan-v9.md retains the remaining v7 language and defines occurrence_count as date UUIDs.",
+        "MetricV9 has no update-action measure or provenance entity; unsupported partial rank can omit metric."
+      ],
+      "golden_changed": false
+    },
+    "new_live_calls": 0,
+    "implementation_changed": false,
+    "offline_validation": {
+      "pytest": {
+        "passed": 4494,
+        "skipped": 710
+      },
+      "focused_v9": {
+        "passed": 468
+      },
+      "invalid_replay": {
+        "exact_errors_reproduced": 14,
+        "golden_witnesses_valid": 14
+      },
+      "proposed_provenance_null_metric_valid": true,
+      "ruff": "pass",
+      "format": "pass",
+      "mypy": "pass",
+      "openapi_reproducibility": "pass",
+      "doc_links": "pass",
+      "diff_check": "pass"
+    }
   }
 }
