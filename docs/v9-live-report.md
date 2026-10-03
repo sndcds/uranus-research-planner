@@ -1,5 +1,13 @@
 # Frozen v9 acceptance measurement
 
+Rollout clarification: the operator has authorized preparation of an **additive
+preview/dark release**, distinct from production-default language acceptance.
+Historical “not merge-ready” conclusions below describe the original acceptance
+gates and remain intact. V9 must not become the default Admin contract until those
+regressions are resolved. See the [preview rollout and compatibility caveat](v9-preview-rollout.md).
+Merge/deployment still require explicit operator approval; deployed-v7 compatibility
+must be acknowledged because the full PR includes earlier v13 changes.
+
 Planner implementation: `6bf6f1580f45a4155a2009bacb59b33176053468`.
 Admin implementation: `7eb8fe520d10354d2d525c2d7785d2fdeaf626fa`.
 Schema v9 / prompt v15. All live gates use the exact same committed candidate.
