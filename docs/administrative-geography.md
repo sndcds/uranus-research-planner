@@ -94,3 +94,38 @@ Administrative membership/list/count, event-count administrative ranking, one ex
 category and zero-count child discovery are implemented there. Other temporal,
 semantic, price, border or analytical compositions need additional normalizer and
 executor support. v7 callers must upgrade explicitly for multi-area semantics.
+
+## Stack integration with v9
+
+PR #21 was rebased from common ancestor
+`56a6a5e56f7e5eaaf075587a5495e253ef9c0a14` onto PR #20 head
+`73fa2edad9eab01bca6d8c013c07740ac11c84ec`. At this rebase, PR #20 is still
+open and main remains `2710c57c228bac954ad3acb51a9473ced9119bff`. PR #21 therefore
+keeps PR #20's branch as its base. Merge #20 first, then retarget to main.
+
+The conflicts in `app.py`, `model_client.py` and `planner.py` were resolved by
+retaining both explicitly typed versions. V8 uses its original administrative
+schema, canonicalizer and prompt; v9 retains its reviewed multidimensional schema,
+canonicalizer and prompt. Both agents share the existing model, SDK and bounded
+HTTP client. OpenAPI was regenerated from the combined application, preserving
+every existing path and schema component unchanged.
+
+All seven endpoints coexist: `/plan`, `/v4/plan`, `/v5/plan`, `/v6/plan`,
+`/v7/plan`, `/v8/plan`, `/v9/plan`. V7 remains schema v7 / prompt v13; v8 uses
+schema v8 / prompt v14; v9 uses schema v9 / prompt v15. No contract is renamed or
+converted into another version.
+
+The original v8 endpoint was missing from the shared request-boundary path lists.
+It now receives the same service-key authentication, body bounds and request
+checks as the other versions. Integration tests in
+`tests/test_research_version_coexistence.py` cover separate dispatch and envelopes,
+cross-version rejection, exact query identity, safe errors, shared admission and
+timeout handling, one shared provider stack, and no retries/tools/fallback.
+
+This rebase does not change language-acceptance evidence, activate a production
+contract, or deploy any service. V9's existing preview/acceptance caveats remain.
+
+Rebase validation: the full offline suite passed with **4586 passed, 710 skipped**.
+The focused v8/v9/coexistence suite passed **560 tests**. Ruff, format checking,
+Mypy (41 source files), OpenAPI regeneration/reproducibility, local documentation
+links and `git diff --check` passed. Optional live tests remained disabled.

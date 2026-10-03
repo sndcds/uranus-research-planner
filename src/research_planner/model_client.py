@@ -167,7 +167,6 @@ class StructuredModelClient:
         except (ValueError, TypeError, AttributeError):
             raise PlannerError("planner_invalid_response", 502) from None
 
-
     async def plan_v9(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV9:
         output = await self._infer(
             self.research_v9_agent,

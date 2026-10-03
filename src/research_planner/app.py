@@ -483,7 +483,6 @@ def create_app(
                 error_type=error_type,
             )
 
-
     @app.post(
         "/v9/plan",
         response_model=PlanResponseV9,
