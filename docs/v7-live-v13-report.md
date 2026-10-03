@@ -1466,3 +1466,16 @@ See [ordered grouping](research-query-plan-v9.md). The v9 corpus projects the
 455 existing questions with a single audited semantic override for event_type ×
 month. Historical v7 live runs above remain unchanged. New acceptance runs will
 identify the frozen v9 implementation commit explicitly.
+
+### Frozen v9 results
+
+All three measurements used Planner commit `6bf6f1580f45a4155a2009bacb59b33176053468`:
+Core121: 119 pass / 2 mismatch / 0 invalid / 0 provider;
+Target239: 192 / 45 / 2 / 0;
+Full455: 309 / 134 / 12 / 0.
+The explicit seasonal event_type × month regression passed in Target239 and Full455.
+Full455 supported: 59/59; security: 4/4; knowledge: 8/8; regressions: 75/77.
+These measurements do not establish merge readiness; PR #20 remains Draft.
+See the [full v9 report](v9-live-report.md) and [JSON evidence](v9-live-results.json).
+The Admin-only SQL alias correction is commit `7eb8fe520d10354d2d525c2d7785d2fdeaf626fa`;
+it does not alter the Planner candidate. PostgreSQL CI tests passed after that fix.

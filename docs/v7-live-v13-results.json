@@ -134199,5 +134199,43 @@
       "current_open_mismatch": "taxonomy-049-010 spatial inclusion omitted",
       "current_pending_decision": "trends-061-010 seasonal month/occurrence_count placeholder"
     }
+  },
+  "multidimensional_v9_followup": {
+    "candidate_commit": "6bf6f1580f45a4155a2009bacb59b33176053468",
+    "admin_commit": "7eb8fe520d10354d2d525c2d7785d2fdeaf626fa",
+    "schema_version": "research-query-plan-v9",
+    "prompt_version": "research-planner-v15",
+    "golden_semantic_changes": [
+      "trends-061-010"
+    ],
+    "legacy_v7_unchanged": true,
+    "report": "v9-live-report.md",
+    "artifact": "v9-live-results.json",
+    "runs": {
+      "core121": {
+        "git_commit": "6bf6f1580f45a4155a2009bacb59b33176053468",
+        "total": 121,
+        "passed": 119,
+        "mismatch_count": 2,
+        "invalid_response_count": 0,
+        "provider_error_count": 0
+      },
+      "target239": {
+        "git_commit": "6bf6f1580f45a4155a2009bacb59b33176053468",
+        "total": 239,
+        "passed": 192,
+        "mismatch_count": 45,
+        "invalid_response_count": 2,
+        "provider_error_count": 0
+      },
+      "full455": {
+        "git_commit": "6bf6f1580f45a4155a2009bacb59b33176053468",
+        "total": 455,
+        "passed": 309,
+        "mismatch_count": 134,
+        "invalid_response_count": 12,
+        "provider_error_count": 0
+      }
+    }
   }
 }
