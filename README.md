@@ -146,3 +146,10 @@ Terra language accuracy or Admin execution. No v7 clients are migrated in this c
 For explicit live acceptance reporting and safe invalid-output diagnosis, see
 [v7 live diagnostics](docs/v7-live-diagnostics.md). The runner uses the unchanged golden
 corpus; ordinary tests and the production service do not activate live diagnostics.
+
+## Additive recurring calendar contract
+
+`POST /v10/plan` (prompt v16) adds recurring weekday/month sets and concrete
+audience search interpretation. Existing v7/v13, v8/v14 and v9/v15 remain unchanged.
+See [contract audit and rollout](docs/recurring-calendar.md); activation requires
+coordinated Admin support and model acceptance.
