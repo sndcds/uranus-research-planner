@@ -156,3 +156,31 @@ def canonical_schema(value):
     if isinstance(value, list):
         return [canonical_schema(item) for item in value]
     return value
+
+
+@pytest.mark.parametrize(
+    "body,extra_headers,status",
+    [
+        (b"x" * 16385, {"Content-Type": "application/json"}, 413),
+        (b'{"query":"first","query":"second"}', {"Content-Type": "application/json"}, 422),
+        (b"{}", {"Content-Type": "text/plain"}, 422),
+        (b"{}", {"Content-Type": "application/json", "Content-Encoding": "gzip"}, 422),
+        (b"invalid-json", {"Content-Type": "application/json"}, 422),
+    ],
+)
+async def test_v10_request_boundary_before_inference(settings, auth, body, extra_headers, status):
+    from unittest.mock import AsyncMock
+
+    provider = FakePlanner()
+    provider.plan_v10 = AsyncMock(side_effect=AssertionError("no inference"))
+    async with httpx.AsyncClient(
+        transport=httpx.ASGITransport(app=create_app(settings, provider)), base_url="http://test"
+    ) as api:
+        response = await api.post("/v10/plan", content=body, headers={**auth, **extra_headers})
+        assert response.status_code == status
+        assert response.headers["cache-control"] == "no-store"
+        assert (await api.post("/v10/plan", content=body, headers=extra_headers)).status_code == 401
+        assert (
+            await api.post("/v10/plan?query=private", json={"query": "x"}, headers=auth)
+        ).status_code == 422
+    provider.plan_v10.assert_not_awaited()
