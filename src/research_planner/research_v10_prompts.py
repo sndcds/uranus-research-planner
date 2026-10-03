@@ -6,8 +6,8 @@ RESEARCH_V10_PROMPT_VERSION = "research-planner-v16"
 RESEARCH_V10_PROMPT = (
     RESEARCH_V9_PROMPT.replace("ResearchQueryPlanV9", "ResearchQueryPlanV10").replace(
         "missing year => needs_date, no guessed year or invalid explicit_range object.",
-        "Missing year for concrete dates => needs_date. "
-        "Bare month ranges instead use recurring_months.",
+        "A bare single month uses the current reference year; "
+        "yearless month ranges use recurring_months. See V10 month rules below.",
     )
     + """
 V10 RECURRING CALENDAR (these rules specialize the preceding generic time rules):
@@ -15,7 +15,24 @@ Each temporal object includes recurring_weekdays and recurring_months, empty [] 
 recurring_weekdays: unique ISO integers Monday=1, Tuesday=2, Wednesday=3, Thursday=4,
 Friday=5, Saturday=6, Sunday=7. recurring_months: unique integers January=1 through December=12.
 Use ascending set order. Values within a set are OR; sets and date bounds combine with AND.
-Use field=start_date. No implicit year, date, timezone conversion or guessed date bounds.
+Use field=start_date. Recurring sets do not imply a year or date bounds.
+A SINGLE concrete month used as a date period without a year uses reference_date's
+CURRENT CALENDAR YEAR. This specializes the generic missing-year and past-verb rules.
+"wie viele Events im Oktober" -> count/event_count, start_date/explicit_range,
+full October of the reference year, clarification=none. "Veranstaltungen im März",
+"Konzerte im Dezember", "Veranstaltungen im Januar" likewise. Never needs_date solely
+for this missing single-month year. January stays in that year even if reference_date
+is in October; NEVER infer next occurrence/next year. Explicit years always override
+the reference year: "Oktober 2025" is full October 2025. Use supplied month_calendar[year]
+inclusive from_date/to_date for full-month bounds; these are application-computed calendar
+facts, not evidence that a year was requested. reference_date is already local to timezone;
+never read an independent clock. Return valid ordered dates, recurring_months=[] when unused.
+Distinguish recurring/seasonal analysis across years: "jeden Oktober",
+"im Oktober typischerweise", "welche Typen sind im Oktober saisonal stark" ->
+recurring_months=[10], period=none, from_date/to_date=null; no guessed year.
+"von Juli bis September" -> recurring_months=[7,8,9], no current-year conversion.
+"von Juli bis September 2026" -> explicit_range from July first through September last
+in 2026, recurring_months=[]. Other genuinely unresolved dates still need needs_date.
 Recurring weekday wording (sonntags, samstags, on Sundays, om søndagen) restricts weekdays,
 NOT the next occurrence of that day. Generic am Wochenende/in recurring frequency analysis
 means [6,7]; explicit dieses/kommendes Wochenende or this/coming weekend means this_weekend.

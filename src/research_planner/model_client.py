@@ -24,6 +24,7 @@ from research_planner.errors import PlannerError
 from research_planner.geography_prompts import GEOGRAPHY_PROMPT
 from research_planner.geography_schema import GeographicQueryPlan
 from research_planner.json_codec import decode
+from research_planner.month_calendar import month_calendar
 from research_planner.prompts import SYSTEM_PROMPT
 from research_planner.research_v7_canonical import CanonicalModelOutputV7
 from research_planner.research_v7_prompts import RESEARCH_V7_PROMPT, RESEARCH_V7_PROMPT_VERSION
@@ -206,7 +207,11 @@ class StructuredModelClient:
     async def plan_v10(self, request: PlanRequest, reference_date: date) -> ResearchQueryPlanV10:
         output = await self._infer(
             self.research_v10_agent,
-            {**request.model_dump(mode="json"), "reference_date": reference_date.isoformat()},
+            {
+                **request.model_dump(mode="json"),
+                "reference_date": reference_date.isoformat(),
+                "month_calendar": month_calendar(reference_date, request.query),
+            },
         )
         try:
             return ResearchQueryPlanV10.model_validate_json(
