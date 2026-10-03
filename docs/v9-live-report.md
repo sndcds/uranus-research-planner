@@ -233,3 +233,66 @@ Runtime prompt: 15445 characters, SHA256
 `840289d0da9120991760176f31ec668769bb2ed75d478f200aaa321a8ee7d599`.
 The focused selection contains 42 cases: all14 invalids, both regressions, seasonal,
 security4, knowledge8 and 13 previously passing controls across intent/metric families.
+
+### Focused42 on candidate 4edf4f6 — stop at control regression
+
+Exact candidate: `4edf4f625201a3086df8c486878636ff803d62b2`.
+Model: `gpt-5.6-terra`; schema `research-query-plan-v9`; prompt `research-planner-v15`;
+reference date `2026-10-02`. Prompt hash is recorded above. Full ordered selection,
+control IDs, report metadata, raw safe outcomes and artifact hash are appended under
+`stabilization_after_provenance_decision` in the JSON. Historical objects are intact.
+
+| Gate | Pass | Mismatch | Invalid | Provider |
+| --- | ---: | ---: | ---: | ---: |
+| focused42 | 29 | 13 | 0 | 0 |
+
+- All14 previously invalid cases now produce strictly valid plans: 9 pass, 5 mismatch.
+- Both event-cardinality regression cases pass.
+- Provenance source updates correctly retain blocked rank with metric=null: pass.
+- Seasonal event_type × month: pass.
+- Security: **4/4**. Knowledge: **1/8** (previously 8/8).
+- Explicit previously passing controls: **12/13**.
+
+The failing control is `taxonomy-048-002`, the unordered per-category count table:
+actual aggregate/event_count/category is correct, but ordering=desc and limit=20
+replace expected null/null. This is not the approved multidimensional default; the
+single-axis category table must retain its documented semantics. Canonicalization
+has not rewritten this ordering/limit, and no Golden adjustment is justified.
+
+Seven knowledge cases keep intent=knowledge and neutral data fields but introduce
+needs_context: knowledge-047-001/002/004 and knowledge-026-001/002/003/004.
+The condensed project-routing phrase “Require project context” may have encouraged
+confusing project-domain recognition with a conversation-context requirement. This
+is a diagnosis to test, not a causal claim established by a single sample. Golden
+remains authoritative: ordinary project questions require no prior conversation.
+
+Other structurally valid mismatches:
+
+| Cluster | Cases | Remaining difference |
+| --- | --- | --- |
+| Vague current period | anomalies-057-010 | needs_date dropped |
+| Competition boundary | combined-060-011 | Adds insufficient_structured_data instead of definition-only block |
+| Theme comparison | comparisons-045-004 | Compare becomes anomaly, needs_definition and venue grouping |
+| Media source boundary | media-070-008 | Rank/unsupported_constraint rather than blocked list/missing data |
+| Pairwise district membership | temporal-065-002 | Unsupported constraint is lost; overlap alone is not the requested predicate |
+
+These are not accepted equivalent answers. In particular, dropping the district
+constraint remains a semantic contract violation despite a structurally valid plan.
+The reduction to zero invalids does not establish acceptance stability.
+
+**Stop condition reached:** a fix candidate regressed previously passing controls.
+No second general fix or additional live call was attempted. Exactly **42** new live
+calls were made. The candidate was **not frozen for broad gates**. Core121, Target239
+and Full455 were **not rerun**; older candidate scores are not reused as evidence.
+PR #20 was verified Draft and remains **not merge-ready**.
+
+No additional product/schema decision is currently identified. A separately scoped
+follow-up should isolate knowledge-routing wording and single-axis distribution
+defaults against the unchanged controls; no permission to relax Golden or validators
+is implied. No further tuning is performed under this continuation's explicit stop rule.
+
+Final offline verification after recording the run: **4539 passed, 710 skipped**;
+focused v9 **513 passed**. Ruff, format, mypy, OpenAPI no-diff, docs links and
+whitespace checks passed. All public schema/validator/provider files and v7 fixtures
+are byte-identical to the reviewed head. Only report files changed after the live
+candidate; no newer implementation claims its evidence. No Docker, deployment or merge.
