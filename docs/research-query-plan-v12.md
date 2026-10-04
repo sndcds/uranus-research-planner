@@ -70,8 +70,21 @@ execute. Older version tests remain part of the regression gates.
 
 Live language acceptance is opt-in: run
 `RESEARCH_PLANNER_LIVE_TEST=1 uv run pytest tests/test_research_v12_live.py`
-with an explicitly configured model provider. The 22 shared examples cover all five
-levels, calendar/grouping composition, inherited context and result references.
+with an explicitly configured model provider. The shared modern examples cover all five
+levels, calendar/grouping composition, inherited context and result references;
+additional seasonal fixtures include the production question
+“Welche Veranstaltungstypen treten saisonal besonders stark auf?” and DE/DA/EN variants.
+
+This seasonal question means `aggregate/event`, `occurrence_count`, ordered grouping
+`[event_type,month]`, descending order and limit 20. It describes an occurrence
+distribution, not a statistical seasonality score, anomaly or global type ranking.
+Count metrics require `measure=null` and `window=null`; month belongs in grouping.
+With no time restriction the valid representation is `temporal=null`, not an empty
+temporal object. Thus no concrete year/date or recurring-month subset is invented.
+Genres use `[genre,month]`. Specific Sunday/October restrictions keep their recurring
+sets and only the subject grouping unless a distribution is requested. Explicit years
+and concrete single-month reference-year rules remain unchanged. The v12 validators,
+schema/prompt version identifiers and external invalid-response envelope are unchanged.
 
 Rollout is coordinated: install compatible Planner and Admin, run provider language
 acceptance, then explicitly select `RESEARCH_PLANNER_CONTRACT=v12` in Admin. Keep
