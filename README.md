@@ -160,3 +160,8 @@ follow-ups and the coordinated Admin rollout. Existing contracts remain unchange
 `POST /v12/plan` combines the modern grouping, calendar and conversation contracts
 with administrative level expectations and bounded AND geography. See the
 [v12 contract and rollout](docs/research-query-plan-v12.md).
+
+`POST /v13/plan` adds semantic conversation routing, natural DE/DA/EN interaction,
+and complete v12 Research payloads under `research-query-plan-v13` /
+`research-planner-v19`. See [conversational Research](docs/conversational-research-v13.md)
+for the closed contract, Admin handoff and opt-in live acceptance.

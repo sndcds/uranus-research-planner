@@ -950,6 +950,89 @@
           }
         ]
       }
+    },
+    "/v13/plan": {
+      "post": {
+        "summary": "Research Plan V13",
+        "operationId": "research_plan_v13_v13_plan_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationPlanRequestV13"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanResponseV13"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Content Too Large",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1837,6 +1920,33 @@
         ],
         "title": "ConversationAreaV12"
       },
+      "ConversationInteractionV13": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "acknowledgement",
+              "greeting",
+              "social",
+              "help",
+              "correction",
+              "clarification_response",
+              "clarification"
+            ],
+            "title": "Kind"
+          },
+          "conversation": {
+            "$ref": "#/components/schemas/ConversationV13"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "conversation"
+        ],
+        "title": "ConversationInteractionV13"
+      },
       "ConversationNames": {
         "properties": {
           "venue": {
@@ -1995,6 +2105,81 @@
         ],
         "title": "ConversationPlanRequestV12"
       },
+      "ConversationPlanRequestV13": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Query"
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Timezone",
+            "default": "Europe/Berlin"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "de",
+              "da",
+              "en",
+              "auto"
+            ],
+            "title": "Language",
+            "default": "auto"
+          },
+          "conversation_context": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResearchConversationContextV12"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "conversation_language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "de",
+                  "da",
+                  "en"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversation Language"
+          },
+          "pending_clarification": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResearchPlanSummaryV12"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "previous_answer_available": {
+            "type": "boolean",
+            "title": "Previous Answer Available",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "title": "ConversationPlanRequestV13"
+      },
       "ConversationTemporal": {
         "properties": {
           "period": {
@@ -2080,6 +2265,55 @@
           "months"
         ],
         "title": "ConversationTemporal"
+      },
+      "ConversationV13": {
+        "properties": {
+          "act": {
+            "type": "string",
+            "enum": [
+              "acknowledge",
+              "pleased",
+              "greet",
+              "greet_morning",
+              "social",
+              "help",
+              "clarify",
+              "unsupported",
+              "explain_previous",
+              "simplify_previous",
+              "repeat_previous"
+            ],
+            "title": "Act"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "needs_criteria",
+                  "needs_location",
+                  "needs_date",
+                  "needs_definition",
+                  "needs_context",
+                  "outside_research",
+                  "unsupported_constraint",
+                  "insufficient_structured_data"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "act",
+          "reason"
+        ],
+        "title": "ConversationV13"
       },
       "DataPlan": {
         "properties": {
@@ -2578,6 +2812,67 @@
           "total_ms"
         ],
         "title": "DiagnosticsV12"
+      },
+      "DiagnosticsV13": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{32}$",
+            "title": "Request Id"
+          },
+          "interaction_kind": {
+            "type": "string",
+            "enum": [
+              "research",
+              "acknowledgement",
+              "greeting",
+              "social",
+              "help",
+              "correction",
+              "clarification_response",
+              "clarification"
+            ],
+            "title": "Interaction Kind"
+          },
+          "validation_stage": {
+            "type": "string",
+            "const": "validated",
+            "title": "Validation Stage"
+          },
+          "planner_model": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Planner Model"
+          },
+          "planner_prompt_version": {
+            "type": "string",
+            "const": "research-planner-v19",
+            "title": "Planner Prompt Version"
+          },
+          "planner_ms": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Planner Ms"
+          },
+          "total_ms": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Total Ms"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "request_id",
+          "interaction_kind",
+          "validation_stage",
+          "planner_model",
+          "planner_prompt_version",
+          "planner_ms",
+          "total_ms"
+        ],
+        "title": "DiagnosticsV13"
       },
       "DiagnosticsV7": {
         "properties": {
@@ -4899,6 +5194,54 @@
         ],
         "title": "PlanResponseV12"
       },
+      "PlanResponseV13": {
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "research-query-plan-v13",
+            "title": "Schema Version"
+          },
+          "prompt_version": {
+            "type": "string",
+            "const": "research-planner-v19",
+            "title": "Prompt Version"
+          },
+          "model": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Model"
+          },
+          "plan": {
+            "$ref": "#/components/schemas/ResearchQueryPlanV13"
+          },
+          "reference_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Reference Date"
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Timezone"
+          },
+          "diagnostics": {
+            "$ref": "#/components/schemas/DiagnosticsV13"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "schema_version",
+          "prompt_version",
+          "model",
+          "plan",
+          "reference_date",
+          "timezone",
+          "diagnostics"
+        ],
+        "title": "PlanResponseV13"
+      },
       "PlanResponseV7": {
         "properties": {
           "kind": {
@@ -5768,6 +6111,40 @@
         ],
         "title": "ResearchConversationContextV12"
       },
+      "ResearchInteractionV13": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "research",
+              "correction",
+              "clarification_response"
+            ],
+            "title": "Kind"
+          },
+          "research_mode": {
+            "type": "string",
+            "enum": [
+              "new",
+              "follow_up",
+              "correction",
+              "clarification_response"
+            ],
+            "title": "Research Mode"
+          },
+          "research_plan": {
+            "$ref": "#/components/schemas/ResearchQueryPlanV12"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "research_mode",
+          "research_plan"
+        ],
+        "title": "ResearchInteractionV13"
+      },
       "ResearchPlanSummary": {
         "properties": {
           "intent": {
@@ -6581,9 +6958,9 @@
               {
                 "type": "string",
                 "enum": [
-                  "category",
+                  "genre",
                   "event_type",
-                  "genre"
+                  "category"
                 ]
               },
               {
@@ -6902,9 +7279,9 @@
               {
                 "type": "string",
                 "enum": [
-                  "category",
+                  "genre",
                   "event_type",
-                  "genre"
+                  "category"
                 ]
               },
               {
@@ -7223,9 +7600,9 @@
               {
                 "type": "string",
                 "enum": [
-                  "category",
+                  "genre",
                   "event_type",
-                  "genre"
+                  "category"
                 ]
               },
               {
@@ -7386,6 +7763,44 @@
           "unsupported_reason"
         ],
         "title": "ResearchQueryPlanV12"
+      },
+      "ResearchQueryPlanV13": {
+        "properties": {
+          "original_query": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Original Query"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "de",
+              "da",
+              "en"
+            ],
+            "title": "Language"
+          },
+          "interaction": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResearchInteractionV13"
+              },
+              {
+                "$ref": "#/components/schemas/ConversationInteractionV13"
+              }
+            ],
+            "title": "Interaction"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "original_query",
+          "language",
+          "interaction"
+        ],
+        "title": "ResearchQueryPlanV13"
       },
       "ResearchQueryPlanV7": {
         "properties": {
@@ -8181,9 +8596,9 @@
               {
                 "type": "string",
                 "enum": [
-                  "category",
+                  "genre",
                   "event_type",
-                  "genre"
+                  "category"
                 ]
               },
               {

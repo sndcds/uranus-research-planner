@@ -98,7 +98,14 @@ def test_frozen_v7_and_closed_v9_snapshot():
     for name, digest in json.loads(Path("tests/fixtures/v9_v7_freeze.json").read_text()).items():
         assert hashlib.sha256(Path(name).read_bytes()).hexdigest() == digest
     schema = ResearchQueryPlanV9.model_json_schema()
-    assert schema == json.loads(Path("tests/fixtures/v9_schema.json").read_text())
+    # Literal interning may change enum order when another version is imported first.
+    # Use the same enum-only canonicalization as v10-v13; all other schema details
+    # and the frozen v7 source digests above remain exact.
+    from tests.test_recurring_calendar import canonical_schema
+
+    assert canonical_schema(schema) == canonical_schema(
+        json.loads(Path("tests/fixtures/v9_schema.json").read_text())
+    )
     closed_objects(schema)
     assert CanonicalModelOutputV9.model_json_schema() == schema
 
