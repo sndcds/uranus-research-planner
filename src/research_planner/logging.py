@@ -23,6 +23,8 @@ def log_plan(
     planner_ms: float,
     total_ms: float,
     error_type: str,
+    interaction_kind: str | None = None,
+    validation_stage: str | None = None,
 ) -> None:
     LOGGER.info(
         json.dumps(
@@ -35,6 +37,11 @@ def log_plan(
                 "planner_ms": planner_ms,
                 "total_ms": total_ms,
                 "error_type": error_type,
+                **(
+                    {"interaction_kind": interaction_kind, "validation_stage": validation_stage}
+                    if validation_stage is not None
+                    else {}
+                ),
             },
             allow_nan=False,
             separators=(",", ":"),

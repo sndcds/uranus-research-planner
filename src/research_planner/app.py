@@ -25,6 +25,7 @@ from research_planner.analytics_schema import (
 from research_planner.config import Settings
 from research_planner.conversation_request import ConversationPlanRequest
 from research_planner.conversation_v12_request import ConversationPlanRequestV12
+from research_planner.conversation_v13_request import ConversationPlanRequestV13
 from research_planner.domain_planner import DomainPlanner
 from research_planner.domain_schema import PlanEnvelopeV4
 from research_planner.errors import PlannerError
@@ -56,6 +57,12 @@ from research_planner.research_v12_schema import (
     DiagnosticsV12,
     PlanResponseV12,
     ResearchQueryPlanV12,
+)
+from research_planner.research_v13_schema import (
+    DiagnosticsV13,
+    PlanResponseV13,
+    ResearchInteractionV13,
+    ResearchQueryPlanV13,
 )
 from research_planner.schemas import (
     ClarificationResponse,
@@ -783,6 +790,78 @@ def create_app(
                 planner_ms=planner_ms,
                 total_ms=round((perf_counter() - started) * 1000, 2),
                 error_type=error_type,
+            )
+
+    @app.post(
+        "/v13/plan",
+        response_model=PlanResponseV13,
+        dependencies=[Depends(service_auth)],
+        responses={code: {"model": ErrorResponse} for code in (401, 413, 422, 502, 503)},
+    )
+    async def research_plan_v13(request: ConversationPlanRequestV13) -> PlanResponseV13:
+        started = perf_counter()
+        request_id = uuid4().hex
+        intent = None
+        interaction_kind = None
+        error_type = "none"
+        planner_ms = 0.0
+        validation_stage = "inference"
+        try:
+            reference_date = now().astimezone(ZoneInfo(request.timezone)).date()
+            async with inference_slot():
+                model_started = perf_counter()
+                try:
+                    proposal = await provider.plan_v13(request, reference_date)
+                finally:
+                    planner_ms = round((perf_counter() - model_started) * 1000, 2)
+            validation_stage = "output_validation"
+            try:
+                proposal = ResearchQueryPlanV13.model_validate_json(
+                    proposal.model_dump_json(), context={"original_query": request.query}
+                )
+            except (ValueError, TypeError, AttributeError):
+                raise PlannerError("planner_invalid_response", 502) from None
+            interaction_kind = proposal.interaction.kind
+            intent = (
+                proposal.interaction.research_plan.intent
+                if isinstance(proposal.interaction, ResearchInteractionV13)
+                else None
+            )
+            validation_stage = "validated"
+            return PlanResponseV13(
+                schema_version="research-query-plan-v13",
+                prompt_version="research-planner-v19",
+                model=settings.model,
+                plan=proposal,
+                reference_date=reference_date,
+                timezone=request.timezone,
+                diagnostics=DiagnosticsV13(
+                    request_id=request_id,
+                    interaction_kind=proposal.interaction.kind,
+                    validation_stage="validated",
+                    planner_model=settings.model,
+                    planner_prompt_version="research-planner-v19",
+                    planner_ms=planner_ms,
+                    total_ms=round((perf_counter() - started) * 1000, 2),
+                ),
+            )
+        except TimeoutError:
+            error_type = "planner_unavailable"
+            raise PlannerError("planner_unavailable") from None
+        except PlannerError as exc:
+            error_type = exc.code
+            raise
+        finally:
+            log_plan(
+                request_id=request_id,
+                model=settings.model,
+                prompt_version="research-planner-v19",
+                intent=intent,
+                planner_ms=planner_ms,
+                total_ms=round((perf_counter() - started) * 1000, 2),
+                error_type=error_type,
+                interaction_kind=interaction_kind,
+                validation_stage=validation_stage,
             )
 
     return app
