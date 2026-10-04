@@ -11,7 +11,9 @@ from research_planner.config import Settings
 from research_planner.conversation_v12_request import ConversationPlanRequestV12
 from research_planner.model_client import StructuredModelClient
 
-CASES = json.loads(Path("tests/fixtures/modern_v12.json").read_text())
+CASES = json.loads(Path("tests/fixtures/modern_v12.json").read_text()) + json.loads(
+    Path("tests/fixtures/seasonal_v12.json").read_text()
+)
 pytestmark = [
     pytest.mark.integration,
     pytest.mark.skipif(
@@ -29,6 +31,7 @@ async def test_live_combined_semantics(case):
             json.dumps(
                 {
                     "query": case["query"],
+                    "language": case.get("language", "de"),
                     "conversation_context": case.get("conversation_context"),
                 }
             )
@@ -40,6 +43,9 @@ async def test_live_combined_semantics(case):
             "original_query",
             "intent",
             "entity_type",
+            "metric",
+            "ordering",
+            "limit",
             "spatial",
             "group_by",
             "clarification",
@@ -56,5 +62,7 @@ async def test_live_combined_semantics(case):
                 "recurring_months",
             ]:
                 assert data["temporal"][key] == expected["temporal"][key], key
+        else:
+            assert data["temporal"] is None
     finally:
         await client.close()

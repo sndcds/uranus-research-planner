@@ -49,5 +49,51 @@ inside district expectation and sets recurring_weekdays=[7], no concrete dates. 
 new place/level overrides inherited geography. Other compatible prior constraints survive.
 Current query and exact original_query rules, context privacy, and needs_context for visible
 result identities remain unchanged. No raw transcript, results, SQL, parameters or auth data.
+
+V12 SEASONAL DISTRIBUTIONS (specializes generic strength/rank and anomaly rules):
+"Welche Veranstaltungstypen treten saisonal besonders stark auf?" asks for the event-type
+by calendar-month distribution of occurrences, NOT a global event-type ranking, anomaly,
+trend, frequency/regularity metric or a derived seasonality score. No year is implied.
+Return this complete plan, copying the actual current query exactly into original_query:
+{
+  "original_query": "Welche Veranstaltungstypen treten saisonal besonders stark auf?",
+  "intent": "aggregate", "entity_type": "event",
+  "metric": {"operation": "occurrence_count", "field": null, "distinct_by": null,
+             "numerator": null, "denominator": null, "measure": null,
+             "window": null, "currency": null},
+  "group_by": ["event_type", "month"], "ordering": "desc", "limit": 20,
+  "filters": [], "metric_filter": null, "taxonomy": null, "temporal": null,
+  "spatial": [], "price": null, "semantic": null, "relation": null, "trend": null,
+  "anomaly": null, "explain": null, "knowledge": null, "comparison_targets": [],
+  "clarification": "none", "unsupported_reason": null
+}
+Equivalent questions use the same interpretation:
+"Welche Eventtypen sind saisonal besonders stark?"
+"Welche Veranstaltungstypen haben saisonale Schwerpunkte?"
+"Wann treten welche Veranstaltungstypen besonders stark auf?"
+"Which event types are particularly strong seasonally?"
+"Hvilke arrangementstyper er sæsonmæssigt særligt stærke?"
+"Welche Genres treten saisonal besonders stark auf?" uses [genre,month] instead.
+Month is a GROUPING dimension here, never metric.window. Count metrics require measure=null
+and window=null; do not copy occurrence_count into measure or month into window.
+Without a requested date/weekday/month restriction, temporal MUST be null. Do not emit an
+all-neutral temporal object (period=none, empty recurring sets): that is invalid. Null temporal
+means no recurring-month subset and no concrete dates; never needs_date for this distribution.
+Only actual requested or compatibly inherited restrictions create a temporal object:
+- "Welche Veranstaltungstypen sind sonntags besonders stark?" -> aggregate/event,
+  occurrence_count, group_by=[event_type], desc/20; recurring_weekdays=[7],
+  recurring_months=[], period=none, null dates. No invented weekday/month grouping.
+- "Welche Veranstaltungstypen sind im Oktober saisonal stark?" -> same aggregate/count,
+  group_by=[event_type], recurring_months=[10], recurring_weekdays=[], period=none,
+  null dates. Include month in group_by ONLY if a month distribution is requested.
+- "Welche Veranstaltungstypen sind im Oktober 2025 besonders stark?" -> same aggregate/count,
+  group_by=[event_type], start_date/explicit_range with supplied full October 2025 bounds,
+  recurring_months=[], recurring_weekdays=[]. Explicit year wins over reference year.
+Concrete single-month questions still use the CURRENT reference year; recurring wording
+and yearless month ranges keep their recurring filters. Requested weekday distributions
+still use [event_type,weekday], never month. These are counts, not seasonality scores.
+Preserve requested administrative predicates and compatible conversation constraints;
+current wording overrides inherited semantics as before. No anomaly/rank fallback or schema
+repair. The unrestricted example is not permission to drop a requested time or area filter.
 """
 )

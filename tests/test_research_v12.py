@@ -20,7 +20,8 @@ from tests.test_recurring_calendar import canonical_schema
 from tests.test_research_v7_contract import closed_objects
 from tests.v9_golden import example_plan, load_v9_golden_cases
 
-CASES = json.loads(Path("tests/fixtures/modern_v12.json").read_text())
+SEASONAL_CASES = json.loads(Path("tests/fixtures/seasonal_v12.json").read_text())
+CASES = json.loads(Path("tests/fixtures/modern_v12.json").read_text()) + SEASONAL_CASES
 CONTEXT = json.loads(Path("tests/fixtures/modern_v12_context.json").read_text())
 
 
@@ -43,6 +44,7 @@ async def test_combined_native_and_http_contract(case, settings, auth):
                 headers=auth,
                 json={
                     "query": case["query"],
+                    "language": case.get("language", "de"),
                     **(
                         {"conversation_context": case["conversation_context"]}
                         if "conversation_context" in case
@@ -63,8 +65,80 @@ async def test_combined_native_and_http_contract(case, settings, auth):
         closed_objects(native["schema"])
         context = json.loads(calls[0]["messages"][-1]["content"])
         assert context["query"] == case["query"]
+        assert context["language"] == case.get("language", "de")
         assert context["conversation_context"] == case.get("conversation_context")
         assert context["month_calendar"]["2026"][9]["to_date"] == "2026-10-31"
+    finally:
+        await model.close()
+
+
+@pytest.mark.parametrize("case", SEASONAL_CASES, ids=lambda c: c["name"])
+def test_seasonal_distribution_is_an_existing_count_not_anomaly_or_rank(case):
+    plan = ResearchQueryPlanV12.model_validate_json(json.dumps(case["plan"]))
+    assert plan.intent == "aggregate" and plan.entity_type == "event"
+    assert plan.metric.operation == "occurrence_count"
+    assert plan.metric.measure is None and plan.metric.window is None
+    assert plan.ordering == "desc" and plan.limit == 20
+    assert plan.clarification == "none" and plan.unsupported_reason is None
+    assert plan.anomaly is None and plan.trend is None and plan.semantic is None
+    if "month" in plan.group_by:
+        assert plan.group_by == [
+            "genre" if case["name"] == "seasonal-genres" else "event_type",
+            "month",
+        ]
+        assert plan.temporal is None  # No invented year, dates or recurring-month subset.
+    if case["name"] == "seasonal-production":
+        assert (
+            plan.original_query == "Welche Veranstaltungstypen treten saisonal besonders stark auf?"
+        )
+        assert plan.group_by == ["event_type", "month"]
+
+
+def test_seasonal_prompt_example_matches_the_valid_production_fixture():
+    from research_planner.research_v12_prompts import RESEARCH_V12_PROMPT
+
+    section = RESEARCH_V12_PROMPT.split("V12 SEASONAL DISTRIBUTIONS", 1)[1]
+    example = "{" + section.split("\n{", 1)[1].split("\n}", 1)[0] + "\n}"
+    plan = ResearchQueryPlanV12.model_validate_json(example)
+    assert plan.model_dump(mode="json") == SEASONAL_CASES[0]["plan"]
+
+
+@pytest.mark.parametrize("invalid", ["count_window", "empty_temporal", "seasonality_metric"])
+async def test_invalid_seasonal_model_output_still_fails_closed(settings, auth, invalid):
+    data = deepcopy(SEASONAL_CASES[0]["plan"])
+    if invalid == "count_window":
+        data["metric"].update(measure="occurrence_count", window="month")
+    elif invalid == "empty_temporal":
+        data["temporal"] = deepcopy(
+            next(c["plan"]["temporal"] for c in SEASONAL_CASES if c["name"] == "seasonal-sundays")
+        )
+        data["temporal"]["recurring_weekdays"] = []
+    else:
+        data["metric"]["operation"] = "seasonality"
+    with pytest.raises(ValidationError):
+        ResearchQueryPlanV12.model_validate_json(json.dumps(data))
+    calls = []
+
+    def respond(request):
+        calls.append(request)
+        return httpx.Response(200, json=completion(settings, json.dumps(data)))
+
+    model = StructuredModelClient(settings, httpx.MockTransport(respond))
+    try:
+        async with httpx.AsyncClient(
+            transport=httpx.ASGITransport(app=create_app(settings, model)), base_url="http://test"
+        ) as api:
+            response = await api.post(
+                "/v12/plan", headers=auth, json={"query": data["original_query"]}
+            )
+        assert response.status_code == 502
+        assert response.json() == {
+            "error": {
+                "code": "planner_invalid_response",
+                "message": "Planner returned an invalid plan.",
+            }
+        }
+        assert len(calls) == 1
     finally:
         await model.close()
 
